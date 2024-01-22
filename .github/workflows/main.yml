@@ -20,8 +20,9 @@ jobs:
           --output generated
         generator: go
 
-    - name: Commit
+    - name: Initialize and commit
       run:
+        git init
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git commit -a -m "Add changes"
