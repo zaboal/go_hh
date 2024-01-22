@@ -14,14 +14,14 @@ jobs:
       uses: hatamiarash7/openapi-generator@main
       with:
         openapi-url: https://api.hh.ru/openapi/specification/public
-        command-args: 
+        command-args:
           --skip-validate-spec
           --package-name HeadHunter 
           --output generated
         generator: go
 
     - name: Initialize and commit
-      run:
+      run: |
         git init
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
