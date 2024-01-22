@@ -4,11 +4,12 @@ on:
   schedule:
     - cron: "0 0 * * 0"
   workflow_dispatch:
-# Runs every week and manually
+# Runs every week or manually
 
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout
       uses: actions/checkout@master
@@ -22,14 +23,17 @@ jobs:
         openapi-url: https://api.hh.ru/openapi/specification/public
         command-args:
           --skip-validate-spec
-          --package-name headhunter
+          --package-name github.com/zaboal/hh-go
           --output .
         generator: go
 
-    - name: Initialize and commit
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
+    - name: Configure
+      run:
+       git config --local user.email "github-actions[bot]@users.noreply.github.com"
+       git config --local user.name "github-actions[bot]"
+
+    - name: Commit
+      run:
         git commit --all --allow-empty-message --message ""
     
     - name: Push
