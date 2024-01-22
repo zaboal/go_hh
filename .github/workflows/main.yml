@@ -19,8 +19,7 @@ jobs:
         openapi-url: https://api.hh.ru/openapi/specification/public
         command-args:
           --skip-validate-spec
-          --package-name HeadHunter 
-          --output generated
+          --package-name headhunter
         generator: go
 
     - name: Initialize and commit
