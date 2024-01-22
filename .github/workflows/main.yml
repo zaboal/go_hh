@@ -32,9 +32,13 @@ jobs:
        git config --local user.email "github-actions[bot]@users.noreply.github.com"
        git config --local user.name "github-actions[bot]"
 
+    - name: Stage
+      run:
+        git add --all
+
     - name: Commit
       run:
-        git commit --all --allow-empty-message --message ""
+        git commit --allow-empty-message --message ""
     
     - name: Push
       uses: ad-m/github-push-action@master
