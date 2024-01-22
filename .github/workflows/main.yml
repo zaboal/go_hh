@@ -7,9 +7,12 @@ on:
 # Runs every week and manually
 
 jobs:
-  generate_code:
+  update:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
     - name: Generate
       uses: hatamiarash7/openapi-generator@main
       with:
@@ -22,7 +25,6 @@ jobs:
 
     - name: Initialize and commit
       run: |
-        git init
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git commit -a -m "Add changes"
