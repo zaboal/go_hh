@@ -1,0 +1,30 @@
+name: Generating
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Every week
+
+jobs:
+  generate_code:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Generate
+      uses: hatamiarash7/openapi-generator@main
+      with:
+        openapi-url: https://api.hh.ru/openapi/specification/public
+        command-args: 
+          --skip-validate-spec
+          --package-name HeadHunter 
+          --output generated
+        generator: go
+
+    - name: Commit
+      run:
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -a -m "Add changes"
+    
+    - name: Push
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ github.head_ref }}
