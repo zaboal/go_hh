@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -1283,6 +1282,4 @@ model_webhook_subscription_item.go
 model_webhook_subscription_update.go
 model_webhook_subscriptions_output.go
 response.go
-test/api__test.go
-test/api_webhook_api_test.go
 utils.go
