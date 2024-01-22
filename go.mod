@@ -1,4 +1,4 @@
-module github.com/zaboal/hh-go
+module github.com/zaboal/hh-go/hh
 
 go 1.18
 

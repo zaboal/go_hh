@@ -26,7 +26,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/zaboal/hh-go"
+	openapiclient "github.com/zaboal/hh-go/hh"
 )
 
 func main() {
@@ -100,7 +100,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/zaboal/hh-go"
+	openapiclient "github.com/zaboal/hh-go/hh"
 )
 
 func main() {
@@ -174,7 +174,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/zaboal/hh-go"
+	openapiclient "github.com/zaboal/hh-go/hh"
 )
 
 func main() {
@@ -244,7 +244,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/zaboal/hh-go"
+	openapiclient "github.com/zaboal/hh-go/hh"
 )
 
 func main() {

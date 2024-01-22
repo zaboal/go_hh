@@ -213,7 +213,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import hh "github.com/zaboal/hh-go"
+import hh "github.com/zaboal/hh-go/hh"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
