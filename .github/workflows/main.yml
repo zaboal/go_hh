@@ -28,7 +28,7 @@ jobs:
           --package-name hh
           --git-user-id zaboal
           --git-repo-id hh-go
-          -p isGoSubmodule=true
+          --additional-properties=isGoSubmodule=true
           --output .
         generator: go
 
