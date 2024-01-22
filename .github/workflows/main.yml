@@ -20,13 +20,14 @@ jobs:
         command-args:
           --skip-validate-spec
           --package-name headhunter
+          --output .
         generator: go
 
     - name: Initialize and commit
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git commit -a -m "Add changes"
+        git commit -a -m "Update"
     
     - name: Push
       uses: ad-m/github-push-action@master
