@@ -12,6 +12,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
 
     - name: Generate
       uses: hatamiarash7/openapi-generator@main
@@ -27,8 +30,7 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add --all
-        git commit --allow-empty-message --message ""
+        git commit --all --allow-empty-message --message ""
     
     - name: Push
       uses: ad-m/github-push-action@master
