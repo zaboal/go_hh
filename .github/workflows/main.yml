@@ -1,4 +1,4 @@
-name: Generating
+name: Updating
 
 on:
   schedule:
