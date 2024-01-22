@@ -3,8 +3,10 @@ name: Updating
 on:
   schedule:
     - cron: "0 0 * * 0"
-  workflow_dispatch:
-# Runs every week or manually
+  push:
+    paths:
+      - .github/workflows/main.yml
+# Runs every week or on this file change
 
 jobs:
   update:
@@ -24,6 +26,8 @@ jobs:
         command-args:
           --skip-validate-spec
           --package-name github.com/zaboal/hh-go
+          --git-user-id zaboal
+          --git-repo-id hh-go
           --output .
         generator: go
 
