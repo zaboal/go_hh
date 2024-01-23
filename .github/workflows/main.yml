@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - .github/workflows/main.yml
-# Runs every week or on this file change
+# Runs every week and on this file change
 
 jobs:
   update:
@@ -28,7 +28,10 @@ jobs:
           --package-name hh
           --git-user-id zaboal
           --git-repo-id hh-go
-          --additional-properties=isGoSubmodule=true
+          --enable-post-process-file
+          --minimal-update
+          --global-property=apiDocs=false,apiTests=false
+          --additional-properties=hideGenerationTimestamp=true,
           --output .
         generator: go
 
