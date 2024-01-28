@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -62,6 +61,8 @@ docs/EmployerManagerTypesAvailablePermissions.md
 docs/EmployerManagerTypesEmployerManagerTypesItem.md
 docs/EmployerManagerTypesResponse.md
 docs/EmployerManagersAddEmployerManager.md
+docs/EmployerManagersAddEmployerManagerAdditionalPhone.md
+docs/EmployerManagersAddEmployerManagerPhone.md
 docs/EmployerManagersArea.md
 docs/EmployerManagersAreaId.md
 docs/EmployerManagersEmployerManagerId.md
@@ -69,8 +70,6 @@ docs/EmployerManagersEmployerManagerInfo.md
 docs/EmployerManagersEmployerManagerItem.md
 docs/EmployerManagersEmployerManagerLimits.md
 docs/EmployerManagersManagerData.md
-docs/EmployerManagersManagerDataAdditionalPhone.md
-docs/EmployerManagersManagerDataPhone.md
 docs/EmployerManagersManagerType.md
 docs/EmployerManagersManagerTypeId.md
 docs/EmployerManagersPermissions.md
@@ -396,10 +395,12 @@ docs/ResumesResumeVisibilityListSearchProperties.md
 docs/ResumesResumeVisibilityListSearchPropertiesItemsInner.md
 docs/ResumesResumeVisibilityListSearchResponse.md
 docs/ResumesSearchForEmployerAndApplicant.md
+docs/ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus.md
 docs/ResumesSearchForResumesItems.md
 docs/ResumesSearchForResumesResponse.md
 docs/ResumesSelectedObject.md
 docs/ResumesSuitableResumeItem.md
+docs/ResumesSuitableResumeItemAllOfStatus.md
 docs/ResumesSuitableResumeItems.md
 docs/ResumesSuitableResumeOverall.md
 docs/ResumesSuitableResumesResponse.md
@@ -580,6 +581,7 @@ docs/VacancyEditBillingType.md
 docs/VacancyEditCommon.md
 docs/VacancyEditFields.md
 docs/VacancyEditManager.md
+docs/VacancyEditManagerManager.md
 docs/VacancyEmployerBlacklisted.md
 docs/VacancyEmployment.md
 docs/VacancyEmploymentOutput.md
@@ -735,6 +737,8 @@ model_employer_manager_types_available_permissions.go
 model_employer_manager_types_employer_manager_types_item.go
 model_employer_manager_types_response.go
 model_employer_managers_add_employer_manager.go
+model_employer_managers_add_employer_manager_additional_phone.go
+model_employer_managers_add_employer_manager_phone.go
 model_employer_managers_area.go
 model_employer_managers_area_id.go
 model_employer_managers_employer_manager_id.go
@@ -742,8 +746,6 @@ model_employer_managers_employer_manager_info.go
 model_employer_managers_employer_manager_item.go
 model_employer_managers_employer_manager_limits.go
 model_employer_managers_manager_data.go
-model_employer_managers_manager_data_additional_phone.go
-model_employer_managers_manager_data_phone.go
 model_employer_managers_manager_type.go
 model_employer_managers_manager_type_id.go
 model_employer_managers_permissions.go
@@ -1037,10 +1039,12 @@ model_resumes_resume_visibility_list_search_properties.go
 model_resumes_resume_visibility_list_search_properties_items_inner.go
 model_resumes_resume_visibility_list_search_response.go
 model_resumes_search_for_employer_and_applicant.go
+model_resumes_search_for_employer_and_applicant_all_of_job_search_status.go
 model_resumes_search_for_resumes_items.go
 model_resumes_search_for_resumes_response.go
 model_resumes_selected_object.go
 model_resumes_suitable_resume_item.go
+model_resumes_suitable_resume_item_all_of_status.go
 model_resumes_suitable_resume_items.go
 model_resumes_suitable_resume_overall.go
 model_resumes_suitable_resumes_response.go
@@ -1221,6 +1225,7 @@ model_vacancy_edit_billing_type.go
 model_vacancy_edit_common.go
 model_vacancy_edit_fields.go
 model_vacancy_edit_manager.go
+model_vacancy_edit_manager_manager.go
 model_vacancy_employer_blacklisted.go
 model_vacancy_employment.go
 model_vacancy_employment_output.go

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Age** | Pointer to **NullableFloat32** | Возраст | [optional] 
 **AlternateUrl** | **string** | URL резюме на сайте | 
 **Area** | Pointer to [**IncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
-**AutoHideTime** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**AutoHideTime** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
@@ -38,13 +38,13 @@ Name | Type | Description | Notes
 **Access** | [**ResumeObjectsAccess**](ResumeObjectsAccess.md) |  | 
 **Finished** | **bool** | Заполнено ли резюме | 
 **RequiresCompletion** | **bool** | Принимает значение &#x60;true&#x60;, если резюме является неполным. Применимо только для вакансий, у которых не установлен флаг «принимать неполные резюме».   При получении &#x60;true&#x60; в данном поле, соискатель должен заполнить обязательные поля (доступны в [выдаче полного резюме](#tag/Prosmotr-rezyume/operation/get-resume)) перед откликом на данную вакансию  | 
-**Status** | [**IncludesIdName**](IncludesIdName.md) |  | 
+**Status** | [**ResumesSuitableResumeItemAllOfStatus**](ResumesSuitableResumeItemAllOfStatus.md) |  | 
 
 ## Methods
 
 ### NewResumesSuitableResumeItem
 
-`func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status IncludesIdName, ) *ResumesSuitableResumeItem`
+`func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status ResumesSuitableResumeItemAllOfStatus, ) *ResumesSuitableResumeItem`
 
 NewResumesSuitableResumeItem instantiates a new ResumesSuitableResumeItem object
 This constructor will assign default values to properties that have it defined,
@@ -184,16 +184,6 @@ SetAutoHideTime sets AutoHideTime field to given value.
 
 HasAutoHideTime returns a boolean if a field has been set.
 
-### SetAutoHideTimeNil
-
-`func (o *ResumesSuitableResumeItem) SetAutoHideTimeNil(b bool)`
-
- SetAutoHideTimeNil sets the value for AutoHideTime to be an explicit nil
-
-### UnsetAutoHideTime
-`func (o *ResumesSuitableResumeItem) UnsetAutoHideTime()`
-
-UnsetAutoHideTime ensures that no value is present for AutoHideTime, not even an explicit nil
 ### GetCanViewFullInfo
 
 `func (o *ResumesSuitableResumeItem) GetCanViewFullInfo() bool`
@@ -776,20 +766,20 @@ SetRequiresCompletion sets RequiresCompletion field to given value.
 
 ### GetStatus
 
-`func (o *ResumesSuitableResumeItem) GetStatus() IncludesIdName`
+`func (o *ResumesSuitableResumeItem) GetStatus() ResumesSuitableResumeItemAllOfStatus`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *ResumesSuitableResumeItem) GetStatusOk() (*IncludesIdName, bool)`
+`func (o *ResumesSuitableResumeItem) GetStatusOk() (*ResumesSuitableResumeItemAllOfStatus, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *ResumesSuitableResumeItem) SetStatus(v IncludesIdName)`
+`func (o *ResumesSuitableResumeItem) SetStatus(v ResumesSuitableResumeItemAllOfStatus)`
 
 SetStatus sets Status field to given value.
 

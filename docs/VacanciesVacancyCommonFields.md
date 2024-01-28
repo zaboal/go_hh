@@ -42,7 +42,7 @@ Name | Type | Description | Notes
 **Schedule** | [**VacancyScheduleOutput**](VacancyScheduleOutput.md) |  | 
 **SuitableResumesUrl** | Pointer to **NullableString** | Подходящие резюме на вакансию | [optional] 
 **Test** | Pointer to [**NullableVacancyDraftTest**](VacancyDraftTest.md) |  | [optional] 
-**Type** | [**IncludesIdName**](IncludesIdName.md) |  | 
+**Type** | [**IncludesIdName**](IncludesIdName.md) | Идентификатор типа вакансии из справочника [&#x60;vacancy_type&#x60;](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **VacancyConstructorTemplate** | Pointer to [**NullableVacancyVacancyConstructorTemplate**](VacancyVacancyConstructorTemplate.md) |  | [optional] 
 **VideoVacancy** | Pointer to [**NullableVacancyVideoVacancy**](VacancyVideoVacancy.md) |  | [optional] 
 **WorkingDays** | Pointer to [**[]VacancyWorkingDayItemOutput**](VacancyWorkingDayItemOutput.md) | Список рабочих дней | [optional] 

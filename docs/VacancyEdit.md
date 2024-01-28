@@ -33,13 +33,13 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Описание в html, не менее 200 символов | [optional] 
 **Name** | Pointer to **string** | Название | [optional] 
 **BillingType** | [**VacancyBillingType**](VacancyBillingType.md) |  | 
-**Manager** | [**IncludesId**](IncludesId.md) |  | 
+**Manager** | [**NullableVacancyEditManagerManager**](VacancyEditManagerManager.md) |  | 
 
 ## Methods
 
 ### NewVacancyEdit
 
-`func NewVacancyEdit(billingType VacancyBillingType, manager IncludesId, ) *VacancyEdit`
+`func NewVacancyEdit(billingType VacancyBillingType, manager NullableVacancyEditManagerManager, ) *VacancyEdit`
 
 NewVacancyEdit instantiates a new VacancyEdit object
 This constructor will assign default values to properties that have it defined,
@@ -936,24 +936,34 @@ SetBillingType sets BillingType field to given value.
 
 ### GetManager
 
-`func (o *VacancyEdit) GetManager() IncludesId`
+`func (o *VacancyEdit) GetManager() VacancyEditManagerManager`
 
 GetManager returns the Manager field if non-nil, zero value otherwise.
 
 ### GetManagerOk
 
-`func (o *VacancyEdit) GetManagerOk() (*IncludesId, bool)`
+`func (o *VacancyEdit) GetManagerOk() (*VacancyEditManagerManager, bool)`
 
 GetManagerOk returns a tuple with the Manager field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetManager
 
-`func (o *VacancyEdit) SetManager(v IncludesId)`
+`func (o *VacancyEdit) SetManager(v VacancyEditManagerManager)`
 
 SetManager sets Manager field to given value.
 
 
+### SetManagerNil
+
+`func (o *VacancyEdit) SetManagerNil(b bool)`
+
+ SetManagerNil sets the value for Manager to be an explicit nil
+
+### UnsetManager
+`func (o *VacancyEdit) UnsetManager()`
+
+UnsetManager ensures that no value is present for Manager, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

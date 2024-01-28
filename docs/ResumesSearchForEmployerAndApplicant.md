@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **Photo** | Pointer to [**NullableResumeResumeShortAllOfPhoto**](ResumeResumeShortAllOfPhoto.md) |  | [optional] 
 **Viewed** | **bool** | Было ли резюме уже просмотрено работодателем | 
 **LastNegotiation** | Pointer to [**ResumesNegotiationNano**](ResumesNegotiationNano.md) |  | [optional] 
-**JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
+**JobSearchStatus** | Pointer to [**ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus**](ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus.md) |  | [optional] 
 **Url** | Pointer to **string** | Ссылка на резюме | [optional] 
 
 ## Methods
@@ -791,20 +791,20 @@ HasLastNegotiation returns a boolean if a field has been set.
 
 ### GetJobSearchStatus
 
-`func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() IncludesIdName`
+`func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus`
 
 GetJobSearchStatus returns the JobSearchStatus field if non-nil, zero value otherwise.
 
 ### GetJobSearchStatusOk
 
-`func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatusOk() (*IncludesIdName, bool)`
+`func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatusOk() (*ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus, bool)`
 
 GetJobSearchStatusOk returns a tuple with the JobSearchStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetJobSearchStatus
 
-`func (o *ResumesSearchForEmployerAndApplicant) SetJobSearchStatus(v IncludesIdName)`
+`func (o *ResumesSearchForEmployerAndApplicant) SetJobSearchStatus(v ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus)`
 
 SetJobSearchStatus sets JobSearchStatus field to given value.
 

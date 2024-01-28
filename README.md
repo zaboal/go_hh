@@ -101,8 +101,8 @@ Location: {redirect_uri}?code={authorization_code}
 
 ## Получение access и refresh токенов
 
-После получения `authorization_code` приложению необходимо сделать сервер-сервер запрос `POST https://hh.ru/oauth/token` для обмена полученного
-`authorization_code` на `access_token`.
+После получения `authorization_code` приложению необходимо сделать сервер-сервер запрос `POST https://api.hh.ru/token` для обмена полученного
+`authorization_code` на `access_token` (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим).
 
 В теле запроса необходимо передать [дополнительные параметры](#required_parameters).
 
@@ -121,8 +121,10 @@ Location: {redirect_uri}?code={authorization_code}
 Запрос необходимо делать в `application/x-www-form-urlencoded`.
 
 ```
-POST https://hh.ru/oauth/token
+POST https://api.hh.ru/token
 ```
+
+(старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)
 
 В теле запроса необходимо передать [дополнительные параметры](#required_parameters)
 
@@ -179,8 +181,10 @@ POST https://hh.ru/oauth/token
 Для получения `access_token` необходимо сделать запрос:
 
 ```
-POST https://hh.ru/oauth/token
+POST https://api.hh.ru/token
 ```
+
+(старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)
 
 В теле запроса необходимо передать [дополнительные параметры](#required_parameters).
 Тело запроса необходимо передавать в стандартном
@@ -499,6 +503,8 @@ Class | Method | HTTP request | Description
  - [EmployerManagerTypesEmployerManagerTypesItem](docs/EmployerManagerTypesEmployerManagerTypesItem.md)
  - [EmployerManagerTypesResponse](docs/EmployerManagerTypesResponse.md)
  - [EmployerManagersAddEmployerManager](docs/EmployerManagersAddEmployerManager.md)
+ - [EmployerManagersAddEmployerManagerAdditionalPhone](docs/EmployerManagersAddEmployerManagerAdditionalPhone.md)
+ - [EmployerManagersAddEmployerManagerPhone](docs/EmployerManagersAddEmployerManagerPhone.md)
  - [EmployerManagersArea](docs/EmployerManagersArea.md)
  - [EmployerManagersAreaId](docs/EmployerManagersAreaId.md)
  - [EmployerManagersEmployerManagerId](docs/EmployerManagersEmployerManagerId.md)
@@ -506,8 +512,6 @@ Class | Method | HTTP request | Description
  - [EmployerManagersEmployerManagerItem](docs/EmployerManagersEmployerManagerItem.md)
  - [EmployerManagersEmployerManagerLimits](docs/EmployerManagersEmployerManagerLimits.md)
  - [EmployerManagersManagerData](docs/EmployerManagersManagerData.md)
- - [EmployerManagersManagerDataAdditionalPhone](docs/EmployerManagersManagerDataAdditionalPhone.md)
- - [EmployerManagersManagerDataPhone](docs/EmployerManagersManagerDataPhone.md)
  - [EmployerManagersManagerType](docs/EmployerManagersManagerType.md)
  - [EmployerManagersManagerTypeId](docs/EmployerManagersManagerTypeId.md)
  - [EmployerManagersPermissions](docs/EmployerManagersPermissions.md)
@@ -833,10 +837,12 @@ Class | Method | HTTP request | Description
  - [ResumesResumeVisibilityListSearchPropertiesItemsInner](docs/ResumesResumeVisibilityListSearchPropertiesItemsInner.md)
  - [ResumesResumeVisibilityListSearchResponse](docs/ResumesResumeVisibilityListSearchResponse.md)
  - [ResumesSearchForEmployerAndApplicant](docs/ResumesSearchForEmployerAndApplicant.md)
+ - [ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus](docs/ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus.md)
  - [ResumesSearchForResumesItems](docs/ResumesSearchForResumesItems.md)
  - [ResumesSearchForResumesResponse](docs/ResumesSearchForResumesResponse.md)
  - [ResumesSelectedObject](docs/ResumesSelectedObject.md)
  - [ResumesSuitableResumeItem](docs/ResumesSuitableResumeItem.md)
+ - [ResumesSuitableResumeItemAllOfStatus](docs/ResumesSuitableResumeItemAllOfStatus.md)
  - [ResumesSuitableResumeItems](docs/ResumesSuitableResumeItems.md)
  - [ResumesSuitableResumeOverall](docs/ResumesSuitableResumeOverall.md)
  - [ResumesSuitableResumesResponse](docs/ResumesSuitableResumesResponse.md)
@@ -1017,6 +1023,7 @@ Class | Method | HTTP request | Description
  - [VacancyEditCommon](docs/VacancyEditCommon.md)
  - [VacancyEditFields](docs/VacancyEditFields.md)
  - [VacancyEditManager](docs/VacancyEditManager.md)
+ - [VacancyEditManagerManager](docs/VacancyEditManagerManager.md)
  - [VacancyEmployerBlacklisted](docs/VacancyEmployerBlacklisted.md)
  - [VacancyEmployment](docs/VacancyEmployment.md)
  - [VacancyEmploymentOutput](docs/VacancyEmploymentOutput.md)
