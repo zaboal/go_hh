@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Employer** | [**VacanciesEmployerPublic**](VacanciesEmployerPublic.md) |  | 
 **HasTest** | **bool** | Информация о наличии прикрепленного тестового задании к вакансии | 
 **Id** | **string** | Идентификатор вакансии | 
-**InsiderInterview** | Pointer to [**VacancyInsiderInterview**](VacancyInsiderInterview.md) |  | [optional] 
+**InsiderInterview** | Pointer to [**NullableVacancyInsiderInterview**](VacancyInsiderInterview.md) |  | [optional] 
 **MetroStations** | Pointer to [**IncludesMetroStation**](IncludesMetroStation.md) |  | [optional] 
 **Name** | **string** | Название | 
 **Premium** | Pointer to **NullableBool** | Является ли данная вакансия премиум-вакансией | [optional] 
@@ -455,6 +455,16 @@ SetInsiderInterview sets InsiderInterview field to given value.
 
 HasInsiderInterview returns a boolean if a field has been set.
 
+### SetInsiderInterviewNil
+
+`func (o *VacanciesVacanciesItem) SetInsiderInterviewNil(b bool)`
+
+ SetInsiderInterviewNil sets the value for InsiderInterview to be an explicit nil
+
+### UnsetInsiderInterview
+`func (o *VacanciesVacanciesItem) UnsetInsiderInterview()`
+
+UnsetInsiderInterview ensures that no value is present for InsiderInterview, not even an explicit nil
 ### GetMetroStations
 
 `func (o *VacanciesVacanciesItem) GetMetroStations() IncludesMetroStation`

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**City** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**City** | Pointer to [**NullableVacanciesVacancyConditionFieldsCityCondition**](VacanciesVacancyConditionFieldsCityCondition.md) |  | [optional] 
 **Comment** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
-**Country** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**Formatted** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**Number** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Country** | Pointer to [**NullableVacanciesVacancyConditionFieldsCountryCondition**](VacanciesVacancyConditionFieldsCountryCondition.md) |  | [optional] 
+**Formatted** | Pointer to [**NullableVacanciesVacancyConditionFieldsFormattedCondition**](VacanciesVacancyConditionFieldsFormattedCondition.md) |  | [optional] 
+**Number** | Pointer to [**NullableVacanciesVacancyConditionFieldsNumberCondition**](VacanciesVacancyConditionFieldsNumberCondition.md) |  | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCity
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCity() OneOf`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCity() VacanciesVacancyConditionFieldsCityCondition`
 
 GetCity returns the City field if non-nil, zero value otherwise.
 
 ### GetCityOk
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCityOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCityOk() (*VacanciesVacancyConditionFieldsCityCondition, bool)`
 
 GetCityOk returns a tuple with the City field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCity
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCity(v OneOf)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCity(v VacanciesVacancyConditionFieldsCityCondition)`
 
 SetCity sets City field to given value.
 
@@ -101,20 +101,20 @@ HasComment returns a boolean if a field has been set.
 UnsetComment ensures that no value is present for Comment, not even an explicit nil
 ### GetCountry
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCountry() OneOf`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCountry() VacanciesVacancyConditionFieldsCountryCondition`
 
 GetCountry returns the Country field if non-nil, zero value otherwise.
 
 ### GetCountryOk
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCountryOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCountryOk() (*VacanciesVacancyConditionFieldsCountryCondition, bool)`
 
 GetCountryOk returns a tuple with the Country field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCountry
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCountry(v OneOf)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCountry(v VacanciesVacancyConditionFieldsCountryCondition)`
 
 SetCountry sets Country field to given value.
 
@@ -136,20 +136,20 @@ HasCountry returns a boolean if a field has been set.
 UnsetCountry ensures that no value is present for Country, not even an explicit nil
 ### GetFormatted
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetFormatted() OneOf`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetFormatted() VacanciesVacancyConditionFieldsFormattedCondition`
 
 GetFormatted returns the Formatted field if non-nil, zero value otherwise.
 
 ### GetFormattedOk
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetFormattedOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetFormattedOk() (*VacanciesVacancyConditionFieldsFormattedCondition, bool)`
 
 GetFormattedOk returns a tuple with the Formatted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFormatted
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetFormatted(v OneOf)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetFormatted(v VacanciesVacancyConditionFieldsFormattedCondition)`
 
 SetFormatted sets Formatted field to given value.
 
@@ -171,20 +171,20 @@ HasFormatted returns a boolean if a field has been set.
 UnsetFormatted ensures that no value is present for Formatted, not even an explicit nil
 ### GetNumber
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetNumber() OneOf`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetNumber() VacanciesVacancyConditionFieldsNumberCondition`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetNumberOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) GetNumberOk() (*VacanciesVacancyConditionFieldsNumberCondition, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetNumber(v OneOf)`
+`func (o *VacanciesVacancyConditionFieldsPhoneFields) SetNumber(v VacanciesVacancyConditionFieldsNumberCondition)`
 
 SetNumber sets Number field to given value.
 

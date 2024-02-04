@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **HasTest** | **bool** | Информация о наличии прикрепленного тестового задании к вакансии | 
 **Id** | **string** | Идентификатор вакансии | 
 **InitialCreatedAt** | **string** | Дата и время создания вакансии | 
-**InsiderInterview** | Pointer to [**VacancyInsiderInterview**](VacancyInsiderInterview.md) |  | [optional] 
+**InsiderInterview** | Pointer to [**NullableVacancyInsiderInterview**](VacancyInsiderInterview.md) |  | [optional] 
 **KeySkills** | [**[]VacancyKeySkillItem**](VacancyKeySkillItem.md) | Список ключевых навыков, не более 30 | 
 **Languages** | Pointer to [**[]VacancyLanguageOutput**](VacancyLanguageOutput.md) | Список языков вакансии. Значения из справочника [/languages](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 **Name** | **string** | Название | 
@@ -668,6 +668,16 @@ SetInsiderInterview sets InsiderInterview field to given value.
 
 HasInsiderInterview returns a boolean if a field has been set.
 
+### SetInsiderInterviewNil
+
+`func (o *VacanciesVacancy) SetInsiderInterviewNil(b bool)`
+
+ SetInsiderInterviewNil sets the value for InsiderInterview to be an explicit nil
+
+### UnsetInsiderInterview
+`func (o *VacanciesVacancy) UnsetInsiderInterview()`
+
+UnsetInsiderInterview ensures that no value is present for InsiderInterview, not even an explicit nil
 ### GetKeySkills
 
 `func (o *VacanciesVacancy) GetKeySkills() []VacancyKeySkillItem`

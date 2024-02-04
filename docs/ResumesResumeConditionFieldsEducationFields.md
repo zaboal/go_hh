@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Additional** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**Attestation** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**Elementary** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Additional** | Pointer to [**NullableResumesResumeConditionFieldsEducationPrimaryCondition**](ResumesResumeConditionFieldsEducationPrimaryCondition.md) |  | [optional] 
+**Attestation** | Pointer to [**NullableResumesResumeConditionFieldsEducationPrimaryCondition**](ResumesResumeConditionFieldsEducationPrimaryCondition.md) |  | [optional] 
+**Elementary** | Pointer to [**NullableResumesResumeConditionFieldsEducationElementaryCondition**](ResumesResumeConditionFieldsEducationElementaryCondition.md) |  | [optional] 
 **Level** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**Primary** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Primary** | Pointer to [**NullableResumesResumeConditionFieldsEducationPrimaryCondition**](ResumesResumeConditionFieldsEducationPrimaryCondition.md) |  | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAdditional
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetAdditional() OneOf`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetAdditional() ResumesResumeConditionFieldsEducationPrimaryCondition`
 
 GetAdditional returns the Additional field if non-nil, zero value otherwise.
 
 ### GetAdditionalOk
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetAdditionalOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetAdditionalOk() (*ResumesResumeConditionFieldsEducationPrimaryCondition, bool)`
 
 GetAdditionalOk returns a tuple with the Additional field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditional
 
-`func (o *ResumesResumeConditionFieldsEducationFields) SetAdditional(v OneOf)`
+`func (o *ResumesResumeConditionFieldsEducationFields) SetAdditional(v ResumesResumeConditionFieldsEducationPrimaryCondition)`
 
 SetAdditional sets Additional field to given value.
 
@@ -66,20 +66,20 @@ HasAdditional returns a boolean if a field has been set.
 UnsetAdditional ensures that no value is present for Additional, not even an explicit nil
 ### GetAttestation
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetAttestation() OneOf`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetAttestation() ResumesResumeConditionFieldsEducationPrimaryCondition`
 
 GetAttestation returns the Attestation field if non-nil, zero value otherwise.
 
 ### GetAttestationOk
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetAttestationOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetAttestationOk() (*ResumesResumeConditionFieldsEducationPrimaryCondition, bool)`
 
 GetAttestationOk returns a tuple with the Attestation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttestation
 
-`func (o *ResumesResumeConditionFieldsEducationFields) SetAttestation(v OneOf)`
+`func (o *ResumesResumeConditionFieldsEducationFields) SetAttestation(v ResumesResumeConditionFieldsEducationPrimaryCondition)`
 
 SetAttestation sets Attestation field to given value.
 
@@ -101,20 +101,20 @@ HasAttestation returns a boolean if a field has been set.
 UnsetAttestation ensures that no value is present for Attestation, not even an explicit nil
 ### GetElementary
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetElementary() OneOf`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetElementary() ResumesResumeConditionFieldsEducationElementaryCondition`
 
 GetElementary returns the Elementary field if non-nil, zero value otherwise.
 
 ### GetElementaryOk
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetElementaryOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetElementaryOk() (*ResumesResumeConditionFieldsEducationElementaryCondition, bool)`
 
 GetElementaryOk returns a tuple with the Elementary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetElementary
 
-`func (o *ResumesResumeConditionFieldsEducationFields) SetElementary(v OneOf)`
+`func (o *ResumesResumeConditionFieldsEducationFields) SetElementary(v ResumesResumeConditionFieldsEducationElementaryCondition)`
 
 SetElementary sets Elementary field to given value.
 
@@ -171,20 +171,20 @@ HasLevel returns a boolean if a field has been set.
 UnsetLevel ensures that no value is present for Level, not even an explicit nil
 ### GetPrimary
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetPrimary() OneOf`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetPrimary() ResumesResumeConditionFieldsEducationPrimaryCondition`
 
 GetPrimary returns the Primary field if non-nil, zero value otherwise.
 
 ### GetPrimaryOk
 
-`func (o *ResumesResumeConditionFieldsEducationFields) GetPrimaryOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditionFieldsEducationFields) GetPrimaryOk() (*ResumesResumeConditionFieldsEducationPrimaryCondition, bool)`
 
 GetPrimaryOk returns a tuple with the Primary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrimary
 
-`func (o *ResumesResumeConditionFieldsEducationFields) SetPrimary(v OneOf)`
+`func (o *ResumesResumeConditionFieldsEducationFields) SetPrimary(v ResumesResumeConditionFieldsEducationPrimaryCondition)`
 
 SetPrimary sets Primary field to given value.
 

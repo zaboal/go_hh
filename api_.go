@@ -1,7 +1,7 @@
 /*
 HeadHunter API
 
-По-русски | [Switch to English](https://api.hh.ru/openapi/en/redoc)  В OpenAPI ведется пока что только небольшая часть документации [Основная документация](https://github.com/hhru/api).  Для поиска по документации можно использовать Ctrl+F.  # Авторизация  API поддерживает следующие уровни авторизации:   - [авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)   - [авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)  * [Авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)   * [Правила формирования специального redirect_uri](#section/Avtorizaciya/Pravila-formirovaniya-specialnogo-redirect_uri)   * [Процесс авторизации](#section/Avtorizaciya/Process-avtorizacii)   * [Успешное получение временного `authorization_code`](#get-authorization_code)   * [Получение access и refresh токенов](#section/Avtorizaciya/Poluchenie-access-i-refresh-tokenov) * [Обновление пары access и refresh токенов](#section/Avtorizaciya/Obnovlenie-pary-access-i-refresh-tokenov) * [Инвалидация токена](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) * [Запрос авторизации под другим пользователем](#section/Avtorizaciya/Zapros-avtorizacii-pod-drugim-polzovatelem) * [Авторизация под разными рабочими аккаунтами](#section/Avtorizaciya/Avtorizaciya-pod-raznymi-rabochimi-akkauntami) * [Авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)       ## Авторизация пользователя Для выполнения запросов от имени пользователя необходимо пользоваться токеном пользователя.  В начале приложению необходимо направить пользователя (открыть страницу) по адресу:  ``` https://hh.ru/oauth/authorize? response_type=code& client_id={client_id}& state={state}& redirect_uri={redirect_uri} ```  Обязательные параметры:  * `response_type=code` — указание на способ получения авторизации, используя `authorization code` * `client_id` — идентификатор, полученный при создании приложения   Необязательные параметры:  * `state` — в случае указания, будет включен в ответный редирект. Это позволяет исключить возможность взлома путём подделки межсайтовых запросов. Подробнее об этом: [RFC 6749. Section 10.12](http://tools.ietf.org/html/rfc6749#section-10.12) * `redirect_uri` — uri для перенаправления пользователя после авторизации. Если не указать, используется из настроек приложения. При наличии происходит валидация значения. Вероятнее всего, потребуется сделать urlencode значения параметра.  ## Правила формирования специального redirect_uri  К примеру, если в настройках сохранен `http://example.com/oauth`, то разрешено указывать:  * `http://www.example.com/oauth` — поддомен; * `http://www.example.com/oauth/sub/path` — уточнение пути; * `http://example.com/oauth?lang=RU` — дополнительный параметр; * `http://www.example.com/oauth/sub/path?lang=RU` — всё вместе.  Запрещено:  * `https://example.com/oauth` — различные протоколы; * `http://wwwexample.com/oauth` — различные домены; * `http://wwwexample.com/` — другой путь; * `http://example.com/oauths` — другой путь; * `http://example.com:80/oauths` — указание изначально отсутствующего порта;  ## Процесс авторизации  Если пользователь не авторизован на сайте, ему будет показана форма авторизации на сайте. После прохождения авторизации на сайте, пользователю будет выведена форма с запросом разрешения доступа вашего приложения к его персональным данным.  Если пользователь не разрешает доступ приложению, пользователь будет перенаправлен на указанный `redirect_uri` с `?error=access_denied` и `state={state}`, если таковой был указан при первом запросе.  <a name=\"get-authorization_code\"></a> ### Успешное получение временного `authorization_code`  В случае разрешения прав, в редиректе будет указан временный `authorization_code`:  ```http HTTP/1.1 302 FOUND Location: {redirect_uri}?code={authorization_code} ```  Если пользователь авторизован на сайте и доступ данному приложению однажды ранее выдан, ответом будет сразу вышеописанный редирект с `authorization_code` (без показа формы логина и выдачи прав).  ## Получение access и refresh токенов  После получения `authorization_code` приложению необходимо сделать сервер-сервер запрос `POST https://api.hh.ru/token` для обмена полученного `authorization_code` на `access_token` (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим).  В теле запроса необходимо передать [дополнительные параметры](#required_parameters).  Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  `authorization_code` имеет довольно короткий срок жизни, при его истечении необходимо запросить новый.  ## Обновление пары access и refresh токенов `access_token` также имеет срок жизни (ключ `expires_in`, в секундах), при его истечении приложение должно сделать запрос с `refresh_token` для получения нового.  Запрос необходимо делать в `application/x-www-form-urlencoded`.  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters)  `refresh_token` можно использовать только один раз и только по истечению срока действия `access_token`.  После получения новой пары access и refresh токенов, их необходимо использовать в дальнейших запросах в api и запросах на продление токена.  ## Запрос авторизации под другим пользователем  Возможен следующий сценарий:  1. Приложение перенаправляет пользователя на сайт с запросом авторизации. 2. Пользователь на сайте уже авторизован и данному приложение доступ уже был разрешен. 3. Пользователю будет предложена возможность продолжить работу под текущим аккаунтом, либо зайти под другим аккаунтом.  Если есть необходимость, чтобы на шаге 3 сразу происходило перенаправление (redirect) с временным токеном, необходимо добавить к запросу `/oauth/authorize...` параметр `skip_choose_account=true`. В этом случае автоматически выдаётся доступ пользователю авторизованному на сайте.  Если есть необходимость всегда показывать форму авторизации, приложение может добавить к запросу `/oauth/authorize...` параметр `force_login=true`. В этом случае, пользователю будет показана форма авторизации с логином и паролем даже в случае, если пользователь уже авторизован.  Это может быть полезно приложениям, которые предоставляют сервис только для соискателей. Если пришел пользователь-работодатель, приложение может предложить пользователю повторно разрешить доступ на сайте, уже указав другую учетную запись.  Также, после авторизации приложение может показать пользователю сообщение:  ``` Вы вошли как %Имя_Фамилия%. Это не вы? ``` и предоставить ссылку с `force_login=true` для возможности захода под другим логином.  ## Авторизация под разными рабочими аккаунтами  Для получения списка рабочих аккаунтов менеджера и для работы под разными рабочими аккаунтами менеджера необходимо прочитать документацию по [рабочим аккаунтам менеджера](#tag/Menedzhery-rabotodatelya/operation/get-manager-accounts)  ## Авторизация приложения  Токен приложения необходимо сгенерировать 1 раз. В случае, если токен был скомпрометирован, его нужно запросить еще раз. При этом ранее выданный токен отзывается. Владелец приложения может посмотреть актуальный `access_token` для приложения на сайте [https://dev.hh.ru/admin](https://dev.hh.ru/admin). В случае, если вы еще ни разу [не получали токен приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya), токен отображаться не будет.  <a name=\"get-client-token\"></a> ### Получение токена приложения Для получения `access_token` необходимо сделать запрос:  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters). Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  Данный `access_token` имеет **неограниченный** срок жизни. При повторном запросе ранее выданный токен отзывается и выдается новый. Запрашивать `access_token` можно не чаще, чем один раз в 5 минут.  В случае компрометации токена необходимо [инвалидировать](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) скомпроментированный токен и запросить токен заново!  <!-- ReDoc-Inject: <security-definitions> --> 
+По-русски | [Switch to English](https://api.hh.ru/openapi/en/redoc)  В OpenAPI ведется пока что только небольшая часть документации [Основная документация](https://github.com/hhru/api).  Для поиска по документации можно использовать Ctrl+F.  # Общая информация  * Всё API работает по протоколу HTTPS. * Авторизация осуществляется по протоколу OAuth2. * Все данные доступны только в формате JSON. * Базовый URL — `https://api.hh.ru/` * Возможны запросы к данным [любого сайта группы компаний HeadHunter](#section/Obshaya-informaciya/Vybor-sajta) * <a name=\"date-format\"></a> Даты форматируются в соответствии с [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601): `YYYY-MM-DDThh:mm:ss±hhmm`.   <a name=\"request-requirements\"></a> ## Требования к запросам  В запросе необходимо передавать заголовок `User-Agent`, но если ваша реализация http клиента не позволяет, можно отправить `HH-User-Agent`. Если не отправлен ни один заголовок, то ответом будет `400 Bad Request`. Указание в заголовке названия приложения и контактной почты разработчика позволит нам оперативно с вами связаться в случае необходимости. Заголовки `User-Agent` и `HH-User-Agent` взаимозаменяемы, в случае, если вы отправите оба заголовка, обработан будет только `HH-User-Agent`.  ``` User-Agent: MyApp/1.0 (my-app-feedback@example.com) ```  Подробнее про [ошибки в заголовке User-Agent](https://github.com/hhru/api/blob/master/docs/errors.md#user-agent).   <a name=\"request-body\"></a> ## Формат тела запроса при отправке JSON  Данные, передающиеся в теле запроса, должны удовлетворять требованиям:  * Валидный JSON (допускается передача как минифицированного варианта, так и pretty print варианта с дополнительными пробелами и сбросами строк). * Рекомендуется использование кодировки UTF-8 без дополнительного экранирования (`{\"name\": \"Иванов Иван\"}`). * Также возможно использовать ascii кодировку с экранированием (`{\"name\": \"\\u0418\\u0432\\u0430\\u043d\\u043e\\u0432 \\u0418\\u0432\\u0430\\u043d\"}`). * К типам данных в определённым полях накладываются дополнительные условия, описанные в каждом конкретном методе. В JSON типами данных являются `string`, `number`, `boolean`, `null`, `object`, `array`.  ### Ответ Ответ свыше определенной длины будет сжиматься методом gzip.  ### Ошибки и коды ответов  API широко использует информирование при помощи кодов ответов. Приложение должно корректно их обрабатывать.  В случае неполадок и сбоев, возможны ответы с кодом `503` и `500`.  При каждой ошибке, помимо кода ответа, в теле ответа может быть выдана дополнительная информация, позволяющая разработчику понять причину соответствующего ответа.  [Более подробно про возможные ошибки](https://github.com/hhru/api/blob/master/docs/errors.md).   ## Недокументированные поля и параметры запросов  В ответах и параметрах API можно найти ключи, не описанные в документации. Обычно это означает, что они оставлены для совместимости со старыми версиями. Их использование не рекомендуется. Если ваше приложение использует такие ключи, перейдите на использование актуальных ключей, описанных в документации.   ## Пагинация  К любому запросу, подразумевающему выдачу списка объектов, можно в параметрах указать `page=N&per_page=M`. Нумерация идёт с нуля, по умолчанию выдаётся первая (нулевая) страница с 20 объектами на странице. Во всех ответах, где доступна пагинация, единообразный корневой объект:  ```json {   \"found\": 1,   \"per_page\": 1,   \"pages\": 1,   \"page\": 0,   \"items\": [{}] } ``` ## Выбор сайта  API HeadHunter позволяет получать данные со всех сайтов группы компании HeadHunter.  В частности:  * hh.ru * rabota.by * hh1.az * hh.uz * hh.kz * headhunter.ge * headhunter.kg  Запросы к данным на всех сайтах следует направлять на `https://api.hh.ru/`.  При необходимости учесть специфику сайта, можно добавить в запрос параметр `?host=`. По умолчанию используется `hh.ru`.  Например, для получения [локализаций](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-locales), доступных на hh.kz необходимо сделать GET запрос на `https://api.hh.ru/locales?host=hh.kz`.  ## CORS (Cross-Origin Resource Sharing)  API поддерживает технологию CORS для запроса данных из браузера с произвольного домена. Этот метод более предпочтителен, чем использование JSONP. Он не ограничен методом GET. Для отладки CORS доступен [специальный метод](https://github.com/hhru/api/blob/master/docs/cors.md). Для использования JSONP передайте параметр `?callback=callback_name`.  * [CORS specification on w3.org](http://www.w3.org/TR/cors/) * [HTML5Rocks CORS Tutorial](http://www.html5rocks.com/en/tutorials/cors/) * [CORS on dev.opera.com](http://dev.opera.com/articles/view/dom-access-control-using-cross-origin-resource-sharing/) * [CORS on caniuse.com](http://caniuse.com/#feat=cors) * [CORS on en.wikipedia.org](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)   ## Внешние ссылки на статьи и стандарты  * [HTTP/1.1](http://tools.ietf.org/html/rfc2616) * [JSON](http://json.org/) * [URI Template](http://tools.ietf.org/html/rfc6570) * [OAuth 2.0](http://tools.ietf.org/html/rfc6749) * [REST](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) * [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601)  # Авторизация  API поддерживает следующие уровни авторизации:   - [авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)   - [авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)  * [Авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)   * [Правила формирования специального redirect_uri](#section/Avtorizaciya/Pravila-formirovaniya-specialnogo-redirect_uri)   * [Процесс авторизации](#section/Avtorizaciya/Process-avtorizacii)   * [Успешное получение временного `authorization_code`](#get-authorization_code)   * [Получение access и refresh токенов](#section/Avtorizaciya/Poluchenie-access-i-refresh-tokenov) * [Обновление пары access и refresh токенов](#section/Avtorizaciya/Obnovlenie-pary-access-i-refresh-tokenov) * [Инвалидация токена](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) * [Запрос авторизации под другим пользователем](#section/Avtorizaciya/Zapros-avtorizacii-pod-drugim-polzovatelem) * [Авторизация под разными рабочими аккаунтами](#section/Avtorizaciya/Avtorizaciya-pod-raznymi-rabochimi-akkauntami) * [Авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)       ## Авторизация пользователя Для выполнения запросов от имени пользователя необходимо пользоваться токеном пользователя.  В начале приложению необходимо направить пользователя (открыть страницу) по адресу:  ``` https://hh.ru/oauth/authorize? response_type=code& client_id={client_id}& state={state}& redirect_uri={redirect_uri} ```  Обязательные параметры:  * `response_type=code` — указание на способ получения авторизации, используя `authorization code` * `client_id` — идентификатор, полученный при создании приложения   Необязательные параметры:  * `state` — в случае указания, будет включен в ответный редирект. Это позволяет исключить возможность взлома путём подделки межсайтовых запросов. Подробнее об этом: [RFC 6749. Section 10.12](http://tools.ietf.org/html/rfc6749#section-10.12) * `redirect_uri` — uri для перенаправления пользователя после авторизации. Если не указать, используется из настроек приложения. При наличии происходит валидация значения. Вероятнее всего, потребуется сделать urlencode значения параметра.  ## Правила формирования специального redirect_uri  К примеру, если в настройках сохранен `http://example.com/oauth`, то разрешено указывать:  * `http://www.example.com/oauth` — поддомен; * `http://www.example.com/oauth/sub/path` — уточнение пути; * `http://example.com/oauth?lang=RU` — дополнительный параметр; * `http://www.example.com/oauth/sub/path?lang=RU` — всё вместе.  Запрещено:  * `https://example.com/oauth` — различные протоколы; * `http://wwwexample.com/oauth` — различные домены; * `http://wwwexample.com/` — другой путь; * `http://example.com/oauths` — другой путь; * `http://example.com:80/oauths` — указание изначально отсутствующего порта;  ## Процесс авторизации  Если пользователь не авторизован на сайте, ему будет показана форма авторизации на сайте. После прохождения авторизации на сайте, пользователю будет выведена форма с запросом разрешения доступа вашего приложения к его персональным данным.  Если пользователь не разрешает доступ приложению, пользователь будет перенаправлен на указанный `redirect_uri` с `?error=access_denied` и `state={state}`, если таковой был указан при первом запросе.  <a name=\"get-authorization_code\"></a> ### Успешное получение временного `authorization_code`  В случае разрешения прав, в редиректе будет указан временный `authorization_code`:  ```http HTTP/1.1 302 FOUND Location: {redirect_uri}?code={authorization_code} ```  Если пользователь авторизован на сайте и доступ данному приложению однажды ранее выдан, ответом будет сразу вышеописанный редирект с `authorization_code` (без показа формы логина и выдачи прав).  ## Получение access и refresh токенов  После получения `authorization_code` приложению необходимо сделать сервер-сервер запрос `POST https://api.hh.ru/token` для обмена полученного `authorization_code` на `access_token` (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим).  В теле запроса необходимо передать [дополнительные параметры](#required_parameters).  Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  `authorization_code` имеет довольно короткий срок жизни, при его истечении необходимо запросить новый.  ## Обновление пары access и refresh токенов `access_token` также имеет срок жизни (ключ `expires_in`, в секундах), при его истечении приложение должно сделать запрос с `refresh_token` для получения нового.  Запрос необходимо делать в `application/x-www-form-urlencoded`.  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters)  `refresh_token` можно использовать только один раз и только по истечению срока действия `access_token`.  После получения новой пары access и refresh токенов, их необходимо использовать в дальнейших запросах в api и запросах на продление токена.  ## Запрос авторизации под другим пользователем  Возможен следующий сценарий:  1. Приложение перенаправляет пользователя на сайт с запросом авторизации. 2. Пользователь на сайте уже авторизован и данному приложение доступ уже был разрешен. 3. Пользователю будет предложена возможность продолжить работу под текущим аккаунтом, либо зайти под другим аккаунтом.  Если есть необходимость, чтобы на шаге 3 сразу происходило перенаправление (redirect) с временным токеном, необходимо добавить к запросу `/oauth/authorize...` параметр `skip_choose_account=true`. В этом случае автоматически выдаётся доступ пользователю авторизованному на сайте.  Если есть необходимость всегда показывать форму авторизации, приложение может добавить к запросу `/oauth/authorize...` параметр `force_login=true`. В этом случае, пользователю будет показана форма авторизации с логином и паролем даже в случае, если пользователь уже авторизован.  Это может быть полезно приложениям, которые предоставляют сервис только для соискателей. Если пришел пользователь-работодатель, приложение может предложить пользователю повторно разрешить доступ на сайте, уже указав другую учетную запись.  Также, после авторизации приложение может показать пользователю сообщение:  ``` Вы вошли как %Имя_Фамилия%. Это не вы? ``` и предоставить ссылку с `force_login=true` для возможности захода под другим логином.  ## Авторизация под разными рабочими аккаунтами  Для получения списка рабочих аккаунтов менеджера и для работы под разными рабочими аккаунтами менеджера необходимо прочитать документацию по [рабочим аккаунтам менеджера](#tag/Menedzhery-rabotodatelya/operation/get-manager-accounts)  ## Авторизация приложения  Токен приложения необходимо сгенерировать 1 раз. В случае, если токен был скомпрометирован, его нужно запросить еще раз. При этом ранее выданный токен отзывается. Владелец приложения может посмотреть актуальный `access_token` для приложения на сайте [https://dev.hh.ru/admin](https://dev.hh.ru/admin). В случае, если вы еще ни разу [не получали токен приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya), токен отображаться не будет.  <a name=\"get-client-token\"></a> ### Получение токена приложения Для получения `access_token` необходимо сделать запрос:  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters). Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  Данный `access_token` имеет **неограниченный** срок жизни. При повторном запросе ранее выданный токен отзывается и выдается новый. Запрашивать `access_token` можно не чаще, чем один раз в 5 минут.  В случае компрометации токена необходимо [инвалидировать](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) скомпроментированный токен и запросить токен заново!  <!-- ReDoc-Inject: <security-definitions> --> 
 
 API version: 1.0.0
 Contact: api@hh.ru
@@ -36,7 +36,7 @@ type ApiAddApplicantCommentRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddApplicantCommentRequest) HHUserAgent(hHUserAgent string) ApiAddApplicantCommentRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -60,7 +60,7 @@ func (r ApiAddApplicantCommentRequest) Locale(locale string) ApiAddApplicantComm
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddApplicantCommentRequest) Host(host string) ApiAddApplicantCommentRequest {
 	r.host = &host
 	return r
@@ -229,7 +229,7 @@ type ApiAddEmployerManagerRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddEmployerManagerRequest) HHUserAgent(hHUserAgent string) ApiAddEmployerManagerRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -246,7 +246,7 @@ func (r ApiAddEmployerManagerRequest) Locale(locale string) ApiAddEmployerManage
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddEmployerManagerRequest) Host(host string) ApiAddEmployerManagerRequest {
 	r.host = &host
 	return r
@@ -409,7 +409,7 @@ type ApiAddEmployerToBlacklistedRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddEmployerToBlacklistedRequest) HHUserAgent(hHUserAgent string) ApiAddEmployerToBlacklistedRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -421,7 +421,7 @@ func (r ApiAddEmployerToBlacklistedRequest) Locale(locale string) ApiAddEmployer
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddEmployerToBlacklistedRequest) Host(host string) ApiAddEmployerToBlacklistedRequest {
 	r.host = &host
 	return r
@@ -572,7 +572,7 @@ type ApiAddResumeVisibilityListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddResumeVisibilityListRequest) HHUserAgent(hHUserAgent string) ApiAddResumeVisibilityListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -589,7 +589,7 @@ func (r ApiAddResumeVisibilityListRequest) Locale(locale string) ApiAddResumeVis
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddResumeVisibilityListRequest) Host(host string) ApiAddResumeVisibilityListRequest {
 	r.host = &host
 	return r
@@ -754,7 +754,7 @@ type ApiAddVacancyToArchiveRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddVacancyToArchiveRequest) HHUserAgent(hHUserAgent string) ApiAddVacancyToArchiveRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -766,7 +766,7 @@ func (r ApiAddVacancyToArchiveRequest) Locale(locale string) ApiAddVacancyToArch
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddVacancyToArchiveRequest) Host(host string) ApiAddVacancyToArchiveRequest {
 	r.host = &host
 	return r
@@ -907,7 +907,7 @@ type ApiAddVacancyToBlacklistedRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddVacancyToBlacklistedRequest) HHUserAgent(hHUserAgent string) ApiAddVacancyToBlacklistedRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -919,7 +919,7 @@ func (r ApiAddVacancyToBlacklistedRequest) Locale(locale string) ApiAddVacancyTo
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddVacancyToBlacklistedRequest) Host(host string) ApiAddVacancyToBlacklistedRequest {
 	r.host = &host
 	return r
@@ -1068,7 +1068,7 @@ type ApiAddVacancyToFavoriteRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddVacancyToFavoriteRequest) HHUserAgent(hHUserAgent string) ApiAddVacancyToFavoriteRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -1080,7 +1080,7 @@ func (r ApiAddVacancyToFavoriteRequest) Locale(locale string) ApiAddVacancyToFav
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddVacancyToFavoriteRequest) Host(host string) ApiAddVacancyToFavoriteRequest {
 	r.host = &host
 	return r
@@ -1219,7 +1219,7 @@ type ApiAddVacancyToHiddenRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiAddVacancyToHiddenRequest) HHUserAgent(hHUserAgent string) ApiAddVacancyToHiddenRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -1231,7 +1231,7 @@ func (r ApiAddVacancyToHiddenRequest) Locale(locale string) ApiAddVacancyToHidde
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiAddVacancyToHiddenRequest) Host(host string) ApiAddVacancyToHiddenRequest {
 	r.host = &host
 	return r
@@ -1374,7 +1374,7 @@ type ApiApplyToVacancyRequest struct {
 	message *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiApplyToVacancyRequest) HHUserAgent(hHUserAgent string) ApiApplyToVacancyRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -1398,7 +1398,7 @@ func (r ApiApplyToVacancyRequest) Locale(locale string) ApiApplyToVacancyRequest
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiApplyToVacancyRequest) Host(host string) ApiApplyToVacancyRequest {
 	r.host = &host
 	return r
@@ -2110,7 +2110,7 @@ type ApiChangeVacancyDraftRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiChangeVacancyDraftRequest) HHUserAgent(hHUserAgent string) ApiChangeVacancyDraftRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -2127,7 +2127,7 @@ func (r ApiChangeVacancyDraftRequest) Locale(locale string) ApiChangeVacancyDraf
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiChangeVacancyDraftRequest) Host(host string) ApiChangeVacancyDraftRequest {
 	r.host = &host
 	return r
@@ -2291,7 +2291,7 @@ type ApiConfirmPhoneInResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiConfirmPhoneInResumeRequest) HHUserAgent(hHUserAgent string) ApiConfirmPhoneInResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -2315,7 +2315,7 @@ func (r ApiConfirmPhoneInResumeRequest) Locale(locale string) ApiConfirmPhoneInR
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiConfirmPhoneInResumeRequest) Host(host string) ApiConfirmPhoneInResumeRequest {
 	r.host = &host
 	return r
@@ -2457,7 +2457,7 @@ type ApiCreateResumeRequest struct {
 	resumeAddResumeRequest *ResumeAddResumeRequest
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiCreateResumeRequest) HHUserAgent(hHUserAgent string) ApiCreateResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -2475,7 +2475,7 @@ func (r ApiCreateResumeRequest) Locale(locale string) ApiCreateResumeRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiCreateResumeRequest) Host(host string) ApiCreateResumeRequest {
 	r.host = &host
 	return r
@@ -2590,7 +2590,7 @@ func (a *DefaultApiService) CreateResumeExecute(r ApiCreateResumeRequest) (strin
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v CreateResume400Response
+			var v ErrorsResumeBadArgTooManyResumesErrors
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -2679,7 +2679,7 @@ type ApiCreateSavedResumeSearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiCreateSavedResumeSearchRequest) HHUserAgent(hHUserAgent string) ApiCreateSavedResumeSearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -2739,13 +2739,13 @@ func (r ApiCreateSavedResumeSearchRequest) Period(period float32) ApiCreateSaved
 	return r
 }
 
-// Дата, от которой нужно начать поиск. Значение указывается в формате [ISO 8601](https://github.com/hhru/api/blob/master/docs/general.md#date-format) — &#x60;YYYY-MM-DD&#x60; или с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
+// Дата, от которой нужно начать поиск. Значение указывается в формате [ISO 8601](#date-format) — &#x60;YYYY-MM-DD&#x60; или с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
 func (r ApiCreateSavedResumeSearchRequest) DateFrom(dateFrom string) ApiCreateSavedResumeSearchRequest {
 	r.dateFrom = &dateFrom
 	return r
 }
 
-// Дата, до которой нужно искать. Значение указывается в формате [ISO 8601](https://github.com/hhru/api/blob/master/docs/general.md#date-format) — &#x60;YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Можно передавать только в паре с параметром &#x60;date_from&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
+// Дата, до которой нужно искать. Значение указывается в формате [ISO 8601](#date-format) — &#x60;YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Можно передавать только в паре с параметром &#x60;date_from&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
 func (r ApiCreateSavedResumeSearchRequest) DateTo(dateTo string) ApiCreateSavedResumeSearchRequest {
 	r.dateTo = &dateTo
 	return r
@@ -2901,7 +2901,7 @@ func (r ApiCreateSavedResumeSearchRequest) Locale(locale string) ApiCreateSavedR
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiCreateSavedResumeSearchRequest) Host(host string) ApiCreateSavedResumeSearchRequest {
 	r.host = &host
 	return r
@@ -3186,7 +3186,7 @@ type ApiCreateSavedVacancySearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiCreateSavedVacancySearchRequest) HHUserAgent(hHUserAgent string) ApiCreateSavedVacancySearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -3390,7 +3390,7 @@ func (r ApiCreateSavedVacancySearchRequest) Locale(locale string) ApiCreateSaved
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiCreateSavedVacancySearchRequest) Host(host string) ApiCreateSavedVacancySearchRequest {
 	r.host = &host
 	return r
@@ -3635,7 +3635,7 @@ type ApiCreateVacancyDraftRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiCreateVacancyDraftRequest) HHUserAgent(hHUserAgent string) ApiCreateVacancyDraftRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -3652,7 +3652,7 @@ func (r ApiCreateVacancyDraftRequest) Locale(locale string) ApiCreateVacancyDraf
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiCreateVacancyDraftRequest) Host(host string) ApiCreateVacancyDraftRequest {
 	r.host = &host
 	return r
@@ -3813,7 +3813,7 @@ type ApiDeleteApplicantCommentRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteApplicantCommentRequest) HHUserAgent(hHUserAgent string) ApiDeleteApplicantCommentRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -3825,7 +3825,7 @@ func (r ApiDeleteApplicantCommentRequest) Locale(locale string) ApiDeleteApplica
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteApplicantCommentRequest) Host(host string) ApiDeleteApplicantCommentRequest {
 	r.host = &host
 	return r
@@ -3969,7 +3969,7 @@ type ApiDeleteArtifactRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteArtifactRequest) HHUserAgent(hHUserAgent string) ApiDeleteArtifactRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -3981,7 +3981,7 @@ func (r ApiDeleteArtifactRequest) Locale(locale string) ApiDeleteArtifactRequest
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteArtifactRequest) Host(host string) ApiDeleteArtifactRequest {
 	r.host = &host
 	return r
@@ -4117,7 +4117,7 @@ type ApiDeleteEmployerFromBlacklistedRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteEmployerFromBlacklistedRequest) HHUserAgent(hHUserAgent string) ApiDeleteEmployerFromBlacklistedRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -4129,7 +4129,7 @@ func (r ApiDeleteEmployerFromBlacklistedRequest) Locale(locale string) ApiDelete
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteEmployerFromBlacklistedRequest) Host(host string) ApiDeleteEmployerFromBlacklistedRequest {
 	r.host = &host
 	return r
@@ -4275,7 +4275,7 @@ func (r ApiDeleteEmployerFromResumeVisibilityListRequest) Id(id string) ApiDelet
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteEmployerFromResumeVisibilityListRequest) HHUserAgent(hHUserAgent string) ApiDeleteEmployerFromResumeVisibilityListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -4287,7 +4287,7 @@ func (r ApiDeleteEmployerFromResumeVisibilityListRequest) Locale(locale string) 
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteEmployerFromResumeVisibilityListRequest) Host(host string) ApiDeleteEmployerFromResumeVisibilityListRequest {
 	r.host = &host
 	return r
@@ -4456,7 +4456,7 @@ func (r ApiDeleteEmployerManagerRequest) SuccessorId(successorId string) ApiDele
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteEmployerManagerRequest) HHUserAgent(hHUserAgent string) ApiDeleteEmployerManagerRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -4468,7 +4468,7 @@ func (r ApiDeleteEmployerManagerRequest) Locale(locale string) ApiDeleteEmployer
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteEmployerManagerRequest) Host(host string) ApiDeleteEmployerManagerRequest {
 	r.host = &host
 	return r
@@ -4624,7 +4624,7 @@ type ApiDeleteResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteResumeRequest) HHUserAgent(hHUserAgent string) ApiDeleteResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -4636,7 +4636,7 @@ func (r ApiDeleteResumeRequest) Locale(locale string) ApiDeleteResumeRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteResumeRequest) Host(host string) ApiDeleteResumeRequest {
 	r.host = &host
 	return r
@@ -4775,7 +4775,7 @@ type ApiDeleteResumeVisibilityListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteResumeVisibilityListRequest) HHUserAgent(hHUserAgent string) ApiDeleteResumeVisibilityListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -4787,7 +4787,7 @@ func (r ApiDeleteResumeVisibilityListRequest) Locale(locale string) ApiDeleteRes
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteResumeVisibilityListRequest) Host(host string) ApiDeleteResumeVisibilityListRequest {
 	r.host = &host
 	return r
@@ -4926,7 +4926,7 @@ type ApiDeleteSavedResumeSearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteSavedResumeSearchRequest) HHUserAgent(hHUserAgent string) ApiDeleteSavedResumeSearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -4938,7 +4938,7 @@ func (r ApiDeleteSavedResumeSearchRequest) Locale(locale string) ApiDeleteSavedR
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteSavedResumeSearchRequest) Host(host string) ApiDeleteSavedResumeSearchRequest {
 	r.host = &host
 	return r
@@ -5074,7 +5074,7 @@ type ApiDeleteSavedVacancySearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteSavedVacancySearchRequest) HHUserAgent(hHUserAgent string) ApiDeleteSavedVacancySearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -5086,7 +5086,7 @@ func (r ApiDeleteSavedVacancySearchRequest) Locale(locale string) ApiDeleteSaved
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteSavedVacancySearchRequest) Host(host string) ApiDeleteSavedVacancySearchRequest {
 	r.host = &host
 	return r
@@ -5222,7 +5222,7 @@ type ApiDeleteVacancyDraftRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteVacancyDraftRequest) HHUserAgent(hHUserAgent string) ApiDeleteVacancyDraftRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -5234,7 +5234,7 @@ func (r ApiDeleteVacancyDraftRequest) Locale(locale string) ApiDeleteVacancyDraf
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteVacancyDraftRequest) Host(host string) ApiDeleteVacancyDraftRequest {
 	r.host = &host
 	return r
@@ -5370,7 +5370,7 @@ type ApiDeleteVacancyFromBlacklistedRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteVacancyFromBlacklistedRequest) HHUserAgent(hHUserAgent string) ApiDeleteVacancyFromBlacklistedRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -5382,7 +5382,7 @@ func (r ApiDeleteVacancyFromBlacklistedRequest) Locale(locale string) ApiDeleteV
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteVacancyFromBlacklistedRequest) Host(host string) ApiDeleteVacancyFromBlacklistedRequest {
 	r.host = &host
 	return r
@@ -5520,7 +5520,7 @@ type ApiDeleteVacancyFromFavoriteRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDeleteVacancyFromFavoriteRequest) HHUserAgent(hHUserAgent string) ApiDeleteVacancyFromFavoriteRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -5532,7 +5532,7 @@ func (r ApiDeleteVacancyFromFavoriteRequest) Locale(locale string) ApiDeleteVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDeleteVacancyFromFavoriteRequest) Host(host string) ApiDeleteVacancyFromFavoriteRequest {
 	r.host = &host
 	return r
@@ -5676,7 +5676,7 @@ func (r ApiDisableAutomaticVacancyPublicationRequest) DraftId(draftId string) Ap
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiDisableAutomaticVacancyPublicationRequest) HHUserAgent(hHUserAgent string) ApiDisableAutomaticVacancyPublicationRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -5688,7 +5688,7 @@ func (r ApiDisableAutomaticVacancyPublicationRequest) Locale(locale string) ApiD
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiDisableAutomaticVacancyPublicationRequest) Host(host string) ApiDisableAutomaticVacancyPublicationRequest {
 	r.host = &host
 	return r
@@ -5837,7 +5837,7 @@ type ApiEditArtifactRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiEditArtifactRequest) HHUserAgent(hHUserAgent string) ApiEditArtifactRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -5855,7 +5855,7 @@ func (r ApiEditArtifactRequest) Locale(locale string) ApiEditArtifactRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiEditArtifactRequest) Host(host string) ApiEditArtifactRequest {
 	r.host = &host
 	return r
@@ -6011,7 +6011,7 @@ type ApiEditCurrentUserInfoRequest struct {
 	isInSearch *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiEditCurrentUserInfoRequest) HHUserAgent(hHUserAgent string) ApiEditCurrentUserInfoRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -6023,7 +6023,7 @@ func (r ApiEditCurrentUserInfoRequest) Locale(locale string) ApiEditCurrentUserI
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiEditCurrentUserInfoRequest) Host(host string) ApiEditCurrentUserInfoRequest {
 	r.host = &host
 	return r
@@ -6196,7 +6196,7 @@ type ApiEditEmployerManagerRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiEditEmployerManagerRequest) HHUserAgent(hHUserAgent string) ApiEditEmployerManagerRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -6213,7 +6213,7 @@ func (r ApiEditEmployerManagerRequest) Locale(locale string) ApiEditEmployerMana
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiEditEmployerManagerRequest) Host(host string) ApiEditEmployerManagerRequest {
 	r.host = &host
 	return r
@@ -6369,7 +6369,7 @@ type ApiEditNegotiationMessageRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiEditNegotiationMessageRequest) HHUserAgent(hHUserAgent string) ApiEditNegotiationMessageRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -6381,7 +6381,7 @@ func (r ApiEditNegotiationMessageRequest) Locale(locale string) ApiEditNegotiati
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiEditNegotiationMessageRequest) Host(host string) ApiEditNegotiationMessageRequest {
 	r.host = &host
 	return r
@@ -6533,7 +6533,7 @@ type ApiEditResumeRequest struct {
 	resumeEditResumeRequest *ResumeEditResumeRequest
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiEditResumeRequest) HHUserAgent(hHUserAgent string) ApiEditResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -6545,7 +6545,7 @@ func (r ApiEditResumeRequest) Locale(locale string) ApiEditResumeRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiEditResumeRequest) Host(host string) ApiEditResumeRequest {
 	r.host = &host
 	return r
@@ -6714,7 +6714,7 @@ type ApiEditVacancyRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiEditVacancyRequest) HHUserAgent(hHUserAgent string) ApiEditVacancyRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -6737,7 +6737,7 @@ func (r ApiEditVacancyRequest) Locale(locale string) ApiEditVacancyRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiEditVacancyRequest) Host(host string) ApiEditVacancyRequest {
 	r.host = &host
 	return r
@@ -6853,7 +6853,7 @@ func (a *DefaultApiService) EditVacancyExecute(r ApiEditVacancyRequest) (*http.R
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v EditVacancy400Response
+			var v ErrorsVacancyAddEditCombinedBadJsonDataErrors
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -6890,6 +6890,245 @@ func (a *DefaultApiService) EditVacancyExecute(r ApiEditVacancyRequest) (*http.R
 	return localVarHTTPResponse, nil
 }
 
+type ApiGetActiveNegotiationsRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	hHUserAgent *string
+	page *float32
+	perPage *float32
+	orderBy *string
+	order *string
+	vacancyId *string
+	hasUpdates *bool
+	withJobSearchStatus *bool
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiGetActiveNegotiationsRequest) HHUserAgent(hHUserAgent string) ApiGetActiveNegotiationsRequest {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Номер страницы
+func (r ApiGetActiveNegotiationsRequest) Page(page float32) ApiGetActiveNegotiationsRequest {
+	r.page = &page
+	return r
+}
+
+// Количество элементов на странице
+func (r ApiGetActiveNegotiationsRequest) PerPage(perPage float32) ApiGetActiveNegotiationsRequest {
+	r.perPage = &perPage
+	return r
+}
+
+// Тип сортировки. Возможные значения указаны в поле &#x60;negotiations_order&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+func (r ApiGetActiveNegotiationsRequest) OrderBy(orderBy string) ApiGetActiveNegotiationsRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// Направление сортировки. Возможные значения: &#x60;asc&#x60; — по возрастанию, &#x60;desc&#x60; — по убыванию
+func (r ApiGetActiveNegotiationsRequest) Order(order string) ApiGetActiveNegotiationsRequest {
+	r.order = &order
+	return r
+}
+
+// Фильтр по ID вакансии
+func (r ApiGetActiveNegotiationsRequest) VacancyId(vacancyId string) ApiGetActiveNegotiationsRequest {
+	r.vacancyId = &vacancyId
+	return r
+}
+
+// Если передан &#x60;true&#x60;, запрос вернет только те отклики, для которых есть непросмотренные сообщения. По умолчанию &#x60;false&#x60; 
+func (r ApiGetActiveNegotiationsRequest) HasUpdates(hasUpdates bool) ApiGetActiveNegotiationsRequest {
+	r.hasUpdates = &hasUpdates
+	return r
+}
+
+// Если передан &#x60;true&#x60;, запрос вернет статус поиска работы кандидатом 
+func (r ApiGetActiveNegotiationsRequest) WithJobSearchStatus(withJobSearchStatus bool) ApiGetActiveNegotiationsRequest {
+	r.withJobSearchStatus = &withJobSearchStatus
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiGetActiveNegotiationsRequest) Locale(locale string) ApiGetActiveNegotiationsRequest {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiGetActiveNegotiationsRequest) Host(host string) ApiGetActiveNegotiationsRequest {
+	r.host = &host
+	return r
+}
+
+func (r ApiGetActiveNegotiationsRequest) Execute() (*NegotiationsListResponse, *http.Response, error) {
+	return r.ApiService.GetActiveNegotiationsExecute(r)
+}
+
+/*
+GetActiveNegotiations Список активных откликов
+
+Возвращает список активных откликов соискателя.
+
+Запрос является устаревшим и поддерживается для обратной совместимости. Вместо него используйте [запрос списка откликов](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/get-negotiation-list) с параметром `?status=active`
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetActiveNegotiationsRequest
+
+Deprecated
+*/
+func (a *DefaultApiService) GetActiveNegotiations(ctx context.Context) ApiGetActiveNegotiationsRequest {
+	return ApiGetActiveNegotiationsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return NegotiationsListResponse
+// Deprecated
+func (a *DefaultApiService) GetActiveNegotiationsExecute(r ApiGetActiveNegotiationsRequest) (*NegotiationsListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *NegotiationsListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetActiveNegotiations")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/negotiations/active"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
+	} else {
+		var defaultValue float32 = 0
+		r.page = &defaultValue
+	}
+	if r.perPage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "per_page", r.perPage, "")
+	} else {
+		var defaultValue float32 = 20
+		r.perPage = &defaultValue
+	}
+	if r.orderBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order_by", r.orderBy, "")
+	}
+	if r.order != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+	}
+	if r.vacancyId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vacancy_id", r.vacancyId, "")
+	}
+	if r.hasUpdates != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "has_updates", r.hasUpdates, "")
+	}
+	if r.withJobSearchStatus != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "with_job_search_status", r.withJobSearchStatus, "")
+	}
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonBadArgumentErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsCommonBadAuthorizationErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetActiveVacancyListRequest struct {
 	ctx context.Context
 	ApiService *DefaultApiService
@@ -6906,7 +7145,7 @@ type ApiGetActiveVacancyListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetActiveVacancyListRequest) HHUserAgent(hHUserAgent string) ApiGetActiveVacancyListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -6960,7 +7199,7 @@ func (r ApiGetActiveVacancyListRequest) Locale(locale string) ApiGetActiveVacanc
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetActiveVacancyListRequest) Host(host string) ApiGetActiveVacancyListRequest {
 	r.host = &host
 	return r
@@ -7157,7 +7396,7 @@ type ApiGetActiveVacancyList_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetActiveVacancyList_0Request) HHUserAgent(hHUserAgent string) ApiGetActiveVacancyList_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -7211,7 +7450,7 @@ func (r ApiGetActiveVacancyList_0Request) Locale(locale string) ApiGetActiveVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetActiveVacancyList_0Request) Host(host string) ApiGetActiveVacancyList_0Request {
 	r.host = &host
 	return r
@@ -7403,7 +7642,7 @@ type ApiGetAddressRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAddressRequest) HHUserAgent(hHUserAgent string) ApiGetAddressRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -7421,7 +7660,7 @@ func (r ApiGetAddressRequest) Locale(locale string) ApiGetAddressRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAddressRequest) Host(host string) ApiGetAddressRequest {
 	r.host = &host
 	return r
@@ -7577,7 +7816,7 @@ type ApiGetApplicantCommentsListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetApplicantCommentsListRequest) HHUserAgent(hHUserAgent string) ApiGetApplicantCommentsListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -7607,7 +7846,7 @@ func (r ApiGetApplicantCommentsListRequest) Locale(locale string) ApiGetApplican
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetApplicantCommentsListRequest) Host(host string) ApiGetApplicantCommentsListRequest {
 	r.host = &host
 	return r
@@ -7774,7 +8013,7 @@ func (r ApiGetApplicantPhoneInfoRequest) Phone(phone string) ApiGetApplicantPhon
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetApplicantPhoneInfoRequest) HHUserAgent(hHUserAgent string) ApiGetApplicantPhoneInfoRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -7786,7 +8025,7 @@ func (r ApiGetApplicantPhoneInfoRequest) Locale(locale string) ApiGetApplicantPh
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetApplicantPhoneInfoRequest) Host(host string) ApiGetApplicantPhoneInfoRequest {
 	r.host = &host
 	return r
@@ -7938,7 +8177,7 @@ type ApiGetArchivedVacanciesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetArchivedVacanciesRequest) HHUserAgent(hHUserAgent string) ApiGetArchivedVacanciesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -7956,13 +8195,13 @@ func (r ApiGetArchivedVacanciesRequest) OrderBy(orderBy string) ApiGetArchivedVa
 	return r
 }
 
-// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
+// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
 func (r ApiGetArchivedVacanciesRequest) PerPage(perPage int32) ApiGetArchivedVacanciesRequest {
 	r.perPage = &perPage
 	return r
 }
 
-// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). По умолчанию нумерация начинается с 0 страницы 
+// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). По умолчанию нумерация начинается с 0 страницы 
 func (r ApiGetArchivedVacanciesRequest) Page(page int32) ApiGetArchivedVacanciesRequest {
 	r.page = &page
 	return r
@@ -7974,7 +8213,7 @@ func (r ApiGetArchivedVacanciesRequest) Locale(locale string) ApiGetArchivedVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetArchivedVacanciesRequest) Host(host string) ApiGetArchivedVacanciesRequest {
 	r.host = &host
 	return r
@@ -8148,7 +8387,7 @@ type ApiGetArchivedVacancies_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetArchivedVacancies_0Request) HHUserAgent(hHUserAgent string) ApiGetArchivedVacancies_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -8166,13 +8405,13 @@ func (r ApiGetArchivedVacancies_0Request) OrderBy(orderBy string) ApiGetArchived
 	return r
 }
 
-// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
+// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
 func (r ApiGetArchivedVacancies_0Request) PerPage(perPage int32) ApiGetArchivedVacancies_0Request {
 	r.perPage = &perPage
 	return r
 }
 
-// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). По умолчанию нумерация начинается с 0 страницы 
+// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). По умолчанию нумерация начинается с 0 страницы 
 func (r ApiGetArchivedVacancies_0Request) Page(page int32) ApiGetArchivedVacancies_0Request {
 	r.page = &page
 	return r
@@ -8184,7 +8423,7 @@ func (r ApiGetArchivedVacancies_0Request) Locale(locale string) ApiGetArchivedVa
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetArchivedVacancies_0Request) Host(host string) ApiGetArchivedVacancies_0Request {
 	r.host = &host
 	return r
@@ -8361,7 +8600,7 @@ func (r ApiGetAreaLeavesSuggestsRequest) Text(text string) ApiGetAreaLeavesSugge
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAreaLeavesSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetAreaLeavesSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -8379,7 +8618,7 @@ func (r ApiGetAreaLeavesSuggestsRequest) Locale(locale string) ApiGetAreaLeavesS
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAreaLeavesSuggestsRequest) Host(host string) ApiGetAreaLeavesSuggestsRequest {
 	r.host = &host
 	return r
@@ -8521,7 +8760,7 @@ type ApiGetAreasRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAreasRequest) HHUserAgent(hHUserAgent string) ApiGetAreasRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -8539,7 +8778,7 @@ func (r ApiGetAreasRequest) Locale(locale string) ApiGetAreasRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAreasRequest) Host(host string) ApiGetAreasRequest {
 	r.host = &host
 	return r
@@ -8681,7 +8920,7 @@ type ApiGetAreasFromSpecifiedRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAreasFromSpecifiedRequest) HHUserAgent(hHUserAgent string) ApiGetAreasFromSpecifiedRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -8699,7 +8938,7 @@ func (r ApiGetAreasFromSpecifiedRequest) Locale(locale string) ApiGetAreasFromSp
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAreasFromSpecifiedRequest) Host(host string) ApiGetAreasFromSpecifiedRequest {
 	r.host = &host
 	return r
@@ -8851,7 +9090,7 @@ func (r ApiGetAreasSuggestsRequest) Text(text string) ApiGetAreasSuggestsRequest
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAreasSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetAreasSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -8875,7 +9114,7 @@ func (r ApiGetAreasSuggestsRequest) Locale(locale string) ApiGetAreasSuggestsReq
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAreasSuggestsRequest) Host(host string) ApiGetAreasSuggestsRequest {
 	r.host = &host
 	return r
@@ -9022,7 +9261,7 @@ type ApiGetArtifactPhotosRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetArtifactPhotosRequest) HHUserAgent(hHUserAgent string) ApiGetArtifactPhotosRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9034,7 +9273,7 @@ func (r ApiGetArtifactPhotosRequest) Locale(locale string) ApiGetArtifactPhotosR
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetArtifactPhotosRequest) Host(host string) ApiGetArtifactPhotosRequest {
 	r.host = &host
 	return r
@@ -9168,7 +9407,7 @@ type ApiGetArtifactPhotosConditionsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetArtifactPhotosConditionsRequest) HHUserAgent(hHUserAgent string) ApiGetArtifactPhotosConditionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9180,7 +9419,7 @@ func (r ApiGetArtifactPhotosConditionsRequest) Locale(locale string) ApiGetArtif
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetArtifactPhotosConditionsRequest) Host(host string) ApiGetArtifactPhotosConditionsRequest {
 	r.host = &host
 	return r
@@ -9312,7 +9551,7 @@ type ApiGetArtifactsPortfolioRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetArtifactsPortfolioRequest) HHUserAgent(hHUserAgent string) ApiGetArtifactsPortfolioRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9324,7 +9563,7 @@ func (r ApiGetArtifactsPortfolioRequest) Locale(locale string) ApiGetArtifactsPo
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetArtifactsPortfolioRequest) Host(host string) ApiGetArtifactsPortfolioRequest {
 	r.host = &host
 	return r
@@ -9458,7 +9697,7 @@ type ApiGetArtifactsPortfolioConditionsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetArtifactsPortfolioConditionsRequest) HHUserAgent(hHUserAgent string) ApiGetArtifactsPortfolioConditionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9470,7 +9709,7 @@ func (r ApiGetArtifactsPortfolioConditionsRequest) Locale(locale string) ApiGetA
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetArtifactsPortfolioConditionsRequest) Host(host string) ApiGetArtifactsPortfolioConditionsRequest {
 	r.host = &host
 	return r
@@ -9602,7 +9841,7 @@ type ApiGetAvailableUserStatusesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAvailableUserStatusesRequest) HHUserAgent(hHUserAgent string) ApiGetAvailableUserStatusesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9614,7 +9853,7 @@ func (r ApiGetAvailableUserStatusesRequest) Locale(locale string) ApiGetAvailabl
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAvailableUserStatusesRequest) Host(host string) ApiGetAvailableUserStatusesRequest {
 	r.host = &host
 	return r
@@ -9751,7 +9990,7 @@ type ApiGetAvailableUserStatuses_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAvailableUserStatuses_0Request) HHUserAgent(hHUserAgent string) ApiGetAvailableUserStatuses_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9763,7 +10002,7 @@ func (r ApiGetAvailableUserStatuses_0Request) Locale(locale string) ApiGetAvaila
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAvailableUserStatuses_0Request) Host(host string) ApiGetAvailableUserStatuses_0Request {
 	r.host = &host
 	return r
@@ -9902,7 +10141,7 @@ type ApiGetAvailableVacancyTypesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetAvailableVacancyTypesRequest) HHUserAgent(hHUserAgent string) ApiGetAvailableVacancyTypesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -9914,7 +10153,7 @@ func (r ApiGetAvailableVacancyTypesRequest) Locale(locale string) ApiGetAvailabl
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetAvailableVacancyTypesRequest) Host(host string) ApiGetAvailableVacancyTypesRequest {
 	r.host = &host
 	return r
@@ -10065,7 +10304,7 @@ type ApiGetBlacklistedEmployersRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetBlacklistedEmployersRequest) HHUserAgent(hHUserAgent string) ApiGetBlacklistedEmployersRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10077,7 +10316,7 @@ func (r ApiGetBlacklistedEmployersRequest) Locale(locale string) ApiGetBlacklist
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetBlacklistedEmployersRequest) Host(host string) ApiGetBlacklistedEmployersRequest {
 	r.host = &host
 	return r
@@ -10211,7 +10450,7 @@ type ApiGetBlacklistedVacanciesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetBlacklistedVacanciesRequest) HHUserAgent(hHUserAgent string) ApiGetBlacklistedVacanciesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10223,7 +10462,7 @@ func (r ApiGetBlacklistedVacanciesRequest) Locale(locale string) ApiGetBlacklist
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetBlacklistedVacanciesRequest) Host(host string) ApiGetBlacklistedVacanciesRequest {
 	r.host = &host
 	return r
@@ -10357,7 +10596,7 @@ type ApiGetCountriesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetCountriesRequest) HHUserAgent(hHUserAgent string) ApiGetCountriesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10369,7 +10608,7 @@ func (r ApiGetCountriesRequest) Locale(locale string) ApiGetCountriesRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetCountriesRequest) Host(host string) ApiGetCountriesRequest {
 	r.host = &host
 	return r
@@ -10493,7 +10732,7 @@ type ApiGetCurrentUserInfoRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetCurrentUserInfoRequest) HHUserAgent(hHUserAgent string) ApiGetCurrentUserInfoRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10505,7 +10744,7 @@ func (r ApiGetCurrentUserInfoRequest) Locale(locale string) ApiGetCurrentUserInf
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetCurrentUserInfoRequest) Host(host string) ApiGetCurrentUserInfoRequest {
 	r.host = &host
 	return r
@@ -10637,7 +10876,7 @@ type ApiGetCurrentUserInfo_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetCurrentUserInfo_0Request) HHUserAgent(hHUserAgent string) ApiGetCurrentUserInfo_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10649,7 +10888,7 @@ func (r ApiGetCurrentUserInfo_0Request) Locale(locale string) ApiGetCurrentUserI
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetCurrentUserInfo_0Request) Host(host string) ApiGetCurrentUserInfo_0Request {
 	r.host = &host
 	return r
@@ -10781,7 +11020,7 @@ type ApiGetCurrentUserInfo_1Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetCurrentUserInfo_1Request) HHUserAgent(hHUserAgent string) ApiGetCurrentUserInfo_1Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10793,7 +11032,7 @@ func (r ApiGetCurrentUserInfo_1Request) Locale(locale string) ApiGetCurrentUserI
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetCurrentUserInfo_1Request) Host(host string) ApiGetCurrentUserInfo_1Request {
 	r.host = &host
 	return r
@@ -10925,7 +11164,7 @@ type ApiGetCurrentUserInfo_2Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetCurrentUserInfo_2Request) HHUserAgent(hHUserAgent string) ApiGetCurrentUserInfo_2Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -10937,7 +11176,7 @@ func (r ApiGetCurrentUserInfo_2Request) Locale(locale string) ApiGetCurrentUserI
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetCurrentUserInfo_2Request) Host(host string) ApiGetCurrentUserInfo_2Request {
 	r.host = &host
 	return r
@@ -11069,7 +11308,7 @@ type ApiGetCurrentUserInfo_3Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetCurrentUserInfo_3Request) HHUserAgent(hHUserAgent string) ApiGetCurrentUserInfo_3Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -11081,7 +11320,7 @@ func (r ApiGetCurrentUserInfo_3Request) Locale(locale string) ApiGetCurrentUserI
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetCurrentUserInfo_3Request) Host(host string) ApiGetCurrentUserInfo_3Request {
 	r.host = &host
 	return r
@@ -11213,7 +11452,7 @@ type ApiGetDictionariesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetDictionariesRequest) HHUserAgent(hHUserAgent string) ApiGetDictionariesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -11225,7 +11464,7 @@ func (r ApiGetDictionariesRequest) Locale(locale string) ApiGetDictionariesReque
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetDictionariesRequest) Host(host string) ApiGetDictionariesRequest {
 	r.host = &host
 	return r
@@ -11356,7 +11595,7 @@ func (r ApiGetEducationalInstitutionsDictionaryRequest) Id(id string) ApiGetEduc
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEducationalInstitutionsDictionaryRequest) HHUserAgent(hHUserAgent string) ApiGetEducationalInstitutionsDictionaryRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -11368,7 +11607,7 @@ func (r ApiGetEducationalInstitutionsDictionaryRequest) Locale(locale string) Ap
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEducationalInstitutionsDictionaryRequest) Host(host string) ApiGetEducationalInstitutionsDictionaryRequest {
 	r.host = &host
 	return r
@@ -11511,7 +11750,7 @@ func (r ApiGetEducationalInstitutionsSuggestsRequest) Text(text string) ApiGetEd
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEducationalInstitutionsSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetEducationalInstitutionsSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -11523,7 +11762,7 @@ func (r ApiGetEducationalInstitutionsSuggestsRequest) Locale(locale string) ApiG
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEducationalInstitutionsSuggestsRequest) Host(host string) ApiGetEducationalInstitutionsSuggestsRequest {
 	r.host = &host
 	return r
@@ -11667,13 +11906,13 @@ type ApiGetEmployerAddressesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerAddressesRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerAddressesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
 }
 
-// Позволяет загрузить все адреса, изменённые после этой даты (добавление, удаление или изменение адреса). Изменения возвращаются без пагинации. Значение указывается в формате [ISO 8601](https://github.com/hhru/api/blob/master/docs/general.md#date-format) - &#x60;YYYY-MM-DDThh:mm:ss&#x60; или c указанием отступа для часового пояса &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Максимальное значение отступа от текущей даты - 7 дней. При передаче этого параметра, для каждого адреса в теле ответа возвращается поле &#x60;deleted&#x60;, указывающее на то, удалён ли адрес
+// Позволяет загрузить все адреса, изменённые после этой даты (добавление, удаление или изменение адреса). Изменения возвращаются без пагинации. Значение указывается в формате [ISO 8601](#date-format) - &#x60;YYYY-MM-DDThh:mm:ss&#x60; или c указанием отступа для часового пояса &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Максимальное значение отступа от текущей даты - 7 дней. При передаче этого параметра, для каждого адреса в теле ответа возвращается поле &#x60;deleted&#x60;, указывающее на то, удалён ли адрес
 func (r ApiGetEmployerAddressesRequest) ChangedAfter(changedAfter string) ApiGetEmployerAddressesRequest {
 	r.changedAfter = &changedAfter
 	return r
@@ -11691,13 +11930,13 @@ func (r ApiGetEmployerAddressesRequest) WithManager(withManager bool) ApiGetEmpl
 	return r
 }
 
-// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). Значение по умолчанию и максимальное значение per_page составляет 10000 
+// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). Значение по умолчанию и максимальное значение per_page составляет 10000 
 func (r ApiGetEmployerAddressesRequest) PerPage(perPage int32) ApiGetEmployerAddressesRequest {
 	r.perPage = &perPage
 	return r
 }
 
-// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). По умолчанию нумерация начинается с 0 страницы 
+// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). По умолчанию нумерация начинается с 0 страницы 
 func (r ApiGetEmployerAddressesRequest) Page(page int32) ApiGetEmployerAddressesRequest {
 	r.page = &page
 	return r
@@ -11709,7 +11948,7 @@ func (r ApiGetEmployerAddressesRequest) Locale(locale string) ApiGetEmployerAddr
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerAddressesRequest) Host(host string) ApiGetEmployerAddressesRequest {
 	r.host = &host
 	return r
@@ -11884,7 +12123,7 @@ type ApiGetEmployerDepartmentsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerDepartmentsRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerDepartmentsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -11896,7 +12135,7 @@ func (r ApiGetEmployerDepartmentsRequest) Locale(locale string) ApiGetEmployerDe
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerDepartmentsRequest) Host(host string) ApiGetEmployerDepartmentsRequest {
 	r.host = &host
 	return r
@@ -12048,7 +12287,7 @@ type ApiGetEmployerDepartments_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerDepartments_0Request) HHUserAgent(hHUserAgent string) ApiGetEmployerDepartments_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -12060,7 +12299,7 @@ func (r ApiGetEmployerDepartments_0Request) Locale(locale string) ApiGetEmployer
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerDepartments_0Request) Host(host string) ApiGetEmployerDepartments_0Request {
 	r.host = &host
 	return r
@@ -12212,7 +12451,7 @@ type ApiGetEmployerInfoRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerInfoRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerInfoRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -12224,7 +12463,7 @@ func (r ApiGetEmployerInfoRequest) Locale(locale string) ApiGetEmployerInfoReque
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerInfoRequest) Host(host string) ApiGetEmployerInfoRequest {
 	r.host = &host
 	return r
@@ -12363,7 +12602,7 @@ type ApiGetEmployerManagerRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManagerRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerManagerRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -12375,7 +12614,7 @@ func (r ApiGetEmployerManagerRequest) Locale(locale string) ApiGetEmployerManage
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManagerRequest) Host(host string) ApiGetEmployerManagerRequest {
 	r.host = &host
 	return r
@@ -12515,7 +12754,7 @@ type ApiGetEmployerManagerLimitsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManagerLimitsRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerManagerLimitsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -12527,7 +12766,7 @@ func (r ApiGetEmployerManagerLimitsRequest) Locale(locale string) ApiGetEmployer
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManagerLimitsRequest) Host(host string) ApiGetEmployerManagerLimitsRequest {
 	r.host = &host
 	return r
@@ -12679,7 +12918,7 @@ type ApiGetEmployerManagerTypesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManagerTypesRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerManagerTypesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -12691,7 +12930,7 @@ func (r ApiGetEmployerManagerTypesRequest) Locale(locale string) ApiGetEmployerM
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManagerTypesRequest) Host(host string) ApiGetEmployerManagerTypesRequest {
 	r.host = &host
 	return r
@@ -12838,7 +13077,7 @@ type ApiGetEmployerManagerTypes_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManagerTypes_0Request) HHUserAgent(hHUserAgent string) ApiGetEmployerManagerTypes_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -12850,7 +13089,7 @@ func (r ApiGetEmployerManagerTypes_0Request) Locale(locale string) ApiGetEmploye
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManagerTypes_0Request) Host(host string) ApiGetEmployerManagerTypes_0Request {
 	r.host = &host
 	return r
@@ -12998,7 +13237,7 @@ type ApiGetEmployerManager_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManager_0Request) HHUserAgent(hHUserAgent string) ApiGetEmployerManager_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -13010,7 +13249,7 @@ func (r ApiGetEmployerManager_0Request) Locale(locale string) ApiGetEmployerMana
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManager_0Request) Host(host string) ApiGetEmployerManager_0Request {
 	r.host = &host
 	return r
@@ -13151,7 +13390,7 @@ type ApiGetEmployerManagersRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManagersRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerManagersRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -13175,7 +13414,7 @@ func (r ApiGetEmployerManagersRequest) Locale(locale string) ApiGetEmployerManag
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManagersRequest) Host(host string) ApiGetEmployerManagersRequest {
 	r.host = &host
 	return r
@@ -13336,7 +13575,7 @@ type ApiGetEmployerManagers_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerManagers_0Request) HHUserAgent(hHUserAgent string) ApiGetEmployerManagers_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -13360,7 +13599,7 @@ func (r ApiGetEmployerManagers_0Request) Locale(locale string) ApiGetEmployerMan
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerManagers_0Request) Host(host string) ApiGetEmployerManagers_0Request {
 	r.host = &host
 	return r
@@ -13519,7 +13758,7 @@ type ApiGetEmployerVacancyAreasRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetEmployerVacancyAreasRequest) HHUserAgent(hHUserAgent string) ApiGetEmployerVacancyAreasRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -13531,7 +13770,7 @@ func (r ApiGetEmployerVacancyAreasRequest) Locale(locale string) ApiGetEmployerV
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetEmployerVacancyAreasRequest) Host(host string) ApiGetEmployerVacancyAreasRequest {
 	r.host = &host
 	return r
@@ -13694,7 +13933,7 @@ type ApiGetFacultiesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetFacultiesRequest) HHUserAgent(hHUserAgent string) ApiGetFacultiesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -13706,7 +13945,7 @@ func (r ApiGetFacultiesRequest) Locale(locale string) ApiGetFacultiesRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetFacultiesRequest) Host(host string) ApiGetFacultiesRequest {
 	r.host = &host
 	return r
@@ -13845,7 +14084,7 @@ type ApiGetFavoriteVacanciesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetFavoriteVacanciesRequest) HHUserAgent(hHUserAgent string) ApiGetFavoriteVacanciesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -13869,7 +14108,7 @@ func (r ApiGetFavoriteVacanciesRequest) Locale(locale string) ApiGetFavoriteVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetFavoriteVacanciesRequest) Host(host string) ApiGetFavoriteVacanciesRequest {
 	r.host = &host
 	return r
@@ -14016,7 +14255,7 @@ func (r ApiGetFieldsOfStudySuggestionsRequest) Text(text string) ApiGetFieldsOfS
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetFieldsOfStudySuggestionsRequest) HHUserAgent(hHUserAgent string) ApiGetFieldsOfStudySuggestionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -14028,7 +14267,7 @@ func (r ApiGetFieldsOfStudySuggestionsRequest) Locale(locale string) ApiGetField
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetFieldsOfStudySuggestionsRequest) Host(host string) ApiGetFieldsOfStudySuggestionsRequest {
 	r.host = &host
 	return r
@@ -14169,7 +14408,7 @@ type ApiGetHiddenVacanciesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetHiddenVacanciesRequest) HHUserAgent(hHUserAgent string) ApiGetHiddenVacanciesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -14187,13 +14426,13 @@ func (r ApiGetHiddenVacanciesRequest) OrderBy(orderBy string) ApiGetHiddenVacanc
 	return r
 }
 
-// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
+// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
 func (r ApiGetHiddenVacanciesRequest) PerPage(perPage int32) ApiGetHiddenVacanciesRequest {
 	r.perPage = &perPage
 	return r
 }
 
-// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). По умолчанию нумерация начинается с 0 страницы 
+// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). По умолчанию нумерация начинается с 0 страницы 
 func (r ApiGetHiddenVacanciesRequest) Page(page int32) ApiGetHiddenVacanciesRequest {
 	r.page = &page
 	return r
@@ -14205,7 +14444,7 @@ func (r ApiGetHiddenVacanciesRequest) Locale(locale string) ApiGetHiddenVacancie
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetHiddenVacanciesRequest) Host(host string) ApiGetHiddenVacanciesRequest {
 	r.host = &host
 	return r
@@ -14379,7 +14618,7 @@ type ApiGetHiddenVacancies_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetHiddenVacancies_0Request) HHUserAgent(hHUserAgent string) ApiGetHiddenVacancies_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -14397,13 +14636,13 @@ func (r ApiGetHiddenVacancies_0Request) OrderBy(orderBy string) ApiGetHiddenVaca
 	return r
 }
 
-// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
+// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). Значение по умолчанию и максимальное значение &#x60;per_page&#x60; составляет 1000 
 func (r ApiGetHiddenVacancies_0Request) PerPage(perPage int32) ApiGetHiddenVacancies_0Request {
 	r.perPage = &perPage
 	return r
 }
 
-// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). По умолчанию нумерация начинается с 0 страницы 
+// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). По умолчанию нумерация начинается с 0 страницы 
 func (r ApiGetHiddenVacancies_0Request) Page(page int32) ApiGetHiddenVacancies_0Request {
 	r.page = &page
 	return r
@@ -14415,7 +14654,7 @@ func (r ApiGetHiddenVacancies_0Request) Locale(locale string) ApiGetHiddenVacanc
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetHiddenVacancies_0Request) Host(host string) ApiGetHiddenVacancies_0Request {
 	r.host = &host
 	return r
@@ -14584,7 +14823,7 @@ type ApiGetIndustriesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetIndustriesRequest) HHUserAgent(hHUserAgent string) ApiGetIndustriesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -14596,7 +14835,7 @@ func (r ApiGetIndustriesRequest) Locale(locale string) ApiGetIndustriesRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetIndustriesRequest) Host(host string) ApiGetIndustriesRequest {
 	r.host = &host
 	return r
@@ -14720,7 +14959,7 @@ type ApiGetLanguagesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetLanguagesRequest) HHUserAgent(hHUserAgent string) ApiGetLanguagesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -14732,7 +14971,7 @@ func (r ApiGetLanguagesRequest) Locale(locale string) ApiGetLanguagesRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetLanguagesRequest) Host(host string) ApiGetLanguagesRequest {
 	r.host = &host
 	return r
@@ -14854,7 +15093,7 @@ type ApiGetLocalesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetLocalesRequest) HHUserAgent(hHUserAgent string) ApiGetLocalesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -14866,7 +15105,7 @@ func (r ApiGetLocalesRequest) Locale(locale string) ApiGetLocalesRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetLocalesRequest) Host(host string) ApiGetLocalesRequest {
 	r.host = &host
 	return r
@@ -14991,7 +15230,7 @@ type ApiGetLocalesForResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetLocalesForResumeRequest) HHUserAgent(hHUserAgent string) ApiGetLocalesForResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15003,7 +15242,7 @@ func (r ApiGetLocalesForResumeRequest) Locale(locale string) ApiGetLocalesForRes
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetLocalesForResumeRequest) Host(host string) ApiGetLocalesForResumeRequest {
 	r.host = &host
 	return r
@@ -15131,7 +15370,7 @@ type ApiGetMailTemplatesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetMailTemplatesRequest) HHUserAgent(hHUserAgent string) ApiGetMailTemplatesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15143,7 +15382,7 @@ func (r ApiGetMailTemplatesRequest) Locale(locale string) ApiGetMailTemplatesReq
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetMailTemplatesRequest) Host(host string) ApiGetMailTemplatesRequest {
 	r.host = &host
 	return r
@@ -15292,7 +15531,7 @@ type ApiGetManagerAccountsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetManagerAccountsRequest) HHUserAgent(hHUserAgent string) ApiGetManagerAccountsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15304,7 +15543,7 @@ func (r ApiGetManagerAccountsRequest) Locale(locale string) ApiGetManagerAccount
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetManagerAccountsRequest) Host(host string) ApiGetManagerAccountsRequest {
 	r.host = &host
 	return r
@@ -15449,7 +15688,7 @@ type ApiGetManagerSettingsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetManagerSettingsRequest) HHUserAgent(hHUserAgent string) ApiGetManagerSettingsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15461,7 +15700,7 @@ func (r ApiGetManagerSettingsRequest) Locale(locale string) ApiGetManagerSetting
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetManagerSettingsRequest) Host(host string) ApiGetManagerSettingsRequest {
 	r.host = &host
 	return r
@@ -15620,7 +15859,7 @@ type ApiGetMetroStationsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetMetroStationsRequest) HHUserAgent(hHUserAgent string) ApiGetMetroStationsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15632,7 +15871,7 @@ func (r ApiGetMetroStationsRequest) Locale(locale string) ApiGetMetroStationsReq
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetMetroStationsRequest) Host(host string) ApiGetMetroStationsRequest {
 	r.host = &host
 	return r
@@ -15755,7 +15994,7 @@ type ApiGetMetroStationsInCityRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetMetroStationsInCityRequest) HHUserAgent(hHUserAgent string) ApiGetMetroStationsInCityRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15767,7 +16006,7 @@ func (r ApiGetMetroStationsInCityRequest) Locale(locale string) ApiGetMetroStati
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetMetroStationsInCityRequest) Host(host string) ApiGetMetroStationsInCityRequest {
 	r.host = &host
 	return r
@@ -15902,7 +16141,7 @@ type ApiGetMineResumesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetMineResumesRequest) HHUserAgent(hHUserAgent string) ApiGetMineResumesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -15914,7 +16153,7 @@ func (r ApiGetMineResumesRequest) Locale(locale string) ApiGetMineResumesRequest
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetMineResumesRequest) Host(host string) ApiGetMineResumesRequest {
 	r.host = &host
 	return r
@@ -16038,6 +16277,254 @@ func (a *DefaultApiService) GetMineResumesExecute(r ApiGetMineResumesRequest) (*
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetNegotiationsRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	hHUserAgent *string
+	page *float32
+	perPage *float32
+	orderBy *string
+	order *string
+	vacancyId *string
+	status *string
+	hasUpdates *bool
+	withJobSearchStatus *bool
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiGetNegotiationsRequest) HHUserAgent(hHUserAgent string) ApiGetNegotiationsRequest {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Номер страницы
+func (r ApiGetNegotiationsRequest) Page(page float32) ApiGetNegotiationsRequest {
+	r.page = &page
+	return r
+}
+
+// Количество элементов на странице
+func (r ApiGetNegotiationsRequest) PerPage(perPage float32) ApiGetNegotiationsRequest {
+	r.perPage = &perPage
+	return r
+}
+
+// Тип сортировки. Возможные значения указаны в поле &#x60;negotiations_order&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+func (r ApiGetNegotiationsRequest) OrderBy(orderBy string) ApiGetNegotiationsRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// Направление сортировки. Возможные значения: &#x60;asc&#x60; — по возрастанию, &#x60;desc&#x60; — по убыванию
+func (r ApiGetNegotiationsRequest) Order(order string) ApiGetNegotiationsRequest {
+	r.order = &order
+	return r
+}
+
+// Фильтр по ID вакансии
+func (r ApiGetNegotiationsRequest) VacancyId(vacancyId string) ApiGetNegotiationsRequest {
+	r.vacancyId = &vacancyId
+	return r
+}
+
+// Запрос вернет только те отклики, которые находятся в определенном статусе.  Возможные значения указаны в поле &#x60;applicant_negotiation_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+func (r ApiGetNegotiationsRequest) Status(status string) ApiGetNegotiationsRequest {
+	r.status = &status
+	return r
+}
+
+// Если передан &#x60;true&#x60;, запрос вернет только те отклики, для которых есть непросмотренные сообщения. По умолчанию &#x60;false&#x60; 
+func (r ApiGetNegotiationsRequest) HasUpdates(hasUpdates bool) ApiGetNegotiationsRequest {
+	r.hasUpdates = &hasUpdates
+	return r
+}
+
+// Если передан &#x60;true&#x60;, запрос вернет статус поиска работы кандидатом 
+func (r ApiGetNegotiationsRequest) WithJobSearchStatus(withJobSearchStatus bool) ApiGetNegotiationsRequest {
+	r.withJobSearchStatus = &withJobSearchStatus
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiGetNegotiationsRequest) Locale(locale string) ApiGetNegotiationsRequest {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiGetNegotiationsRequest) Host(host string) ApiGetNegotiationsRequest {
+	r.host = &host
+	return r
+}
+
+func (r ApiGetNegotiationsRequest) Execute() (*NegotiationsListResponse, *http.Response, error) {
+	return r.ApiService.GetNegotiationsExecute(r)
+}
+
+/*
+GetNegotiations Список откликов
+
+Возвращает список откликов соискателя.
+
+По умолчанию отклики сортируются по дате последнего обновления — от новых к старым.
+
+Чтобы получить список активных откликов, передайте в запросе параметр `?status=active`
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetNegotiationsRequest
+*/
+func (a *DefaultApiService) GetNegotiations(ctx context.Context) ApiGetNegotiationsRequest {
+	return ApiGetNegotiationsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return NegotiationsListResponse
+func (a *DefaultApiService) GetNegotiationsExecute(r ApiGetNegotiationsRequest) (*NegotiationsListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *NegotiationsListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiations")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/negotiations"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
+	} else {
+		var defaultValue float32 = 0
+		r.page = &defaultValue
+	}
+	if r.perPage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "per_page", r.perPage, "")
+	} else {
+		var defaultValue float32 = 20
+		r.perPage = &defaultValue
+	}
+	if r.orderBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order_by", r.orderBy, "")
+	}
+	if r.order != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order", r.order, "")
+	}
+	if r.vacancyId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vacancy_id", r.vacancyId, "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "")
+	}
+	if r.hasUpdates != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "has_updates", r.hasUpdates, "")
+	}
+	if r.withJobSearchStatus != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "with_job_search_status", r.withJobSearchStatus, "")
+	}
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonBadArgumentErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsCommonBadAuthorizationErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetNewResumeConditionsRequest struct {
 	ctx context.Context
 	ApiService *DefaultApiService
@@ -16046,7 +16533,7 @@ type ApiGetNewResumeConditionsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetNewResumeConditionsRequest) HHUserAgent(hHUserAgent string) ApiGetNewResumeConditionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16058,7 +16545,7 @@ func (r ApiGetNewResumeConditionsRequest) Locale(locale string) ApiGetNewResumeC
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetNewResumeConditionsRequest) Host(host string) ApiGetNewResumeConditionsRequest {
 	r.host = &host
 	return r
@@ -16193,7 +16680,7 @@ type ApiGetPayableApiActionsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetPayableApiActionsRequest) HHUserAgent(hHUserAgent string) ApiGetPayableApiActionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16205,7 +16692,7 @@ func (r ApiGetPayableApiActionsRequest) Locale(locale string) ApiGetPayableApiAc
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetPayableApiActionsRequest) Host(host string) ApiGetPayableApiActionsRequest {
 	r.host = &host
 	return r
@@ -16362,7 +16849,7 @@ func (r ApiGetPositionsSuggestionsRequest) Text(text string) ApiGetPositionsSugg
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetPositionsSuggestionsRequest) HHUserAgent(hHUserAgent string) ApiGetPositionsSuggestionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16374,7 +16861,7 @@ func (r ApiGetPositionsSuggestionsRequest) Locale(locale string) ApiGetPositions
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetPositionsSuggestionsRequest) Host(host string) ApiGetPositionsSuggestionsRequest {
 	r.host = &host
 	return r
@@ -16511,7 +16998,7 @@ type ApiGetPrefNegotiationsOrderRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetPrefNegotiationsOrderRequest) HHUserAgent(hHUserAgent string) ApiGetPrefNegotiationsOrderRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16523,7 +17010,7 @@ func (r ApiGetPrefNegotiationsOrderRequest) Locale(locale string) ApiGetPrefNego
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetPrefNegotiationsOrderRequest) Host(host string) ApiGetPrefNegotiationsOrderRequest {
 	r.host = &host
 	return r
@@ -16658,7 +17145,7 @@ type ApiGetProfessionalRolesDictionaryRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetProfessionalRolesDictionaryRequest) HHUserAgent(hHUserAgent string) ApiGetProfessionalRolesDictionaryRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16670,7 +17157,7 @@ func (r ApiGetProfessionalRolesDictionaryRequest) Locale(locale string) ApiGetPr
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetProfessionalRolesDictionaryRequest) Host(host string) ApiGetProfessionalRolesDictionaryRequest {
 	r.host = &host
 	return r
@@ -16812,7 +17299,7 @@ func (r ApiGetProfessionalRolesSuggestsRequest) Text(text string) ApiGetProfessi
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetProfessionalRolesSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetProfessionalRolesSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16824,7 +17311,7 @@ func (r ApiGetProfessionalRolesSuggestsRequest) Locale(locale string) ApiGetProf
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetProfessionalRolesSuggestsRequest) Host(host string) ApiGetProfessionalRolesSuggestsRequest {
 	r.host = &host
 	return r
@@ -16961,7 +17448,7 @@ type ApiGetProlongationVacancyInfoRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetProlongationVacancyInfoRequest) HHUserAgent(hHUserAgent string) ApiGetProlongationVacancyInfoRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -16973,7 +17460,7 @@ func (r ApiGetProlongationVacancyInfoRequest) Locale(locale string) ApiGetProlon
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetProlongationVacancyInfoRequest) Host(host string) ApiGetProlongationVacancyInfoRequest {
 	r.host = &host
 	return r
@@ -17126,7 +17613,7 @@ func (r ApiGetRegisteredCompaniesSuggestsRequest) Text(text string) ApiGetRegist
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetRegisteredCompaniesSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetRegisteredCompaniesSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -17138,7 +17625,7 @@ func (r ApiGetRegisteredCompaniesSuggestsRequest) Locale(locale string) ApiGetRe
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetRegisteredCompaniesSuggestsRequest) Host(host string) ApiGetRegisteredCompaniesSuggestsRequest {
 	r.host = &host
 	return r
@@ -17280,7 +17767,7 @@ type ApiGetResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeRequest) HHUserAgent(hHUserAgent string) ApiGetResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -17310,7 +17797,7 @@ func (r ApiGetResumeRequest) Locale(locale string) ApiGetResumeRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeRequest) Host(host string) ApiGetResumeRequest {
 	r.host = &host
 	return r
@@ -17487,7 +17974,7 @@ type ApiGetResumeAccessTypesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeAccessTypesRequest) HHUserAgent(hHUserAgent string) ApiGetResumeAccessTypesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -17499,7 +17986,7 @@ func (r ApiGetResumeAccessTypesRequest) Locale(locale string) ApiGetResumeAccess
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeAccessTypesRequest) Host(host string) ApiGetResumeAccessTypesRequest {
 	r.host = &host
 	return r
@@ -17648,7 +18135,7 @@ type ApiGetResumeConditionsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeConditionsRequest) HHUserAgent(hHUserAgent string) ApiGetResumeConditionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -17660,7 +18147,7 @@ func (r ApiGetResumeConditionsRequest) Locale(locale string) ApiGetResumeConditi
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeConditionsRequest) Host(host string) ApiGetResumeConditionsRequest {
 	r.host = &host
 	return r
@@ -17808,7 +18295,7 @@ type ApiGetResumeCreationAvailabilityRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeCreationAvailabilityRequest) HHUserAgent(hHUserAgent string) ApiGetResumeCreationAvailabilityRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -17820,7 +18307,7 @@ func (r ApiGetResumeCreationAvailabilityRequest) Locale(locale string) ApiGetRes
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeCreationAvailabilityRequest) Host(host string) ApiGetResumeCreationAvailabilityRequest {
 	r.host = &host
 	return r
@@ -17953,7 +18440,7 @@ type ApiGetResumeNegotiationsHistoryRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeNegotiationsHistoryRequest) HHUserAgent(hHUserAgent string) ApiGetResumeNegotiationsHistoryRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -17965,7 +18452,7 @@ func (r ApiGetResumeNegotiationsHistoryRequest) Locale(locale string) ApiGetResu
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeNegotiationsHistoryRequest) Host(host string) ApiGetResumeNegotiationsHistoryRequest {
 	r.host = &host
 	return r
@@ -18123,7 +18610,7 @@ func (r ApiGetResumeSearchKeywordsSuggestsRequest) Text(text string) ApiGetResum
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeSearchKeywordsSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetResumeSearchKeywordsSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -18135,7 +18622,7 @@ func (r ApiGetResumeSearchKeywordsSuggestsRequest) Locale(locale string) ApiGetR
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeSearchKeywordsSuggestsRequest) Host(host string) ApiGetResumeSearchKeywordsSuggestsRequest {
 	r.host = &host
 	return r
@@ -18274,7 +18761,7 @@ type ApiGetResumeStatusRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeStatusRequest) HHUserAgent(hHUserAgent string) ApiGetResumeStatusRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -18286,7 +18773,7 @@ func (r ApiGetResumeStatusRequest) Locale(locale string) ApiGetResumeStatusReque
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeStatusRequest) Host(host string) ApiGetResumeStatusRequest {
 	r.host = &host
 	return r
@@ -18436,7 +18923,7 @@ type ApiGetResumeViewHistoryRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeViewHistoryRequest) HHUserAgent(hHUserAgent string) ApiGetResumeViewHistoryRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -18448,7 +18935,7 @@ func (r ApiGetResumeViewHistoryRequest) Locale(locale string) ApiGetResumeViewHi
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeViewHistoryRequest) Host(host string) ApiGetResumeViewHistoryRequest {
 	r.host = &host
 	return r
@@ -18610,19 +19097,19 @@ func (r ApiGetResumeVisibilityEmployersListRequest) Text(text string) ApiGetResu
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeVisibilityEmployersListRequest) HHUserAgent(hHUserAgent string) ApiGetResumeVisibilityEmployersListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
 }
 
-// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). Значение по умолчанию и максимальное значение per_page составляет 100 
+// Количество элементов на странице выдачи. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). Значение по умолчанию и максимальное значение per_page составляет 100 
 func (r ApiGetResumeVisibilityEmployersListRequest) PerPage(perPage int32) ApiGetResumeVisibilityEmployersListRequest {
 	r.perPage = &perPage
 	return r
 }
 
-// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](https://github.com/hhru/api/blob/master/docs/general.md#pagination). По умолчанию нумерация начинается с 0 страницы 
+// Порядковый номер страницы в выдаче. Поддерживаются [стандартные параметры пагинации](#section/Obshaya-informaciya/Paginaciya). По умолчанию нумерация начинается с 0 страницы 
 func (r ApiGetResumeVisibilityEmployersListRequest) Page(page int32) ApiGetResumeVisibilityEmployersListRequest {
 	r.page = &page
 	return r
@@ -18634,7 +19121,7 @@ func (r ApiGetResumeVisibilityEmployersListRequest) Locale(locale string) ApiGet
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeVisibilityEmployersListRequest) Host(host string) ApiGetResumeVisibilityEmployersListRequest {
 	r.host = &host
 	return r
@@ -18808,7 +19295,7 @@ type ApiGetResumeVisibilityListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumeVisibilityListRequest) HHUserAgent(hHUserAgent string) ApiGetResumeVisibilityListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -18820,7 +19307,7 @@ func (r ApiGetResumeVisibilityListRequest) Locale(locale string) ApiGetResumeVis
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumeVisibilityListRequest) Host(host string) ApiGetResumeVisibilityListRequest {
 	r.host = &host
 	return r
@@ -18987,7 +19474,7 @@ type ApiGetResume_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResume_0Request) HHUserAgent(hHUserAgent string) ApiGetResume_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -19017,7 +19504,7 @@ func (r ApiGetResume_0Request) Locale(locale string) ApiGetResume_0Request {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResume_0Request) Host(host string) ApiGetResume_0Request {
 	r.host = &host
 	return r
@@ -19197,7 +19684,7 @@ type ApiGetResume_1Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResume_1Request) HHUserAgent(hHUserAgent string) ApiGetResume_1Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -19227,7 +19714,7 @@ func (r ApiGetResume_1Request) Locale(locale string) ApiGetResume_1Request {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResume_1Request) Host(host string) ApiGetResume_1Request {
 	r.host = &host
 	return r
@@ -19404,7 +19891,7 @@ type ApiGetResumesByStatusRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetResumesByStatusRequest) HHUserAgent(hHUserAgent string) ApiGetResumesByStatusRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -19416,7 +19903,7 @@ func (r ApiGetResumesByStatusRequest) Locale(locale string) ApiGetResumesByStatu
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetResumesByStatusRequest) Host(host string) ApiGetResumesByStatusRequest {
 	r.host = &host
 	return r
@@ -19553,7 +20040,7 @@ type ApiGetSalaryEmployeeLevelsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSalaryEmployeeLevelsRequest) HHUserAgent(hHUserAgent string) ApiGetSalaryEmployeeLevelsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -19565,7 +20052,7 @@ func (r ApiGetSalaryEmployeeLevelsRequest) Locale(locale string) ApiGetSalaryEmp
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSalaryEmployeeLevelsRequest) Host(host string) ApiGetSalaryEmployeeLevelsRequest {
 	r.host = &host
 	return r
@@ -19696,7 +20183,7 @@ type ApiGetSalaryEvaluationRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSalaryEvaluationRequest) HHUserAgent(hHUserAgent string) ApiGetSalaryEvaluationRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -19744,7 +20231,7 @@ func (r ApiGetSalaryEvaluationRequest) Locale(locale string) ApiGetSalaryEvaluat
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSalaryEvaluationRequest) Host(host string) ApiGetSalaryEvaluationRequest {
 	r.host = &host
 	return r
@@ -19942,7 +20429,7 @@ type ApiGetSalaryEvaluation_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSalaryEvaluation_0Request) HHUserAgent(hHUserAgent string) ApiGetSalaryEvaluation_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -19990,7 +20477,7 @@ func (r ApiGetSalaryEvaluation_0Request) Locale(locale string) ApiGetSalaryEvalu
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSalaryEvaluation_0Request) Host(host string) ApiGetSalaryEvaluation_0Request {
 	r.host = &host
 	return r
@@ -20181,7 +20668,7 @@ type ApiGetSalaryIndustriesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSalaryIndustriesRequest) HHUserAgent(hHUserAgent string) ApiGetSalaryIndustriesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -20193,7 +20680,7 @@ func (r ApiGetSalaryIndustriesRequest) Locale(locale string) ApiGetSalaryIndustr
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSalaryIndustriesRequest) Host(host string) ApiGetSalaryIndustriesRequest {
 	r.host = &host
 	return r
@@ -20317,7 +20804,7 @@ type ApiGetSalaryProfessionalAreasRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSalaryProfessionalAreasRequest) HHUserAgent(hHUserAgent string) ApiGetSalaryProfessionalAreasRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -20329,7 +20816,7 @@ func (r ApiGetSalaryProfessionalAreasRequest) Locale(locale string) ApiGetSalary
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSalaryProfessionalAreasRequest) Host(host string) ApiGetSalaryProfessionalAreasRequest {
 	r.host = &host
 	return r
@@ -20453,7 +20940,7 @@ type ApiGetSalarySalaryAreasRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSalarySalaryAreasRequest) HHUserAgent(hHUserAgent string) ApiGetSalarySalaryAreasRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -20465,7 +20952,7 @@ func (r ApiGetSalarySalaryAreasRequest) Locale(locale string) ApiGetSalarySalary
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSalarySalaryAreasRequest) Host(host string) ApiGetSalarySalaryAreasRequest {
 	r.host = &host
 	return r
@@ -20590,7 +21077,7 @@ type ApiGetSavedResumeSearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSavedResumeSearchRequest) HHUserAgent(hHUserAgent string) ApiGetSavedResumeSearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -20602,7 +21089,7 @@ func (r ApiGetSavedResumeSearchRequest) Locale(locale string) ApiGetSavedResumeS
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSavedResumeSearchRequest) Host(host string) ApiGetSavedResumeSearchRequest {
 	r.host = &host
 	return r
@@ -20754,7 +21241,7 @@ type ApiGetSavedResumeSearchesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSavedResumeSearchesRequest) HHUserAgent(hHUserAgent string) ApiGetSavedResumeSearchesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -20778,7 +21265,7 @@ func (r ApiGetSavedResumeSearchesRequest) Locale(locale string) ApiGetSavedResum
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSavedResumeSearchesRequest) Host(host string) ApiGetSavedResumeSearchesRequest {
 	r.host = &host
 	return r
@@ -20917,7 +21404,7 @@ type ApiGetSavedVacancySearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSavedVacancySearchRequest) HHUserAgent(hHUserAgent string) ApiGetSavedVacancySearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -20929,7 +21416,7 @@ func (r ApiGetSavedVacancySearchRequest) Locale(locale string) ApiGetSavedVacanc
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSavedVacancySearchRequest) Host(host string) ApiGetSavedVacancySearchRequest {
 	r.host = &host
 	return r
@@ -21077,7 +21564,7 @@ type ApiGetSavedVacancySearchesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSavedVacancySearchesRequest) HHUserAgent(hHUserAgent string) ApiGetSavedVacancySearchesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -21101,7 +21588,7 @@ func (r ApiGetSavedVacancySearchesRequest) Locale(locale string) ApiGetSavedVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSavedVacancySearchesRequest) Host(host string) ApiGetSavedVacancySearchesRequest {
 	r.host = &host
 	return r
@@ -21246,7 +21733,7 @@ func (r ApiGetSkillSetSuggestsRequest) Text(text string) ApiGetSkillSetSuggestsR
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSkillSetSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetSkillSetSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -21258,7 +21745,7 @@ func (r ApiGetSkillSetSuggestsRequest) Locale(locale string) ApiGetSkillSetSugge
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSkillSetSuggestsRequest) Host(host string) ApiGetSkillSetSuggestsRequest {
 	r.host = &host
 	return r
@@ -21401,7 +21888,7 @@ func (r ApiGetSkillsRequest) Id(id string) ApiGetSkillsRequest {
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSkillsRequest) HHUserAgent(hHUserAgent string) ApiGetSkillsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -21413,7 +21900,7 @@ func (r ApiGetSkillsRequest) Locale(locale string) ApiGetSkillsRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSkillsRequest) Host(host string) ApiGetSkillsRequest {
 	r.host = &host
 	return r
@@ -21555,7 +22042,7 @@ type ApiGetSuitableResumesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetSuitableResumesRequest) HHUserAgent(hHUserAgent string) ApiGetSuitableResumesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -21567,7 +22054,7 @@ func (r ApiGetSuitableResumesRequest) Locale(locale string) ApiGetSuitableResume
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetSuitableResumesRequest) Host(host string) ApiGetSuitableResumesRequest {
 	r.host = &host
 	return r
@@ -21719,7 +22206,7 @@ type ApiGetTestsDictionaryRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetTestsDictionaryRequest) HHUserAgent(hHUserAgent string) ApiGetTestsDictionaryRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -21731,7 +22218,7 @@ func (r ApiGetTestsDictionaryRequest) Locale(locale string) ApiGetTestsDictionar
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetTestsDictionaryRequest) Host(host string) ApiGetTestsDictionaryRequest {
 	r.host = &host
 	return r
@@ -21880,7 +22367,7 @@ type ApiGetTestsDictionary_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetTestsDictionary_0Request) HHUserAgent(hHUserAgent string) ApiGetTestsDictionary_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -21892,7 +22379,7 @@ func (r ApiGetTestsDictionary_0Request) Locale(locale string) ApiGetTestsDiction
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetTestsDictionary_0Request) Host(host string) ApiGetTestsDictionary_0Request {
 	r.host = &host
 	return r
@@ -22073,7 +22560,7 @@ type ApiGetVacanciesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacanciesRequest) HHUserAgent(hHUserAgent string) ApiGetVacanciesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -22283,7 +22770,7 @@ func (r ApiGetVacanciesRequest) Locale(locale string) ApiGetVacanciesRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacanciesRequest) Host(host string) ApiGetVacanciesRequest {
 	r.host = &host
 	return r
@@ -22303,7 +22790,7 @@ GetVacancies Поиск по вакансиям
 * Неизвестные параметры и параметры с ошибкой в названии игнорируются.
 * Если не передан токен авторизации, то после первого запроса будет предложено пройти капчу.
 * Список вакансий зависит от типа авторизации пользователя. Например, для соискателей вакансии фильтруются по [списку скрытых вакансий](#tag/Skrytye-vakansii) и [списку скрытых компаний](#tag/Skrytye-rabotodateli).
-* Список вакансий также зависит от [выбранного сайта](https://github.com/hhru/api/blob/master/docs/hosts.md) (параметр `host`). Однако выбор регионального сайта, например hh.kz, не ограничивает список вакансиями данного региона. Чтобы ограничить список по региону, используйте параметр `area`.
+* Список вакансий также зависит от [выбранного сайта](#section/Obshaya-informaciya/Vybor-sajta) (параметр `host`). Однако выбор регионального сайта, например hh.kz, не ограничивает список вакансиями данного региона. Чтобы ограничить список по региону, используйте параметр `area`.
 * При указании параметров пагинации (`page`, `per_page`) работает ограничение: глубина возвращаемых результатов не может быть больше `2000`. Например, возможен запрос `per_page=10&page=199` (выдача с `1991` по `2000` вакансию), но запрос с `per_page=10&page=200` вернёт ошибку (выдача с `2001` по `2010` вакансию)
 
 
@@ -22586,7 +23073,7 @@ type ApiGetVacanciesSimilarToResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacanciesSimilarToResumeRequest) HHUserAgent(hHUserAgent string) ApiGetVacanciesSimilarToResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -22790,7 +23277,7 @@ func (r ApiGetVacanciesSimilarToResumeRequest) Locale(locale string) ApiGetVacan
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacanciesSimilarToResumeRequest) Host(host string) ApiGetVacanciesSimilarToResumeRequest {
 	r.host = &host
 	return r
@@ -23070,7 +23557,7 @@ type ApiGetVacanciesSimilarToVacancyRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacanciesSimilarToVacancyRequest) HHUserAgent(hHUserAgent string) ApiGetVacanciesSimilarToVacancyRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -23274,7 +23761,7 @@ func (r ApiGetVacanciesSimilarToVacancyRequest) Locale(locale string) ApiGetVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacanciesSimilarToVacancyRequest) Host(host string) ApiGetVacanciesSimilarToVacancyRequest {
 	r.host = &host
 	return r
@@ -23539,7 +24026,7 @@ type ApiGetVacancyRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -23551,7 +24038,7 @@ func (r ApiGetVacancyRequest) Locale(locale string) ApiGetVacancyRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyRequest) Host(host string) ApiGetVacancyRequest {
 	r.host = &host
 	return r
@@ -23700,7 +24187,7 @@ type ApiGetVacancyBrandedTemplatesListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyBrandedTemplatesListRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyBrandedTemplatesListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -23712,7 +24199,7 @@ func (r ApiGetVacancyBrandedTemplatesListRequest) Locale(locale string) ApiGetVa
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyBrandedTemplatesListRequest) Host(host string) ApiGetVacancyBrandedTemplatesListRequest {
 	r.host = &host
 	return r
@@ -23865,7 +24352,7 @@ type ApiGetVacancyBrandedTemplatesList_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyBrandedTemplatesList_0Request) HHUserAgent(hHUserAgent string) ApiGetVacancyBrandedTemplatesList_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -23877,7 +24364,7 @@ func (r ApiGetVacancyBrandedTemplatesList_0Request) Locale(locale string) ApiGet
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyBrandedTemplatesList_0Request) Host(host string) ApiGetVacancyBrandedTemplatesList_0Request {
 	r.host = &host
 	return r
@@ -24029,7 +24516,7 @@ type ApiGetVacancyConditionsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyConditionsRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyConditionsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24041,7 +24528,7 @@ func (r ApiGetVacancyConditionsRequest) Locale(locale string) ApiGetVacancyCondi
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyConditionsRequest) Host(host string) ApiGetVacancyConditionsRequest {
 	r.host = &host
 	return r
@@ -24174,7 +24661,7 @@ type ApiGetVacancyDraftRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyDraftRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyDraftRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24186,7 +24673,7 @@ func (r ApiGetVacancyDraftRequest) Locale(locale string) ApiGetVacancyDraftReque
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyDraftRequest) Host(host string) ApiGetVacancyDraftRequest {
 	r.host = &host
 	return r
@@ -24334,7 +24821,7 @@ type ApiGetVacancyDraftListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyDraftListRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyDraftListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24358,7 +24845,7 @@ func (r ApiGetVacancyDraftListRequest) Locale(locale string) ApiGetVacancyDraftL
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyDraftListRequest) Host(host string) ApiGetVacancyDraftListRequest {
 	r.host = &host
 	return r
@@ -24503,7 +24990,7 @@ func (r ApiGetVacancyPositionsSuggestsRequest) Text(text string) ApiGetVacancyPo
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyPositionsSuggestsRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyPositionsSuggestsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24515,7 +25002,7 @@ func (r ApiGetVacancyPositionsSuggestsRequest) Locale(locale string) ApiGetVacan
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyPositionsSuggestsRequest) Host(host string) ApiGetVacancyPositionsSuggestsRequest {
 	r.host = &host
 	return r
@@ -24658,7 +25145,7 @@ func (r ApiGetVacancySearchKeywordsRequest) Text(text string) ApiGetVacancySearc
 	return r
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancySearchKeywordsRequest) HHUserAgent(hHUserAgent string) ApiGetVacancySearchKeywordsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24670,7 +25157,7 @@ func (r ApiGetVacancySearchKeywordsRequest) Locale(locale string) ApiGetVacancyS
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancySearchKeywordsRequest) Host(host string) ApiGetVacancySearchKeywordsRequest {
 	r.host = &host
 	return r
@@ -24809,7 +25296,7 @@ type ApiGetVacancyStatsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyStatsRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyStatsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24821,7 +25308,7 @@ func (r ApiGetVacancyStatsRequest) Locale(locale string) ApiGetVacancyStatsReque
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyStatsRequest) Host(host string) ApiGetVacancyStatsRequest {
 	r.host = &host
 	return r
@@ -24976,7 +25463,7 @@ type ApiGetVacancyUpgradeListRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyUpgradeListRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyUpgradeListRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -24988,7 +25475,7 @@ func (r ApiGetVacancyUpgradeListRequest) Locale(locale string) ApiGetVacancyUpgr
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyUpgradeListRequest) Host(host string) ApiGetVacancyUpgradeListRequest {
 	r.host = &host
 	return r
@@ -25137,7 +25624,7 @@ type ApiGetVacancyVisitorsRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancyVisitorsRequest) HHUserAgent(hHUserAgent string) ApiGetVacancyVisitorsRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -25161,7 +25648,7 @@ func (r ApiGetVacancyVisitorsRequest) Locale(locale string) ApiGetVacancyVisitor
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancyVisitorsRequest) Host(host string) ApiGetVacancyVisitorsRequest {
 	r.host = &host
 	return r
@@ -25319,7 +25806,7 @@ type ApiGetVacancy_0Request struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiGetVacancy_0Request) HHUserAgent(hHUserAgent string) ApiGetVacancy_0Request {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -25331,7 +25818,7 @@ func (r ApiGetVacancy_0Request) Locale(locale string) ApiGetVacancy_0Request {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiGetVacancy_0Request) Host(host string) ApiGetVacancy_0Request {
 	r.host = &host
 	return r
@@ -25481,7 +25968,7 @@ type ApiHideActiveResponseRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiHideActiveResponseRequest) HHUserAgent(hHUserAgent string) ApiHideActiveResponseRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -25499,7 +25986,7 @@ func (r ApiHideActiveResponseRequest) Locale(locale string) ApiHideActiveRespons
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiHideActiveResponseRequest) Host(host string) ApiHideActiveResponseRequest {
 	r.host = &host
 	return r
@@ -25954,7 +26441,7 @@ type ApiLoadArtifactRequest struct {
 	description *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiLoadArtifactRequest) HHUserAgent(hHUserAgent string) ApiLoadArtifactRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -25978,7 +26465,7 @@ func (r ApiLoadArtifactRequest) Locale(locale string) ApiLoadArtifactRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiLoadArtifactRequest) Host(host string) ApiLoadArtifactRequest {
 	r.host = &host
 	return r
@@ -26172,7 +26659,7 @@ type ApiMoveSavedResumeSearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiMoveSavedResumeSearchRequest) HHUserAgent(hHUserAgent string) ApiMoveSavedResumeSearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -26184,7 +26671,7 @@ func (r ApiMoveSavedResumeSearchRequest) Locale(locale string) ApiMoveSavedResum
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiMoveSavedResumeSearchRequest) Host(host string) ApiMoveSavedResumeSearchRequest {
 	r.host = &host
 	return r
@@ -26323,7 +26810,7 @@ type ApiPostNegotiationsTopicsReadRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPostNegotiationsTopicsReadRequest) HHUserAgent(hHUserAgent string) ApiPostNegotiationsTopicsReadRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -26341,7 +26828,7 @@ func (r ApiPostNegotiationsTopicsReadRequest) Locale(locale string) ApiPostNegot
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPostNegotiationsTopicsReadRequest) Host(host string) ApiPostNegotiationsTopicsReadRequest {
 	r.host = &host
 	return r
@@ -26489,7 +26976,7 @@ type ApiPublishResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPublishResumeRequest) HHUserAgent(hHUserAgent string) ApiPublishResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -26501,7 +26988,7 @@ func (r ApiPublishResumeRequest) Locale(locale string) ApiPublishResumeRequest {
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPublishResumeRequest) Host(host string) ApiPublishResumeRequest {
 	r.host = &host
 	return r
@@ -26665,7 +27152,7 @@ type ApiPublishVacancyRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPublishVacancyRequest) HHUserAgent(hHUserAgent string) ApiPublishVacancyRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -26688,7 +27175,7 @@ func (r ApiPublishVacancyRequest) Locale(locale string) ApiPublishVacancyRequest
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPublishVacancyRequest) Host(host string) ApiPublishVacancyRequest {
 	r.host = &host
 	return r
@@ -26856,7 +27343,7 @@ type ApiPublishVacancyFromDraftRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPublishVacancyFromDraftRequest) HHUserAgent(hHUserAgent string) ApiPublishVacancyFromDraftRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -26868,7 +27355,7 @@ func (r ApiPublishVacancyFromDraftRequest) Locale(locale string) ApiPublishVacan
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPublishVacancyFromDraftRequest) Host(host string) ApiPublishVacancyFromDraftRequest {
 	r.host = &host
 	return r
@@ -27028,7 +27515,7 @@ type ApiPutMailTemplatesItemRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPutMailTemplatesItemRequest) HHUserAgent(hHUserAgent string) ApiPutMailTemplatesItemRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -27045,7 +27532,7 @@ func (r ApiPutMailTemplatesItemRequest) Locale(locale string) ApiPutMailTemplate
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPutMailTemplatesItemRequest) Host(host string) ApiPutMailTemplatesItemRequest {
 	r.host = &host
 	return r
@@ -27207,7 +27694,7 @@ type ApiPutNegotiationsCollectionToNextStateRequest struct {
 	sendSms *bool
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPutNegotiationsCollectionToNextStateRequest) HHUserAgent(hHUserAgent string) ApiPutNegotiationsCollectionToNextStateRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -27225,7 +27712,7 @@ func (r ApiPutNegotiationsCollectionToNextStateRequest) Locale(locale string) Ap
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPutNegotiationsCollectionToNextStateRequest) Host(host string) ApiPutNegotiationsCollectionToNextStateRequest {
 	r.host = &host
 	return r
@@ -27411,7 +27898,7 @@ type ApiPutPrefNegotiationsOrderRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiPutPrefNegotiationsOrderRequest) HHUserAgent(hHUserAgent string) ApiPutPrefNegotiationsOrderRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -27429,7 +27916,7 @@ func (r ApiPutPrefNegotiationsOrderRequest) Locale(locale string) ApiPutPrefNego
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiPutPrefNegotiationsOrderRequest) Host(host string) ApiPutPrefNegotiationsOrderRequest {
 	r.host = &host
 	return r
@@ -27570,7 +28057,7 @@ type ApiRestoreVacancyFromHiddenRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiRestoreVacancyFromHiddenRequest) HHUserAgent(hHUserAgent string) ApiRestoreVacancyFromHiddenRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -27582,7 +28069,7 @@ func (r ApiRestoreVacancyFromHiddenRequest) Locale(locale string) ApiRestoreVaca
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiRestoreVacancyFromHiddenRequest) Host(host string) ApiRestoreVacancyFromHiddenRequest {
 	r.host = &host
 	return r
@@ -27729,7 +28216,7 @@ type ApiSearchEmployerRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiSearchEmployerRequest) HHUserAgent(hHUserAgent string) ApiSearchEmployerRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -27783,7 +28270,7 @@ func (r ApiSearchEmployerRequest) Locale(locale string) ApiSearchEmployerRequest
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiSearchEmployerRequest) Host(host string) ApiSearchEmployerRequest {
 	r.host = &host
 	return r
@@ -27980,7 +28467,7 @@ type ApiSearchForResumesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiSearchForResumesRequest) HHUserAgent(hHUserAgent string) ApiSearchForResumesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -28040,13 +28527,13 @@ func (r ApiSearchForResumesRequest) Period(period float32) ApiSearchForResumesRe
 	return r
 }
 
-// Дата, от которой нужно начать поиск. Значение указывается в формате [ISO 8601](https://github.com/hhru/api/blob/master/docs/general.md#date-format) — &#x60;YYYY-MM-DD&#x60; или с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
+// Дата, от которой нужно начать поиск. Значение указывается в формате [ISO 8601](#date-format) — &#x60;YYYY-MM-DD&#x60; или с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
 func (r ApiSearchForResumesRequest) DateFrom(dateFrom string) ApiSearchForResumesRequest {
 	r.dateFrom = &dateFrom
 	return r
 }
 
-// Дата, до которой нужно искать. Значение указывается в формате [ISO 8601](https://github.com/hhru/api/blob/master/docs/general.md#date-format) — &#x60;YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Можно передавать только в паре с параметром &#x60;date_from&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
+// Дата, до которой нужно искать. Значение указывается в формате [ISO 8601](#date-format) — &#x60;YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Можно передавать только в паре с параметром &#x60;date_from&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
 func (r ApiSearchForResumesRequest) DateTo(dateTo string) ApiSearchForResumesRequest {
 	r.dateTo = &dateTo
 	return r
@@ -28244,7 +28731,7 @@ func (r ApiSearchForResumesRequest) Locale(locale string) ApiSearchForResumesReq
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiSearchForResumesRequest) Host(host string) ApiSearchForResumesRequest {
 	r.host = &host
 	return r
@@ -28523,7 +29010,7 @@ type ApiSearchForVacancyDraftDuplicatesRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiSearchForVacancyDraftDuplicatesRequest) HHUserAgent(hHUserAgent string) ApiSearchForVacancyDraftDuplicatesRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -28535,7 +29022,7 @@ func (r ApiSearchForVacancyDraftDuplicatesRequest) Locale(locale string) ApiSear
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiSearchForVacancyDraftDuplicatesRequest) Host(host string) ApiSearchForVacancyDraftDuplicatesRequest {
 	r.host = &host
 	return r
@@ -28682,7 +29169,7 @@ type ApiSendCodeForVerifyPhoneInResumeRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiSendCodeForVerifyPhoneInResumeRequest) HHUserAgent(hHUserAgent string) ApiSendCodeForVerifyPhoneInResumeRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -28700,7 +29187,7 @@ func (r ApiSendCodeForVerifyPhoneInResumeRequest) Locale(locale string) ApiSendC
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiSendCodeForVerifyPhoneInResumeRequest) Host(host string) ApiSendCodeForVerifyPhoneInResumeRequest {
 	r.host = &host
 	return r
@@ -28848,7 +29335,7 @@ type ApiSendNegotiationMessageRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiSendNegotiationMessageRequest) HHUserAgent(hHUserAgent string) ApiSendNegotiationMessageRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -28860,7 +29347,7 @@ func (r ApiSendNegotiationMessageRequest) Locale(locale string) ApiSendNegotiati
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiSendNegotiationMessageRequest) Host(host string) ApiSendNegotiationMessageRequest {
 	r.host = &host
 	return r
@@ -29020,7 +29507,7 @@ type ApiUpdateApplicantCommentRequest struct {
 	accessType *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiUpdateApplicantCommentRequest) HHUserAgent(hHUserAgent string) ApiUpdateApplicantCommentRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -29032,7 +29519,7 @@ func (r ApiUpdateApplicantCommentRequest) Locale(locale string) ApiUpdateApplica
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiUpdateApplicantCommentRequest) Host(host string) ApiUpdateApplicantCommentRequest {
 	r.host = &host
 	return r
@@ -29207,7 +29694,7 @@ type ApiUpdateSavedResumeSearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiUpdateSavedResumeSearchRequest) HHUserAgent(hHUserAgent string) ApiUpdateSavedResumeSearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -29231,7 +29718,7 @@ func (r ApiUpdateSavedResumeSearchRequest) Locale(locale string) ApiUpdateSavedR
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiUpdateSavedResumeSearchRequest) Host(host string) ApiUpdateSavedResumeSearchRequest {
 	r.host = &host
 	return r
@@ -29399,7 +29886,7 @@ type ApiUpdateSavedVacancySearchRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiUpdateSavedVacancySearchRequest) HHUserAgent(hHUserAgent string) ApiUpdateSavedVacancySearchRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -29423,7 +29910,7 @@ func (r ApiUpdateSavedVacancySearchRequest) Locale(locale string) ApiUpdateSaved
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiUpdateSavedVacancySearchRequest) Host(host string) ApiUpdateSavedVacancySearchRequest {
 	r.host = &host
 	return r
@@ -29589,7 +30076,7 @@ type ApiVacancyProlongationRequest struct {
 	host *string
 }
 
-// Название приложения и контактная почта разработчика (см. [Информация о клиенте](https://github.com/hhru/api/blob/master/docs/general.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC)) 
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
 func (r ApiVacancyProlongationRequest) HHUserAgent(hHUserAgent string) ApiVacancyProlongationRequest {
 	r.hHUserAgent = &hHUserAgent
 	return r
@@ -29601,7 +30088,7 @@ func (r ApiVacancyProlongationRequest) Locale(locale string) ApiVacancyProlongat
 	return r
 }
 
-// Доменное имя сайта (см. [Выбор сайта](https://github.com/hhru/api/blob/master/docs/hosts.md)) 
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
 func (r ApiVacancyProlongationRequest) Host(host string) ApiVacancyProlongationRequest {
 	r.host = &host
 	return r

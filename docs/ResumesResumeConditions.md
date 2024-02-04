@@ -4,41 +4,41 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Access** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Access** | Pointer to [**NullableResumesResumeConditionFieldsAccessCondition**](ResumesResumeConditionFieldsAccessCondition.md) |  | [optional] 
 **Area** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **AutoHideTime** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **BirthDate** | Pointer to [**NullableResumesResumeConditionFieldsRequiredDateWithTitle**](ResumesResumeConditionFieldsRequiredDateWithTitle.md) |  | [optional] 
 **BusinessTripReadiness** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Citizenship** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Contact** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Contact** | Pointer to [**NullableResumesResumeConditionFieldsContactCondition**](ResumesResumeConditionFieldsContactCondition.md) |  | [optional] 
 **District** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **DriverLicenseTypes** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Education** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Education** | Pointer to [**NullableResumesResumeConditionFieldsEducationCondition**](ResumesResumeConditionFieldsEducationCondition.md) |  | [optional] 
 **Employment** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Employments** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Experience** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**FirstName** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Experience** | Pointer to [**NullableResumesResumeConditionFieldsExperienceCondition**](ResumesResumeConditionFieldsExperienceCondition.md) |  | [optional] 
+**FirstName** | Pointer to [**NullableResumesResumeConditionFieldsRequiredLengthTitleRegexp**](ResumesResumeConditionFieldsRequiredLengthTitleRegexp.md) |  | [optional] 
 **Gender** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **HasVehicle** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **HiddenFields** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Language** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**LastName** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Language** | Pointer to [**NullableResumesResumeConditionFieldsLanguageCondition**](ResumesResumeConditionFieldsLanguageCondition.md) |  | [optional] 
+**LastName** | Pointer to [**NullableResumesResumeConditionFieldsRequiredLengthTitleRegexp**](ResumesResumeConditionFieldsRequiredLengthTitleRegexp.md) |  | [optional] 
 **Metro** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**MiddleName** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**MiddleName** | Pointer to [**NullableResumesResumeConditionFieldsRequiredLengthTitleRegexp**](ResumesResumeConditionFieldsRequiredLengthTitleRegexp.md) |  | [optional] 
 **Photo** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Portfolio** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
 **ProfessionalRoles** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Recommendation** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**Relocation** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Recommendation** | Pointer to [**NullableResumesResumeConditionFieldsRecommendationCondition**](ResumesResumeConditionFieldsRecommendationCondition.md) |  | [optional] 
+**Relocation** | Pointer to [**NullableResumesResumeConditionFieldsRelocationCondition**](ResumesResumeConditionFieldsRelocationCondition.md) |  | [optional] 
 **ResumeLocale** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**Salary** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Salary** | Pointer to [**NullableResumesResumeConditionFieldsSalaryCondition**](ResumesResumeConditionFieldsSalaryCondition.md) |  | [optional] 
 **Schedule** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Schedules** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Site** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**SkillSet** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Site** | Pointer to [**NullableResumesResumeConditionFieldsSiteCondition**](ResumesResumeConditionFieldsSiteCondition.md) |  | [optional] 
+**SkillSet** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountAndLengthTitle**](ResumesResumeConditionFieldsRequiredCountAndLengthTitle.md) |  | [optional] 
 **Skills** | Pointer to [**NullableResumesResumeConditionFieldsRequiredLengthWithTitle**](ResumesResumeConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
 **Specialization** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
-**Title** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Title** | Pointer to [**NullableResumesResumeConditionFieldsRequiredLengthTitleNotInt**](ResumesResumeConditionFieldsRequiredLengthTitleNotInt.md) |  | [optional] 
 **TravelTime** | Pointer to [**NullableResumesResumeConditionFieldsRequiredWithTitle**](ResumesResumeConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **WorkTicket** | Pointer to [**NullableResumesResumeConditionFieldsRequiredCountWithTitle**](ResumesResumeConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
 
@@ -63,20 +63,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAccess
 
-`func (o *ResumesResumeConditions) GetAccess() OneOf`
+`func (o *ResumesResumeConditions) GetAccess() ResumesResumeConditionFieldsAccessCondition`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *ResumesResumeConditions) GetAccessOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetAccessOk() (*ResumesResumeConditionFieldsAccessCondition, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *ResumesResumeConditions) SetAccess(v OneOf)`
+`func (o *ResumesResumeConditions) SetAccess(v ResumesResumeConditionFieldsAccessCondition)`
 
 SetAccess sets Access field to given value.
 
@@ -273,20 +273,20 @@ HasCitizenship returns a boolean if a field has been set.
 UnsetCitizenship ensures that no value is present for Citizenship, not even an explicit nil
 ### GetContact
 
-`func (o *ResumesResumeConditions) GetContact() OneOf`
+`func (o *ResumesResumeConditions) GetContact() ResumesResumeConditionFieldsContactCondition`
 
 GetContact returns the Contact field if non-nil, zero value otherwise.
 
 ### GetContactOk
 
-`func (o *ResumesResumeConditions) GetContactOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetContactOk() (*ResumesResumeConditionFieldsContactCondition, bool)`
 
 GetContactOk returns a tuple with the Contact field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContact
 
-`func (o *ResumesResumeConditions) SetContact(v OneOf)`
+`func (o *ResumesResumeConditions) SetContact(v ResumesResumeConditionFieldsContactCondition)`
 
 SetContact sets Contact field to given value.
 
@@ -378,20 +378,20 @@ HasDriverLicenseTypes returns a boolean if a field has been set.
 UnsetDriverLicenseTypes ensures that no value is present for DriverLicenseTypes, not even an explicit nil
 ### GetEducation
 
-`func (o *ResumesResumeConditions) GetEducation() OneOf`
+`func (o *ResumesResumeConditions) GetEducation() ResumesResumeConditionFieldsEducationCondition`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumesResumeConditions) GetEducationOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetEducationOk() (*ResumesResumeConditionFieldsEducationCondition, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumesResumeConditions) SetEducation(v OneOf)`
+`func (o *ResumesResumeConditions) SetEducation(v ResumesResumeConditionFieldsEducationCondition)`
 
 SetEducation sets Education field to given value.
 
@@ -483,20 +483,20 @@ HasEmployments returns a boolean if a field has been set.
 UnsetEmployments ensures that no value is present for Employments, not even an explicit nil
 ### GetExperience
 
-`func (o *ResumesResumeConditions) GetExperience() OneOf`
+`func (o *ResumesResumeConditions) GetExperience() ResumesResumeConditionFieldsExperienceCondition`
 
 GetExperience returns the Experience field if non-nil, zero value otherwise.
 
 ### GetExperienceOk
 
-`func (o *ResumesResumeConditions) GetExperienceOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetExperienceOk() (*ResumesResumeConditionFieldsExperienceCondition, bool)`
 
 GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExperience
 
-`func (o *ResumesResumeConditions) SetExperience(v OneOf)`
+`func (o *ResumesResumeConditions) SetExperience(v ResumesResumeConditionFieldsExperienceCondition)`
 
 SetExperience sets Experience field to given value.
 
@@ -518,20 +518,20 @@ HasExperience returns a boolean if a field has been set.
 UnsetExperience ensures that no value is present for Experience, not even an explicit nil
 ### GetFirstName
 
-`func (o *ResumesResumeConditions) GetFirstName() OneOf`
+`func (o *ResumesResumeConditions) GetFirstName() ResumesResumeConditionFieldsRequiredLengthTitleRegexp`
 
 GetFirstName returns the FirstName field if non-nil, zero value otherwise.
 
 ### GetFirstNameOk
 
-`func (o *ResumesResumeConditions) GetFirstNameOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetFirstNameOk() (*ResumesResumeConditionFieldsRequiredLengthTitleRegexp, bool)`
 
 GetFirstNameOk returns a tuple with the FirstName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFirstName
 
-`func (o *ResumesResumeConditions) SetFirstName(v OneOf)`
+`func (o *ResumesResumeConditions) SetFirstName(v ResumesResumeConditionFieldsRequiredLengthTitleRegexp)`
 
 SetFirstName sets FirstName field to given value.
 
@@ -658,20 +658,20 @@ HasHiddenFields returns a boolean if a field has been set.
 UnsetHiddenFields ensures that no value is present for HiddenFields, not even an explicit nil
 ### GetLanguage
 
-`func (o *ResumesResumeConditions) GetLanguage() OneOf`
+`func (o *ResumesResumeConditions) GetLanguage() ResumesResumeConditionFieldsLanguageCondition`
 
 GetLanguage returns the Language field if non-nil, zero value otherwise.
 
 ### GetLanguageOk
 
-`func (o *ResumesResumeConditions) GetLanguageOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetLanguageOk() (*ResumesResumeConditionFieldsLanguageCondition, bool)`
 
 GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLanguage
 
-`func (o *ResumesResumeConditions) SetLanguage(v OneOf)`
+`func (o *ResumesResumeConditions) SetLanguage(v ResumesResumeConditionFieldsLanguageCondition)`
 
 SetLanguage sets Language field to given value.
 
@@ -693,20 +693,20 @@ HasLanguage returns a boolean if a field has been set.
 UnsetLanguage ensures that no value is present for Language, not even an explicit nil
 ### GetLastName
 
-`func (o *ResumesResumeConditions) GetLastName() OneOf`
+`func (o *ResumesResumeConditions) GetLastName() ResumesResumeConditionFieldsRequiredLengthTitleRegexp`
 
 GetLastName returns the LastName field if non-nil, zero value otherwise.
 
 ### GetLastNameOk
 
-`func (o *ResumesResumeConditions) GetLastNameOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetLastNameOk() (*ResumesResumeConditionFieldsRequiredLengthTitleRegexp, bool)`
 
 GetLastNameOk returns a tuple with the LastName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastName
 
-`func (o *ResumesResumeConditions) SetLastName(v OneOf)`
+`func (o *ResumesResumeConditions) SetLastName(v ResumesResumeConditionFieldsRequiredLengthTitleRegexp)`
 
 SetLastName sets LastName field to given value.
 
@@ -763,20 +763,20 @@ HasMetro returns a boolean if a field has been set.
 UnsetMetro ensures that no value is present for Metro, not even an explicit nil
 ### GetMiddleName
 
-`func (o *ResumesResumeConditions) GetMiddleName() OneOf`
+`func (o *ResumesResumeConditions) GetMiddleName() ResumesResumeConditionFieldsRequiredLengthTitleRegexp`
 
 GetMiddleName returns the MiddleName field if non-nil, zero value otherwise.
 
 ### GetMiddleNameOk
 
-`func (o *ResumesResumeConditions) GetMiddleNameOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetMiddleNameOk() (*ResumesResumeConditionFieldsRequiredLengthTitleRegexp, bool)`
 
 GetMiddleNameOk returns a tuple with the MiddleName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMiddleName
 
-`func (o *ResumesResumeConditions) SetMiddleName(v OneOf)`
+`func (o *ResumesResumeConditions) SetMiddleName(v ResumesResumeConditionFieldsRequiredLengthTitleRegexp)`
 
 SetMiddleName sets MiddleName field to given value.
 
@@ -903,20 +903,20 @@ HasProfessionalRoles returns a boolean if a field has been set.
 UnsetProfessionalRoles ensures that no value is present for ProfessionalRoles, not even an explicit nil
 ### GetRecommendation
 
-`func (o *ResumesResumeConditions) GetRecommendation() OneOf`
+`func (o *ResumesResumeConditions) GetRecommendation() ResumesResumeConditionFieldsRecommendationCondition`
 
 GetRecommendation returns the Recommendation field if non-nil, zero value otherwise.
 
 ### GetRecommendationOk
 
-`func (o *ResumesResumeConditions) GetRecommendationOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetRecommendationOk() (*ResumesResumeConditionFieldsRecommendationCondition, bool)`
 
 GetRecommendationOk returns a tuple with the Recommendation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRecommendation
 
-`func (o *ResumesResumeConditions) SetRecommendation(v OneOf)`
+`func (o *ResumesResumeConditions) SetRecommendation(v ResumesResumeConditionFieldsRecommendationCondition)`
 
 SetRecommendation sets Recommendation field to given value.
 
@@ -938,20 +938,20 @@ HasRecommendation returns a boolean if a field has been set.
 UnsetRecommendation ensures that no value is present for Recommendation, not even an explicit nil
 ### GetRelocation
 
-`func (o *ResumesResumeConditions) GetRelocation() OneOf`
+`func (o *ResumesResumeConditions) GetRelocation() ResumesResumeConditionFieldsRelocationCondition`
 
 GetRelocation returns the Relocation field if non-nil, zero value otherwise.
 
 ### GetRelocationOk
 
-`func (o *ResumesResumeConditions) GetRelocationOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetRelocationOk() (*ResumesResumeConditionFieldsRelocationCondition, bool)`
 
 GetRelocationOk returns a tuple with the Relocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRelocation
 
-`func (o *ResumesResumeConditions) SetRelocation(v OneOf)`
+`func (o *ResumesResumeConditions) SetRelocation(v ResumesResumeConditionFieldsRelocationCondition)`
 
 SetRelocation sets Relocation field to given value.
 
@@ -1008,20 +1008,20 @@ HasResumeLocale returns a boolean if a field has been set.
 UnsetResumeLocale ensures that no value is present for ResumeLocale, not even an explicit nil
 ### GetSalary
 
-`func (o *ResumesResumeConditions) GetSalary() OneOf`
+`func (o *ResumesResumeConditions) GetSalary() ResumesResumeConditionFieldsSalaryCondition`
 
 GetSalary returns the Salary field if non-nil, zero value otherwise.
 
 ### GetSalaryOk
 
-`func (o *ResumesResumeConditions) GetSalaryOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetSalaryOk() (*ResumesResumeConditionFieldsSalaryCondition, bool)`
 
 GetSalaryOk returns a tuple with the Salary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSalary
 
-`func (o *ResumesResumeConditions) SetSalary(v OneOf)`
+`func (o *ResumesResumeConditions) SetSalary(v ResumesResumeConditionFieldsSalaryCondition)`
 
 SetSalary sets Salary field to given value.
 
@@ -1113,20 +1113,20 @@ HasSchedules returns a boolean if a field has been set.
 UnsetSchedules ensures that no value is present for Schedules, not even an explicit nil
 ### GetSite
 
-`func (o *ResumesResumeConditions) GetSite() OneOf`
+`func (o *ResumesResumeConditions) GetSite() ResumesResumeConditionFieldsSiteCondition`
 
 GetSite returns the Site field if non-nil, zero value otherwise.
 
 ### GetSiteOk
 
-`func (o *ResumesResumeConditions) GetSiteOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetSiteOk() (*ResumesResumeConditionFieldsSiteCondition, bool)`
 
 GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSite
 
-`func (o *ResumesResumeConditions) SetSite(v OneOf)`
+`func (o *ResumesResumeConditions) SetSite(v ResumesResumeConditionFieldsSiteCondition)`
 
 SetSite sets Site field to given value.
 
@@ -1148,20 +1148,20 @@ HasSite returns a boolean if a field has been set.
 UnsetSite ensures that no value is present for Site, not even an explicit nil
 ### GetSkillSet
 
-`func (o *ResumesResumeConditions) GetSkillSet() OneOf`
+`func (o *ResumesResumeConditions) GetSkillSet() ResumesResumeConditionFieldsRequiredCountAndLengthTitle`
 
 GetSkillSet returns the SkillSet field if non-nil, zero value otherwise.
 
 ### GetSkillSetOk
 
-`func (o *ResumesResumeConditions) GetSkillSetOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetSkillSetOk() (*ResumesResumeConditionFieldsRequiredCountAndLengthTitle, bool)`
 
 GetSkillSetOk returns a tuple with the SkillSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSkillSet
 
-`func (o *ResumesResumeConditions) SetSkillSet(v OneOf)`
+`func (o *ResumesResumeConditions) SetSkillSet(v ResumesResumeConditionFieldsRequiredCountAndLengthTitle)`
 
 SetSkillSet sets SkillSet field to given value.
 
@@ -1253,20 +1253,20 @@ HasSpecialization returns a boolean if a field has been set.
 UnsetSpecialization ensures that no value is present for Specialization, not even an explicit nil
 ### GetTitle
 
-`func (o *ResumesResumeConditions) GetTitle() OneOf`
+`func (o *ResumesResumeConditions) GetTitle() ResumesResumeConditionFieldsRequiredLengthTitleNotInt`
 
 GetTitle returns the Title field if non-nil, zero value otherwise.
 
 ### GetTitleOk
 
-`func (o *ResumesResumeConditions) GetTitleOk() (*OneOf, bool)`
+`func (o *ResumesResumeConditions) GetTitleOk() (*ResumesResumeConditionFieldsRequiredLengthTitleNotInt, bool)`
 
 GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTitle
 
-`func (o *ResumesResumeConditions) SetTitle(v OneOf)`
+`func (o *ResumesResumeConditions) SetTitle(v ResumesResumeConditionFieldsRequiredLengthTitleNotInt)`
 
 SetTitle sets Title field to given value.
 

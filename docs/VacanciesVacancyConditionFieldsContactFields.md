@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Email** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
 **Name** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
-**Phones** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Phones** | Pointer to [**NullableVacanciesVacancyConditionFieldsPhoneCondition**](VacanciesVacancyConditionFieldsPhoneCondition.md) |  | [optional] 
 
 ## Methods
 
@@ -99,20 +99,20 @@ HasName returns a boolean if a field has been set.
 UnsetName ensures that no value is present for Name, not even an explicit nil
 ### GetPhones
 
-`func (o *VacanciesVacancyConditionFieldsContactFields) GetPhones() OneOf`
+`func (o *VacanciesVacancyConditionFieldsContactFields) GetPhones() VacanciesVacancyConditionFieldsPhoneCondition`
 
 GetPhones returns the Phones field if non-nil, zero value otherwise.
 
 ### GetPhonesOk
 
-`func (o *VacanciesVacancyConditionFieldsContactFields) GetPhonesOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditionFieldsContactFields) GetPhonesOk() (*VacanciesVacancyConditionFieldsPhoneCondition, bool)`
 
 GetPhonesOk returns a tuple with the Phones field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhones
 
-`func (o *VacanciesVacancyConditionFieldsContactFields) SetPhones(v OneOf)`
+`func (o *VacanciesVacancyConditionFieldsContactFields) SetPhones(v VacanciesVacancyConditionFieldsPhoneCondition)`
 
 SetPhones sets Phones field to given value.
 

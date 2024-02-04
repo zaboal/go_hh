@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **AcceptIncompleteResumes** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **AcceptKids** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **AcceptTemporary** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**Address** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Address** | Pointer to [**NullableVacanciesVacancyConditionFieldsAddressCondition**](VacanciesVacancyConditionFieldsAddressCondition.md) |  | [optional] 
 **AllowMessages** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Area** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **BillingType** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **BrandedTemplate** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Code** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
-**Contacts** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Contacts** | Pointer to [**NullableVacanciesVacancyConditionFieldsContactsCondition**](VacanciesVacancyConditionFieldsContactsCondition.md) |  | [optional] 
 **CustomEmployerName** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
 **Department** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
 **Description** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
@@ -28,10 +28,10 @@ Name | Type | Description | Notes
 **ProfessionalRoles** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredCountWithTitle**](VacanciesVacancyConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
 **ResponseLetterRequired** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **ResponseNotifications** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**ResponseUrl** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
-**Salary** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**ResponseUrl** | Pointer to [**NullableVacanciesVacancyConditionFieldsResponseUrlCondition**](VacanciesVacancyConditionFieldsResponseUrlCondition.md) |  | [optional] 
+**Salary** | Pointer to [**NullableVacanciesVacancyConditionFieldsSalaryCondition**](VacanciesVacancyConditionFieldsSalaryCondition.md) |  | [optional] 
 **Schedule** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**Test** | Pointer to [**OneOf**](oneOf&lt;&gt;.md) |  | [optional] 
+**Test** | Pointer to [**NullableVacanciesVacancyConditionFieldsTestCondition**](VacanciesVacancyConditionFieldsTestCondition.md) |  | [optional] 
 **Type** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **WorkingDays** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredCountWithTitle**](VacanciesVacancyConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
 **WorkingTimeIntervals** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredCountWithTitle**](VacanciesVacancyConditionFieldsRequiredCountWithTitle.md) |  | [optional] 
@@ -198,20 +198,20 @@ HasAcceptTemporary returns a boolean if a field has been set.
 UnsetAcceptTemporary ensures that no value is present for AcceptTemporary, not even an explicit nil
 ### GetAddress
 
-`func (o *VacanciesVacancyConditions) GetAddress() OneOf`
+`func (o *VacanciesVacancyConditions) GetAddress() VacanciesVacancyConditionFieldsAddressCondition`
 
 GetAddress returns the Address field if non-nil, zero value otherwise.
 
 ### GetAddressOk
 
-`func (o *VacanciesVacancyConditions) GetAddressOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditions) GetAddressOk() (*VacanciesVacancyConditionFieldsAddressCondition, bool)`
 
 GetAddressOk returns a tuple with the Address field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddress
 
-`func (o *VacanciesVacancyConditions) SetAddress(v OneOf)`
+`func (o *VacanciesVacancyConditions) SetAddress(v VacanciesVacancyConditionFieldsAddressCondition)`
 
 SetAddress sets Address field to given value.
 
@@ -408,20 +408,20 @@ HasCode returns a boolean if a field has been set.
 UnsetCode ensures that no value is present for Code, not even an explicit nil
 ### GetContacts
 
-`func (o *VacanciesVacancyConditions) GetContacts() OneOf`
+`func (o *VacanciesVacancyConditions) GetContacts() VacanciesVacancyConditionFieldsContactsCondition`
 
 GetContacts returns the Contacts field if non-nil, zero value otherwise.
 
 ### GetContactsOk
 
-`func (o *VacanciesVacancyConditions) GetContactsOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditions) GetContactsOk() (*VacanciesVacancyConditionFieldsContactsCondition, bool)`
 
 GetContactsOk returns a tuple with the Contacts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContacts
 
-`func (o *VacanciesVacancyConditions) SetContacts(v OneOf)`
+`func (o *VacanciesVacancyConditions) SetContacts(v VacanciesVacancyConditionFieldsContactsCondition)`
 
 SetContacts sets Contacts field to given value.
 
@@ -898,20 +898,20 @@ HasResponseNotifications returns a boolean if a field has been set.
 UnsetResponseNotifications ensures that no value is present for ResponseNotifications, not even an explicit nil
 ### GetResponseUrl
 
-`func (o *VacanciesVacancyConditions) GetResponseUrl() OneOf`
+`func (o *VacanciesVacancyConditions) GetResponseUrl() VacanciesVacancyConditionFieldsResponseUrlCondition`
 
 GetResponseUrl returns the ResponseUrl field if non-nil, zero value otherwise.
 
 ### GetResponseUrlOk
 
-`func (o *VacanciesVacancyConditions) GetResponseUrlOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditions) GetResponseUrlOk() (*VacanciesVacancyConditionFieldsResponseUrlCondition, bool)`
 
 GetResponseUrlOk returns a tuple with the ResponseUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResponseUrl
 
-`func (o *VacanciesVacancyConditions) SetResponseUrl(v OneOf)`
+`func (o *VacanciesVacancyConditions) SetResponseUrl(v VacanciesVacancyConditionFieldsResponseUrlCondition)`
 
 SetResponseUrl sets ResponseUrl field to given value.
 
@@ -933,20 +933,20 @@ HasResponseUrl returns a boolean if a field has been set.
 UnsetResponseUrl ensures that no value is present for ResponseUrl, not even an explicit nil
 ### GetSalary
 
-`func (o *VacanciesVacancyConditions) GetSalary() OneOf`
+`func (o *VacanciesVacancyConditions) GetSalary() VacanciesVacancyConditionFieldsSalaryCondition`
 
 GetSalary returns the Salary field if non-nil, zero value otherwise.
 
 ### GetSalaryOk
 
-`func (o *VacanciesVacancyConditions) GetSalaryOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditions) GetSalaryOk() (*VacanciesVacancyConditionFieldsSalaryCondition, bool)`
 
 GetSalaryOk returns a tuple with the Salary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSalary
 
-`func (o *VacanciesVacancyConditions) SetSalary(v OneOf)`
+`func (o *VacanciesVacancyConditions) SetSalary(v VacanciesVacancyConditionFieldsSalaryCondition)`
 
 SetSalary sets Salary field to given value.
 
@@ -1003,20 +1003,20 @@ HasSchedule returns a boolean if a field has been set.
 UnsetSchedule ensures that no value is present for Schedule, not even an explicit nil
 ### GetTest
 
-`func (o *VacanciesVacancyConditions) GetTest() OneOf`
+`func (o *VacanciesVacancyConditions) GetTest() VacanciesVacancyConditionFieldsTestCondition`
 
 GetTest returns the Test field if non-nil, zero value otherwise.
 
 ### GetTestOk
 
-`func (o *VacanciesVacancyConditions) GetTestOk() (*OneOf, bool)`
+`func (o *VacanciesVacancyConditions) GetTestOk() (*VacanciesVacancyConditionFieldsTestCondition, bool)`
 
 GetTestOk returns a tuple with the Test field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTest
 
-`func (o *VacanciesVacancyConditions) SetTest(v OneOf)`
+`func (o *VacanciesVacancyConditions) SetTest(v VacanciesVacancyConditionFieldsTestCondition)`
 
 SetTest sets Test field to given value.
 

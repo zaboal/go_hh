@@ -1,7 +1,7 @@
 /*
 HeadHunter API
 
-По-русски | [Switch to English](https://api.hh.ru/openapi/en/redoc)  В OpenAPI ведется пока что только небольшая часть документации [Основная документация](https://github.com/hhru/api).  Для поиска по документации можно использовать Ctrl+F.  # Авторизация  API поддерживает следующие уровни авторизации:   - [авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)   - [авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)  * [Авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)   * [Правила формирования специального redirect_uri](#section/Avtorizaciya/Pravila-formirovaniya-specialnogo-redirect_uri)   * [Процесс авторизации](#section/Avtorizaciya/Process-avtorizacii)   * [Успешное получение временного `authorization_code`](#get-authorization_code)   * [Получение access и refresh токенов](#section/Avtorizaciya/Poluchenie-access-i-refresh-tokenov) * [Обновление пары access и refresh токенов](#section/Avtorizaciya/Obnovlenie-pary-access-i-refresh-tokenov) * [Инвалидация токена](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) * [Запрос авторизации под другим пользователем](#section/Avtorizaciya/Zapros-avtorizacii-pod-drugim-polzovatelem) * [Авторизация под разными рабочими аккаунтами](#section/Avtorizaciya/Avtorizaciya-pod-raznymi-rabochimi-akkauntami) * [Авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)       ## Авторизация пользователя Для выполнения запросов от имени пользователя необходимо пользоваться токеном пользователя.  В начале приложению необходимо направить пользователя (открыть страницу) по адресу:  ``` https://hh.ru/oauth/authorize? response_type=code& client_id={client_id}& state={state}& redirect_uri={redirect_uri} ```  Обязательные параметры:  * `response_type=code` — указание на способ получения авторизации, используя `authorization code` * `client_id` — идентификатор, полученный при создании приложения   Необязательные параметры:  * `state` — в случае указания, будет включен в ответный редирект. Это позволяет исключить возможность взлома путём подделки межсайтовых запросов. Подробнее об этом: [RFC 6749. Section 10.12](http://tools.ietf.org/html/rfc6749#section-10.12) * `redirect_uri` — uri для перенаправления пользователя после авторизации. Если не указать, используется из настроек приложения. При наличии происходит валидация значения. Вероятнее всего, потребуется сделать urlencode значения параметра.  ## Правила формирования специального redirect_uri  К примеру, если в настройках сохранен `http://example.com/oauth`, то разрешено указывать:  * `http://www.example.com/oauth` — поддомен; * `http://www.example.com/oauth/sub/path` — уточнение пути; * `http://example.com/oauth?lang=RU` — дополнительный параметр; * `http://www.example.com/oauth/sub/path?lang=RU` — всё вместе.  Запрещено:  * `https://example.com/oauth` — различные протоколы; * `http://wwwexample.com/oauth` — различные домены; * `http://wwwexample.com/` — другой путь; * `http://example.com/oauths` — другой путь; * `http://example.com:80/oauths` — указание изначально отсутствующего порта;  ## Процесс авторизации  Если пользователь не авторизован на сайте, ему будет показана форма авторизации на сайте. После прохождения авторизации на сайте, пользователю будет выведена форма с запросом разрешения доступа вашего приложения к его персональным данным.  Если пользователь не разрешает доступ приложению, пользователь будет перенаправлен на указанный `redirect_uri` с `?error=access_denied` и `state={state}`, если таковой был указан при первом запросе.  <a name=\"get-authorization_code\"></a> ### Успешное получение временного `authorization_code`  В случае разрешения прав, в редиректе будет указан временный `authorization_code`:  ```http HTTP/1.1 302 FOUND Location: {redirect_uri}?code={authorization_code} ```  Если пользователь авторизован на сайте и доступ данному приложению однажды ранее выдан, ответом будет сразу вышеописанный редирект с `authorization_code` (без показа формы логина и выдачи прав).  ## Получение access и refresh токенов  После получения `authorization_code` приложению необходимо сделать сервер-сервер запрос `POST https://api.hh.ru/token` для обмена полученного `authorization_code` на `access_token` (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим).  В теле запроса необходимо передать [дополнительные параметры](#required_parameters).  Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  `authorization_code` имеет довольно короткий срок жизни, при его истечении необходимо запросить новый.  ## Обновление пары access и refresh токенов `access_token` также имеет срок жизни (ключ `expires_in`, в секундах), при его истечении приложение должно сделать запрос с `refresh_token` для получения нового.  Запрос необходимо делать в `application/x-www-form-urlencoded`.  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters)  `refresh_token` можно использовать только один раз и только по истечению срока действия `access_token`.  После получения новой пары access и refresh токенов, их необходимо использовать в дальнейших запросах в api и запросах на продление токена.  ## Запрос авторизации под другим пользователем  Возможен следующий сценарий:  1. Приложение перенаправляет пользователя на сайт с запросом авторизации. 2. Пользователь на сайте уже авторизован и данному приложение доступ уже был разрешен. 3. Пользователю будет предложена возможность продолжить работу под текущим аккаунтом, либо зайти под другим аккаунтом.  Если есть необходимость, чтобы на шаге 3 сразу происходило перенаправление (redirect) с временным токеном, необходимо добавить к запросу `/oauth/authorize...` параметр `skip_choose_account=true`. В этом случае автоматически выдаётся доступ пользователю авторизованному на сайте.  Если есть необходимость всегда показывать форму авторизации, приложение может добавить к запросу `/oauth/authorize...` параметр `force_login=true`. В этом случае, пользователю будет показана форма авторизации с логином и паролем даже в случае, если пользователь уже авторизован.  Это может быть полезно приложениям, которые предоставляют сервис только для соискателей. Если пришел пользователь-работодатель, приложение может предложить пользователю повторно разрешить доступ на сайте, уже указав другую учетную запись.  Также, после авторизации приложение может показать пользователю сообщение:  ``` Вы вошли как %Имя_Фамилия%. Это не вы? ``` и предоставить ссылку с `force_login=true` для возможности захода под другим логином.  ## Авторизация под разными рабочими аккаунтами  Для получения списка рабочих аккаунтов менеджера и для работы под разными рабочими аккаунтами менеджера необходимо прочитать документацию по [рабочим аккаунтам менеджера](#tag/Menedzhery-rabotodatelya/operation/get-manager-accounts)  ## Авторизация приложения  Токен приложения необходимо сгенерировать 1 раз. В случае, если токен был скомпрометирован, его нужно запросить еще раз. При этом ранее выданный токен отзывается. Владелец приложения может посмотреть актуальный `access_token` для приложения на сайте [https://dev.hh.ru/admin](https://dev.hh.ru/admin). В случае, если вы еще ни разу [не получали токен приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya), токен отображаться не будет.  <a name=\"get-client-token\"></a> ### Получение токена приложения Для получения `access_token` необходимо сделать запрос:  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters). Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  Данный `access_token` имеет **неограниченный** срок жизни. При повторном запросе ранее выданный токен отзывается и выдается новый. Запрашивать `access_token` можно не чаще, чем один раз в 5 минут.  В случае компрометации токена необходимо [инвалидировать](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) скомпроментированный токен и запросить токен заново!  <!-- ReDoc-Inject: <security-definitions> --> 
+По-русски | [Switch to English](https://api.hh.ru/openapi/en/redoc)  В OpenAPI ведется пока что только небольшая часть документации [Основная документация](https://github.com/hhru/api).  Для поиска по документации можно использовать Ctrl+F.  # Общая информация  * Всё API работает по протоколу HTTPS. * Авторизация осуществляется по протоколу OAuth2. * Все данные доступны только в формате JSON. * Базовый URL — `https://api.hh.ru/` * Возможны запросы к данным [любого сайта группы компаний HeadHunter](#section/Obshaya-informaciya/Vybor-sajta) * <a name=\"date-format\"></a> Даты форматируются в соответствии с [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601): `YYYY-MM-DDThh:mm:ss±hhmm`.   <a name=\"request-requirements\"></a> ## Требования к запросам  В запросе необходимо передавать заголовок `User-Agent`, но если ваша реализация http клиента не позволяет, можно отправить `HH-User-Agent`. Если не отправлен ни один заголовок, то ответом будет `400 Bad Request`. Указание в заголовке названия приложения и контактной почты разработчика позволит нам оперативно с вами связаться в случае необходимости. Заголовки `User-Agent` и `HH-User-Agent` взаимозаменяемы, в случае, если вы отправите оба заголовка, обработан будет только `HH-User-Agent`.  ``` User-Agent: MyApp/1.0 (my-app-feedback@example.com) ```  Подробнее про [ошибки в заголовке User-Agent](https://github.com/hhru/api/blob/master/docs/errors.md#user-agent).   <a name=\"request-body\"></a> ## Формат тела запроса при отправке JSON  Данные, передающиеся в теле запроса, должны удовлетворять требованиям:  * Валидный JSON (допускается передача как минифицированного варианта, так и pretty print варианта с дополнительными пробелами и сбросами строк). * Рекомендуется использование кодировки UTF-8 без дополнительного экранирования (`{\"name\": \"Иванов Иван\"}`). * Также возможно использовать ascii кодировку с экранированием (`{\"name\": \"\\u0418\\u0432\\u0430\\u043d\\u043e\\u0432 \\u0418\\u0432\\u0430\\u043d\"}`). * К типам данных в определённым полях накладываются дополнительные условия, описанные в каждом конкретном методе. В JSON типами данных являются `string`, `number`, `boolean`, `null`, `object`, `array`.  ### Ответ Ответ свыше определенной длины будет сжиматься методом gzip.  ### Ошибки и коды ответов  API широко использует информирование при помощи кодов ответов. Приложение должно корректно их обрабатывать.  В случае неполадок и сбоев, возможны ответы с кодом `503` и `500`.  При каждой ошибке, помимо кода ответа, в теле ответа может быть выдана дополнительная информация, позволяющая разработчику понять причину соответствующего ответа.  [Более подробно про возможные ошибки](https://github.com/hhru/api/blob/master/docs/errors.md).   ## Недокументированные поля и параметры запросов  В ответах и параметрах API можно найти ключи, не описанные в документации. Обычно это означает, что они оставлены для совместимости со старыми версиями. Их использование не рекомендуется. Если ваше приложение использует такие ключи, перейдите на использование актуальных ключей, описанных в документации.   ## Пагинация  К любому запросу, подразумевающему выдачу списка объектов, можно в параметрах указать `page=N&per_page=M`. Нумерация идёт с нуля, по умолчанию выдаётся первая (нулевая) страница с 20 объектами на странице. Во всех ответах, где доступна пагинация, единообразный корневой объект:  ```json {   \"found\": 1,   \"per_page\": 1,   \"pages\": 1,   \"page\": 0,   \"items\": [{}] } ``` ## Выбор сайта  API HeadHunter позволяет получать данные со всех сайтов группы компании HeadHunter.  В частности:  * hh.ru * rabota.by * hh1.az * hh.uz * hh.kz * headhunter.ge * headhunter.kg  Запросы к данным на всех сайтах следует направлять на `https://api.hh.ru/`.  При необходимости учесть специфику сайта, можно добавить в запрос параметр `?host=`. По умолчанию используется `hh.ru`.  Например, для получения [локализаций](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-locales), доступных на hh.kz необходимо сделать GET запрос на `https://api.hh.ru/locales?host=hh.kz`.  ## CORS (Cross-Origin Resource Sharing)  API поддерживает технологию CORS для запроса данных из браузера с произвольного домена. Этот метод более предпочтителен, чем использование JSONP. Он не ограничен методом GET. Для отладки CORS доступен [специальный метод](https://github.com/hhru/api/blob/master/docs/cors.md). Для использования JSONP передайте параметр `?callback=callback_name`.  * [CORS specification on w3.org](http://www.w3.org/TR/cors/) * [HTML5Rocks CORS Tutorial](http://www.html5rocks.com/en/tutorials/cors/) * [CORS on dev.opera.com](http://dev.opera.com/articles/view/dom-access-control-using-cross-origin-resource-sharing/) * [CORS on caniuse.com](http://caniuse.com/#feat=cors) * [CORS on en.wikipedia.org](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)   ## Внешние ссылки на статьи и стандарты  * [HTTP/1.1](http://tools.ietf.org/html/rfc2616) * [JSON](http://json.org/) * [URI Template](http://tools.ietf.org/html/rfc6570) * [OAuth 2.0](http://tools.ietf.org/html/rfc6749) * [REST](http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) * [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601)  # Авторизация  API поддерживает следующие уровни авторизации:   - [авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)   - [авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)  * [Авторизация пользователя](#section/Avtorizaciya/Avtorizaciya-polzovatelya)   * [Правила формирования специального redirect_uri](#section/Avtorizaciya/Pravila-formirovaniya-specialnogo-redirect_uri)   * [Процесс авторизации](#section/Avtorizaciya/Process-avtorizacii)   * [Успешное получение временного `authorization_code`](#get-authorization_code)   * [Получение access и refresh токенов](#section/Avtorizaciya/Poluchenie-access-i-refresh-tokenov) * [Обновление пары access и refresh токенов](#section/Avtorizaciya/Obnovlenie-pary-access-i-refresh-tokenov) * [Инвалидация токена](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) * [Запрос авторизации под другим пользователем](#section/Avtorizaciya/Zapros-avtorizacii-pod-drugim-polzovatelem) * [Авторизация под разными рабочими аккаунтами](#section/Avtorizaciya/Avtorizaciya-pod-raznymi-rabochimi-akkauntami) * [Авторизация приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya)       ## Авторизация пользователя Для выполнения запросов от имени пользователя необходимо пользоваться токеном пользователя.  В начале приложению необходимо направить пользователя (открыть страницу) по адресу:  ``` https://hh.ru/oauth/authorize? response_type=code& client_id={client_id}& state={state}& redirect_uri={redirect_uri} ```  Обязательные параметры:  * `response_type=code` — указание на способ получения авторизации, используя `authorization code` * `client_id` — идентификатор, полученный при создании приложения   Необязательные параметры:  * `state` — в случае указания, будет включен в ответный редирект. Это позволяет исключить возможность взлома путём подделки межсайтовых запросов. Подробнее об этом: [RFC 6749. Section 10.12](http://tools.ietf.org/html/rfc6749#section-10.12) * `redirect_uri` — uri для перенаправления пользователя после авторизации. Если не указать, используется из настроек приложения. При наличии происходит валидация значения. Вероятнее всего, потребуется сделать urlencode значения параметра.  ## Правила формирования специального redirect_uri  К примеру, если в настройках сохранен `http://example.com/oauth`, то разрешено указывать:  * `http://www.example.com/oauth` — поддомен; * `http://www.example.com/oauth/sub/path` — уточнение пути; * `http://example.com/oauth?lang=RU` — дополнительный параметр; * `http://www.example.com/oauth/sub/path?lang=RU` — всё вместе.  Запрещено:  * `https://example.com/oauth` — различные протоколы; * `http://wwwexample.com/oauth` — различные домены; * `http://wwwexample.com/` — другой путь; * `http://example.com/oauths` — другой путь; * `http://example.com:80/oauths` — указание изначально отсутствующего порта;  ## Процесс авторизации  Если пользователь не авторизован на сайте, ему будет показана форма авторизации на сайте. После прохождения авторизации на сайте, пользователю будет выведена форма с запросом разрешения доступа вашего приложения к его персональным данным.  Если пользователь не разрешает доступ приложению, пользователь будет перенаправлен на указанный `redirect_uri` с `?error=access_denied` и `state={state}`, если таковой был указан при первом запросе.  <a name=\"get-authorization_code\"></a> ### Успешное получение временного `authorization_code`  В случае разрешения прав, в редиректе будет указан временный `authorization_code`:  ```http HTTP/1.1 302 FOUND Location: {redirect_uri}?code={authorization_code} ```  Если пользователь авторизован на сайте и доступ данному приложению однажды ранее выдан, ответом будет сразу вышеописанный редирект с `authorization_code` (без показа формы логина и выдачи прав).  ## Получение access и refresh токенов  После получения `authorization_code` приложению необходимо сделать сервер-сервер запрос `POST https://api.hh.ru/token` для обмена полученного `authorization_code` на `access_token` (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим).  В теле запроса необходимо передать [дополнительные параметры](#required_parameters).  Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  `authorization_code` имеет довольно короткий срок жизни, при его истечении необходимо запросить новый.  ## Обновление пары access и refresh токенов `access_token` также имеет срок жизни (ключ `expires_in`, в секундах), при его истечении приложение должно сделать запрос с `refresh_token` для получения нового.  Запрос необходимо делать в `application/x-www-form-urlencoded`.  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters)  `refresh_token` можно использовать только один раз и только по истечению срока действия `access_token`.  После получения новой пары access и refresh токенов, их необходимо использовать в дальнейших запросах в api и запросах на продление токена.  ## Запрос авторизации под другим пользователем  Возможен следующий сценарий:  1. Приложение перенаправляет пользователя на сайт с запросом авторизации. 2. Пользователь на сайте уже авторизован и данному приложение доступ уже был разрешен. 3. Пользователю будет предложена возможность продолжить работу под текущим аккаунтом, либо зайти под другим аккаунтом.  Если есть необходимость, чтобы на шаге 3 сразу происходило перенаправление (redirect) с временным токеном, необходимо добавить к запросу `/oauth/authorize...` параметр `skip_choose_account=true`. В этом случае автоматически выдаётся доступ пользователю авторизованному на сайте.  Если есть необходимость всегда показывать форму авторизации, приложение может добавить к запросу `/oauth/authorize...` параметр `force_login=true`. В этом случае, пользователю будет показана форма авторизации с логином и паролем даже в случае, если пользователь уже авторизован.  Это может быть полезно приложениям, которые предоставляют сервис только для соискателей. Если пришел пользователь-работодатель, приложение может предложить пользователю повторно разрешить доступ на сайте, уже указав другую учетную запись.  Также, после авторизации приложение может показать пользователю сообщение:  ``` Вы вошли как %Имя_Фамилия%. Это не вы? ``` и предоставить ссылку с `force_login=true` для возможности захода под другим логином.  ## Авторизация под разными рабочими аккаунтами  Для получения списка рабочих аккаунтов менеджера и для работы под разными рабочими аккаунтами менеджера необходимо прочитать документацию по [рабочим аккаунтам менеджера](#tag/Menedzhery-rabotodatelya/operation/get-manager-accounts)  ## Авторизация приложения  Токен приложения необходимо сгенерировать 1 раз. В случае, если токен был скомпрометирован, его нужно запросить еще раз. При этом ранее выданный токен отзывается. Владелец приложения может посмотреть актуальный `access_token` для приложения на сайте [https://dev.hh.ru/admin](https://dev.hh.ru/admin). В случае, если вы еще ни разу [не получали токен приложения](#section/Avtorizaciya/Avtorizaciya-prilozheniya), токен отображаться не будет.  <a name=\"get-client-token\"></a> ### Получение токена приложения Для получения `access_token` необходимо сделать запрос:  ``` POST https://api.hh.ru/token ```  (старый запрос `POST https://hh.ru/oauth/token` считается устаревшим)  В теле запроса необходимо передать [дополнительные параметры](#required_parameters). Тело запроса необходимо передавать в стандартном `application/x-www-form-urlencoded` с указанием соответствующего заголовка `Content-Type`.  Данный `access_token` имеет **неограниченный** срок жизни. При повторном запросе ранее выданный токен отзывается и выдается новый. Запрашивать `access_token` можно не чаще, чем один раз в 5 минут.  В случае компрометации токена необходимо [инвалидировать](#tag/Avtorizaciya-rabotodatelya/operation/invalidate-token) скомпроментированный токен и запросить токен заново!  <!-- ReDoc-Inject: <security-definitions> --> 
 
 API version: 1.0.0
 Contact: api@hh.ru
@@ -24,13 +24,13 @@ type VacanciesVacancyConditions struct {
 	AcceptIncompleteResumes NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"accept_incomplete_resumes,omitempty"`
 	AcceptKids NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"accept_kids,omitempty"`
 	AcceptTemporary NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"accept_temporary,omitempty"`
-	Address OneOf `json:"address,omitempty"`
+	Address NullableVacanciesVacancyConditionFieldsAddressCondition `json:"address,omitempty"`
 	AllowMessages NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"allow_messages,omitempty"`
 	Area NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"area,omitempty"`
 	BillingType NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"billing_type,omitempty"`
 	BrandedTemplate NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"branded_template,omitempty"`
 	Code NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"code,omitempty"`
-	Contacts OneOf `json:"contacts,omitempty"`
+	Contacts NullableVacanciesVacancyConditionFieldsContactsCondition `json:"contacts,omitempty"`
 	CustomEmployerName NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"custom_employer_name,omitempty"`
 	Department NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"department,omitempty"`
 	Description NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"description,omitempty"`
@@ -44,10 +44,10 @@ type VacanciesVacancyConditions struct {
 	ProfessionalRoles NullableVacanciesVacancyConditionFieldsRequiredCountWithTitle `json:"professional_roles,omitempty"`
 	ResponseLetterRequired NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"response_letter_required,omitempty"`
 	ResponseNotifications NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"response_notifications,omitempty"`
-	ResponseUrl OneOf `json:"response_url,omitempty"`
-	Salary OneOf `json:"salary,omitempty"`
+	ResponseUrl NullableVacanciesVacancyConditionFieldsResponseUrlCondition `json:"response_url,omitempty"`
+	Salary NullableVacanciesVacancyConditionFieldsSalaryCondition `json:"salary,omitempty"`
 	Schedule NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"schedule,omitempty"`
-	Test OneOf `json:"test,omitempty"`
+	Test NullableVacanciesVacancyConditionFieldsTestCondition `json:"test,omitempty"`
 	Type NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"type,omitempty"`
 	WorkingDays NullableVacanciesVacancyConditionFieldsRequiredCountWithTitle `json:"working_days,omitempty"`
 	WorkingTimeIntervals NullableVacanciesVacancyConditionFieldsRequiredCountWithTitle `json:"working_time_intervals,omitempty"`
@@ -243,36 +243,45 @@ func (o *VacanciesVacancyConditions) UnsetAcceptTemporary() {
 }
 
 // GetAddress returns the Address field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditions) GetAddress() OneOf {
-	if o == nil {
-		var ret OneOf
+func (o *VacanciesVacancyConditions) GetAddress() VacanciesVacancyConditionFieldsAddressCondition {
+	if o == nil || IsNil(o.Address.Get()) {
+		var ret VacanciesVacancyConditionFieldsAddressCondition
 		return ret
 	}
-	return o.Address
+	return *o.Address.Get()
 }
 
 // GetAddressOk returns a tuple with the Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditions) GetAddressOk() (OneOf, bool) {
-	if o == nil || IsNil(o.Address) {
-		return OneOf{}, false
+func (o *VacanciesVacancyConditions) GetAddressOk() (*VacanciesVacancyConditionFieldsAddressCondition, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.Address, true
+	return o.Address.Get(), o.Address.IsSet()
 }
 
 // HasAddress returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditions) HasAddress() bool {
-	if o != nil && IsNil(o.Address) {
+	if o != nil && o.Address.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAddress gets a reference to the given OneOf and assigns it to the Address field.
-func (o *VacanciesVacancyConditions) SetAddress(v OneOf) {
-	o.Address = v
+// SetAddress gets a reference to the given NullableVacanciesVacancyConditionFieldsAddressCondition and assigns it to the Address field.
+func (o *VacanciesVacancyConditions) SetAddress(v VacanciesVacancyConditionFieldsAddressCondition) {
+	o.Address.Set(&v)
+}
+// SetAddressNil sets the value for Address to be an explicit nil
+func (o *VacanciesVacancyConditions) SetAddressNil() {
+	o.Address.Set(nil)
+}
+
+// UnsetAddress ensures that no value is present for Address, not even an explicit nil
+func (o *VacanciesVacancyConditions) UnsetAddress() {
+	o.Address.Unset()
 }
 
 // GetAllowMessages returns the AllowMessages field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -486,36 +495,45 @@ func (o *VacanciesVacancyConditions) UnsetCode() {
 }
 
 // GetContacts returns the Contacts field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditions) GetContacts() OneOf {
-	if o == nil {
-		var ret OneOf
+func (o *VacanciesVacancyConditions) GetContacts() VacanciesVacancyConditionFieldsContactsCondition {
+	if o == nil || IsNil(o.Contacts.Get()) {
+		var ret VacanciesVacancyConditionFieldsContactsCondition
 		return ret
 	}
-	return o.Contacts
+	return *o.Contacts.Get()
 }
 
 // GetContactsOk returns a tuple with the Contacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditions) GetContactsOk() (OneOf, bool) {
-	if o == nil || IsNil(o.Contacts) {
-		return OneOf{}, false
+func (o *VacanciesVacancyConditions) GetContactsOk() (*VacanciesVacancyConditionFieldsContactsCondition, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.Contacts, true
+	return o.Contacts.Get(), o.Contacts.IsSet()
 }
 
 // HasContacts returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditions) HasContacts() bool {
-	if o != nil && IsNil(o.Contacts) {
+	if o != nil && o.Contacts.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetContacts gets a reference to the given OneOf and assigns it to the Contacts field.
-func (o *VacanciesVacancyConditions) SetContacts(v OneOf) {
-	o.Contacts = v
+// SetContacts gets a reference to the given NullableVacanciesVacancyConditionFieldsContactsCondition and assigns it to the Contacts field.
+func (o *VacanciesVacancyConditions) SetContacts(v VacanciesVacancyConditionFieldsContactsCondition) {
+	o.Contacts.Set(&v)
+}
+// SetContactsNil sets the value for Contacts to be an explicit nil
+func (o *VacanciesVacancyConditions) SetContactsNil() {
+	o.Contacts.Set(nil)
+}
+
+// UnsetContacts ensures that no value is present for Contacts, not even an explicit nil
+func (o *VacanciesVacancyConditions) UnsetContacts() {
+	o.Contacts.Unset()
 }
 
 // GetCustomEmployerName returns the CustomEmployerName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1065,69 +1083,87 @@ func (o *VacanciesVacancyConditions) UnsetResponseNotifications() {
 }
 
 // GetResponseUrl returns the ResponseUrl field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditions) GetResponseUrl() OneOf {
-	if o == nil {
-		var ret OneOf
+func (o *VacanciesVacancyConditions) GetResponseUrl() VacanciesVacancyConditionFieldsResponseUrlCondition {
+	if o == nil || IsNil(o.ResponseUrl.Get()) {
+		var ret VacanciesVacancyConditionFieldsResponseUrlCondition
 		return ret
 	}
-	return o.ResponseUrl
+	return *o.ResponseUrl.Get()
 }
 
 // GetResponseUrlOk returns a tuple with the ResponseUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditions) GetResponseUrlOk() (OneOf, bool) {
-	if o == nil || IsNil(o.ResponseUrl) {
-		return OneOf{}, false
+func (o *VacanciesVacancyConditions) GetResponseUrlOk() (*VacanciesVacancyConditionFieldsResponseUrlCondition, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.ResponseUrl, true
+	return o.ResponseUrl.Get(), o.ResponseUrl.IsSet()
 }
 
 // HasResponseUrl returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditions) HasResponseUrl() bool {
-	if o != nil && IsNil(o.ResponseUrl) {
+	if o != nil && o.ResponseUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetResponseUrl gets a reference to the given OneOf and assigns it to the ResponseUrl field.
-func (o *VacanciesVacancyConditions) SetResponseUrl(v OneOf) {
-	o.ResponseUrl = v
+// SetResponseUrl gets a reference to the given NullableVacanciesVacancyConditionFieldsResponseUrlCondition and assigns it to the ResponseUrl field.
+func (o *VacanciesVacancyConditions) SetResponseUrl(v VacanciesVacancyConditionFieldsResponseUrlCondition) {
+	o.ResponseUrl.Set(&v)
+}
+// SetResponseUrlNil sets the value for ResponseUrl to be an explicit nil
+func (o *VacanciesVacancyConditions) SetResponseUrlNil() {
+	o.ResponseUrl.Set(nil)
+}
+
+// UnsetResponseUrl ensures that no value is present for ResponseUrl, not even an explicit nil
+func (o *VacanciesVacancyConditions) UnsetResponseUrl() {
+	o.ResponseUrl.Unset()
 }
 
 // GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditions) GetSalary() OneOf {
-	if o == nil {
-		var ret OneOf
+func (o *VacanciesVacancyConditions) GetSalary() VacanciesVacancyConditionFieldsSalaryCondition {
+	if o == nil || IsNil(o.Salary.Get()) {
+		var ret VacanciesVacancyConditionFieldsSalaryCondition
 		return ret
 	}
-	return o.Salary
+	return *o.Salary.Get()
 }
 
 // GetSalaryOk returns a tuple with the Salary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditions) GetSalaryOk() (OneOf, bool) {
-	if o == nil || IsNil(o.Salary) {
-		return OneOf{}, false
+func (o *VacanciesVacancyConditions) GetSalaryOk() (*VacanciesVacancyConditionFieldsSalaryCondition, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.Salary, true
+	return o.Salary.Get(), o.Salary.IsSet()
 }
 
 // HasSalary returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditions) HasSalary() bool {
-	if o != nil && IsNil(o.Salary) {
+	if o != nil && o.Salary.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSalary gets a reference to the given OneOf and assigns it to the Salary field.
-func (o *VacanciesVacancyConditions) SetSalary(v OneOf) {
-	o.Salary = v
+// SetSalary gets a reference to the given NullableVacanciesVacancyConditionFieldsSalaryCondition and assigns it to the Salary field.
+func (o *VacanciesVacancyConditions) SetSalary(v VacanciesVacancyConditionFieldsSalaryCondition) {
+	o.Salary.Set(&v)
+}
+// SetSalaryNil sets the value for Salary to be an explicit nil
+func (o *VacanciesVacancyConditions) SetSalaryNil() {
+	o.Salary.Set(nil)
+}
+
+// UnsetSalary ensures that no value is present for Salary, not even an explicit nil
+func (o *VacanciesVacancyConditions) UnsetSalary() {
+	o.Salary.Unset()
 }
 
 // GetSchedule returns the Schedule field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1173,36 +1209,45 @@ func (o *VacanciesVacancyConditions) UnsetSchedule() {
 }
 
 // GetTest returns the Test field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditions) GetTest() OneOf {
-	if o == nil {
-		var ret OneOf
+func (o *VacanciesVacancyConditions) GetTest() VacanciesVacancyConditionFieldsTestCondition {
+	if o == nil || IsNil(o.Test.Get()) {
+		var ret VacanciesVacancyConditionFieldsTestCondition
 		return ret
 	}
-	return o.Test
+	return *o.Test.Get()
 }
 
 // GetTestOk returns a tuple with the Test field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditions) GetTestOk() (OneOf, bool) {
-	if o == nil || IsNil(o.Test) {
-		return OneOf{}, false
+func (o *VacanciesVacancyConditions) GetTestOk() (*VacanciesVacancyConditionFieldsTestCondition, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.Test, true
+	return o.Test.Get(), o.Test.IsSet()
 }
 
 // HasTest returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditions) HasTest() bool {
-	if o != nil && IsNil(o.Test) {
+	if o != nil && o.Test.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTest gets a reference to the given OneOf and assigns it to the Test field.
-func (o *VacanciesVacancyConditions) SetTest(v OneOf) {
-	o.Test = v
+// SetTest gets a reference to the given NullableVacanciesVacancyConditionFieldsTestCondition and assigns it to the Test field.
+func (o *VacanciesVacancyConditions) SetTest(v VacanciesVacancyConditionFieldsTestCondition) {
+	o.Test.Set(&v)
+}
+// SetTestNil sets the value for Test to be an explicit nil
+func (o *VacanciesVacancyConditions) SetTestNil() {
+	o.Test.Set(nil)
+}
+
+// UnsetTest ensures that no value is present for Test, not even an explicit nil
+func (o *VacanciesVacancyConditions) UnsetTest() {
+	o.Test.Unset()
 }
 
 // GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1395,8 +1440,8 @@ func (o VacanciesVacancyConditions) ToMap() (map[string]interface{}, error) {
 	if o.AcceptTemporary.IsSet() {
 		toSerialize["accept_temporary"] = o.AcceptTemporary.Get()
 	}
-	if o.Address != nil {
-		toSerialize["address"] = o.Address
+	if o.Address.IsSet() {
+		toSerialize["address"] = o.Address.Get()
 	}
 	if o.AllowMessages.IsSet() {
 		toSerialize["allow_messages"] = o.AllowMessages.Get()
@@ -1413,8 +1458,8 @@ func (o VacanciesVacancyConditions) ToMap() (map[string]interface{}, error) {
 	if o.Code.IsSet() {
 		toSerialize["code"] = o.Code.Get()
 	}
-	if o.Contacts != nil {
-		toSerialize["contacts"] = o.Contacts
+	if o.Contacts.IsSet() {
+		toSerialize["contacts"] = o.Contacts.Get()
 	}
 	if o.CustomEmployerName.IsSet() {
 		toSerialize["custom_employer_name"] = o.CustomEmployerName.Get()
@@ -1455,17 +1500,17 @@ func (o VacanciesVacancyConditions) ToMap() (map[string]interface{}, error) {
 	if o.ResponseNotifications.IsSet() {
 		toSerialize["response_notifications"] = o.ResponseNotifications.Get()
 	}
-	if o.ResponseUrl != nil {
-		toSerialize["response_url"] = o.ResponseUrl
+	if o.ResponseUrl.IsSet() {
+		toSerialize["response_url"] = o.ResponseUrl.Get()
 	}
-	if o.Salary != nil {
-		toSerialize["salary"] = o.Salary
+	if o.Salary.IsSet() {
+		toSerialize["salary"] = o.Salary.Get()
 	}
 	if o.Schedule.IsSet() {
 		toSerialize["schedule"] = o.Schedule.Get()
 	}
-	if o.Test != nil {
-		toSerialize["test"] = o.Test
+	if o.Test.IsSet() {
+		toSerialize["test"] = o.Test.Get()
 	}
 	if o.Type.IsSet() {
 		toSerialize["type"] = o.Type.Get()
