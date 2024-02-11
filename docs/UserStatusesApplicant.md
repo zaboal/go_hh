@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **JobSearchStatus** | Pointer to [**UserStatusesJobSearchStatus**](UserStatusesJobSearchStatus.md) |  | [optional] 
-**WhenCanStartWorkStatus** | Pointer to [**UserStatusesWhenCanStartWorkStatus**](UserStatusesWhenCanStartWorkStatus.md) |  | [optional] 
 
 ## Methods
 
@@ -50,31 +49,6 @@ SetJobSearchStatus sets JobSearchStatus field to given value.
 `func (o *UserStatusesApplicant) HasJobSearchStatus() bool`
 
 HasJobSearchStatus returns a boolean if a field has been set.
-
-### GetWhenCanStartWorkStatus
-
-`func (o *UserStatusesApplicant) GetWhenCanStartWorkStatus() UserStatusesWhenCanStartWorkStatus`
-
-GetWhenCanStartWorkStatus returns the WhenCanStartWorkStatus field if non-nil, zero value otherwise.
-
-### GetWhenCanStartWorkStatusOk
-
-`func (o *UserStatusesApplicant) GetWhenCanStartWorkStatusOk() (*UserStatusesWhenCanStartWorkStatus, bool)`
-
-GetWhenCanStartWorkStatusOk returns a tuple with the WhenCanStartWorkStatus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWhenCanStartWorkStatus
-
-`func (o *UserStatusesApplicant) SetWhenCanStartWorkStatus(v UserStatusesWhenCanStartWorkStatus)`
-
-SetWhenCanStartWorkStatus sets WhenCanStartWorkStatus field to given value.
-
-### HasWhenCanStartWorkStatus
-
-`func (o *UserStatusesApplicant) HasWhenCanStartWorkStatus() bool`
-
-HasWhenCanStartWorkStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Идентификатор | 
 **Name** | **string** | Название | 
-**Level** | [**IncludesLanguagePropertiesAllOfLevel**](IncludesLanguagePropertiesAllOfLevel.md) |  | 
+**Level** | [**IncludesIdName**](IncludesIdName.md) | Уровень владения. Возможные значения элементов приведены в поле &#x60;language_level&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 
 ## Methods
 
 ### NewIncludesLanguageLevel
 
-`func NewIncludesLanguageLevel(id string, name string, level IncludesLanguagePropertiesAllOfLevel, ) *IncludesLanguageLevel`
+`func NewIncludesLanguageLevel(id string, name string, level IncludesIdName, ) *IncludesLanguageLevel`
 
 NewIncludesLanguageLevel instantiates a new IncludesLanguageLevel object
 This constructor will assign default values to properties that have it defined,
@@ -69,20 +69,20 @@ SetName sets Name field to given value.
 
 ### GetLevel
 
-`func (o *IncludesLanguageLevel) GetLevel() IncludesLanguagePropertiesAllOfLevel`
+`func (o *IncludesLanguageLevel) GetLevel() IncludesIdName`
 
 GetLevel returns the Level field if non-nil, zero value otherwise.
 
 ### GetLevelOk
 
-`func (o *IncludesLanguageLevel) GetLevelOk() (*IncludesLanguagePropertiesAllOfLevel, bool)`
+`func (o *IncludesLanguageLevel) GetLevelOk() (*IncludesIdName, bool)`
 
 GetLevelOk returns a tuple with the Level field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLevel
 
-`func (o *IncludesLanguageLevel) SetLevel(v IncludesLanguagePropertiesAllOfLevel)`
+`func (o *IncludesLanguageLevel) SetLevel(v IncludesIdName)`
 
 SetLevel sets Level field to given value.
 

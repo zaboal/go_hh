@@ -37,8 +37,16 @@ type ResumeResumeProfile struct {
 	Certificate []ResumeObjectsCertificate `json:"certificate"`
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
-	Download ResumeResumeProfileAllOfDownload `json:"download"`
-	Education ResumeResumeProfileAllOfEducation `json:"education"`
+	// Ссылки для скачивания резюме в разных форматах
+	Download ResumeObjectsDownload `json:"download"`
+	// Образование соискателя. 
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
+
+	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -52,7 +60,8 @@ type ResumeResumeProfile struct {
 	Marked *bool `json:"marked,omitempty"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
-	Platform *ResumeResumeProfileAllOfPlatform `json:"platform,omitempty"`
+	// Ресурс, на котором было размещено резюме
+	Platform *IncludesId `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
@@ -65,7 +74,7 @@ type _ResumeResumeProfile ResumeResumeProfile
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeResumeProfileAllOfDownload, education ResumeResumeProfileAllOfEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string) *ResumeResumeProfile {
+func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string) *ResumeResumeProfile {
 	this := ResumeResumeProfile{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -341,9 +350,9 @@ func (o *ResumeResumeProfile) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *ResumeResumeProfile) GetDownload() ResumeResumeProfileAllOfDownload {
+func (o *ResumeResumeProfile) GetDownload() ResumeObjectsDownload {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfDownload
+		var ret ResumeObjectsDownload
 		return ret
 	}
 
@@ -352,7 +361,7 @@ func (o *ResumeResumeProfile) GetDownload() ResumeResumeProfileAllOfDownload {
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetDownloadOk() (*ResumeResumeProfileAllOfDownload, bool) {
+func (o *ResumeResumeProfile) GetDownloadOk() (*ResumeObjectsDownload, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -360,14 +369,14 @@ func (o *ResumeResumeProfile) GetDownloadOk() (*ResumeResumeProfileAllOfDownload
 }
 
 // SetDownload sets field value
-func (o *ResumeResumeProfile) SetDownload(v ResumeResumeProfileAllOfDownload) {
+func (o *ResumeResumeProfile) SetDownload(v ResumeObjectsDownload) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *ResumeResumeProfile) GetEducation() ResumeResumeProfileAllOfEducation {
+func (o *ResumeResumeProfile) GetEducation() ResumeObjectsEducation {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfEducation
+		var ret ResumeObjectsEducation
 		return ret
 	}
 
@@ -376,7 +385,7 @@ func (o *ResumeResumeProfile) GetEducation() ResumeResumeProfileAllOfEducation {
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetEducationOk() (*ResumeResumeProfileAllOfEducation, bool) {
+func (o *ResumeResumeProfile) GetEducationOk() (*ResumeObjectsEducation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -384,7 +393,7 @@ func (o *ResumeResumeProfile) GetEducationOk() (*ResumeResumeProfileAllOfEducati
 }
 
 // SetEducation sets field value
-func (o *ResumeResumeProfile) SetEducation(v ResumeResumeProfileAllOfEducation) {
+func (o *ResumeResumeProfile) SetEducation(v ResumeObjectsEducation) {
 	o.Education = v
 }
 
@@ -637,9 +646,9 @@ func (o *ResumeResumeProfile) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumeResumeProfile) GetPlatform() ResumeResumeProfileAllOfPlatform {
+func (o *ResumeResumeProfile) GetPlatform() IncludesId {
 	if o == nil || IsNil(o.Platform) {
-		var ret ResumeResumeProfileAllOfPlatform
+		var ret IncludesId
 		return ret
 	}
 	return *o.Platform
@@ -647,7 +656,7 @@ func (o *ResumeResumeProfile) GetPlatform() ResumeResumeProfileAllOfPlatform {
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetPlatformOk() (*ResumeResumeProfileAllOfPlatform, bool) {
+func (o *ResumeResumeProfile) GetPlatformOk() (*IncludesId, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -663,8 +672,8 @@ func (o *ResumeResumeProfile) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given ResumeResumeProfileAllOfPlatform and assigns it to the Platform field.
-func (o *ResumeResumeProfile) SetPlatform(v ResumeResumeProfileAllOfPlatform) {
+// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
+func (o *ResumeResumeProfile) SetPlatform(v IncludesId) {
 	o.Platform = &v
 }
 

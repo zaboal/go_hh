@@ -21,8 +21,6 @@ var _ MappedNullable = &UserStatusesApplicant{}
 // UserStatusesApplicant struct for UserStatusesApplicant
 type UserStatusesApplicant struct {
 	JobSearchStatus *UserStatusesJobSearchStatus `json:"job_search_status,omitempty"`
-	// Deprecated
-	WhenCanStartWorkStatus *UserStatusesWhenCanStartWorkStatus `json:"when_can_start_work_status,omitempty"`
 }
 
 // NewUserStatusesApplicant instantiates a new UserStatusesApplicant object
@@ -74,41 +72,6 @@ func (o *UserStatusesApplicant) SetJobSearchStatus(v UserStatusesJobSearchStatus
 	o.JobSearchStatus = &v
 }
 
-// GetWhenCanStartWorkStatus returns the WhenCanStartWorkStatus field value if set, zero value otherwise.
-// Deprecated
-func (o *UserStatusesApplicant) GetWhenCanStartWorkStatus() UserStatusesWhenCanStartWorkStatus {
-	if o == nil || IsNil(o.WhenCanStartWorkStatus) {
-		var ret UserStatusesWhenCanStartWorkStatus
-		return ret
-	}
-	return *o.WhenCanStartWorkStatus
-}
-
-// GetWhenCanStartWorkStatusOk returns a tuple with the WhenCanStartWorkStatus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *UserStatusesApplicant) GetWhenCanStartWorkStatusOk() (*UserStatusesWhenCanStartWorkStatus, bool) {
-	if o == nil || IsNil(o.WhenCanStartWorkStatus) {
-		return nil, false
-	}
-	return o.WhenCanStartWorkStatus, true
-}
-
-// HasWhenCanStartWorkStatus returns a boolean if a field has been set.
-func (o *UserStatusesApplicant) HasWhenCanStartWorkStatus() bool {
-	if o != nil && !IsNil(o.WhenCanStartWorkStatus) {
-		return true
-	}
-
-	return false
-}
-
-// SetWhenCanStartWorkStatus gets a reference to the given UserStatusesWhenCanStartWorkStatus and assigns it to the WhenCanStartWorkStatus field.
-// Deprecated
-func (o *UserStatusesApplicant) SetWhenCanStartWorkStatus(v UserStatusesWhenCanStartWorkStatus) {
-	o.WhenCanStartWorkStatus = &v
-}
-
 func (o UserStatusesApplicant) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -121,9 +84,6 @@ func (o UserStatusesApplicant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.JobSearchStatus) {
 		toSerialize["job_search_status"] = o.JobSearchStatus
-	}
-	if !IsNil(o.WhenCanStartWorkStatus) {
-		toSerialize["when_can_start_work_status"] = o.WhenCanStartWorkStatus
 	}
 	return toSerialize, nil
 }

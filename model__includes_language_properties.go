@@ -26,7 +26,8 @@ type IncludesLanguageProperties struct {
 	Id string `json:"id"`
 	// Название
 	Name string `json:"name"`
-	Level *IncludesLanguagePropertiesAllOfLevel `json:"level,omitempty"`
+	// Уровень владения. Возможные значения элементов приведены в поле `language_level` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	Level *IncludesIdName `json:"level,omitempty"`
 }
 
 type _IncludesLanguageProperties IncludesLanguageProperties
@@ -99,9 +100,9 @@ func (o *IncludesLanguageProperties) SetName(v string) {
 }
 
 // GetLevel returns the Level field value if set, zero value otherwise.
-func (o *IncludesLanguageProperties) GetLevel() IncludesLanguagePropertiesAllOfLevel {
+func (o *IncludesLanguageProperties) GetLevel() IncludesIdName {
 	if o == nil || IsNil(o.Level) {
-		var ret IncludesLanguagePropertiesAllOfLevel
+		var ret IncludesIdName
 		return ret
 	}
 	return *o.Level
@@ -109,7 +110,7 @@ func (o *IncludesLanguageProperties) GetLevel() IncludesLanguagePropertiesAllOfL
 
 // GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IncludesLanguageProperties) GetLevelOk() (*IncludesLanguagePropertiesAllOfLevel, bool) {
+func (o *IncludesLanguageProperties) GetLevelOk() (*IncludesIdName, bool) {
 	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
@@ -125,8 +126,8 @@ func (o *IncludesLanguageProperties) HasLevel() bool {
 	return false
 }
 
-// SetLevel gets a reference to the given IncludesLanguagePropertiesAllOfLevel and assigns it to the Level field.
-func (o *IncludesLanguageProperties) SetLevel(v IncludesLanguagePropertiesAllOfLevel) {
+// SetLevel gets a reference to the given IncludesIdName and assigns it to the Level field.
+func (o *IncludesLanguageProperties) SetLevel(v IncludesIdName) {
 	o.Level = &v
 }
 

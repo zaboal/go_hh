@@ -26,7 +26,8 @@ type ResumeObjectsLanguage struct {
 	Id string `json:"id"`
 	// Название
 	Name string `json:"name"`
-	Level IncludesLanguagePropertiesAllOfLevel `json:"level"`
+	// Уровень владения. Возможные значения элементов приведены в поле `language_level` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	Level IncludesIdName `json:"level"`
 }
 
 type _ResumeObjectsLanguage ResumeObjectsLanguage
@@ -35,7 +36,7 @@ type _ResumeObjectsLanguage ResumeObjectsLanguage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeObjectsLanguage(id string, name string, level IncludesLanguagePropertiesAllOfLevel) *ResumeObjectsLanguage {
+func NewResumeObjectsLanguage(id string, name string, level IncludesIdName) *ResumeObjectsLanguage {
 	this := ResumeObjectsLanguage{}
 	this.Id = id
 	this.Name = name
@@ -100,9 +101,9 @@ func (o *ResumeObjectsLanguage) SetName(v string) {
 }
 
 // GetLevel returns the Level field value
-func (o *ResumeObjectsLanguage) GetLevel() IncludesLanguagePropertiesAllOfLevel {
+func (o *ResumeObjectsLanguage) GetLevel() IncludesIdName {
 	if o == nil {
-		var ret IncludesLanguagePropertiesAllOfLevel
+		var ret IncludesIdName
 		return ret
 	}
 
@@ -111,7 +112,7 @@ func (o *ResumeObjectsLanguage) GetLevel() IncludesLanguagePropertiesAllOfLevel 
 
 // GetLevelOk returns a tuple with the Level field value
 // and a boolean to check if the value has been set.
-func (o *ResumeObjectsLanguage) GetLevelOk() (*IncludesLanguagePropertiesAllOfLevel, bool) {
+func (o *ResumeObjectsLanguage) GetLevelOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -119,7 +120,7 @@ func (o *ResumeObjectsLanguage) GetLevelOk() (*IncludesLanguagePropertiesAllOfLe
 }
 
 // SetLevel sets field value
-func (o *ResumeObjectsLanguage) SetLevel(v IncludesLanguagePropertiesAllOfLevel) {
+func (o *ResumeObjectsLanguage) SetLevel(v IncludesIdName) {
 	o.Level = v
 }
 

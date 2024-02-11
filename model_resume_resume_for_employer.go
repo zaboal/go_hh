@@ -37,8 +37,16 @@ type ResumeResumeForEmployer struct {
 	Certificate []ResumeObjectsCertificate `json:"certificate"`
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
-	Download ResumeResumeProfileAllOfDownload `json:"download"`
-	Education ResumeResumeProfileAllOfEducation `json:"education"`
+	// Ссылки для скачивания резюме в разных форматах
+	Download ResumeObjectsDownload `json:"download"`
+	// Образование соискателя. 
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
+
+	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -52,14 +60,16 @@ type ResumeResumeForEmployer struct {
 	Marked *bool `json:"marked,omitempty"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
-	Platform *ResumeResumeProfileAllOfPlatform `json:"platform,omitempty"`
+	// Ресурс, на котором было размещено резюме
+	Platform *IncludesId `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
 	// День рождения (в формате `ГГГГ-ММ-ДД`)
 	BirthDate NullableString `json:"birth_date,omitempty"`
-	BusinessTripReadiness ResumeResumeFullAllOfBusinessTripReadiness `json:"business_trip_readiness"`
+	// Готовность к командировкам. Элемент справочника [business_trip_readiness](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	BusinessTripReadiness IncludesIdName `json:"business_trip_readiness"`
 	// Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)
 	Citizenship []IncludesIdNameUrl `json:"citizenship"`
 	// Список контактов соискателя
@@ -68,7 +78,7 @@ type ResumeResumeForEmployer struct {
 	// Список категорий водительских прав соискателя
 	DriverLicenseTypes []ResumeObjectsDriverLicenseTypes `json:"driver_license_types"`
 	// Deprecated
-	Employment *ResumeResumeFullAllOfEmployment `json:"employment,omitempty"`
+	Employment *IncludesIdName `json:"employment,omitempty"`
 	// Список подходящих соискателю типов занятостей. Элементы справочника [employment](#tag/Obshie-spravochniki/operation/get-dictionaries)
 	Employments []IncludesIdName `json:"employments"`
 	// Наличие личного автомобиля у соискателя
@@ -82,10 +92,12 @@ type ResumeResumeForEmployer struct {
 	ProfessionalRoles []IncludesIdName `json:"professional_roles,omitempty"`
 	// Список рекомендаций
 	Recommendation []ResumeObjectsRecommendation `json:"recommendation"`
-	Relocation ResumeResumeFullAllOfRelocation `json:"relocation"`
-	ResumeLocale ResumeResumeFullAllOfResumeLocale `json:"resume_locale"`
+	// Возможность переезда
+	Relocation ResumeObjectsRelocationPublic `json:"relocation"`
+	// Язык, на котором составлено резюме (локаль). Элемент справочника [локали резюме](#tag/Obshie-spravochniki/operation/get-locales)
+	ResumeLocale IncludesIdName `json:"resume_locale"`
 	// Deprecated
-	Schedule ResumeResumeFullAllOfSchedule `json:"schedule"`
+	Schedule IncludesIdName `json:"schedule"`
 	// Список подходящих соискателю графиков работы. Элементы справочника [schedule](#tag/Obshie-spravochniki/operation/get-dictionaries)
 	Schedules []IncludesIdName `json:"schedules"`
 	// Профили в соц. сетях и других сервисах
@@ -94,7 +106,8 @@ type ResumeResumeForEmployer struct {
 	SkillSet []string `json:"skill_set"`
 	// Дополнительная информация, описание навыков в свободной форме
 	Skills NullableString `json:"skills,omitempty"`
-	TravelTime ResumeResumeFullAllOfTravelTime `json:"travel_time"`
+	// Желательное время в пути до работы. Элемент справочника [travel_time](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	TravelTime IncludesIdName `json:"travel_time"`
 	// Список регионов, в которых соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) 
 	WorkTicket []IncludesIdNameUrl `json:"work_ticket"`
 	// Дополнительные действия
@@ -120,7 +133,7 @@ type _ResumeResumeForEmployer ResumeResumeForEmployer
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeResumeProfileAllOfDownload, education ResumeResumeProfileAllOfEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness ResumeResumeFullAllOfBusinessTripReadiness, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsEmployerPaidServicesInner, recommendation []ResumeObjectsRecommendation, relocation ResumeResumeFullAllOfRelocation, resumeLocale ResumeResumeFullAllOfResumeLocale, schedule ResumeResumeFullAllOfSchedule, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime ResumeResumeFullAllOfTravelTime, workTicket []IncludesIdNameUrl, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer, owner ResumeObjectsOwner, portfolio []ResumeObjectsPortfolioNoId) *ResumeResumeForEmployer {
+func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsEmployerPaidServicesInner, recommendation []ResumeObjectsRecommendation, relocation ResumeObjectsRelocationPublic, resumeLocale IncludesIdName, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer, owner ResumeObjectsOwner, portfolio []ResumeObjectsPortfolioNoId) *ResumeResumeForEmployer {
 	this := ResumeResumeForEmployer{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -417,9 +430,9 @@ func (o *ResumeResumeForEmployer) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *ResumeResumeForEmployer) GetDownload() ResumeResumeProfileAllOfDownload {
+func (o *ResumeResumeForEmployer) GetDownload() ResumeObjectsDownload {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfDownload
+		var ret ResumeObjectsDownload
 		return ret
 	}
 
@@ -428,7 +441,7 @@ func (o *ResumeResumeForEmployer) GetDownload() ResumeResumeProfileAllOfDownload
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetDownloadOk() (*ResumeResumeProfileAllOfDownload, bool) {
+func (o *ResumeResumeForEmployer) GetDownloadOk() (*ResumeObjectsDownload, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -436,14 +449,14 @@ func (o *ResumeResumeForEmployer) GetDownloadOk() (*ResumeResumeProfileAllOfDown
 }
 
 // SetDownload sets field value
-func (o *ResumeResumeForEmployer) SetDownload(v ResumeResumeProfileAllOfDownload) {
+func (o *ResumeResumeForEmployer) SetDownload(v ResumeObjectsDownload) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *ResumeResumeForEmployer) GetEducation() ResumeResumeProfileAllOfEducation {
+func (o *ResumeResumeForEmployer) GetEducation() ResumeObjectsEducation {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfEducation
+		var ret ResumeObjectsEducation
 		return ret
 	}
 
@@ -452,7 +465,7 @@ func (o *ResumeResumeForEmployer) GetEducation() ResumeResumeProfileAllOfEducati
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetEducationOk() (*ResumeResumeProfileAllOfEducation, bool) {
+func (o *ResumeResumeForEmployer) GetEducationOk() (*ResumeObjectsEducation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -460,7 +473,7 @@ func (o *ResumeResumeForEmployer) GetEducationOk() (*ResumeResumeProfileAllOfEdu
 }
 
 // SetEducation sets field value
-func (o *ResumeResumeForEmployer) SetEducation(v ResumeResumeProfileAllOfEducation) {
+func (o *ResumeResumeForEmployer) SetEducation(v ResumeObjectsEducation) {
 	o.Education = v
 }
 
@@ -713,9 +726,9 @@ func (o *ResumeResumeForEmployer) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumeResumeForEmployer) GetPlatform() ResumeResumeProfileAllOfPlatform {
+func (o *ResumeResumeForEmployer) GetPlatform() IncludesId {
 	if o == nil || IsNil(o.Platform) {
-		var ret ResumeResumeProfileAllOfPlatform
+		var ret IncludesId
 		return ret
 	}
 	return *o.Platform
@@ -723,7 +736,7 @@ func (o *ResumeResumeForEmployer) GetPlatform() ResumeResumeProfileAllOfPlatform
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetPlatformOk() (*ResumeResumeProfileAllOfPlatform, bool) {
+func (o *ResumeResumeForEmployer) GetPlatformOk() (*IncludesId, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -739,8 +752,8 @@ func (o *ResumeResumeForEmployer) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given ResumeResumeProfileAllOfPlatform and assigns it to the Platform field.
-func (o *ResumeResumeForEmployer) SetPlatform(v ResumeResumeProfileAllOfPlatform) {
+// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
+func (o *ResumeResumeForEmployer) SetPlatform(v IncludesId) {
 	o.Platform = &v
 }
 
@@ -895,9 +908,9 @@ func (o *ResumeResumeForEmployer) UnsetBirthDate() {
 }
 
 // GetBusinessTripReadiness returns the BusinessTripReadiness field value
-func (o *ResumeResumeForEmployer) GetBusinessTripReadiness() ResumeResumeFullAllOfBusinessTripReadiness {
+func (o *ResumeResumeForEmployer) GetBusinessTripReadiness() IncludesIdName {
 	if o == nil {
-		var ret ResumeResumeFullAllOfBusinessTripReadiness
+		var ret IncludesIdName
 		return ret
 	}
 
@@ -906,7 +919,7 @@ func (o *ResumeResumeForEmployer) GetBusinessTripReadiness() ResumeResumeFullAll
 
 // GetBusinessTripReadinessOk returns a tuple with the BusinessTripReadiness field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetBusinessTripReadinessOk() (*ResumeResumeFullAllOfBusinessTripReadiness, bool) {
+func (o *ResumeResumeForEmployer) GetBusinessTripReadinessOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -914,7 +927,7 @@ func (o *ResumeResumeForEmployer) GetBusinessTripReadinessOk() (*ResumeResumeFul
 }
 
 // SetBusinessTripReadiness sets field value
-func (o *ResumeResumeForEmployer) SetBusinessTripReadiness(v ResumeResumeFullAllOfBusinessTripReadiness) {
+func (o *ResumeResumeForEmployer) SetBusinessTripReadiness(v IncludesIdName) {
 	o.BusinessTripReadiness = v
 }
 
@@ -1034,9 +1047,9 @@ func (o *ResumeResumeForEmployer) SetDriverLicenseTypes(v []ResumeObjectsDriverL
 
 // GetEmployment returns the Employment field value if set, zero value otherwise.
 // Deprecated
-func (o *ResumeResumeForEmployer) GetEmployment() ResumeResumeFullAllOfEmployment {
+func (o *ResumeResumeForEmployer) GetEmployment() IncludesIdName {
 	if o == nil || IsNil(o.Employment) {
-		var ret ResumeResumeFullAllOfEmployment
+		var ret IncludesIdName
 		return ret
 	}
 	return *o.Employment
@@ -1045,7 +1058,7 @@ func (o *ResumeResumeForEmployer) GetEmployment() ResumeResumeFullAllOfEmploymen
 // GetEmploymentOk returns a tuple with the Employment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *ResumeResumeForEmployer) GetEmploymentOk() (*ResumeResumeFullAllOfEmployment, bool) {
+func (o *ResumeResumeForEmployer) GetEmploymentOk() (*IncludesIdName, bool) {
 	if o == nil || IsNil(o.Employment) {
 		return nil, false
 	}
@@ -1061,9 +1074,9 @@ func (o *ResumeResumeForEmployer) HasEmployment() bool {
 	return false
 }
 
-// SetEmployment gets a reference to the given ResumeResumeFullAllOfEmployment and assigns it to the Employment field.
+// SetEmployment gets a reference to the given IncludesIdName and assigns it to the Employment field.
 // Deprecated
-func (o *ResumeResumeForEmployer) SetEmployment(v ResumeResumeFullAllOfEmployment) {
+func (o *ResumeResumeForEmployer) SetEmployment(v IncludesIdName) {
 	o.Employment = &v
 }
 
@@ -1281,9 +1294,9 @@ func (o *ResumeResumeForEmployer) SetRecommendation(v []ResumeObjectsRecommendat
 }
 
 // GetRelocation returns the Relocation field value
-func (o *ResumeResumeForEmployer) GetRelocation() ResumeResumeFullAllOfRelocation {
+func (o *ResumeResumeForEmployer) GetRelocation() ResumeObjectsRelocationPublic {
 	if o == nil {
-		var ret ResumeResumeFullAllOfRelocation
+		var ret ResumeObjectsRelocationPublic
 		return ret
 	}
 
@@ -1292,7 +1305,7 @@ func (o *ResumeResumeForEmployer) GetRelocation() ResumeResumeFullAllOfRelocatio
 
 // GetRelocationOk returns a tuple with the Relocation field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetRelocationOk() (*ResumeResumeFullAllOfRelocation, bool) {
+func (o *ResumeResumeForEmployer) GetRelocationOk() (*ResumeObjectsRelocationPublic, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1300,14 +1313,14 @@ func (o *ResumeResumeForEmployer) GetRelocationOk() (*ResumeResumeFullAllOfReloc
 }
 
 // SetRelocation sets field value
-func (o *ResumeResumeForEmployer) SetRelocation(v ResumeResumeFullAllOfRelocation) {
+func (o *ResumeResumeForEmployer) SetRelocation(v ResumeObjectsRelocationPublic) {
 	o.Relocation = v
 }
 
 // GetResumeLocale returns the ResumeLocale field value
-func (o *ResumeResumeForEmployer) GetResumeLocale() ResumeResumeFullAllOfResumeLocale {
+func (o *ResumeResumeForEmployer) GetResumeLocale() IncludesIdName {
 	if o == nil {
-		var ret ResumeResumeFullAllOfResumeLocale
+		var ret IncludesIdName
 		return ret
 	}
 
@@ -1316,7 +1329,7 @@ func (o *ResumeResumeForEmployer) GetResumeLocale() ResumeResumeFullAllOfResumeL
 
 // GetResumeLocaleOk returns a tuple with the ResumeLocale field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetResumeLocaleOk() (*ResumeResumeFullAllOfResumeLocale, bool) {
+func (o *ResumeResumeForEmployer) GetResumeLocaleOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1324,15 +1337,15 @@ func (o *ResumeResumeForEmployer) GetResumeLocaleOk() (*ResumeResumeFullAllOfRes
 }
 
 // SetResumeLocale sets field value
-func (o *ResumeResumeForEmployer) SetResumeLocale(v ResumeResumeFullAllOfResumeLocale) {
+func (o *ResumeResumeForEmployer) SetResumeLocale(v IncludesIdName) {
 	o.ResumeLocale = v
 }
 
 // GetSchedule returns the Schedule field value
 // Deprecated
-func (o *ResumeResumeForEmployer) GetSchedule() ResumeResumeFullAllOfSchedule {
+func (o *ResumeResumeForEmployer) GetSchedule() IncludesIdName {
 	if o == nil {
-		var ret ResumeResumeFullAllOfSchedule
+		var ret IncludesIdName
 		return ret
 	}
 
@@ -1342,7 +1355,7 @@ func (o *ResumeResumeForEmployer) GetSchedule() ResumeResumeFullAllOfSchedule {
 // GetScheduleOk returns a tuple with the Schedule field value
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *ResumeResumeForEmployer) GetScheduleOk() (*ResumeResumeFullAllOfSchedule, bool) {
+func (o *ResumeResumeForEmployer) GetScheduleOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1351,7 +1364,7 @@ func (o *ResumeResumeForEmployer) GetScheduleOk() (*ResumeResumeFullAllOfSchedul
 
 // SetSchedule sets field value
 // Deprecated
-func (o *ResumeResumeForEmployer) SetSchedule(v ResumeResumeFullAllOfSchedule) {
+func (o *ResumeResumeForEmployer) SetSchedule(v IncludesIdName) {
 	o.Schedule = v
 }
 
@@ -1470,9 +1483,9 @@ func (o *ResumeResumeForEmployer) UnsetSkills() {
 }
 
 // GetTravelTime returns the TravelTime field value
-func (o *ResumeResumeForEmployer) GetTravelTime() ResumeResumeFullAllOfTravelTime {
+func (o *ResumeResumeForEmployer) GetTravelTime() IncludesIdName {
 	if o == nil {
-		var ret ResumeResumeFullAllOfTravelTime
+		var ret IncludesIdName
 		return ret
 	}
 
@@ -1481,7 +1494,7 @@ func (o *ResumeResumeForEmployer) GetTravelTime() ResumeResumeFullAllOfTravelTim
 
 // GetTravelTimeOk returns a tuple with the TravelTime field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetTravelTimeOk() (*ResumeResumeFullAllOfTravelTime, bool) {
+func (o *ResumeResumeForEmployer) GetTravelTimeOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1489,7 +1502,7 @@ func (o *ResumeResumeForEmployer) GetTravelTimeOk() (*ResumeResumeFullAllOfTrave
 }
 
 // SetTravelTime sets field value
-func (o *ResumeResumeForEmployer) SetTravelTime(v ResumeResumeFullAllOfTravelTime) {
+func (o *ResumeResumeForEmployer) SetTravelTime(v IncludesIdName) {
 	o.TravelTime = v
 }
 

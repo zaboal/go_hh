@@ -14,7 +14,6 @@ package hh
 import (
 	"encoding/json"
 	"fmt"
-	"bytes"
 )
 
 // ResumesResumeViewHistoryItemEmployer Информация о компании.  Если резюме просмотрено анонимным работодателем, либо из откликов к анонимной вакансии, объект будет содержать только поле `name` 

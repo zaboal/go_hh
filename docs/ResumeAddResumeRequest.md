@@ -31,12 +31,18 @@ Name | Type | Description | Notes
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **TravelTime** | Pointer to [**IncludesId**](IncludesId.md) |  | [optional] 
 **WorkTicket** | Pointer to [**[]IncludesId**](IncludesId.md) | Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | [optional] 
-**Area** | Pointer to [**ResumeAddResumeRequestAllOfArea**](ResumeAddResumeRequestAllOfArea.md) |  | [optional] 
+**Area** | Pointer to [**Id**](Id.md) | Город проживания. Элемент справочника [areas](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Citizenship** | Pointer to [**[]IncludesId**](IncludesId.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Contact** | Pointer to [**[]ResumeObjectsContact**](ResumeObjectsContact.md) | Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится. * Обязательно указать либо телефон полностью в поле &#x60;formatted&#x60;, либо все три части телефона по отдельности в трёх полях: &#x60;country&#x60;, &#x60;city&#x60; и &#x60;number&#x60;. Если указано и то, и то, используются данные из трёх полей. В поле &#x60;formatted&#x60; допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры  | [optional] 
-**Education** | Pointer to [**ResumeAddResumeRequestAllOfEducation**](ResumeAddResumeRequestAllOfEducation.md) |  | [optional] 
+**Education** | Pointer to [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования &quot;средний&quot;, то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования &quot;высшее&quot;, то сохранится только высшее образование
+ | [optional] 
 **Experience** | Pointer to [**[]ResumeObjectsExperienceCreateEditResume**](ResumeObjectsExperienceCreateEditResume.md) | Опыт работы | [optional] 
-**Gender** | Pointer to [**ResumeAddResumeRequestAllOfGender**](ResumeAddResumeRequestAllOfGender.md) |  | [optional] 
+**Gender** | Pointer to [**Id**](Id.md) | Пол. Элемент справочника [gender](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 **Language** | Pointer to [**[]ResumeObjectsLanguage**](ResumeObjectsLanguage.md) | Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages) | [optional] 
 
 ## Methods
@@ -925,20 +931,20 @@ HasWorkTicket returns a boolean if a field has been set.
 UnsetWorkTicket ensures that no value is present for WorkTicket, not even an explicit nil
 ### GetArea
 
-`func (o *ResumeAddResumeRequest) GetArea() ResumeAddResumeRequestAllOfArea`
+`func (o *ResumeAddResumeRequest) GetArea() Id`
 
 GetArea returns the Area field if non-nil, zero value otherwise.
 
 ### GetAreaOk
 
-`func (o *ResumeAddResumeRequest) GetAreaOk() (*ResumeAddResumeRequestAllOfArea, bool)`
+`func (o *ResumeAddResumeRequest) GetAreaOk() (*Id, bool)`
 
 GetAreaOk returns a tuple with the Area field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArea
 
-`func (o *ResumeAddResumeRequest) SetArea(v ResumeAddResumeRequestAllOfArea)`
+`func (o *ResumeAddResumeRequest) SetArea(v Id)`
 
 SetArea sets Area field to given value.
 
@@ -1000,20 +1006,20 @@ HasContact returns a boolean if a field has been set.
 
 ### GetEducation
 
-`func (o *ResumeAddResumeRequest) GetEducation() ResumeAddResumeRequestAllOfEducation`
+`func (o *ResumeAddResumeRequest) GetEducation() ResumeObjectsEducation`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeAddResumeRequest) GetEducationOk() (*ResumeAddResumeRequestAllOfEducation, bool)`
+`func (o *ResumeAddResumeRequest) GetEducationOk() (*ResumeObjectsEducation, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeAddResumeRequest) SetEducation(v ResumeAddResumeRequestAllOfEducation)`
+`func (o *ResumeAddResumeRequest) SetEducation(v ResumeObjectsEducation)`
 
 SetEducation sets Education field to given value.
 
@@ -1050,20 +1056,20 @@ HasExperience returns a boolean if a field has been set.
 
 ### GetGender
 
-`func (o *ResumeAddResumeRequest) GetGender() ResumeAddResumeRequestAllOfGender`
+`func (o *ResumeAddResumeRequest) GetGender() Id`
 
 GetGender returns the Gender field if non-nil, zero value otherwise.
 
 ### GetGenderOk
 
-`func (o *ResumeAddResumeRequest) GetGenderOk() (*ResumeAddResumeRequestAllOfGender, bool)`
+`func (o *ResumeAddResumeRequest) GetGenderOk() (*Id, bool)`
 
 GetGenderOk returns a tuple with the Gender field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGender
 
-`func (o *ResumeAddResumeRequest) SetGender(v ResumeAddResumeRequestAllOfGender)`
+`func (o *ResumeAddResumeRequest) SetGender(v Id)`
 
 SetGender sets Gender field to given value.
 

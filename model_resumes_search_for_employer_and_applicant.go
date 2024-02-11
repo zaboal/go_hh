@@ -37,8 +37,16 @@ type ResumesSearchForEmployerAndApplicant struct {
 	Certificate []ResumeObjectsCertificate `json:"certificate"`
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
-	Download ResumeResumeProfileAllOfDownload `json:"download"`
-	Education ResumeResumeProfileAllOfEducation `json:"education"`
+	// Ссылки для скачивания резюме в разных форматах
+	Download ResumeObjectsDownload `json:"download"`
+	// Образование соискателя. 
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
+
+	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -52,21 +60,28 @@ type ResumesSearchForEmployerAndApplicant struct {
 	Marked *bool `json:"marked,omitempty"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
-	Platform *ResumeResumeProfileAllOfPlatform `json:"platform,omitempty"`
+	// Ресурс, на котором было размещено резюме
+	Platform *IncludesId `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
-	Actions ResumeResumeShortAllOfActions `json:"actions"`
+	// Дополнительные действия
+	Actions ResumeObjectsActions `json:"actions"`
 	// Добавлено ли резюме в избранные
 	Favorited bool `json:"favorited"`
-	NegotiationsHistory ResumeResumeShortAllOfNegotiationsHistory `json:"negotiations_history"`
-	Owner ResumeResumeShortAllOfOwner `json:"owner"`
-	Photo NullableResumeResumeShortAllOfPhoto `json:"photo,omitempty"`
+	// Краткая история откликов/приглашений по резюме
+	NegotiationsHistory ResumeObjectsNegotiationsHistoryUrl `json:"negotiations_history"`
+	// Информация о владельце резюме
+	Owner ResumeObjectsOwner `json:"owner"`
+	// Фотография пользователя
+	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
 	LastNegotiation *ResumesNegotiationNano `json:"last_negotiation,omitempty"`
-	JobSearchStatus *ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus `json:"job_search_status,omitempty"`
+	// Для получения данных нужно передать параметр `with_job_search_status=true`
+
+	JobSearchStatus *IncludesIdName `json:"job_search_status,omitempty"`
 	// Ссылка на резюме
 	Url *string `json:"url,omitempty"`
 }
@@ -77,7 +92,7 @@ type _ResumesSearchForEmployerAndApplicant ResumesSearchForEmployerAndApplicant
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumesSearchForEmployerAndApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeResumeProfileAllOfDownload, education ResumeResumeProfileAllOfEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeResumeShortAllOfActions, favorited bool, negotiationsHistory ResumeResumeShortAllOfNegotiationsHistory, owner ResumeResumeShortAllOfOwner, viewed bool) *ResumesSearchForEmployerAndApplicant {
+func NewResumesSearchForEmployerAndApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool) *ResumesSearchForEmployerAndApplicant {
 	this := ResumesSearchForEmployerAndApplicant{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -354,9 +369,9 @@ func (o *ResumesSearchForEmployerAndApplicant) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *ResumesSearchForEmployerAndApplicant) GetDownload() ResumeResumeProfileAllOfDownload {
+func (o *ResumesSearchForEmployerAndApplicant) GetDownload() ResumeObjectsDownload {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfDownload
+		var ret ResumeObjectsDownload
 		return ret
 	}
 
@@ -365,7 +380,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetDownload() ResumeResumeProfile
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetDownloadOk() (*ResumeResumeProfileAllOfDownload, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetDownloadOk() (*ResumeObjectsDownload, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -373,14 +388,14 @@ func (o *ResumesSearchForEmployerAndApplicant) GetDownloadOk() (*ResumeResumePro
 }
 
 // SetDownload sets field value
-func (o *ResumesSearchForEmployerAndApplicant) SetDownload(v ResumeResumeProfileAllOfDownload) {
+func (o *ResumesSearchForEmployerAndApplicant) SetDownload(v ResumeObjectsDownload) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *ResumesSearchForEmployerAndApplicant) GetEducation() ResumeResumeProfileAllOfEducation {
+func (o *ResumesSearchForEmployerAndApplicant) GetEducation() ResumeObjectsEducation {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfEducation
+		var ret ResumeObjectsEducation
 		return ret
 	}
 
@@ -389,7 +404,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetEducation() ResumeResumeProfil
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetEducationOk() (*ResumeResumeProfileAllOfEducation, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetEducationOk() (*ResumeObjectsEducation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -397,7 +412,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetEducationOk() (*ResumeResumePr
 }
 
 // SetEducation sets field value
-func (o *ResumesSearchForEmployerAndApplicant) SetEducation(v ResumeResumeProfileAllOfEducation) {
+func (o *ResumesSearchForEmployerAndApplicant) SetEducation(v ResumeObjectsEducation) {
 	o.Education = v
 }
 
@@ -650,9 +665,9 @@ func (o *ResumesSearchForEmployerAndApplicant) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumesSearchForEmployerAndApplicant) GetPlatform() ResumeResumeProfileAllOfPlatform {
+func (o *ResumesSearchForEmployerAndApplicant) GetPlatform() IncludesId {
 	if o == nil || IsNil(o.Platform) {
-		var ret ResumeResumeProfileAllOfPlatform
+		var ret IncludesId
 		return ret
 	}
 	return *o.Platform
@@ -660,7 +675,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetPlatform() ResumeResumeProfile
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetPlatformOk() (*ResumeResumeProfileAllOfPlatform, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetPlatformOk() (*IncludesId, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -676,8 +691,8 @@ func (o *ResumesSearchForEmployerAndApplicant) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given ResumeResumeProfileAllOfPlatform and assigns it to the Platform field.
-func (o *ResumesSearchForEmployerAndApplicant) SetPlatform(v ResumeResumeProfileAllOfPlatform) {
+// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
+func (o *ResumesSearchForEmployerAndApplicant) SetPlatform(v IncludesId) {
 	o.Platform = &v
 }
 
@@ -790,9 +805,9 @@ func (o *ResumesSearchForEmployerAndApplicant) SetUpdatedAt(v string) {
 }
 
 // GetActions returns the Actions field value
-func (o *ResumesSearchForEmployerAndApplicant) GetActions() ResumeResumeShortAllOfActions {
+func (o *ResumesSearchForEmployerAndApplicant) GetActions() ResumeObjectsActions {
 	if o == nil {
-		var ret ResumeResumeShortAllOfActions
+		var ret ResumeObjectsActions
 		return ret
 	}
 
@@ -801,7 +816,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetActions() ResumeResumeShortAll
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetActionsOk() (*ResumeResumeShortAllOfActions, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetActionsOk() (*ResumeObjectsActions, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -809,7 +824,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetActionsOk() (*ResumeResumeShor
 }
 
 // SetActions sets field value
-func (o *ResumesSearchForEmployerAndApplicant) SetActions(v ResumeResumeShortAllOfActions) {
+func (o *ResumesSearchForEmployerAndApplicant) SetActions(v ResumeObjectsActions) {
 	o.Actions = v
 }
 
@@ -838,9 +853,9 @@ func (o *ResumesSearchForEmployerAndApplicant) SetFavorited(v bool) {
 }
 
 // GetNegotiationsHistory returns the NegotiationsHistory field value
-func (o *ResumesSearchForEmployerAndApplicant) GetNegotiationsHistory() ResumeResumeShortAllOfNegotiationsHistory {
+func (o *ResumesSearchForEmployerAndApplicant) GetNegotiationsHistory() ResumeObjectsNegotiationsHistoryUrl {
 	if o == nil {
-		var ret ResumeResumeShortAllOfNegotiationsHistory
+		var ret ResumeObjectsNegotiationsHistoryUrl
 		return ret
 	}
 
@@ -849,7 +864,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetNegotiationsHistory() ResumeRe
 
 // GetNegotiationsHistoryOk returns a tuple with the NegotiationsHistory field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetNegotiationsHistoryOk() (*ResumeResumeShortAllOfNegotiationsHistory, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetNegotiationsHistoryOk() (*ResumeObjectsNegotiationsHistoryUrl, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -857,14 +872,14 @@ func (o *ResumesSearchForEmployerAndApplicant) GetNegotiationsHistoryOk() (*Resu
 }
 
 // SetNegotiationsHistory sets field value
-func (o *ResumesSearchForEmployerAndApplicant) SetNegotiationsHistory(v ResumeResumeShortAllOfNegotiationsHistory) {
+func (o *ResumesSearchForEmployerAndApplicant) SetNegotiationsHistory(v ResumeObjectsNegotiationsHistoryUrl) {
 	o.NegotiationsHistory = v
 }
 
 // GetOwner returns the Owner field value
-func (o *ResumesSearchForEmployerAndApplicant) GetOwner() ResumeResumeShortAllOfOwner {
+func (o *ResumesSearchForEmployerAndApplicant) GetOwner() ResumeObjectsOwner {
 	if o == nil {
-		var ret ResumeResumeShortAllOfOwner
+		var ret ResumeObjectsOwner
 		return ret
 	}
 
@@ -873,7 +888,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetOwner() ResumeResumeShortAllOf
 
 // GetOwnerOk returns a tuple with the Owner field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetOwnerOk() (*ResumeResumeShortAllOfOwner, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetOwnerOk() (*ResumeObjectsOwner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -881,14 +896,14 @@ func (o *ResumesSearchForEmployerAndApplicant) GetOwnerOk() (*ResumeResumeShortA
 }
 
 // SetOwner sets field value
-func (o *ResumesSearchForEmployerAndApplicant) SetOwner(v ResumeResumeShortAllOfOwner) {
+func (o *ResumesSearchForEmployerAndApplicant) SetOwner(v ResumeObjectsOwner) {
 	o.Owner = v
 }
 
 // GetPhoto returns the Photo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSearchForEmployerAndApplicant) GetPhoto() ResumeResumeShortAllOfPhoto {
+func (o *ResumesSearchForEmployerAndApplicant) GetPhoto() ResumeObjectsPhoto {
 	if o == nil || IsNil(o.Photo.Get()) {
-		var ret ResumeResumeShortAllOfPhoto
+		var ret ResumeObjectsPhoto
 		return ret
 	}
 	return *o.Photo.Get()
@@ -897,7 +912,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetPhoto() ResumeResumeShortAllOf
 // GetPhotoOk returns a tuple with the Photo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSearchForEmployerAndApplicant) GetPhotoOk() (*ResumeResumeShortAllOfPhoto, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetPhotoOk() (*ResumeObjectsPhoto, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -913,8 +928,8 @@ func (o *ResumesSearchForEmployerAndApplicant) HasPhoto() bool {
 	return false
 }
 
-// SetPhoto gets a reference to the given NullableResumeResumeShortAllOfPhoto and assigns it to the Photo field.
-func (o *ResumesSearchForEmployerAndApplicant) SetPhoto(v ResumeResumeShortAllOfPhoto) {
+// SetPhoto gets a reference to the given NullableResumeObjectsPhoto and assigns it to the Photo field.
+func (o *ResumesSearchForEmployerAndApplicant) SetPhoto(v ResumeObjectsPhoto) {
 	o.Photo.Set(&v)
 }
 // SetPhotoNil sets the value for Photo to be an explicit nil
@@ -984,9 +999,9 @@ func (o *ResumesSearchForEmployerAndApplicant) SetLastNegotiation(v ResumesNegot
 }
 
 // GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise.
-func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus {
+func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() IncludesIdName {
 	if o == nil || IsNil(o.JobSearchStatus) {
-		var ret ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus
+		var ret IncludesIdName
 		return ret
 	}
 	return *o.JobSearchStatus
@@ -994,7 +1009,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() ResumesSearc
 
 // GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatusOk() (*ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatusOk() (*IncludesIdName, bool) {
 	if o == nil || IsNil(o.JobSearchStatus) {
 		return nil, false
 	}
@@ -1010,8 +1025,8 @@ func (o *ResumesSearchForEmployerAndApplicant) HasJobSearchStatus() bool {
 	return false
 }
 
-// SetJobSearchStatus gets a reference to the given ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus and assigns it to the JobSearchStatus field.
-func (o *ResumesSearchForEmployerAndApplicant) SetJobSearchStatus(v ResumesSearchForEmployerAndApplicantAllOfJobSearchStatus) {
+// SetJobSearchStatus gets a reference to the given IncludesIdName and assigns it to the JobSearchStatus field.
+func (o *ResumesSearchForEmployerAndApplicant) SetJobSearchStatus(v IncludesIdName) {
 	o.JobSearchStatus = &v
 }
 

@@ -22,9 +22,6 @@ var _ MappedNullable = &UserStatusesJobSearchStatus{}
 
 // UserStatusesJobSearchStatus struct for UserStatusesJobSearchStatus
 type UserStatusesJobSearchStatus struct {
-	// Детальное описание статуса
-	// Deprecated
-	Description *string `json:"description,omitempty"`
 	// Идентификатор статуса
 	Id string `json:"id"`
 	// Название статуса
@@ -50,41 +47,6 @@ func NewUserStatusesJobSearchStatus(id string, name string) *UserStatusesJobSear
 func NewUserStatusesJobSearchStatusWithDefaults() *UserStatusesJobSearchStatus {
 	this := UserStatusesJobSearchStatus{}
 	return &this
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-// Deprecated
-func (o *UserStatusesJobSearchStatus) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *UserStatusesJobSearchStatus) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *UserStatusesJobSearchStatus) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-// Deprecated
-func (o *UserStatusesJobSearchStatus) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetId returns the Id field value
@@ -145,9 +107,6 @@ func (o UserStatusesJobSearchStatus) MarshalJSON() ([]byte, error) {
 
 func (o UserStatusesJobSearchStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	return toSerialize, nil

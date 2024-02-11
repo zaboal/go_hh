@@ -37,8 +37,16 @@ type VacanciesVisitorsVisitorItemsItemsInner struct {
 	Certificate []ResumeObjectsCertificate `json:"certificate"`
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
-	Download ResumeResumeProfileAllOfDownload `json:"download"`
-	Education ResumeResumeProfileAllOfEducation `json:"education"`
+	// Ссылки для скачивания резюме в разных форматах
+	Download ResumeObjectsDownload `json:"download"`
+	// Образование соискателя. 
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
+
+	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -52,17 +60,22 @@ type VacanciesVisitorsVisitorItemsItemsInner struct {
 	Marked *bool `json:"marked,omitempty"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
-	Platform *ResumeResumeProfileAllOfPlatform `json:"platform,omitempty"`
+	// Ресурс, на котором было размещено резюме
+	Platform *IncludesId `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
-	Actions ResumeResumeShortAllOfActions `json:"actions"`
+	// Дополнительные действия
+	Actions ResumeObjectsActions `json:"actions"`
 	// Добавлено ли резюме в избранные
 	Favorited bool `json:"favorited"`
-	NegotiationsHistory ResumeResumeShortAllOfNegotiationsHistory `json:"negotiations_history"`
-	Owner ResumeResumeShortAllOfOwner `json:"owner"`
-	Photo NullableResumeResumeShortAllOfPhoto `json:"photo,omitempty"`
+	// Краткая история откликов/приглашений по резюме
+	NegotiationsHistory ResumeObjectsNegotiationsHistoryUrl `json:"negotiations_history"`
+	// Информация о владельце резюме
+	Owner ResumeObjectsOwner `json:"owner"`
+	// Фотография пользователя
+	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
 	// Ссылка на получение элементов
@@ -75,7 +88,7 @@ type _VacanciesVisitorsVisitorItemsItemsInner VacanciesVisitorsVisitorItemsItems
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeResumeProfileAllOfDownload, education ResumeResumeProfileAllOfEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeResumeShortAllOfActions, favorited bool, negotiationsHistory ResumeResumeShortAllOfNegotiationsHistory, owner ResumeResumeShortAllOfOwner, viewed bool, url string) *VacanciesVisitorsVisitorItemsItemsInner {
+func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, url string) *VacanciesVisitorsVisitorItemsItemsInner {
 	this := VacanciesVisitorsVisitorItemsItemsInner{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -353,9 +366,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeResumeProfileAllOfDownload {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeObjectsDownload {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfDownload
+		var ret ResumeObjectsDownload
 		return ret
 	}
 
@@ -364,7 +377,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeResumeProf
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (*ResumeResumeProfileAllOfDownload, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (*ResumeObjectsDownload, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -372,14 +385,14 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (*ResumeResume
 }
 
 // SetDownload sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetDownload(v ResumeResumeProfileAllOfDownload) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetDownload(v ResumeObjectsDownload) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeResumeProfileAllOfEducation {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeObjectsEducation {
 	if o == nil {
-		var ret ResumeResumeProfileAllOfEducation
+		var ret ResumeObjectsEducation
 		return ret
 	}
 
@@ -388,7 +401,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeResumePro
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (*ResumeResumeProfileAllOfEducation, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (*ResumeObjectsEducation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -396,7 +409,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (*ResumeResum
 }
 
 // SetEducation sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v ResumeResumeProfileAllOfEducation) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v ResumeObjectsEducation) {
 	o.Education = v
 }
 
@@ -649,9 +662,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() ResumeResumeProfileAllOfPlatform {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() IncludesId {
 	if o == nil || IsNil(o.Platform) {
-		var ret ResumeResumeProfileAllOfPlatform
+		var ret IncludesId
 		return ret
 	}
 	return *o.Platform
@@ -659,7 +672,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() ResumeResumeProf
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatformOk() (*ResumeResumeProfileAllOfPlatform, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatformOk() (*IncludesId, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -675,8 +688,8 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given ResumeResumeProfileAllOfPlatform and assigns it to the Platform field.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPlatform(v ResumeResumeProfileAllOfPlatform) {
+// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPlatform(v IncludesId) {
 	o.Platform = &v
 }
 
@@ -789,9 +802,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) SetUpdatedAt(v string) {
 }
 
 // GetActions returns the Actions field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActions() ResumeResumeShortAllOfActions {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActions() ResumeObjectsActions {
 	if o == nil {
-		var ret ResumeResumeShortAllOfActions
+		var ret ResumeObjectsActions
 		return ret
 	}
 
@@ -800,7 +813,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActions() ResumeResumeShort
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActionsOk() (*ResumeResumeShortAllOfActions, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActionsOk() (*ResumeObjectsActions, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -808,7 +821,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActionsOk() (*ResumeResumeS
 }
 
 // SetActions sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetActions(v ResumeResumeShortAllOfActions) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetActions(v ResumeObjectsActions) {
 	o.Actions = v
 }
 
@@ -837,9 +850,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) SetFavorited(v bool) {
 }
 
 // GetNegotiationsHistory returns the NegotiationsHistory field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistory() ResumeResumeShortAllOfNegotiationsHistory {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistory() ResumeObjectsNegotiationsHistoryUrl {
 	if o == nil {
-		var ret ResumeResumeShortAllOfNegotiationsHistory
+		var ret ResumeObjectsNegotiationsHistoryUrl
 		return ret
 	}
 
@@ -848,7 +861,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistory() Resum
 
 // GetNegotiationsHistoryOk returns a tuple with the NegotiationsHistory field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistoryOk() (*ResumeResumeShortAllOfNegotiationsHistory, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistoryOk() (*ResumeObjectsNegotiationsHistoryUrl, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -856,14 +869,14 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistoryOk() (*R
 }
 
 // SetNegotiationsHistory sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetNegotiationsHistory(v ResumeResumeShortAllOfNegotiationsHistory) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetNegotiationsHistory(v ResumeObjectsNegotiationsHistoryUrl) {
 	o.NegotiationsHistory = v
 }
 
 // GetOwner returns the Owner field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwner() ResumeResumeShortAllOfOwner {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwner() ResumeObjectsOwner {
 	if o == nil {
-		var ret ResumeResumeShortAllOfOwner
+		var ret ResumeObjectsOwner
 		return ret
 	}
 
@@ -872,7 +885,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwner() ResumeResumeShortAl
 
 // GetOwnerOk returns a tuple with the Owner field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwnerOk() (*ResumeResumeShortAllOfOwner, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwnerOk() (*ResumeObjectsOwner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -880,14 +893,14 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwnerOk() (*ResumeResumeSho
 }
 
 // SetOwner sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetOwner(v ResumeResumeShortAllOfOwner) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetOwner(v ResumeObjectsOwner) {
 	o.Owner = v
 }
 
 // GetPhoto returns the Photo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhoto() ResumeResumeShortAllOfPhoto {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhoto() ResumeObjectsPhoto {
 	if o == nil || IsNil(o.Photo.Get()) {
-		var ret ResumeResumeShortAllOfPhoto
+		var ret ResumeObjectsPhoto
 		return ret
 	}
 	return *o.Photo.Get()
@@ -896,7 +909,7 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhoto() ResumeResumeShortAl
 // GetPhotoOk returns a tuple with the Photo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhotoOk() (*ResumeResumeShortAllOfPhoto, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhotoOk() (*ResumeObjectsPhoto, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -912,8 +925,8 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) HasPhoto() bool {
 	return false
 }
 
-// SetPhoto gets a reference to the given NullableResumeResumeShortAllOfPhoto and assigns it to the Photo field.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPhoto(v ResumeResumeShortAllOfPhoto) {
+// SetPhoto gets a reference to the given NullableResumeObjectsPhoto and assigns it to the Photo field.
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPhoto(v ResumeObjectsPhoto) {
 	o.Photo.Set(&v)
 }
 // SetPhotoNil sets the value for Photo to be an explicit nil

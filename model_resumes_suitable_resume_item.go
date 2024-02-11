@@ -77,7 +77,9 @@ type ResumesSuitableResumeItem struct {
 	Finished bool `json:"finished"`
 	// Принимает значение `true`, если резюме является неполным. Применимо только для вакансий, у которых не установлен флаг «принимать неполные резюме».   При получении `true` в данном поле, соискатель должен заполнить обязательные поля (доступны в [выдаче полного резюме](#tag/Prosmotr-rezyume/operation/get-resume)) перед откликом на данную вакансию 
 	RequiresCompletion bool `json:"requires_completion"`
-	Status ResumesSuitableResumeItemAllOfStatus `json:"status"`
+	// Статус [резюме](#tag/Rezyume.-Prosmotr-informacii/Status-rezyume)
+
+	Status IncludesIdName `json:"status"`
 }
 
 type _ResumesSuitableResumeItem ResumesSuitableResumeItem
@@ -86,7 +88,7 @@ type _ResumesSuitableResumeItem ResumesSuitableResumeItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status ResumesSuitableResumeItemAllOfStatus) *ResumesSuitableResumeItem {
+func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status IncludesIdName) *ResumesSuitableResumeItem {
 	this := ResumesSuitableResumeItem{}
 	this.Actions = actions
 	this.AlternateUrl = alternateUrl
@@ -972,9 +974,9 @@ func (o *ResumesSuitableResumeItem) SetRequiresCompletion(v bool) {
 }
 
 // GetStatus returns the Status field value
-func (o *ResumesSuitableResumeItem) GetStatus() ResumesSuitableResumeItemAllOfStatus {
+func (o *ResumesSuitableResumeItem) GetStatus() IncludesIdName {
 	if o == nil {
-		var ret ResumesSuitableResumeItemAllOfStatus
+		var ret IncludesIdName
 		return ret
 	}
 
@@ -983,7 +985,7 @@ func (o *ResumesSuitableResumeItem) GetStatus() ResumesSuitableResumeItemAllOfSt
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetStatusOk() (*ResumesSuitableResumeItemAllOfStatus, bool) {
+func (o *ResumesSuitableResumeItem) GetStatusOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -991,7 +993,7 @@ func (o *ResumesSuitableResumeItem) GetStatusOk() (*ResumesSuitableResumeItemAll
 }
 
 // SetStatus sets field value
-func (o *ResumesSuitableResumeItem) SetStatus(v ResumesSuitableResumeItemAllOfStatus) {
+func (o *ResumesSuitableResumeItem) SetStatus(v IncludesIdName) {
 	o.Status = v
 }
 

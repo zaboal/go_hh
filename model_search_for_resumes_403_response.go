@@ -14,7 +14,6 @@ package hh
 import (
 	"encoding/json"
 	"fmt"
-	"bytes"
 )
 
 // SearchForResumes403Response - struct for SearchForResumes403Response

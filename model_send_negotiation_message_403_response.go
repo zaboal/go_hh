@@ -14,7 +14,6 @@ package hh
 import (
 	"encoding/json"
 	"fmt"
-	"bytes"
 )
 
 // SendNegotiationMessage403Response - struct for SendNegotiationMessage403Response

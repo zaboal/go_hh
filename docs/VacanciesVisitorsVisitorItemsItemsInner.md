@@ -12,8 +12,14 @@ Name | Type | Description | Notes
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
-**Download** | [**ResumeResumeProfileAllOfDownload**](ResumeResumeProfileAllOfDownload.md) |  | 
-**Education** | [**ResumeResumeProfileAllOfEducation**](ResumeResumeProfileAllOfEducation.md) |  | 
+**Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
+**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя. 
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования &quot;средний&quot;, то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования &quot;высшее&quot;, то сохранится только высшее образование
+ | 
 **Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
@@ -21,15 +27,15 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
 **Marked** | Pointer to **bool** | Выделено ли резюме в поиске | [optional] 
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
-**Platform** | Pointer to [**ResumeResumeProfileAllOfPlatform**](ResumeResumeProfileAllOfPlatform.md) |  | [optional] 
+**Platform** | Pointer to [**IncludesId**](IncludesId.md) | Ресурс, на котором было размещено резюме | [optional] 
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
-**Actions** | [**ResumeResumeShortAllOfActions**](ResumeResumeShortAllOfActions.md) |  | 
+**Actions** | [**ResumeObjectsActions**](ResumeObjectsActions.md) | Дополнительные действия | 
 **Favorited** | **bool** | Добавлено ли резюме в избранные | 
-**NegotiationsHistory** | [**ResumeResumeShortAllOfNegotiationsHistory**](ResumeResumeShortAllOfNegotiationsHistory.md) |  | 
-**Owner** | [**ResumeResumeShortAllOfOwner**](ResumeResumeShortAllOfOwner.md) |  | 
-**Photo** | Pointer to [**NullableResumeResumeShortAllOfPhoto**](ResumeResumeShortAllOfPhoto.md) |  | [optional] 
+**NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryUrl**](ResumeObjectsNegotiationsHistoryUrl.md) | Краткая история откликов/приглашений по резюме | 
+**Owner** | [**ResumeObjectsOwner**](ResumeObjectsOwner.md) | Информация о владельце резюме | 
+**Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) | Фотография пользователя | [optional] 
 **Viewed** | **bool** | Было ли резюме уже просмотрено работодателем | 
 **Url** | **string** | Ссылка на получение элементов | 
 
@@ -37,7 +43,7 @@ Name | Type | Description | Notes
 
 ### NewVacanciesVisitorsVisitorItemsItemsInner
 
-`func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeResumeProfileAllOfDownload, education ResumeResumeProfileAllOfEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeResumeShortAllOfActions, favorited bool, negotiationsHistory ResumeResumeShortAllOfNegotiationsHistory, owner ResumeResumeShortAllOfOwner, viewed bool, url string, ) *VacanciesVisitorsVisitorItemsItemsInner`
+`func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, url string, ) *VacanciesVisitorsVisitorItemsItemsInner`
 
 NewVacanciesVisitorsVisitorItemsItemsInner instantiates a new VacanciesVisitorsVisitorItemsItemsInner object
 This constructor will assign default values to properties that have it defined,
@@ -269,40 +275,40 @@ SetCreatedAt sets CreatedAt field to given value.
 
 ### GetDownload
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeResumeProfileAllOfDownload`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeObjectsDownload`
 
 GetDownload returns the Download field if non-nil, zero value otherwise.
 
 ### GetDownloadOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (*ResumeResumeProfileAllOfDownload, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (*ResumeObjectsDownload, bool)`
 
 GetDownloadOk returns a tuple with the Download field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownload
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetDownload(v ResumeResumeProfileAllOfDownload)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetDownload(v ResumeObjectsDownload)`
 
 SetDownload sets Download field to given value.
 
 
 ### GetEducation
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeResumeProfileAllOfEducation`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeObjectsEducation`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (*ResumeResumeProfileAllOfEducation, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (*ResumeObjectsEducation, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v ResumeResumeProfileAllOfEducation)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v ResumeObjectsEducation)`
 
 SetEducation sets Education field to given value.
 
@@ -514,20 +520,20 @@ HasMiddleName returns a boolean if a field has been set.
 UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
 ### GetPlatform
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() ResumeResumeProfileAllOfPlatform`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() IncludesId`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatformOk() (*ResumeResumeProfileAllOfPlatform, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatformOk() (*IncludesId, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPlatform(v ResumeResumeProfileAllOfPlatform)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPlatform(v IncludesId)`
 
 SetPlatform sets Platform field to given value.
 
@@ -629,20 +635,20 @@ SetUpdatedAt sets UpdatedAt field to given value.
 
 ### GetActions
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActions() ResumeResumeShortAllOfActions`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActions() ResumeObjectsActions`
 
 GetActions returns the Actions field if non-nil, zero value otherwise.
 
 ### GetActionsOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActionsOk() (*ResumeResumeShortAllOfActions, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActionsOk() (*ResumeObjectsActions, bool)`
 
 GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActions
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetActions(v ResumeResumeShortAllOfActions)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetActions(v ResumeObjectsActions)`
 
 SetActions sets Actions field to given value.
 
@@ -669,60 +675,60 @@ SetFavorited sets Favorited field to given value.
 
 ### GetNegotiationsHistory
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistory() ResumeResumeShortAllOfNegotiationsHistory`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistory() ResumeObjectsNegotiationsHistoryUrl`
 
 GetNegotiationsHistory returns the NegotiationsHistory field if non-nil, zero value otherwise.
 
 ### GetNegotiationsHistoryOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistoryOk() (*ResumeResumeShortAllOfNegotiationsHistory, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetNegotiationsHistoryOk() (*ResumeObjectsNegotiationsHistoryUrl, bool)`
 
 GetNegotiationsHistoryOk returns a tuple with the NegotiationsHistory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNegotiationsHistory
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetNegotiationsHistory(v ResumeResumeShortAllOfNegotiationsHistory)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetNegotiationsHistory(v ResumeObjectsNegotiationsHistoryUrl)`
 
 SetNegotiationsHistory sets NegotiationsHistory field to given value.
 
 
 ### GetOwner
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwner() ResumeResumeShortAllOfOwner`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwner() ResumeObjectsOwner`
 
 GetOwner returns the Owner field if non-nil, zero value otherwise.
 
 ### GetOwnerOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwnerOk() (*ResumeResumeShortAllOfOwner, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetOwnerOk() (*ResumeObjectsOwner, bool)`
 
 GetOwnerOk returns a tuple with the Owner field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOwner
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetOwner(v ResumeResumeShortAllOfOwner)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetOwner(v ResumeObjectsOwner)`
 
 SetOwner sets Owner field to given value.
 
 
 ### GetPhoto
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhoto() ResumeResumeShortAllOfPhoto`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhoto() ResumeObjectsPhoto`
 
 GetPhoto returns the Photo field if non-nil, zero value otherwise.
 
 ### GetPhotoOk
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhotoOk() (*ResumeResumeShortAllOfPhoto, bool)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPhotoOk() (*ResumeObjectsPhoto, bool)`
 
 GetPhotoOk returns a tuple with the Photo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhoto
 
-`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPhoto(v ResumeResumeShortAllOfPhoto)`
+`func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPhoto(v ResumeObjectsPhoto)`
 
 SetPhoto sets Photo field to given value.
 

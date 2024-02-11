@@ -12,8 +12,14 @@ Name | Type | Description | Notes
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
-**Download** | [**ResumeResumeProfileAllOfDownload**](ResumeResumeProfileAllOfDownload.md) |  | 
-**Education** | [**ResumeResumeProfileAllOfEducation**](ResumeResumeProfileAllOfEducation.md) |  | 
+**Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
+**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя. 
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования &quot;средний&quot;, то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования &quot;высшее&quot;, то сохранится только высшее образование
+ | 
 **Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
@@ -21,17 +27,17 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
 **Marked** | Pointer to **bool** | Выделено ли резюме в поиске | [optional] [default to false]
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
-**Platform** | Pointer to [**ResumeResumeProfileAllOfPlatform**](ResumeResumeProfileAllOfPlatform.md) |  | [optional] 
+**Platform** | Pointer to [**IncludesId**](IncludesId.md) | Ресурс, на котором было размещено резюме | [optional] 
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
 **BirthDate** | Pointer to **NullableString** | День рождения (в формате &#x60;ГГГГ-ММ-ДД&#x60;) | [optional] 
-**BusinessTripReadiness** | [**ResumeResumeFullAllOfBusinessTripReadiness**](ResumeResumeFullAllOfBusinessTripReadiness.md) |  | 
+**BusinessTripReadiness** | [**IncludesIdName**](IncludesIdName.md) | Готовность к командировкам. Элемент справочника [business_trip_readiness](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **Citizenship** | [**[]IncludesIdNameUrl**](IncludesIdNameUrl.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | 
 **Contact** | [**[]IncludesContact**](IncludesContact.md) | Список контактов соискателя | 
 **Creds** | Pointer to [**NullableCredsCreds**](CredsCreds.md) |  | [optional] 
 **DriverLicenseTypes** | [**[]ResumeObjectsDriverLicenseTypes**](ResumeObjectsDriverLicenseTypes.md) | Список категорий водительских прав соискателя | 
-**Employment** | Pointer to [**ResumeResumeFullAllOfEmployment**](ResumeResumeFullAllOfEmployment.md) |  | [optional] 
+**Employment** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **Employments** | [**[]IncludesIdName**](IncludesIdName.md) | Список подходящих соискателю типов занятостей. Элементы справочника [employment](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **HasVehicle** | Pointer to **NullableBool** | Наличие личного автомобиля у соискателя | [optional] 
 **Language** | [**[]IncludesLanguageLevel**](IncludesLanguageLevel.md) | Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages) | 
@@ -39,14 +45,14 @@ Name | Type | Description | Notes
 **PaidServices** | [**[]ResumeObjectsPaidServices**](ResumeObjectsPaidServices.md) | Платные услуги по резюме для автора | 
 **ProfessionalRoles** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Массив объектов профролей | [optional] 
 **Recommendation** | [**[]ResumeObjectsRecommendation**](ResumeObjectsRecommendation.md) | Список рекомендаций | 
-**Relocation** | [**ResumeResumeFullAllOfRelocation**](ResumeResumeFullAllOfRelocation.md) |  | 
-**ResumeLocale** | [**ResumeResumeFullAllOfResumeLocale**](ResumeResumeFullAllOfResumeLocale.md) |  | 
-**Schedule** | [**ResumeResumeFullAllOfSchedule**](ResumeResumeFullAllOfSchedule.md) |  | 
+**Relocation** | [**ResumeObjectsRelocationPublic**](ResumeObjectsRelocationPublic.md) | Возможность переезда | 
+**ResumeLocale** | [**IncludesIdName**](IncludesIdName.md) | Язык, на котором составлено резюме (локаль). Элемент справочника [локали резюме](#tag/Obshie-spravochniki/operation/get-locales) | 
+**Schedule** | [**IncludesIdName**](IncludesIdName.md) |  | 
 **Schedules** | [**[]IncludesIdName**](IncludesIdName.md) | Список подходящих соискателю графиков работы. Элементы справочника [schedule](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **Site** | [**[]ResumeObjectsSite**](ResumeObjectsSite.md) | Профили в соц. сетях и других сервисах | 
 **SkillSet** | **[]string** | Ключевые навыки (список уникальных строк) | 
 **Skills** | Pointer to **NullableString** | Дополнительная информация, описание навыков в свободной форме | [optional] 
-**TravelTime** | [**ResumeResumeFullAllOfTravelTime**](ResumeResumeFullAllOfTravelTime.md) |  | 
+**TravelTime** | [**IncludesIdName**](IncludesIdName.md) | Желательное время в пути до работы. Элемент справочника [travel_time](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **WorkTicket** | [**[]IncludesIdNameUrl**](IncludesIdNameUrl.md) | Список регионов, в которых соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | 
 **Blocked** | **bool** | Заблокировано ли резюме ([подробнее](#tag/Rezyume.-Prosmotr-informacii/Status-rezyume)) | 
 **CanPublishOrUpdate** | Pointer to **NullableBool** | Можно ли опубликовать или обновить данное резюме | [optional] 
@@ -68,7 +74,7 @@ Name | Type | Description | Notes
 
 ### NewResumeResumeForApplicant
 
-`func NewResumeResumeForApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeResumeProfileAllOfDownload, education ResumeResumeProfileAllOfEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness ResumeResumeFullAllOfBusinessTripReadiness, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsPaidServices, recommendation []ResumeObjectsRecommendation, relocation ResumeResumeFullAllOfRelocation, resumeLocale ResumeResumeFullAllOfResumeLocale, schedule ResumeResumeFullAllOfSchedule, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime ResumeResumeFullAllOfTravelTime, workTicket []IncludesIdNameUrl, blocked bool, finished bool, status IncludesIdName, moderationNote []ResumeObjectsModerationNote, progress ResumeObjectsProgress, publishUrl string, access ResumeObjectsAccess, actions ResumeObjectsActionsForOwner, newViews float32, totalViews float32, viewsUrl string, portfolio []ResumeObjectsPortfolio, ) *ResumeResumeForApplicant`
+`func NewResumeResumeForApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsPaidServices, recommendation []ResumeObjectsRecommendation, relocation ResumeObjectsRelocationPublic, resumeLocale IncludesIdName, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, blocked bool, finished bool, status IncludesIdName, moderationNote []ResumeObjectsModerationNote, progress ResumeObjectsProgress, publishUrl string, access ResumeObjectsAccess, actions ResumeObjectsActionsForOwner, newViews float32, totalViews float32, viewsUrl string, portfolio []ResumeObjectsPortfolio, ) *ResumeResumeForApplicant`
 
 NewResumeResumeForApplicant instantiates a new ResumeResumeForApplicant object
 This constructor will assign default values to properties that have it defined,
@@ -300,40 +306,40 @@ SetCreatedAt sets CreatedAt field to given value.
 
 ### GetDownload
 
-`func (o *ResumeResumeForApplicant) GetDownload() ResumeResumeProfileAllOfDownload`
+`func (o *ResumeResumeForApplicant) GetDownload() ResumeObjectsDownload`
 
 GetDownload returns the Download field if non-nil, zero value otherwise.
 
 ### GetDownloadOk
 
-`func (o *ResumeResumeForApplicant) GetDownloadOk() (*ResumeResumeProfileAllOfDownload, bool)`
+`func (o *ResumeResumeForApplicant) GetDownloadOk() (*ResumeObjectsDownload, bool)`
 
 GetDownloadOk returns a tuple with the Download field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownload
 
-`func (o *ResumeResumeForApplicant) SetDownload(v ResumeResumeProfileAllOfDownload)`
+`func (o *ResumeResumeForApplicant) SetDownload(v ResumeObjectsDownload)`
 
 SetDownload sets Download field to given value.
 
 
 ### GetEducation
 
-`func (o *ResumeResumeForApplicant) GetEducation() ResumeResumeProfileAllOfEducation`
+`func (o *ResumeResumeForApplicant) GetEducation() ResumeObjectsEducation`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeResumeForApplicant) GetEducationOk() (*ResumeResumeProfileAllOfEducation, bool)`
+`func (o *ResumeResumeForApplicant) GetEducationOk() (*ResumeObjectsEducation, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeResumeForApplicant) SetEducation(v ResumeResumeProfileAllOfEducation)`
+`func (o *ResumeResumeForApplicant) SetEducation(v ResumeObjectsEducation)`
 
 SetEducation sets Education field to given value.
 
@@ -545,20 +551,20 @@ HasMiddleName returns a boolean if a field has been set.
 UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
 ### GetPlatform
 
-`func (o *ResumeResumeForApplicant) GetPlatform() ResumeResumeProfileAllOfPlatform`
+`func (o *ResumeResumeForApplicant) GetPlatform() IncludesId`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *ResumeResumeForApplicant) GetPlatformOk() (*ResumeResumeProfileAllOfPlatform, bool)`
+`func (o *ResumeResumeForApplicant) GetPlatformOk() (*IncludesId, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *ResumeResumeForApplicant) SetPlatform(v ResumeResumeProfileAllOfPlatform)`
+`func (o *ResumeResumeForApplicant) SetPlatform(v IncludesId)`
 
 SetPlatform sets Platform field to given value.
 
@@ -695,20 +701,20 @@ HasBirthDate returns a boolean if a field has been set.
 UnsetBirthDate ensures that no value is present for BirthDate, not even an explicit nil
 ### GetBusinessTripReadiness
 
-`func (o *ResumeResumeForApplicant) GetBusinessTripReadiness() ResumeResumeFullAllOfBusinessTripReadiness`
+`func (o *ResumeResumeForApplicant) GetBusinessTripReadiness() IncludesIdName`
 
 GetBusinessTripReadiness returns the BusinessTripReadiness field if non-nil, zero value otherwise.
 
 ### GetBusinessTripReadinessOk
 
-`func (o *ResumeResumeForApplicant) GetBusinessTripReadinessOk() (*ResumeResumeFullAllOfBusinessTripReadiness, bool)`
+`func (o *ResumeResumeForApplicant) GetBusinessTripReadinessOk() (*IncludesIdName, bool)`
 
 GetBusinessTripReadinessOk returns a tuple with the BusinessTripReadiness field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBusinessTripReadiness
 
-`func (o *ResumeResumeForApplicant) SetBusinessTripReadiness(v ResumeResumeFullAllOfBusinessTripReadiness)`
+`func (o *ResumeResumeForApplicant) SetBusinessTripReadiness(v IncludesIdName)`
 
 SetBusinessTripReadiness sets BusinessTripReadiness field to given value.
 
@@ -810,20 +816,20 @@ SetDriverLicenseTypes sets DriverLicenseTypes field to given value.
 
 ### GetEmployment
 
-`func (o *ResumeResumeForApplicant) GetEmployment() ResumeResumeFullAllOfEmployment`
+`func (o *ResumeResumeForApplicant) GetEmployment() IncludesIdName`
 
 GetEmployment returns the Employment field if non-nil, zero value otherwise.
 
 ### GetEmploymentOk
 
-`func (o *ResumeResumeForApplicant) GetEmploymentOk() (*ResumeResumeFullAllOfEmployment, bool)`
+`func (o *ResumeResumeForApplicant) GetEmploymentOk() (*IncludesIdName, bool)`
 
 GetEmploymentOk returns a tuple with the Employment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmployment
 
-`func (o *ResumeResumeForApplicant) SetEmployment(v ResumeResumeFullAllOfEmployment)`
+`func (o *ResumeResumeForApplicant) SetEmployment(v IncludesIdName)`
 
 SetEmployment sets Employment field to given value.
 
@@ -1020,60 +1026,60 @@ SetRecommendation sets Recommendation field to given value.
 
 ### GetRelocation
 
-`func (o *ResumeResumeForApplicant) GetRelocation() ResumeResumeFullAllOfRelocation`
+`func (o *ResumeResumeForApplicant) GetRelocation() ResumeObjectsRelocationPublic`
 
 GetRelocation returns the Relocation field if non-nil, zero value otherwise.
 
 ### GetRelocationOk
 
-`func (o *ResumeResumeForApplicant) GetRelocationOk() (*ResumeResumeFullAllOfRelocation, bool)`
+`func (o *ResumeResumeForApplicant) GetRelocationOk() (*ResumeObjectsRelocationPublic, bool)`
 
 GetRelocationOk returns a tuple with the Relocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRelocation
 
-`func (o *ResumeResumeForApplicant) SetRelocation(v ResumeResumeFullAllOfRelocation)`
+`func (o *ResumeResumeForApplicant) SetRelocation(v ResumeObjectsRelocationPublic)`
 
 SetRelocation sets Relocation field to given value.
 
 
 ### GetResumeLocale
 
-`func (o *ResumeResumeForApplicant) GetResumeLocale() ResumeResumeFullAllOfResumeLocale`
+`func (o *ResumeResumeForApplicant) GetResumeLocale() IncludesIdName`
 
 GetResumeLocale returns the ResumeLocale field if non-nil, zero value otherwise.
 
 ### GetResumeLocaleOk
 
-`func (o *ResumeResumeForApplicant) GetResumeLocaleOk() (*ResumeResumeFullAllOfResumeLocale, bool)`
+`func (o *ResumeResumeForApplicant) GetResumeLocaleOk() (*IncludesIdName, bool)`
 
 GetResumeLocaleOk returns a tuple with the ResumeLocale field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResumeLocale
 
-`func (o *ResumeResumeForApplicant) SetResumeLocale(v ResumeResumeFullAllOfResumeLocale)`
+`func (o *ResumeResumeForApplicant) SetResumeLocale(v IncludesIdName)`
 
 SetResumeLocale sets ResumeLocale field to given value.
 
 
 ### GetSchedule
 
-`func (o *ResumeResumeForApplicant) GetSchedule() ResumeResumeFullAllOfSchedule`
+`func (o *ResumeResumeForApplicant) GetSchedule() IncludesIdName`
 
 GetSchedule returns the Schedule field if non-nil, zero value otherwise.
 
 ### GetScheduleOk
 
-`func (o *ResumeResumeForApplicant) GetScheduleOk() (*ResumeResumeFullAllOfSchedule, bool)`
+`func (o *ResumeResumeForApplicant) GetScheduleOk() (*IncludesIdName, bool)`
 
 GetScheduleOk returns a tuple with the Schedule field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSchedule
 
-`func (o *ResumeResumeForApplicant) SetSchedule(v ResumeResumeFullAllOfSchedule)`
+`func (o *ResumeResumeForApplicant) SetSchedule(v IncludesIdName)`
 
 SetSchedule sets Schedule field to given value.
 
@@ -1175,20 +1181,20 @@ HasSkills returns a boolean if a field has been set.
 UnsetSkills ensures that no value is present for Skills, not even an explicit nil
 ### GetTravelTime
 
-`func (o *ResumeResumeForApplicant) GetTravelTime() ResumeResumeFullAllOfTravelTime`
+`func (o *ResumeResumeForApplicant) GetTravelTime() IncludesIdName`
 
 GetTravelTime returns the TravelTime field if non-nil, zero value otherwise.
 
 ### GetTravelTimeOk
 
-`func (o *ResumeResumeForApplicant) GetTravelTimeOk() (*ResumeResumeFullAllOfTravelTime, bool)`
+`func (o *ResumeResumeForApplicant) GetTravelTimeOk() (*IncludesIdName, bool)`
 
 GetTravelTimeOk returns a tuple with the TravelTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTravelTime
 
-`func (o *ResumeResumeForApplicant) SetTravelTime(v ResumeResumeFullAllOfTravelTime)`
+`func (o *ResumeResumeForApplicant) SetTravelTime(v IncludesIdName)`
 
 SetTravelTime sets TravelTime field to given value.
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &WebhookSubscriptionUpdate{}
 // WebhookSubscriptionUpdate struct for WebhookSubscriptionUpdate
 type WebhookSubscriptionUpdate struct {
 	// Cписок событий, на которые нужно подписаться
-	Actions []WebhookSubscriptionCommonItemActionsInner `json:"actions,omitempty"`
+	Actions []WebhookSubscriptionUpdateActionsInner `json:"actions,omitempty"`
 	// URL, на который будет отправляться POST запрос при наступлении события
 	Url *string `json:"url,omitempty"`
 }
@@ -44,9 +44,9 @@ func NewWebhookSubscriptionUpdateWithDefaults() *WebhookSubscriptionUpdate {
 }
 
 // GetActions returns the Actions field value if set, zero value otherwise.
-func (o *WebhookSubscriptionUpdate) GetActions() []WebhookSubscriptionCommonItemActionsInner {
+func (o *WebhookSubscriptionUpdate) GetActions() []WebhookSubscriptionUpdateActionsInner {
 	if o == nil || IsNil(o.Actions) {
-		var ret []WebhookSubscriptionCommonItemActionsInner
+		var ret []WebhookSubscriptionUpdateActionsInner
 		return ret
 	}
 	return o.Actions
@@ -54,7 +54,7 @@ func (o *WebhookSubscriptionUpdate) GetActions() []WebhookSubscriptionCommonItem
 
 // GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebhookSubscriptionUpdate) GetActionsOk() ([]WebhookSubscriptionCommonItemActionsInner, bool) {
+func (o *WebhookSubscriptionUpdate) GetActionsOk() ([]WebhookSubscriptionUpdateActionsInner, bool) {
 	if o == nil || IsNil(o.Actions) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *WebhookSubscriptionUpdate) HasActions() bool {
 	return false
 }
 
-// SetActions gets a reference to the given []WebhookSubscriptionCommonItemActionsInner and assigns it to the Actions field.
-func (o *WebhookSubscriptionUpdate) SetActions(v []WebhookSubscriptionCommonItemActionsInner) {
+// SetActions gets a reference to the given []WebhookSubscriptionUpdateActionsInner and assigns it to the Actions field.
+func (o *WebhookSubscriptionUpdate) SetActions(v []WebhookSubscriptionUpdateActionsInner) {
 	o.Actions = v
 }
 

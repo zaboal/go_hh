@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Идентификатор | 
 **Name** | **string** | Название | 
-**Level** | [**IncludesLanguagePropertiesAllOfLevel**](IncludesLanguagePropertiesAllOfLevel.md) |  | 
+**Level** | [**IncludesIdName**](IncludesIdName.md) | Уровень владения. Возможные значения элементов приведены в поле &#x60;language_level&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 
 ## Methods
 
 ### NewResumeObjectsLanguage
 
-`func NewResumeObjectsLanguage(id string, name string, level IncludesLanguagePropertiesAllOfLevel, ) *ResumeObjectsLanguage`
+`func NewResumeObjectsLanguage(id string, name string, level IncludesIdName, ) *ResumeObjectsLanguage`
 
 NewResumeObjectsLanguage instantiates a new ResumeObjectsLanguage object
 This constructor will assign default values to properties that have it defined,
@@ -69,20 +69,20 @@ SetName sets Name field to given value.
 
 ### GetLevel
 
-`func (o *ResumeObjectsLanguage) GetLevel() IncludesLanguagePropertiesAllOfLevel`
+`func (o *ResumeObjectsLanguage) GetLevel() IncludesIdName`
 
 GetLevel returns the Level field if non-nil, zero value otherwise.
 
 ### GetLevelOk
 
-`func (o *ResumeObjectsLanguage) GetLevelOk() (*IncludesLanguagePropertiesAllOfLevel, bool)`
+`func (o *ResumeObjectsLanguage) GetLevelOk() (*IncludesIdName, bool)`
 
 GetLevelOk returns a tuple with the Level field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLevel
 
-`func (o *ResumeObjectsLanguage) SetLevel(v IncludesLanguagePropertiesAllOfLevel)`
+`func (o *ResumeObjectsLanguage) SetLevel(v IncludesIdName)`
 
 SetLevel sets Level field to given value.
 

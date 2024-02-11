@@ -38,13 +38,14 @@ Name | Type | Description | Notes
 **Access** | [**ResumeObjectsAccess**](ResumeObjectsAccess.md) |  | 
 **Finished** | **bool** | Заполнено ли резюме | 
 **RequiresCompletion** | **bool** | Принимает значение &#x60;true&#x60;, если резюме является неполным. Применимо только для вакансий, у которых не установлен флаг «принимать неполные резюме».   При получении &#x60;true&#x60; в данном поле, соискатель должен заполнить обязательные поля (доступны в [выдаче полного резюме](#tag/Prosmotr-rezyume/operation/get-resume)) перед откликом на данную вакансию  | 
-**Status** | [**ResumesSuitableResumeItemAllOfStatus**](ResumesSuitableResumeItemAllOfStatus.md) |  | 
+**Status** | [**IncludesIdName**](IncludesIdName.md) | Статус [резюме](#tag/Rezyume.-Prosmotr-informacii/Status-rezyume)
+ | 
 
 ## Methods
 
 ### NewResumesSuitableResumeItem
 
-`func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status ResumesSuitableResumeItemAllOfStatus, ) *ResumesSuitableResumeItem`
+`func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status IncludesIdName, ) *ResumesSuitableResumeItem`
 
 NewResumesSuitableResumeItem instantiates a new ResumesSuitableResumeItem object
 This constructor will assign default values to properties that have it defined,
@@ -766,20 +767,20 @@ SetRequiresCompletion sets RequiresCompletion field to given value.
 
 ### GetStatus
 
-`func (o *ResumesSuitableResumeItem) GetStatus() ResumesSuitableResumeItemAllOfStatus`
+`func (o *ResumesSuitableResumeItem) GetStatus() IncludesIdName`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *ResumesSuitableResumeItem) GetStatusOk() (*ResumesSuitableResumeItemAllOfStatus, bool)`
+`func (o *ResumesSuitableResumeItem) GetStatusOk() (*IncludesIdName, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *ResumesSuitableResumeItem) SetStatus(v ResumesSuitableResumeItemAllOfStatus)`
+`func (o *ResumesSuitableResumeItem) SetStatus(v IncludesIdName)`
 
 SetStatus sets Status field to given value.
 

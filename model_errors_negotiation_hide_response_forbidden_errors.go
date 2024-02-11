@@ -14,7 +14,6 @@ package hh
 import (
 	"encoding/json"
 	"fmt"
-	"bytes"
 )
 
 // ErrorsNegotiationHideResponseForbiddenErrors struct for ErrorsNegotiationHideResponseForbiddenErrors

@@ -14,7 +14,6 @@ package hh
 import (
 	"encoding/json"
 	"fmt"
-	"bytes"
 )
 
 // ApplyToVacancy400Response - struct for ApplyToVacancy400Response

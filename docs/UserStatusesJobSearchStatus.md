@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | Детальное описание статуса | [optional] 
 **Id** | **string** | Идентификатор статуса | 
 **Name** | **string** | Название статуса | 
 
@@ -26,31 +25,6 @@ will change when the set of required properties is changed
 NewUserStatusesJobSearchStatusWithDefaults instantiates a new UserStatusesJobSearchStatus object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetDescription
-
-`func (o *UserStatusesJobSearchStatus) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *UserStatusesJobSearchStatus) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *UserStatusesJobSearchStatus) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *UserStatusesJobSearchStatus) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetId
 

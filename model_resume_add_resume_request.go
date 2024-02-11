@@ -65,15 +65,24 @@ type ResumeAddResumeRequest struct {
 	TravelTime *IncludesId `json:"travel_time,omitempty"`
 	// Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) 
 	WorkTicket []IncludesId `json:"work_ticket,omitempty"`
-	Area *ResumeAddResumeRequestAllOfArea `json:"area,omitempty"`
+	// Город проживания. Элемент справочника [areas](#tag/Obshie-spravochniki/operation/get-areas)
+	Area *Id `json:"area,omitempty"`
 	// Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)
 	Citizenship []IncludesId `json:"citizenship,omitempty"`
 	// Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится. * Обязательно указать либо телефон полностью в поле `formatted`, либо все три части телефона по отдельности в трёх полях: `country`, `city` и `number`. Если указано и то, и то, используются данные из трёх полей. В поле `formatted` допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры 
 	Contact []ResumeObjectsContact `json:"contact,omitempty"`
-	Education *ResumeAddResumeRequestAllOfEducation `json:"education,omitempty"`
+	// Образование соискателя.
+
+Особенности сохранения образования:
+
+* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
+* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
+
+	Education *ResumeObjectsEducation `json:"education,omitempty"`
 	// Опыт работы
 	Experience []ResumeObjectsExperienceCreateEditResume `json:"experience,omitempty"`
-	Gender *ResumeAddResumeRequestAllOfGender `json:"gender,omitempty"`
+	// Пол. Элемент справочника [gender](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	Gender *Id `json:"gender,omitempty"`
 	// Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages)
 	Language []ResumeObjectsLanguage `json:"language,omitempty"`
 }
@@ -1060,9 +1069,9 @@ func (o *ResumeAddResumeRequest) SetWorkTicket(v []IncludesId) {
 }
 
 // GetArea returns the Area field value if set, zero value otherwise.
-func (o *ResumeAddResumeRequest) GetArea() ResumeAddResumeRequestAllOfArea {
+func (o *ResumeAddResumeRequest) GetArea() Id {
 	if o == nil || IsNil(o.Area) {
-		var ret ResumeAddResumeRequestAllOfArea
+		var ret Id
 		return ret
 	}
 	return *o.Area
@@ -1070,7 +1079,7 @@ func (o *ResumeAddResumeRequest) GetArea() ResumeAddResumeRequestAllOfArea {
 
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeAddResumeRequest) GetAreaOk() (*ResumeAddResumeRequestAllOfArea, bool) {
+func (o *ResumeAddResumeRequest) GetAreaOk() (*Id, bool) {
 	if o == nil || IsNil(o.Area) {
 		return nil, false
 	}
@@ -1086,8 +1095,8 @@ func (o *ResumeAddResumeRequest) HasArea() bool {
 	return false
 }
 
-// SetArea gets a reference to the given ResumeAddResumeRequestAllOfArea and assigns it to the Area field.
-func (o *ResumeAddResumeRequest) SetArea(v ResumeAddResumeRequestAllOfArea) {
+// SetArea gets a reference to the given Id and assigns it to the Area field.
+func (o *ResumeAddResumeRequest) SetArea(v Id) {
 	o.Area = &v
 }
 
@@ -1156,9 +1165,9 @@ func (o *ResumeAddResumeRequest) SetContact(v []ResumeObjectsContact) {
 }
 
 // GetEducation returns the Education field value if set, zero value otherwise.
-func (o *ResumeAddResumeRequest) GetEducation() ResumeAddResumeRequestAllOfEducation {
+func (o *ResumeAddResumeRequest) GetEducation() ResumeObjectsEducation {
 	if o == nil || IsNil(o.Education) {
-		var ret ResumeAddResumeRequestAllOfEducation
+		var ret ResumeObjectsEducation
 		return ret
 	}
 	return *o.Education
@@ -1166,7 +1175,7 @@ func (o *ResumeAddResumeRequest) GetEducation() ResumeAddResumeRequestAllOfEduca
 
 // GetEducationOk returns a tuple with the Education field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeAddResumeRequest) GetEducationOk() (*ResumeAddResumeRequestAllOfEducation, bool) {
+func (o *ResumeAddResumeRequest) GetEducationOk() (*ResumeObjectsEducation, bool) {
 	if o == nil || IsNil(o.Education) {
 		return nil, false
 	}
@@ -1182,8 +1191,8 @@ func (o *ResumeAddResumeRequest) HasEducation() bool {
 	return false
 }
 
-// SetEducation gets a reference to the given ResumeAddResumeRequestAllOfEducation and assigns it to the Education field.
-func (o *ResumeAddResumeRequest) SetEducation(v ResumeAddResumeRequestAllOfEducation) {
+// SetEducation gets a reference to the given ResumeObjectsEducation and assigns it to the Education field.
+func (o *ResumeAddResumeRequest) SetEducation(v ResumeObjectsEducation) {
 	o.Education = &v
 }
 
@@ -1220,9 +1229,9 @@ func (o *ResumeAddResumeRequest) SetExperience(v []ResumeObjectsExperienceCreate
 }
 
 // GetGender returns the Gender field value if set, zero value otherwise.
-func (o *ResumeAddResumeRequest) GetGender() ResumeAddResumeRequestAllOfGender {
+func (o *ResumeAddResumeRequest) GetGender() Id {
 	if o == nil || IsNil(o.Gender) {
-		var ret ResumeAddResumeRequestAllOfGender
+		var ret Id
 		return ret
 	}
 	return *o.Gender
@@ -1230,7 +1239,7 @@ func (o *ResumeAddResumeRequest) GetGender() ResumeAddResumeRequestAllOfGender {
 
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeAddResumeRequest) GetGenderOk() (*ResumeAddResumeRequestAllOfGender, bool) {
+func (o *ResumeAddResumeRequest) GetGenderOk() (*Id, bool) {
 	if o == nil || IsNil(o.Gender) {
 		return nil, false
 	}
@@ -1246,8 +1255,8 @@ func (o *ResumeAddResumeRequest) HasGender() bool {
 	return false
 }
 
-// SetGender gets a reference to the given ResumeAddResumeRequestAllOfGender and assigns it to the Gender field.
-func (o *ResumeAddResumeRequest) SetGender(v ResumeAddResumeRequestAllOfGender) {
+// SetGender gets a reference to the given Id and assigns it to the Gender field.
+func (o *ResumeAddResumeRequest) SetGender(v Id) {
 	o.Gender = &v
 }
 

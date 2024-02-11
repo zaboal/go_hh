@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Идентификатор | 
 **Name** | **string** | Название | 
-**Level** | Pointer to [**IncludesLanguagePropertiesAllOfLevel**](IncludesLanguagePropertiesAllOfLevel.md) |  | [optional] 
+**Level** | Pointer to [**IncludesIdName**](IncludesIdName.md) | Уровень владения. Возможные значения элементов приведены в поле &#x60;language_level&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetName sets Name field to given value.
 
 ### GetLevel
 
-`func (o *IncludesLanguageProperties) GetLevel() IncludesLanguagePropertiesAllOfLevel`
+`func (o *IncludesLanguageProperties) GetLevel() IncludesIdName`
 
 GetLevel returns the Level field if non-nil, zero value otherwise.
 
 ### GetLevelOk
 
-`func (o *IncludesLanguageProperties) GetLevelOk() (*IncludesLanguagePropertiesAllOfLevel, bool)`
+`func (o *IncludesLanguageProperties) GetLevelOk() (*IncludesIdName, bool)`
 
 GetLevelOk returns a tuple with the Level field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLevel
 
-`func (o *IncludesLanguageProperties) SetLevel(v IncludesLanguagePropertiesAllOfLevel)`
+`func (o *IncludesLanguageProperties) SetLevel(v IncludesIdName)`
 
 SetLevel sets Level field to given value.
 
