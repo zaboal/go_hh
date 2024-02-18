@@ -119,7 +119,7 @@ func (o *VacanciesVacancyUpgradeListItem) GetWithoutActionOk() ([]VacanciesVacan
 
 // HasWithoutAction returns a boolean if a field has been set.
 func (o *VacanciesVacancyUpgradeListItem) HasWithoutAction() bool {
-	if o != nil && IsNil(o.WithoutAction) {
+	if o != nil && !IsNil(o.WithoutAction) {
 		return true
 	}
 

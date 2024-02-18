@@ -65,7 +65,7 @@ type ResumeEditResumeRequest struct {
 	TravelTime *IncludesId `json:"travel_time,omitempty"`
 	// Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) 
 	WorkTicket []IncludesId `json:"work_ticket,omitempty"`
-	Area *Id `json:"area,omitempty"`
+	Area NullableId `json:"area,omitempty"`
 	// Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)
 	Citizenship []IncludesId `json:"citizenship,omitempty"`
 	// Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится * Обязательно указать либо телефон полностью в поле `formatted`, либо все три части телефона по отдельности в трёх полях: `country`, `city` и `number`. Если указано и то, и то, используются данные из трёх полей. В поле `formatted` допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры 
@@ -73,7 +73,7 @@ type ResumeEditResumeRequest struct {
 	Education NullableResumeObjectsEducation `json:"education,omitempty"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience,omitempty"`
-	Gender *Id `json:"gender,omitempty"`
+	Gender NullableId `json:"gender,omitempty"`
 	// Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages)
 	Language []IncludesLanguageLevel `json:"language,omitempty"`
 }
@@ -222,7 +222,7 @@ func (o *ResumeEditResumeRequest) GetCertificateOk() ([]ResumeObjectsCertificate
 
 // HasCertificate returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasCertificate() bool {
-	if o != nil && IsNil(o.Certificate) {
+	if o != nil && !IsNil(o.Certificate) {
 		return true
 	}
 
@@ -255,7 +255,7 @@ func (o *ResumeEditResumeRequest) GetDriverLicenseTypesOk() ([]ResumeObjectsDriv
 
 // HasDriverLicenseTypes returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasDriverLicenseTypes() bool {
-	if o != nil && IsNil(o.DriverLicenseTypes) {
+	if o != nil && !IsNil(o.DriverLicenseTypes) {
 		return true
 	}
 
@@ -288,7 +288,7 @@ func (o *ResumeEditResumeRequest) GetEmploymentsOk() ([]IncludesIdName, bool) {
 
 // HasEmployments returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasEmployments() bool {
-	if o != nil && IsNil(o.Employments) {
+	if o != nil && !IsNil(o.Employments) {
 		return true
 	}
 
@@ -405,7 +405,7 @@ func (o *ResumeEditResumeRequest) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
 
 // HasHiddenFields returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasHiddenFields() bool {
-	if o != nil && IsNil(o.HiddenFields) {
+	if o != nil && !IsNil(o.HiddenFields) {
 		return true
 	}
 
@@ -596,7 +596,7 @@ func (o *ResumeEditResumeRequest) GetPortfolioOk() ([]ResumeObjectsPortfolio, bo
 
 // HasPortfolio returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasPortfolio() bool {
-	if o != nil && IsNil(o.Portfolio) {
+	if o != nil && !IsNil(o.Portfolio) {
 		return true
 	}
 
@@ -661,7 +661,7 @@ func (o *ResumeEditResumeRequest) GetRecommendationOk() ([]ResumeObjectsRecommen
 
 // HasRecommendation returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasRecommendation() bool {
-	if o != nil && IsNil(o.Recommendation) {
+	if o != nil && !IsNil(o.Recommendation) {
 		return true
 	}
 
@@ -790,7 +790,7 @@ func (o *ResumeEditResumeRequest) GetSchedulesOk() ([]IncludesIdName, bool) {
 
 // HasSchedules returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasSchedules() bool {
-	if o != nil && IsNil(o.Schedules) {
+	if o != nil && !IsNil(o.Schedules) {
 		return true
 	}
 
@@ -823,7 +823,7 @@ func (o *ResumeEditResumeRequest) GetSiteOk() ([]ResumeObjectsSite, bool) {
 
 // HasSite returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasSite() bool {
-	if o != nil && IsNil(o.Site) {
+	if o != nil && !IsNil(o.Site) {
 		return true
 	}
 
@@ -856,7 +856,7 @@ func (o *ResumeEditResumeRequest) GetSkillSetOk() ([]string, bool) {
 
 // HasSkillSet returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasSkillSet() bool {
-	if o != nil && IsNil(o.SkillSet) {
+	if o != nil && !IsNil(o.SkillSet) {
 		return true
 	}
 
@@ -1047,7 +1047,7 @@ func (o *ResumeEditResumeRequest) GetWorkTicketOk() ([]IncludesId, bool) {
 
 // HasWorkTicket returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasWorkTicket() bool {
-	if o != nil && IsNil(o.WorkTicket) {
+	if o != nil && !IsNil(o.WorkTicket) {
 		return true
 	}
 
@@ -1059,36 +1059,46 @@ func (o *ResumeEditResumeRequest) SetWorkTicket(v []IncludesId) {
 	o.WorkTicket = v
 }
 
-// GetArea returns the Area field value if set, zero value otherwise.
+// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ResumeEditResumeRequest) GetArea() Id {
-	if o == nil || IsNil(o.Area) {
+	if o == nil || IsNil(o.Area.Get()) {
 		var ret Id
 		return ret
 	}
-	return *o.Area
+	return *o.Area.Get()
 }
 
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeEditResumeRequest) GetAreaOk() (*Id, bool) {
-	if o == nil || IsNil(o.Area) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Area, true
+	return o.Area.Get(), o.Area.IsSet()
 }
 
 // HasArea returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasArea() bool {
-	if o != nil && !IsNil(o.Area) {
+	if o != nil && o.Area.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetArea gets a reference to the given Id and assigns it to the Area field.
+// SetArea gets a reference to the given NullableId and assigns it to the Area field.
 func (o *ResumeEditResumeRequest) SetArea(v Id) {
-	o.Area = &v
+	o.Area.Set(&v)
+}
+// SetAreaNil sets the value for Area to be an explicit nil
+func (o *ResumeEditResumeRequest) SetAreaNil() {
+	o.Area.Set(nil)
+}
+
+// UnsetArea ensures that no value is present for Area, not even an explicit nil
+func (o *ResumeEditResumeRequest) UnsetArea() {
+	o.Area.Unset()
 }
 
 // GetCitizenship returns the Citizenship field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1112,7 +1122,7 @@ func (o *ResumeEditResumeRequest) GetCitizenshipOk() ([]IncludesId, bool) {
 
 // HasCitizenship returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasCitizenship() bool {
-	if o != nil && IsNil(o.Citizenship) {
+	if o != nil && !IsNil(o.Citizenship) {
 		return true
 	}
 
@@ -1145,7 +1155,7 @@ func (o *ResumeEditResumeRequest) GetContactOk() ([]IncludesContact, bool) {
 
 // HasContact returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasContact() bool {
-	if o != nil && IsNil(o.Contact) {
+	if o != nil && !IsNil(o.Contact) {
 		return true
 	}
 
@@ -1220,7 +1230,7 @@ func (o *ResumeEditResumeRequest) GetExperienceOk() ([]ResumeObjectsExperience, 
 
 // HasExperience returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasExperience() bool {
-	if o != nil && IsNil(o.Experience) {
+	if o != nil && !IsNil(o.Experience) {
 		return true
 	}
 
@@ -1232,36 +1242,46 @@ func (o *ResumeEditResumeRequest) SetExperience(v []ResumeObjectsExperience) {
 	o.Experience = v
 }
 
-// GetGender returns the Gender field value if set, zero value otherwise.
+// GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ResumeEditResumeRequest) GetGender() Id {
-	if o == nil || IsNil(o.Gender) {
+	if o == nil || IsNil(o.Gender.Get()) {
 		var ret Id
 		return ret
 	}
-	return *o.Gender
+	return *o.Gender.Get()
 }
 
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeEditResumeRequest) GetGenderOk() (*Id, bool) {
-	if o == nil || IsNil(o.Gender) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Gender, true
+	return o.Gender.Get(), o.Gender.IsSet()
 }
 
 // HasGender returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasGender() bool {
-	if o != nil && !IsNil(o.Gender) {
+	if o != nil && o.Gender.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetGender gets a reference to the given Id and assigns it to the Gender field.
+// SetGender gets a reference to the given NullableId and assigns it to the Gender field.
 func (o *ResumeEditResumeRequest) SetGender(v Id) {
-	o.Gender = &v
+	o.Gender.Set(&v)
+}
+// SetGenderNil sets the value for Gender to be an explicit nil
+func (o *ResumeEditResumeRequest) SetGenderNil() {
+	o.Gender.Set(nil)
+}
+
+// UnsetGender ensures that no value is present for Gender, not even an explicit nil
+func (o *ResumeEditResumeRequest) UnsetGender() {
+	o.Gender.Unset()
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1285,7 +1305,7 @@ func (o *ResumeEditResumeRequest) GetLanguageOk() ([]IncludesLanguageLevel, bool
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasLanguage() bool {
-	if o != nil && IsNil(o.Language) {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -1388,8 +1408,8 @@ func (o ResumeEditResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.WorkTicket != nil {
 		toSerialize["work_ticket"] = o.WorkTicket
 	}
-	if !IsNil(o.Area) {
-		toSerialize["area"] = o.Area
+	if o.Area.IsSet() {
+		toSerialize["area"] = o.Area.Get()
 	}
 	if o.Citizenship != nil {
 		toSerialize["citizenship"] = o.Citizenship
@@ -1403,8 +1423,8 @@ func (o ResumeEditResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.Experience != nil {
 		toSerialize["experience"] = o.Experience
 	}
-	if !IsNil(o.Gender) {
-		toSerialize["gender"] = o.Gender
+	if o.Gender.IsSet() {
+		toSerialize["gender"] = o.Gender.Get()
 	}
 	if o.Language != nil {
 		toSerialize["language"] = o.Language

@@ -28,10 +28,8 @@ type ResumeEmployerFields struct {
 	CanViewFullInfo NullableBool `json:"can_view_full_info,omitempty"`
 	// Добавлено ли резюме в избранные
 	Favorited bool `json:"favorited"`
-	// Для получения данных нужно передать параметр `with_job_search_status=true`. 
-Возможные значения перечислены в поле `job_search_status` в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
-
-	JobSearchStatus *IncludesIdName `json:"job_search_status,omitempty"`
+	// Для получения данных нужно передать параметр `with_job_search_status=true`.  Возможные значения перечислены в поле `job_search_status` в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+	JobSearchStatus *IncludesIdNameLastChangeTime `json:"job_search_status,omitempty"`
 	// Краткая история откликов/приглашений по резюме
 	NegotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer `json:"negotiations_history"`
 	// Информация о владельце резюме
@@ -159,9 +157,9 @@ func (o *ResumeEmployerFields) SetFavorited(v bool) {
 }
 
 // GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise.
-func (o *ResumeEmployerFields) GetJobSearchStatus() IncludesIdName {
+func (o *ResumeEmployerFields) GetJobSearchStatus() IncludesIdNameLastChangeTime {
 	if o == nil || IsNil(o.JobSearchStatus) {
-		var ret IncludesIdName
+		var ret IncludesIdNameLastChangeTime
 		return ret
 	}
 	return *o.JobSearchStatus
@@ -169,7 +167,7 @@ func (o *ResumeEmployerFields) GetJobSearchStatus() IncludesIdName {
 
 // GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeEmployerFields) GetJobSearchStatusOk() (*IncludesIdName, bool) {
+func (o *ResumeEmployerFields) GetJobSearchStatusOk() (*IncludesIdNameLastChangeTime, bool) {
 	if o == nil || IsNil(o.JobSearchStatus) {
 		return nil, false
 	}
@@ -185,8 +183,8 @@ func (o *ResumeEmployerFields) HasJobSearchStatus() bool {
 	return false
 }
 
-// SetJobSearchStatus gets a reference to the given IncludesIdName and assigns it to the JobSearchStatus field.
-func (o *ResumeEmployerFields) SetJobSearchStatus(v IncludesIdName) {
+// SetJobSearchStatus gets a reference to the given IncludesIdNameLastChangeTime and assigns it to the JobSearchStatus field.
+func (o *ResumeEmployerFields) SetJobSearchStatus(v IncludesIdNameLastChangeTime) {
 	o.JobSearchStatus = &v
 }
 

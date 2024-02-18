@@ -39,13 +39,7 @@ type ResumeResumeFull struct {
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
 	Download ResumeObjectsDownload `json:"download"`
-	// Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
-
+	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
@@ -1237,7 +1231,7 @@ func (o *ResumeResumeFull) GetProfessionalRolesOk() ([]IncludesIdName, bool) {
 
 // HasProfessionalRoles returns a boolean if a field has been set.
 func (o *ResumeResumeFull) HasProfessionalRoles() bool {
-	if o != nil && IsNil(o.ProfessionalRoles) {
+	if o != nil && !IsNil(o.ProfessionalRoles) {
 		return true
 	}
 

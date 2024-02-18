@@ -71,13 +71,7 @@ type ResumeAddResumeRequest struct {
 	Citizenship []IncludesId `json:"citizenship,omitempty"`
 	// Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится. * Обязательно указать либо телефон полностью в поле `formatted`, либо все три части телефона по отдельности в трёх полях: `country`, `city` и `number`. Если указано и то, и то, используются данные из трёх полей. В поле `formatted` допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры 
 	Contact []ResumeObjectsContact `json:"contact,omitempty"`
-	// Образование соискателя.
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
-
+	// Образование соискателя.  Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education *ResumeObjectsEducation `json:"education,omitempty"`
 	// Опыт работы
 	Experience []ResumeObjectsExperienceCreateEditResume `json:"experience,omitempty"`
@@ -231,7 +225,7 @@ func (o *ResumeAddResumeRequest) GetCertificateOk() ([]ResumeObjectsCertificate,
 
 // HasCertificate returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasCertificate() bool {
-	if o != nil && IsNil(o.Certificate) {
+	if o != nil && !IsNil(o.Certificate) {
 		return true
 	}
 
@@ -264,7 +258,7 @@ func (o *ResumeAddResumeRequest) GetDriverLicenseTypesOk() ([]ResumeObjectsDrive
 
 // HasDriverLicenseTypes returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasDriverLicenseTypes() bool {
-	if o != nil && IsNil(o.DriverLicenseTypes) {
+	if o != nil && !IsNil(o.DriverLicenseTypes) {
 		return true
 	}
 
@@ -297,7 +291,7 @@ func (o *ResumeAddResumeRequest) GetEmploymentsOk() ([]IncludesIdName, bool) {
 
 // HasEmployments returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasEmployments() bool {
-	if o != nil && IsNil(o.Employments) {
+	if o != nil && !IsNil(o.Employments) {
 		return true
 	}
 
@@ -414,7 +408,7 @@ func (o *ResumeAddResumeRequest) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
 
 // HasHiddenFields returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasHiddenFields() bool {
-	if o != nil && IsNil(o.HiddenFields) {
+	if o != nil && !IsNil(o.HiddenFields) {
 		return true
 	}
 
@@ -605,7 +599,7 @@ func (o *ResumeAddResumeRequest) GetPortfolioOk() ([]ResumeObjectsPortfolio, boo
 
 // HasPortfolio returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasPortfolio() bool {
-	if o != nil && IsNil(o.Portfolio) {
+	if o != nil && !IsNil(o.Portfolio) {
 		return true
 	}
 
@@ -670,7 +664,7 @@ func (o *ResumeAddResumeRequest) GetRecommendationOk() ([]ResumeObjectsRecommend
 
 // HasRecommendation returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasRecommendation() bool {
-	if o != nil && IsNil(o.Recommendation) {
+	if o != nil && !IsNil(o.Recommendation) {
 		return true
 	}
 
@@ -799,7 +793,7 @@ func (o *ResumeAddResumeRequest) GetSchedulesOk() ([]IncludesIdName, bool) {
 
 // HasSchedules returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasSchedules() bool {
-	if o != nil && IsNil(o.Schedules) {
+	if o != nil && !IsNil(o.Schedules) {
 		return true
 	}
 
@@ -832,7 +826,7 @@ func (o *ResumeAddResumeRequest) GetSiteOk() ([]ResumeObjectsSite, bool) {
 
 // HasSite returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasSite() bool {
-	if o != nil && IsNil(o.Site) {
+	if o != nil && !IsNil(o.Site) {
 		return true
 	}
 
@@ -865,7 +859,7 @@ func (o *ResumeAddResumeRequest) GetSkillSetOk() ([]string, bool) {
 
 // HasSkillSet returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasSkillSet() bool {
-	if o != nil && IsNil(o.SkillSet) {
+	if o != nil && !IsNil(o.SkillSet) {
 		return true
 	}
 
@@ -1056,7 +1050,7 @@ func (o *ResumeAddResumeRequest) GetWorkTicketOk() ([]IncludesId, bool) {
 
 // HasWorkTicket returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasWorkTicket() bool {
-	if o != nil && IsNil(o.WorkTicket) {
+	if o != nil && !IsNil(o.WorkTicket) {
 		return true
 	}
 

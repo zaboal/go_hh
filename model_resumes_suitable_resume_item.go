@@ -29,7 +29,7 @@ type ResumesSuitableResumeItem struct {
 	// URL резюме на сайте
 	AlternateUrl string `json:"alternate_url"`
 	Area *IncludesIdNameUrl `json:"area,omitempty"`
-	AutoHideTime *IncludesIdName `json:"auto_hide_time,omitempty"`
+	AutoHideTime NullableIncludesIdName `json:"auto_hide_time,omitempty"`
 	// Доступен ли просмотр контактной информации в резюме текущему работодателю
 	CanViewFullInfo NullableBool `json:"can_view_full_info,omitempty"`
 	// Список сертификатов соискателя
@@ -38,13 +38,7 @@ type ResumesSuitableResumeItem struct {
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
 	Download ResumeObjectsDownload `json:"download"`
-	// Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
-
+	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperienceForOwner `json:"experience"`
@@ -77,8 +71,7 @@ type ResumesSuitableResumeItem struct {
 	Finished bool `json:"finished"`
 	// Принимает значение `true`, если резюме является неполным. Применимо только для вакансий, у которых не установлен флаг «принимать неполные резюме».   При получении `true` в данном поле, соискатель должен заполнить обязательные поля (доступны в [выдаче полного резюме](#tag/Prosmotr-rezyume/operation/get-resume)) перед откликом на данную вакансию 
 	RequiresCompletion bool `json:"requires_completion"`
-	// Статус [резюме](#tag/Rezyume.-Prosmotr-informacii/Status-rezyume)
-
+	// Статус [резюме](#tag/Rezyume.-Prosmotr-informacii/Status-rezyume) 
 	Status IncludesIdName `json:"status"`
 }
 
@@ -239,36 +232,46 @@ func (o *ResumesSuitableResumeItem) SetArea(v IncludesIdNameUrl) {
 	o.Area = &v
 }
 
-// GetAutoHideTime returns the AutoHideTime field value if set, zero value otherwise.
+// GetAutoHideTime returns the AutoHideTime field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ResumesSuitableResumeItem) GetAutoHideTime() IncludesIdName {
-	if o == nil || IsNil(o.AutoHideTime) {
+	if o == nil || IsNil(o.AutoHideTime.Get()) {
 		var ret IncludesIdName
 		return ret
 	}
-	return *o.AutoHideTime
+	return *o.AutoHideTime.Get()
 }
 
 // GetAutoHideTimeOk returns a tuple with the AutoHideTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumesSuitableResumeItem) GetAutoHideTimeOk() (*IncludesIdName, bool) {
-	if o == nil || IsNil(o.AutoHideTime) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AutoHideTime, true
+	return o.AutoHideTime.Get(), o.AutoHideTime.IsSet()
 }
 
 // HasAutoHideTime returns a boolean if a field has been set.
 func (o *ResumesSuitableResumeItem) HasAutoHideTime() bool {
-	if o != nil && !IsNil(o.AutoHideTime) {
+	if o != nil && o.AutoHideTime.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAutoHideTime gets a reference to the given IncludesIdName and assigns it to the AutoHideTime field.
+// SetAutoHideTime gets a reference to the given NullableIncludesIdName and assigns it to the AutoHideTime field.
 func (o *ResumesSuitableResumeItem) SetAutoHideTime(v IncludesIdName) {
-	o.AutoHideTime = &v
+	o.AutoHideTime.Set(&v)
+}
+// SetAutoHideTimeNil sets the value for AutoHideTime to be an explicit nil
+func (o *ResumesSuitableResumeItem) SetAutoHideTimeNil() {
+	o.AutoHideTime.Set(nil)
+}
+
+// UnsetAutoHideTime ensures that no value is present for AutoHideTime, not even an explicit nil
+func (o *ResumesSuitableResumeItem) UnsetAutoHideTime() {
+	o.AutoHideTime.Unset()
 }
 
 // GetCanViewFullInfo returns the CanViewFullInfo field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1015,8 +1018,8 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Area) {
 		toSerialize["area"] = o.Area
 	}
-	if !IsNil(o.AutoHideTime) {
-		toSerialize["auto_hide_time"] = o.AutoHideTime
+	if o.AutoHideTime.IsSet() {
+		toSerialize["auto_hide_time"] = o.AutoHideTime.Get()
 	}
 	if o.CanViewFullInfo.IsSet() {
 		toSerialize["can_view_full_info"] = o.CanViewFullInfo.Get()

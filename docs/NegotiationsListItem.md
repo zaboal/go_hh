@@ -8,23 +8,20 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания отклика | 
 **DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
 **HasUpdates** | **bool** | Есть ли непросмотренные сообщения в отклике. Флаг сбрасывается при различных действиях с откликом, например, [просмотре списка сообщений](https://github.com/hhru/api/blob/master/docs/negotiations.md#get_messages) | 
-**Hidden** | **bool** | Скрыт ли текущий отклик | 
+**Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
 **Id** | **string** | Идентификатор отклика | 
-**JobSearchStatus** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
 **MessagingStatus** | **string** | Текущий статус переписки.  Возможные значения приведены в поле &#x60;messaging_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
-**PhoneCalls** | Pointer to [**NullableNegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
+**PhoneCalls** | Pointer to [**NegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
 **ProfessionalRoles** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
-**Resume** | Pointer to [**NullableResumeResumeNanoWithUrl**](ResumeResumeNanoWithUrl.md) |  | [optional] 
 **Source** | **string** | Источник отклика | 
-**State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика.
-
-Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
- | 
+**State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **UpdatedAt** | **string** | Дата и время последнего обновления отклика | 
 **Url** | **string** | Ссылка на полную версию отклика | 
-**Vacancy** | Pointer to [**NullableVacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
+**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
+**Resume** | Pointer to [**NullableResumeResumeNanoWithUrl**](ResumeResumeNanoWithUrl.md) |  | [optional] 
 
 ## Methods
 
@@ -195,16 +192,6 @@ SetJobSearchStatus sets JobSearchStatus field to given value.
 
 HasJobSearchStatus returns a boolean if a field has been set.
 
-### SetJobSearchStatusNil
-
-`func (o *NegotiationsListItem) SetJobSearchStatusNil(b bool)`
-
- SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
-
-### UnsetJobSearchStatus
-`func (o *NegotiationsListItem) UnsetJobSearchStatus()`
-
-UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
 ### GetMessagesUrl
 
 `func (o *NegotiationsListItem) GetMessagesUrl() string`
@@ -275,16 +262,6 @@ SetPhoneCalls sets PhoneCalls field to given value.
 
 HasPhoneCalls returns a boolean if a field has been set.
 
-### SetPhoneCallsNil
-
-`func (o *NegotiationsListItem) SetPhoneCallsNil(b bool)`
-
- SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
-
-### UnsetPhoneCalls
-`func (o *NegotiationsListItem) UnsetPhoneCalls()`
-
-UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
 ### GetProfessionalRoles
 
 `func (o *NegotiationsListItem) GetProfessionalRoles() IncludesIdName`
@@ -310,41 +287,6 @@ SetProfessionalRoles sets ProfessionalRoles field to given value.
 
 HasProfessionalRoles returns a boolean if a field has been set.
 
-### GetResume
-
-`func (o *NegotiationsListItem) GetResume() ResumeResumeNanoWithUrl`
-
-GetResume returns the Resume field if non-nil, zero value otherwise.
-
-### GetResumeOk
-
-`func (o *NegotiationsListItem) GetResumeOk() (*ResumeResumeNanoWithUrl, bool)`
-
-GetResumeOk returns a tuple with the Resume field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResume
-
-`func (o *NegotiationsListItem) SetResume(v ResumeResumeNanoWithUrl)`
-
-SetResume sets Resume field to given value.
-
-### HasResume
-
-`func (o *NegotiationsListItem) HasResume() bool`
-
-HasResume returns a boolean if a field has been set.
-
-### SetResumeNil
-
-`func (o *NegotiationsListItem) SetResumeNil(b bool)`
-
- SetResumeNil sets the value for Resume to be an explicit nil
-
-### UnsetResume
-`func (o *NegotiationsListItem) UnsetResume()`
-
-UnsetResume ensures that no value is present for Resume, not even an explicit nil
 ### GetSource
 
 `func (o *NegotiationsListItem) GetSource() string`
@@ -450,16 +392,6 @@ SetVacancy sets Vacancy field to given value.
 
 HasVacancy returns a boolean if a field has been set.
 
-### SetVacancyNil
-
-`func (o *NegotiationsListItem) SetVacancyNil(b bool)`
-
- SetVacancyNil sets the value for Vacancy to be an explicit nil
-
-### UnsetVacancy
-`func (o *NegotiationsListItem) UnsetVacancy()`
-
-UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
 ### GetViewedByOpponent
 
 `func (o *NegotiationsListItem) GetViewedByOpponent() bool`
@@ -480,6 +412,41 @@ and a boolean to check if the value has been set.
 SetViewedByOpponent sets ViewedByOpponent field to given value.
 
 
+### GetResume
+
+`func (o *NegotiationsListItem) GetResume() ResumeResumeNanoWithUrl`
+
+GetResume returns the Resume field if non-nil, zero value otherwise.
+
+### GetResumeOk
+
+`func (o *NegotiationsListItem) GetResumeOk() (*ResumeResumeNanoWithUrl, bool)`
+
+GetResumeOk returns a tuple with the Resume field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResume
+
+`func (o *NegotiationsListItem) SetResume(v ResumeResumeNanoWithUrl)`
+
+SetResume sets Resume field to given value.
+
+### HasResume
+
+`func (o *NegotiationsListItem) HasResume() bool`
+
+HasResume returns a boolean if a field has been set.
+
+### SetResumeNil
+
+`func (o *NegotiationsListItem) SetResumeNil(b bool)`
+
+ SetResumeNil sets the value for Resume to be an explicit nil
+
+### UnsetResume
+`func (o *NegotiationsListItem) UnsetResume()`
+
+UnsetResume ensures that no value is present for Resume, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

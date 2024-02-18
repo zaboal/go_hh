@@ -8,18 +8,12 @@ Name | Type | Description | Notes
 **Age** | Pointer to **NullableFloat32** | Возраст | [optional] 
 **AlternateUrl** | **string** | URL резюме на сайте | 
 **Area** | Pointer to [**IncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
-**AutoHideTime** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**AutoHideTime** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
 **Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
-**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования &quot;средний&quot;, то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования &quot;высшее&quot;, то сохранится только высшее образование
- | 
+**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
 **Experience** | [**[]ResumeObjectsExperienceForOwner**](ResumeObjectsExperienceForOwner.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
@@ -195,16 +189,6 @@ SetAutoHideTime sets AutoHideTime field to given value.
 
 HasAutoHideTime returns a boolean if a field has been set.
 
-### SetAutoHideTimeNil
-
-`func (o *ResumesMineItem) SetAutoHideTimeNil(b bool)`
-
- SetAutoHideTimeNil sets the value for AutoHideTime to be an explicit nil
-
-### UnsetAutoHideTime
-`func (o *ResumesMineItem) UnsetAutoHideTime()`
-
-UnsetAutoHideTime ensures that no value is present for AutoHideTime, not even an explicit nil
 ### GetCanViewFullInfo
 
 `func (o *ResumesMineItem) GetCanViewFullInfo() bool`

@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | Pointer to [**NullableVacancyAddressOutput**](VacancyAddressOutput.md) |  | [optional] 
+**Address** | [**NullableVacancyAddressOutput**](VacancyAddressOutput.md) |  | 
 **Author** | [**NegotiationsAuthor**](NegotiationsAuthor.md) |  | 
-**CreatedAt** | **string** | Дата отправки сообщения | 
-**Editable** | **bool** | Можно ли редактировать сообщение | 
+**CreatedAt** | **string** | Дата и время создания сообщения | 
+**Editable** | **bool** | Можно ли редактировать текст сообщения | 
 **Id** | **string** | Идентификатор сообщения | 
 **Read** | Pointer to **bool** | Можно ли прочитать сообщение | [optional] 
 **State** | [**IncludesIdName**](IncludesIdName.md) | Состояние сообщения | 
 **Text** | **string** | Текст сообщения | 
-**ViewedByMe** | **bool** | Просмотрено ли сообщение отправителем | 
-**ViewedByOpponent** | **bool** | Просмотрено ли сообщение получателем | 
+**ViewedByMe** | **bool** | Прочитано ли сообщение смотрящим (для сообщений отправленных соискателем - всегда true) | 
+**ViewedByOpponent** | **bool** | Прочитано ли сообщение работодателем (для сообщений работодателя - true) | 
 
 ## Methods
 
 ### NewNegotiationsMessageSent
 
-`func NewNegotiationsMessageSent(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessageSent`
+`func NewNegotiationsMessageSent(address NullableVacancyAddressOutput, author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessageSent`
 
 NewNegotiationsMessageSent instantiates a new NegotiationsMessageSent object
 This constructor will assign default values to properties that have it defined,
@@ -53,11 +53,6 @@ and a boolean to check if the value has been set.
 
 SetAddress sets Address field to given value.
 
-### HasAddress
-
-`func (o *NegotiationsMessageSent) HasAddress() bool`
-
-HasAddress returns a boolean if a field has been set.
 
 ### SetAddressNil
 

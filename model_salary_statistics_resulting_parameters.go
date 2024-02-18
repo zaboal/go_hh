@@ -109,7 +109,7 @@ func (o *SalaryStatisticsResultingParameters) GetEmployeeLevelsOk() ([]IncludesI
 
 // HasEmployeeLevels returns a boolean if a field has been set.
 func (o *SalaryStatisticsResultingParameters) HasEmployeeLevels() bool {
-	if o != nil && IsNil(o.EmployeeLevels) {
+	if o != nil && !IsNil(o.EmployeeLevels) {
 		return true
 	}
 
@@ -166,7 +166,7 @@ func (o *SalaryStatisticsResultingParameters) GetExcludedAreasOk() ([]IncludesId
 
 // HasExcludedAreas returns a boolean if a field has been set.
 func (o *SalaryStatisticsResultingParameters) HasExcludedAreas() bool {
-	if o != nil && IsNil(o.ExcludedAreas) {
+	if o != nil && !IsNil(o.ExcludedAreas) {
 		return true
 	}
 
@@ -241,7 +241,7 @@ func (o *SalaryStatisticsResultingParameters) GetIndustriesOk() ([]IncludesIdNam
 
 // HasIndustries returns a boolean if a field has been set.
 func (o *SalaryStatisticsResultingParameters) HasIndustries() bool {
-	if o != nil && IsNil(o.Industries) {
+	if o != nil && !IsNil(o.Industries) {
 		return true
 	}
 
@@ -322,7 +322,7 @@ func (o *SalaryStatisticsResultingParameters) GetSpecialitiesOk() ([]IncludesIdN
 
 // HasSpecialities returns a boolean if a field has been set.
 func (o *SalaryStatisticsResultingParameters) HasSpecialities() bool {
-	if o != nil && IsNil(o.Specialities) {
+	if o != nil && !IsNil(o.Specialities) {
 		return true
 	}
 

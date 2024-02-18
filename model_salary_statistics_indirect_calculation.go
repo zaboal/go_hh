@@ -71,7 +71,7 @@ func (o *SalaryStatisticsIndirectCalculation) GetIndirectAreasOk() ([]IncludesId
 
 // HasIndirectAreas returns a boolean if a field has been set.
 func (o *SalaryStatisticsIndirectCalculation) HasIndirectAreas() bool {
-	if o != nil && IsNil(o.IndirectAreas) {
+	if o != nil && !IsNil(o.IndirectAreas) {
 		return true
 	}
 
@@ -104,7 +104,7 @@ func (o *SalaryStatisticsIndirectCalculation) GetIndirectEmployeeLevelsOk() ([]I
 
 // HasIndirectEmployeeLevels returns a boolean if a field has been set.
 func (o *SalaryStatisticsIndirectCalculation) HasIndirectEmployeeLevels() bool {
-	if o != nil && IsNil(o.IndirectEmployeeLevels) {
+	if o != nil && !IsNil(o.IndirectEmployeeLevels) {
 		return true
 	}
 

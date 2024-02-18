@@ -13,13 +13,7 @@ Name | Type | Description | Notes
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
 **Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
-**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования &quot;средний&quot;, то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования &quot;высшее&quot;, то сохранится только высшее образование
- | 
+**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
 **Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 

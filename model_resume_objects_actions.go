@@ -22,8 +22,7 @@ var _ MappedNullable = &ResumeObjectsActions{}
 
 // ResumeObjectsActions struct for ResumeObjectsActions
 type ResumeObjectsActions struct {
-	// Ссылки для скачивания резюме в нескольких форматах ([подробнее](#tag/Prosmotr-rezyume/operation/get-resume)) (атрибут 'actions')
-
+	// Ссылки для скачивания резюме в нескольких форматах ([подробнее](#tag/Prosmotr-rezyume/operation/get-resume)) (атрибут 'actions') 
 	Download ResumeObjectsDownload `json:"download"`
 	DownloadWithContact NullableResumeObjectsDownload `json:"download_with_contact,omitempty"`
 	GetWithContact NullableIncludesUrl `json:"get_with_contact,omitempty"`

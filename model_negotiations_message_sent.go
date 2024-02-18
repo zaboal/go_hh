@@ -22,11 +22,11 @@ var _ MappedNullable = &NegotiationsMessageSent{}
 
 // NegotiationsMessageSent struct for NegotiationsMessageSent
 type NegotiationsMessageSent struct {
-	Address NullableVacancyAddressOutput `json:"address,omitempty"`
+	Address NullableVacancyAddressOutput `json:"address"`
 	Author NegotiationsAuthor `json:"author"`
-	// Дата отправки сообщения
+	// Дата и время создания сообщения
 	CreatedAt string `json:"created_at"`
-	// Можно ли редактировать сообщение
+	// Можно ли редактировать текст сообщения
 	Editable bool `json:"editable"`
 	// Идентификатор сообщения
 	Id string `json:"id"`
@@ -36,9 +36,9 @@ type NegotiationsMessageSent struct {
 	State IncludesIdName `json:"state"`
 	// Текст сообщения
 	Text string `json:"text"`
-	// Просмотрено ли сообщение отправителем
+	// Прочитано ли сообщение смотрящим (для сообщений отправленных соискателем - всегда true)
 	ViewedByMe bool `json:"viewed_by_me"`
-	// Просмотрено ли сообщение получателем
+	// Прочитано ли сообщение работодателем (для сообщений работодателя - true)
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
 }
 
@@ -48,8 +48,9 @@ type _NegotiationsMessageSent NegotiationsMessageSent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNegotiationsMessageSent(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessageSent {
+func NewNegotiationsMessageSent(address NullableVacancyAddressOutput, author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessageSent {
 	this := NegotiationsMessageSent{}
+	this.Address = address
 	this.Author = author
 	this.CreatedAt = createdAt
 	this.Editable = editable
@@ -69,16 +70,18 @@ func NewNegotiationsMessageSentWithDefaults() *NegotiationsMessageSent {
 	return &this
 }
 
-// GetAddress returns the Address field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAddress returns the Address field value
+// If the value is explicit nil, the zero value for VacancyAddressOutput will be returned
 func (o *NegotiationsMessageSent) GetAddress() VacancyAddressOutput {
-	if o == nil || IsNil(o.Address.Get()) {
+	if o == nil || o.Address.Get() == nil {
 		var ret VacancyAddressOutput
 		return ret
 	}
+
 	return *o.Address.Get()
 }
 
-// GetAddressOk returns a tuple with the Address field value if set, nil otherwise
+// GetAddressOk returns a tuple with the Address field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsMessageSent) GetAddressOk() (*VacancyAddressOutput, bool) {
@@ -88,27 +91,9 @@ func (o *NegotiationsMessageSent) GetAddressOk() (*VacancyAddressOutput, bool) {
 	return o.Address.Get(), o.Address.IsSet()
 }
 
-// HasAddress returns a boolean if a field has been set.
-func (o *NegotiationsMessageSent) HasAddress() bool {
-	if o != nil && o.Address.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetAddress gets a reference to the given NullableVacancyAddressOutput and assigns it to the Address field.
+// SetAddress sets field value
 func (o *NegotiationsMessageSent) SetAddress(v VacancyAddressOutput) {
 	o.Address.Set(&v)
-}
-// SetAddressNil sets the value for Address to be an explicit nil
-func (o *NegotiationsMessageSent) SetAddressNil() {
-	o.Address.Set(nil)
-}
-
-// UnsetAddress ensures that no value is present for Address, not even an explicit nil
-func (o *NegotiationsMessageSent) UnsetAddress() {
-	o.Address.Unset()
 }
 
 // GetAuthor returns the Author field value
@@ -345,9 +330,7 @@ func (o NegotiationsMessageSent) MarshalJSON() ([]byte, error) {
 
 func (o NegotiationsMessageSent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Address.IsSet() {
-		toSerialize["address"] = o.Address.Get()
-	}
+	toSerialize["address"] = o.Address.Get()
 	toSerialize["author"] = o.Author
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["editable"] = o.Editable
@@ -367,6 +350,7 @@ func (o *NegotiationsMessageSent) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"address",
 		"author",
 		"created_at",
 		"editable",

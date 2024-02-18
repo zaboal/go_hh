@@ -410,6 +410,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**AddEmployerToBlacklisted**](docs/DefaultApi.md#addemployertoblacklisted) | **Put** /employers/blacklisted/{employer_id} | Добавление работодателя в список скрытых
 *DefaultApi* | [**AddResumeVisibilityList**](docs/DefaultApi.md#addresumevisibilitylist) | **Post** /resumes/{resume_id}/{list_type} | Добавление работодателей в список видимости
 *DefaultApi* | [**AddVacancyToArchive**](docs/DefaultApi.md#addvacancytoarchive) | **Put** /employers/{employer_id}/vacancies/archived/{vacancy_id} | Архивация вакансии
+*DefaultApi* | [**AddVacancyToArchive_0**](docs/DefaultApi.md#addvacancytoarchive_0) | **Put** /employers/{employer_id}/vacancies/archived/{vacancy_id} | Архивация вакансии
 *DefaultApi* | [**AddVacancyToBlacklisted**](docs/DefaultApi.md#addvacancytoblacklisted) | **Put** /vacancies/blacklisted/{vacancy_id} | Добавление вакансии в список скрытых
 *DefaultApi* | [**AddVacancyToFavorite**](docs/DefaultApi.md#addvacancytofavorite) | **Put** /vacancies/favorited/{vacancy_id} | Добавление вакансии в список отобранных
 *DefaultApi* | [**AddVacancyToHidden**](docs/DefaultApi.md#addvacancytohidden) | **Put** /employers/{employer_id}/vacancies/hidden/{vacancy_id} | Удаление вакансий
@@ -442,10 +443,13 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**EditNegotiationMessage**](docs/DefaultApi.md#editnegotiationmessage) | **Put** /negotiations/{nid}/messages/{mid} | Редактирование сообщения в отклике
 *DefaultApi* | [**EditResume**](docs/DefaultApi.md#editresume) | **Put** /resumes/{resume_id} | Обновление резюме
 *DefaultApi* | [**EditVacancy**](docs/DefaultApi.md#editvacancy) | **Put** /vacancies/{vacancy_id} | Редактирование вакансий
+*DefaultApi* | [**EditVacancy_0**](docs/DefaultApi.md#editvacancy_0) | **Put** /vacancies/{vacancy_id} | Редактирование вакансий
 *DefaultApi* | [**GetActiveNegotiations**](docs/DefaultApi.md#getactivenegotiations) | **Get** /negotiations/active | Список активных откликов
 *DefaultApi* | [**GetActiveVacancyList**](docs/DefaultApi.md#getactivevacancylist) | **Get** /employers/{employer_id}/vacancies/active | Просмотр списка опубликованных вакансий
 *DefaultApi* | [**GetActiveVacancyList_0**](docs/DefaultApi.md#getactivevacancylist_0) | **Get** /employers/{employer_id}/vacancies/active | Просмотр списка опубликованных вакансий
 *DefaultApi* | [**GetAddress**](docs/DefaultApi.md#getaddress) | **Get** /employers/{employer_id}/addresses/{address_id} | Получение адреса
+*DefaultApi* | [**GetAddress_0**](docs/DefaultApi.md#getaddress_0) | **Get** /employers/{employer_id}/addresses/{address_id} | Получение адреса
+*DefaultApi* | [**GetAllDistricts**](docs/DefaultApi.md#getalldistricts) | **Get** /districts | Список районов во всех городах
 *DefaultApi* | [**GetApplicantCommentsList**](docs/DefaultApi.md#getapplicantcommentslist) | **Get** /applicant_comments/{applicant_id} | Получение списка комментариев
 *DefaultApi* | [**GetApplicantPhoneInfo**](docs/DefaultApi.md#getapplicantphoneinfo) | **Get** /resume_should_send_sms | Получить информацию о телефоне соискателя
 *DefaultApi* | [**GetArchivedVacancies**](docs/DefaultApi.md#getarchivedvacancies) | **Get** /employers/{employer_id}/vacancies/archived | Список архивных вакансий
@@ -471,6 +475,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetEducationalInstitutionsDictionary**](docs/DefaultApi.md#geteducationalinstitutionsdictionary) | **Get** /educational_institutions | Основная информация об учебных заведениях
 *DefaultApi* | [**GetEducationalInstitutionsSuggests**](docs/DefaultApi.md#geteducationalinstitutionssuggests) | **Get** /suggests/educational_institutions | Подсказки по названиям учебных заведений
 *DefaultApi* | [**GetEmployerAddresses**](docs/DefaultApi.md#getemployeraddresses) | **Get** /employers/{employer_id}/addresses | Список адресов работодателя
+*DefaultApi* | [**GetEmployerAddresses_0**](docs/DefaultApi.md#getemployeraddresses_0) | **Get** /employers/{employer_id}/addresses | Список адресов работодателя
 *DefaultApi* | [**GetEmployerDepartments**](docs/DefaultApi.md#getemployerdepartments) | **Get** /employers/{employer_id}/departments | Справочник департаментов работодателя
 *DefaultApi* | [**GetEmployerDepartments_0**](docs/DefaultApi.md#getemployerdepartments_0) | **Get** /employers/{employer_id}/departments | Справочник департаментов работодателя
 *DefaultApi* | [**GetEmployerInfo**](docs/DefaultApi.md#getemployerinfo) | **Get** /employers/{employer_id} | Информация о работодателе
@@ -497,6 +502,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetMetroStations**](docs/DefaultApi.md#getmetrostations) | **Get** /metro | Список станций метро во всех городах
 *DefaultApi* | [**GetMetroStationsInCity**](docs/DefaultApi.md#getmetrostationsincity) | **Get** /metro/{city_id} | Список станций метро в указанном городе
 *DefaultApi* | [**GetMineResumes**](docs/DefaultApi.md#getmineresumes) | **Get** /resumes/mine | Список резюме авторизованного пользователя
+*DefaultApi* | [**GetNegotiationItem**](docs/DefaultApi.md#getnegotiationitem) | **Get** /negotiations/{id} | Просмотр отклика/приглашения
+*DefaultApi* | [**GetNegotiationMessages**](docs/DefaultApi.md#getnegotiationmessages) | **Get** /negotiations/{nid}/messages | Получение сообщении в отклике
 *DefaultApi* | [**GetNegotiations**](docs/DefaultApi.md#getnegotiations) | **Get** /negotiations | Список откликов
 *DefaultApi* | [**GetNewResumeConditions**](docs/DefaultApi.md#getnewresumeconditions) | **Get** /resume_conditions | Условия заполнения полей нового резюме
 *DefaultApi* | [**GetPayableApiActions**](docs/DefaultApi.md#getpayableapiactions) | **Get** /employers/{employer_id}/services/payable_api_actions/active | Информация по активным услугам API для платных методов
@@ -559,8 +566,9 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**PublishResume**](docs/DefaultApi.md#publishresume) | **Post** /resumes/{resume_id}/publish | Публикация резюме
 *DefaultApi* | [**PublishVacancy**](docs/DefaultApi.md#publishvacancy) | **Post** /vacancies | Публикация вакансии
 *DefaultApi* | [**PublishVacancyFromDraft**](docs/DefaultApi.md#publishvacancyfromdraft) | **Post** /vacancies/drafts/{draft_id}/publish | Публикация вакансии на основе черновика
+*DefaultApi* | [**PublishVacancy_0**](docs/DefaultApi.md#publishvacancy_0) | **Post** /vacancies | Публикация вакансии
 *DefaultApi* | [**PutMailTemplatesItem**](docs/DefaultApi.md#putmailtemplatesitem) | **Put** /employers/{employer_id}/mail_templates/{template_id} | Изменение шаблона ответа соискателю
-*DefaultApi* | [**PutNegotiationsCollectionToNextState**](docs/DefaultApi.md#putnegotiationscollectiontonextstate) | **Put** /negotiations/{collection} | Действия по откликам/приглашениям
+*DefaultApi* | [**PutNegotiationsCollectionToNextState**](docs/DefaultApi.md#putnegotiationscollectiontonextstate) | **Put** /negotiations/{id} | Действия по откликам/приглашениям
 *DefaultApi* | [**PutPrefNegotiationsOrder**](docs/DefaultApi.md#putprefnegotiationsorder) | **Put** /vacancies/{id}/preferred_negotiations_order | Изменение предпочитаемой сортировки откликов
 *DefaultApi* | [**RestoreVacancyFromHidden**](docs/DefaultApi.md#restorevacancyfromhidden) | **Delete** /employers/{employer_id}/vacancies/hidden/{vacancy_id} | Восстановление вакансии из удаленных
 *DefaultApi* | [**SearchEmployer**](docs/DefaultApi.md#searchemployer) | **Get** /employers | Поиск работодателя
@@ -572,6 +580,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**UpdateSavedResumeSearch**](docs/DefaultApi.md#updatesavedresumesearch) | **Put** /saved_searches/resumes/{id} | Обновление сохраненного поиска резюме
 *DefaultApi* | [**UpdateSavedVacancySearch**](docs/DefaultApi.md#updatesavedvacancysearch) | **Put** /saved_searches/vacancies/{id} | Обновление сохраненного поиска вакансий
 *DefaultApi* | [**VacancyProlongation**](docs/DefaultApi.md#vacancyprolongation) | **Post** /vacancies/{vacancy_id}/prolongate | Продление вакансии
+*DefaultApi* | [**VacancyProlongation_0**](docs/DefaultApi.md#vacancyprolongation_0) | **Post** /vacancies/{vacancy_id}/prolongate | Продление вакансии
 *WebhookAPIAPI* | [**CancelWebhookSubscription**](docs/WebhookAPIAPI.md#cancelwebhooksubscription) | **Delete** /webhook/subscriptions/{subscription_id} | Удалить подписку на уведомление
 *WebhookAPIAPI* | [**ChangeWebhookSubscription**](docs/WebhookAPIAPI.md#changewebhooksubscription) | **Put** /webhook/subscriptions/{subscription_id} | Изменить подписку на уведомления
 *WebhookAPIAPI* | [**GetWebhookSubscriptions**](docs/WebhookAPIAPI.md#getwebhooksubscriptions) | **Get** /webhook/subscriptions | Получить список уведомлений, на которые подписан пользователь
@@ -622,6 +631,7 @@ Class | Method | HTTP request | Description
  - [DictionariesSalaryStatisticsProfessionalAreasResponseInner](docs/DictionariesSalaryStatisticsProfessionalAreasResponseInner.md)
  - [DictionariesSalaryStatisticsSpecializations](docs/DictionariesSalaryStatisticsSpecializations.md)
  - [DictionariesSkillsResponse](docs/DictionariesSkillsResponse.md)
+ - [DistrictsDistrictItem](docs/DistrictsDistrictItem.md)
  - [EmployerAddressesEmployerAddressItem](docs/EmployerAddressesEmployerAddressItem.md)
  - [EmployerAddressesEmployerAddressItemManager](docs/EmployerAddressesEmployerAddressItemManager.md)
  - [EmployerAddressesEmployerAddressItemResponse](docs/EmployerAddressesEmployerAddressItemResponse.md)
@@ -638,10 +648,10 @@ Class | Method | HTTP request | Description
  - [EmployerManagersEmployerManagerId](docs/EmployerManagersEmployerManagerId.md)
  - [EmployerManagersEmployerManagerInfo](docs/EmployerManagersEmployerManagerInfo.md)
  - [EmployerManagersEmployerManagerItem](docs/EmployerManagersEmployerManagerItem.md)
+ - [EmployerManagersEmployerManagerItemAdditionalPhone](docs/EmployerManagersEmployerManagerItemAdditionalPhone.md)
+ - [EmployerManagersEmployerManagerItemPhone](docs/EmployerManagersEmployerManagerItemPhone.md)
  - [EmployerManagersEmployerManagerLimits](docs/EmployerManagersEmployerManagerLimits.md)
  - [EmployerManagersManagerData](docs/EmployerManagersManagerData.md)
- - [EmployerManagersManagerDataAdditionalPhone](docs/EmployerManagersManagerDataAdditionalPhone.md)
- - [EmployerManagersManagerDataPhone](docs/EmployerManagersManagerDataPhone.md)
  - [EmployerManagersManagerType](docs/EmployerManagersManagerType.md)
  - [EmployerManagersManagerTypeId](docs/EmployerManagersManagerTypeId.md)
  - [EmployerManagersPermissions](docs/EmployerManagersPermissions.md)
@@ -749,9 +759,9 @@ Class | Method | HTTP request | Description
  - [ErrorsVacancyAddEditForbiddenErrors](docs/ErrorsVacancyAddEditForbiddenErrors.md)
  - [ErrorsVacancyApplyBadRequestError](docs/ErrorsVacancyApplyBadRequestError.md)
  - [ErrorsVacancyApplyBadRequestErrors](docs/ErrorsVacancyApplyBadRequestErrors.md)
+ - [ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments](docs/ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md)
  - [ErrorsVacancyApplyForbiddenError](docs/ErrorsVacancyApplyForbiddenError.md)
  - [ErrorsVacancyApplyForbiddenErrors](docs/ErrorsVacancyApplyForbiddenErrors.md)
- - [ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments](docs/ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md)
  - [ErrorsVacancyBlacklistedBadRequestError](docs/ErrorsVacancyBlacklistedBadRequestError.md)
  - [ErrorsVacancyBlacklistedBadRequestErrors](docs/ErrorsVacancyBlacklistedBadRequestErrors.md)
  - [ErrorsVacancyBlacklistedNotFoundError](docs/ErrorsVacancyBlacklistedNotFoundError.md)
@@ -785,6 +795,7 @@ Class | Method | HTTP request | Description
  - [IncludesId](docs/IncludesId.md)
  - [IncludesIdName](docs/IncludesIdName.md)
  - [IncludesIdNameDesc](docs/IncludesIdNameDesc.md)
+ - [IncludesIdNameLastChangeTime](docs/IncludesIdNameLastChangeTime.md)
  - [IncludesIdNameUrl](docs/IncludesIdNameUrl.md)
  - [IncludesLanguageLevel](docs/IncludesLanguageLevel.md)
  - [IncludesLanguageProperties](docs/IncludesLanguageProperties.md)
@@ -826,12 +837,20 @@ Class | Method | HTTP request | Description
  - [MetroMetroItem](docs/MetroMetroItem.md)
  - [MetroMetroLine](docs/MetroMetroLine.md)
  - [MetroMetroLineWithStations](docs/MetroMetroLineWithStations.md)
+ - [NegotiationsAction](docs/NegotiationsAction.md)
+ - [NegotiationsAssessment](docs/NegotiationsAssessment.md)
  - [NegotiationsAuthor](docs/NegotiationsAuthor.md)
  - [NegotiationsListItem](docs/NegotiationsListItem.md)
  - [NegotiationsListItems](docs/NegotiationsListItems.md)
  - [NegotiationsListResponse](docs/NegotiationsListResponse.md)
+ - [NegotiationsMessage](docs/NegotiationsMessage.md)
  - [NegotiationsMessageSent](docs/NegotiationsMessageSent.md)
+ - [NegotiationsMessagesGet](docs/NegotiationsMessagesGet.md)
+ - [NegotiationsMessagesGetResponse](docs/NegotiationsMessagesGetResponse.md)
+ - [NegotiationsNegotiationGetResponse](docs/NegotiationsNegotiationGetResponse.md)
  - [NegotiationsObjectsCounters](docs/NegotiationsObjectsCounters.md)
+ - [NegotiationsObjectsTopicItem](docs/NegotiationsObjectsTopicItem.md)
+ - [NegotiationsObjectsTopicResume](docs/NegotiationsObjectsTopicResume.md)
  - [NegotiationsPhoneCallItem](docs/NegotiationsPhoneCallItem.md)
  - [NegotiationsPhoneCalls](docs/NegotiationsPhoneCalls.md)
  - [ProfessionalRolesCatalog](docs/ProfessionalRolesCatalog.md)
@@ -1132,7 +1151,6 @@ Class | Method | HTTP request | Description
  - [VacancyDraftAutoPublicationState](docs/VacancyDraftAutoPublicationState.md)
  - [VacancyDraftBillingType](docs/VacancyDraftBillingType.md)
  - [VacancyDraftBrandedTemplate](docs/VacancyDraftBrandedTemplate.md)
- - [VacancyDraftCommon](docs/VacancyDraftCommon.md)
  - [VacancyDraftContacts](docs/VacancyDraftContacts.md)
  - [VacancyDraftContactsWithFullPhone](docs/VacancyDraftContactsWithFullPhone.md)
  - [VacancyDraftDraftResponseSchema](docs/VacancyDraftDraftResponseSchema.md)
@@ -1152,6 +1170,7 @@ Class | Method | HTTP request | Description
  - [VacancyDraftVacanciesDraftResponse](docs/VacancyDraftVacanciesDraftResponse.md)
  - [VacancyDraftVacancyDraftBase](docs/VacancyDraftVacancyDraftBase.md)
  - [VacancyDraftVacancyDraftBodyCommon](docs/VacancyDraftVacancyDraftBodyCommon.md)
+ - [VacancyDraftVacancyDraftCommon](docs/VacancyDraftVacancyDraftCommon.md)
  - [VacancyDraftVacancyDraftCreate](docs/VacancyDraftVacancyDraftCreate.md)
  - [VacancyDraftVacancyDraftEdit](docs/VacancyDraftVacancyDraftEdit.md)
  - [VacancyDraftVacancyDraftFull](docs/VacancyDraftVacancyDraftFull.md)

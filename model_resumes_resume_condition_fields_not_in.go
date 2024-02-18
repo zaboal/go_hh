@@ -62,7 +62,7 @@ func (o *ResumesResumeConditionFieldsNotIn) GetNotInOk() ([]string, bool) {
 
 // HasNotIn returns a boolean if a field has been set.
 func (o *ResumesResumeConditionFieldsNotIn) HasNotIn() bool {
-	if o != nil && IsNil(o.NotIn) {
+	if o != nil && !IsNil(o.NotIn) {
 		return true
 	}
 

@@ -29,33 +29,30 @@ type NegotiationsListItem struct {
 	DeclineAllowed bool `json:"decline_allowed"`
 	// Есть ли непросмотренные сообщения в отклике. Флаг сбрасывается при различных действиях с откликом, например, [просмотре списка сообщений](https://github.com/hhru/api/blob/master/docs/negotiations.md#get_messages)
 	HasUpdates bool `json:"has_updates"`
-	// Скрыт ли текущий отклик
+	// Скрыт ли текущий отклик от соискателя
 	Hidden bool `json:"hidden"`
 	// Идентификатор отклика
 	Id string `json:"id"`
-	JobSearchStatus NullableIncludesIdName `json:"job_search_status,omitempty"`
+	JobSearchStatus *IncludesIdName `json:"job_search_status,omitempty"`
 	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
 	// Deprecated
 	MessagesUrl *string `json:"messages_url,omitempty"`
 	// Текущий статус переписки.  Возможные значения приведены в поле `messaging_status` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
 	MessagingStatus string `json:"messaging_status"`
-	PhoneCalls NullableNegotiationsPhoneCalls `json:"phone_calls,omitempty"`
+	PhoneCalls *NegotiationsPhoneCalls `json:"phone_calls,omitempty"`
 	ProfessionalRoles *IncludesIdName `json:"professional_roles,omitempty"`
-	Resume NullableResumeResumeNanoWithUrl `json:"resume,omitempty"`
 	// Источник отклика
 	Source string `json:"source"`
-	// Текущее состояние отклика.
-
-Возможные значения приведены в поле `negotiations_state` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
-
+	// Текущее состояние отклика.  Возможные значения приведены в поле `negotiations_state` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
 	State IncludesIdName `json:"state"`
 	// Дата и время последнего обновления отклика
 	UpdatedAt string `json:"updated_at"`
 	// Ссылка на полную версию отклика
 	Url string `json:"url"`
-	Vacancy NullableVacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
+	Vacancy *VacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
 	// Был ли отклик просмотрен работодателем
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
+	Resume NullableResumeResumeNanoWithUrl `json:"resume,omitempty"`
 }
 
 type _NegotiationsListItem NegotiationsListItem
@@ -240,46 +237,36 @@ func (o *NegotiationsListItem) SetId(v string) {
 	o.Id = v
 }
 
-// GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise.
 func (o *NegotiationsListItem) GetJobSearchStatus() IncludesIdName {
-	if o == nil || IsNil(o.JobSearchStatus.Get()) {
+	if o == nil || IsNil(o.JobSearchStatus) {
 		var ret IncludesIdName
 		return ret
 	}
-	return *o.JobSearchStatus.Get()
+	return *o.JobSearchStatus
 }
 
 // GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsListItem) GetJobSearchStatusOk() (*IncludesIdName, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.JobSearchStatus) {
 		return nil, false
 	}
-	return o.JobSearchStatus.Get(), o.JobSearchStatus.IsSet()
+	return o.JobSearchStatus, true
 }
 
 // HasJobSearchStatus returns a boolean if a field has been set.
 func (o *NegotiationsListItem) HasJobSearchStatus() bool {
-	if o != nil && o.JobSearchStatus.IsSet() {
+	if o != nil && !IsNil(o.JobSearchStatus) {
 		return true
 	}
 
 	return false
 }
 
-// SetJobSearchStatus gets a reference to the given NullableIncludesIdName and assigns it to the JobSearchStatus field.
+// SetJobSearchStatus gets a reference to the given IncludesIdName and assigns it to the JobSearchStatus field.
 func (o *NegotiationsListItem) SetJobSearchStatus(v IncludesIdName) {
-	o.JobSearchStatus.Set(&v)
-}
-// SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
-func (o *NegotiationsListItem) SetJobSearchStatusNil() {
-	o.JobSearchStatus.Set(nil)
-}
-
-// UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
-func (o *NegotiationsListItem) UnsetJobSearchStatus() {
-	o.JobSearchStatus.Unset()
+	o.JobSearchStatus = &v
 }
 
 // GetMessagesUrl returns the MessagesUrl field value if set, zero value otherwise.
@@ -341,46 +328,36 @@ func (o *NegotiationsListItem) SetMessagingStatus(v string) {
 	o.MessagingStatus = v
 }
 
-// GetPhoneCalls returns the PhoneCalls field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPhoneCalls returns the PhoneCalls field value if set, zero value otherwise.
 func (o *NegotiationsListItem) GetPhoneCalls() NegotiationsPhoneCalls {
-	if o == nil || IsNil(o.PhoneCalls.Get()) {
+	if o == nil || IsNil(o.PhoneCalls) {
 		var ret NegotiationsPhoneCalls
 		return ret
 	}
-	return *o.PhoneCalls.Get()
+	return *o.PhoneCalls
 }
 
 // GetPhoneCallsOk returns a tuple with the PhoneCalls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsListItem) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PhoneCalls) {
 		return nil, false
 	}
-	return o.PhoneCalls.Get(), o.PhoneCalls.IsSet()
+	return o.PhoneCalls, true
 }
 
 // HasPhoneCalls returns a boolean if a field has been set.
 func (o *NegotiationsListItem) HasPhoneCalls() bool {
-	if o != nil && o.PhoneCalls.IsSet() {
+	if o != nil && !IsNil(o.PhoneCalls) {
 		return true
 	}
 
 	return false
 }
 
-// SetPhoneCalls gets a reference to the given NullableNegotiationsPhoneCalls and assigns it to the PhoneCalls field.
+// SetPhoneCalls gets a reference to the given NegotiationsPhoneCalls and assigns it to the PhoneCalls field.
 func (o *NegotiationsListItem) SetPhoneCalls(v NegotiationsPhoneCalls) {
-	o.PhoneCalls.Set(&v)
-}
-// SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
-func (o *NegotiationsListItem) SetPhoneCallsNil() {
-	o.PhoneCalls.Set(nil)
-}
-
-// UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
-func (o *NegotiationsListItem) UnsetPhoneCalls() {
-	o.PhoneCalls.Unset()
+	o.PhoneCalls = &v
 }
 
 // GetProfessionalRoles returns the ProfessionalRoles field value if set, zero value otherwise.
@@ -413,48 +390,6 @@ func (o *NegotiationsListItem) HasProfessionalRoles() bool {
 // SetProfessionalRoles gets a reference to the given IncludesIdName and assigns it to the ProfessionalRoles field.
 func (o *NegotiationsListItem) SetProfessionalRoles(v IncludesIdName) {
 	o.ProfessionalRoles = &v
-}
-
-// GetResume returns the Resume field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NegotiationsListItem) GetResume() ResumeResumeNanoWithUrl {
-	if o == nil || IsNil(o.Resume.Get()) {
-		var ret ResumeResumeNanoWithUrl
-		return ret
-	}
-	return *o.Resume.Get()
-}
-
-// GetResumeOk returns a tuple with the Resume field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsListItem) GetResumeOk() (*ResumeResumeNanoWithUrl, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Resume.Get(), o.Resume.IsSet()
-}
-
-// HasResume returns a boolean if a field has been set.
-func (o *NegotiationsListItem) HasResume() bool {
-	if o != nil && o.Resume.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetResume gets a reference to the given NullableResumeResumeNanoWithUrl and assigns it to the Resume field.
-func (o *NegotiationsListItem) SetResume(v ResumeResumeNanoWithUrl) {
-	o.Resume.Set(&v)
-}
-// SetResumeNil sets the value for Resume to be an explicit nil
-func (o *NegotiationsListItem) SetResumeNil() {
-	o.Resume.Set(nil)
-}
-
-// UnsetResume ensures that no value is present for Resume, not even an explicit nil
-func (o *NegotiationsListItem) UnsetResume() {
-	o.Resume.Unset()
 }
 
 // GetSource returns the Source field value
@@ -553,46 +488,36 @@ func (o *NegotiationsListItem) SetUrl(v string) {
 	o.Url = v
 }
 
-// GetVacancy returns the Vacancy field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetVacancy returns the Vacancy field value if set, zero value otherwise.
 func (o *NegotiationsListItem) GetVacancy() VacanciesNegotiationsVacancyShort {
-	if o == nil || IsNil(o.Vacancy.Get()) {
+	if o == nil || IsNil(o.Vacancy) {
 		var ret VacanciesNegotiationsVacancyShort
 		return ret
 	}
-	return *o.Vacancy.Get()
+	return *o.Vacancy
 }
 
 // GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsListItem) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Vacancy) {
 		return nil, false
 	}
-	return o.Vacancy.Get(), o.Vacancy.IsSet()
+	return o.Vacancy, true
 }
 
 // HasVacancy returns a boolean if a field has been set.
 func (o *NegotiationsListItem) HasVacancy() bool {
-	if o != nil && o.Vacancy.IsSet() {
+	if o != nil && !IsNil(o.Vacancy) {
 		return true
 	}
 
 	return false
 }
 
-// SetVacancy gets a reference to the given NullableVacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
+// SetVacancy gets a reference to the given VacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
 func (o *NegotiationsListItem) SetVacancy(v VacanciesNegotiationsVacancyShort) {
-	o.Vacancy.Set(&v)
-}
-// SetVacancyNil sets the value for Vacancy to be an explicit nil
-func (o *NegotiationsListItem) SetVacancyNil() {
-	o.Vacancy.Set(nil)
-}
-
-// UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
-func (o *NegotiationsListItem) UnsetVacancy() {
-	o.Vacancy.Unset()
+	o.Vacancy = &v
 }
 
 // GetViewedByOpponent returns the ViewedByOpponent field value
@@ -619,6 +544,48 @@ func (o *NegotiationsListItem) SetViewedByOpponent(v bool) {
 	o.ViewedByOpponent = v
 }
 
+// GetResume returns the Resume field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NegotiationsListItem) GetResume() ResumeResumeNanoWithUrl {
+	if o == nil || IsNil(o.Resume.Get()) {
+		var ret ResumeResumeNanoWithUrl
+		return ret
+	}
+	return *o.Resume.Get()
+}
+
+// GetResumeOk returns a tuple with the Resume field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NegotiationsListItem) GetResumeOk() (*ResumeResumeNanoWithUrl, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Resume.Get(), o.Resume.IsSet()
+}
+
+// HasResume returns a boolean if a field has been set.
+func (o *NegotiationsListItem) HasResume() bool {
+	if o != nil && o.Resume.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetResume gets a reference to the given NullableResumeResumeNanoWithUrl and assigns it to the Resume field.
+func (o *NegotiationsListItem) SetResume(v ResumeResumeNanoWithUrl) {
+	o.Resume.Set(&v)
+}
+// SetResumeNil sets the value for Resume to be an explicit nil
+func (o *NegotiationsListItem) SetResumeNil() {
+	o.Resume.Set(nil)
+}
+
+// UnsetResume ensures that no value is present for Resume, not even an explicit nil
+func (o *NegotiationsListItem) UnsetResume() {
+	o.Resume.Unset()
+}
+
 func (o NegotiationsListItem) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -637,30 +604,30 @@ func (o NegotiationsListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize["has_updates"] = o.HasUpdates
 	toSerialize["hidden"] = o.Hidden
 	toSerialize["id"] = o.Id
-	if o.JobSearchStatus.IsSet() {
-		toSerialize["job_search_status"] = o.JobSearchStatus.Get()
+	if !IsNil(o.JobSearchStatus) {
+		toSerialize["job_search_status"] = o.JobSearchStatus
 	}
 	if !IsNil(o.MessagesUrl) {
 		toSerialize["messages_url"] = o.MessagesUrl
 	}
 	toSerialize["messaging_status"] = o.MessagingStatus
-	if o.PhoneCalls.IsSet() {
-		toSerialize["phone_calls"] = o.PhoneCalls.Get()
+	if !IsNil(o.PhoneCalls) {
+		toSerialize["phone_calls"] = o.PhoneCalls
 	}
 	if !IsNil(o.ProfessionalRoles) {
 		toSerialize["professional_roles"] = o.ProfessionalRoles
-	}
-	if o.Resume.IsSet() {
-		toSerialize["resume"] = o.Resume.Get()
 	}
 	toSerialize["source"] = o.Source
 	toSerialize["state"] = o.State
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["url"] = o.Url
-	if o.Vacancy.IsSet() {
-		toSerialize["vacancy"] = o.Vacancy.Get()
+	if !IsNil(o.Vacancy) {
+		toSerialize["vacancy"] = o.Vacancy
 	}
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
+	if o.Resume.IsSet() {
+		toSerialize["resume"] = o.Resume.Get()
+	}
 	return toSerialize, nil
 }
 

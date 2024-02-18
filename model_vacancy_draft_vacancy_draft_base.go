@@ -175,7 +175,7 @@ func (o *VacancyDraftVacancyDraftBase) GetInsufficientPublicationsOk() ([]Vacanc
 
 // HasInsufficientPublications returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftBase) HasInsufficientPublications() bool {
-	if o != nil && IsNil(o.InsufficientPublications) {
+	if o != nil && !IsNil(o.InsufficientPublications) {
 		return true
 	}
 
@@ -208,7 +208,7 @@ func (o *VacancyDraftVacancyDraftBase) GetInsufficientQuotasOk() ([]VacancyDraft
 
 // HasInsufficientQuotas returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftBase) HasInsufficientQuotas() bool {
-	if o != nil && IsNil(o.InsufficientQuotas) {
+	if o != nil && !IsNil(o.InsufficientQuotas) {
 		return true
 	}
 
@@ -307,7 +307,7 @@ func (o *VacancyDraftVacancyDraftBase) GetRequiredPublicationsOk() ([]VacancyDra
 
 // HasRequiredPublications returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftBase) HasRequiredPublications() bool {
-	if o != nil && IsNil(o.RequiredPublications) {
+	if o != nil && !IsNil(o.RequiredPublications) {
 		return true
 	}
 

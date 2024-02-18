@@ -973,7 +973,7 @@ func (o *VacancyEditCommon) GetWorkingDaysOk() ([]VacancyWorkingDayItem, bool) {
 
 // HasWorkingDays returns a boolean if a field has been set.
 func (o *VacancyEditCommon) HasWorkingDays() bool {
-	if o != nil && IsNil(o.WorkingDays) {
+	if o != nil && !IsNil(o.WorkingDays) {
 		return true
 	}
 
@@ -1006,7 +1006,7 @@ func (o *VacancyEditCommon) GetWorkingTimeIntervalsOk() ([]VacancyWorkingTimeInt
 
 // HasWorkingTimeIntervals returns a boolean if a field has been set.
 func (o *VacancyEditCommon) HasWorkingTimeIntervals() bool {
-	if o != nil && IsNil(o.WorkingTimeIntervals) {
+	if o != nil && !IsNil(o.WorkingTimeIntervals) {
 		return true
 	}
 
@@ -1039,7 +1039,7 @@ func (o *VacancyEditCommon) GetWorkingTimeModesOk() ([]VacancyWorkingTimeModeIte
 
 // HasWorkingTimeModes returns a boolean if a field has been set.
 func (o *VacancyEditCommon) HasWorkingTimeModes() bool {
-	if o != nil && IsNil(o.WorkingTimeModes) {
+	if o != nil && !IsNil(o.WorkingTimeModes) {
 		return true
 	}
 

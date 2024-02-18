@@ -1008,7 +1008,7 @@ func (o *VacanciesStandardVacancyFields) GetWorkingDaysOk() ([]VacancyWorkingDay
 
 // HasWorkingDays returns a boolean if a field has been set.
 func (o *VacanciesStandardVacancyFields) HasWorkingDays() bool {
-	if o != nil && IsNil(o.WorkingDays) {
+	if o != nil && !IsNil(o.WorkingDays) {
 		return true
 	}
 
@@ -1041,7 +1041,7 @@ func (o *VacanciesStandardVacancyFields) GetWorkingTimeIntervalsOk() ([]VacancyW
 
 // HasWorkingTimeIntervals returns a boolean if a field has been set.
 func (o *VacanciesStandardVacancyFields) HasWorkingTimeIntervals() bool {
-	if o != nil && IsNil(o.WorkingTimeIntervals) {
+	if o != nil && !IsNil(o.WorkingTimeIntervals) {
 		return true
 	}
 
@@ -1074,7 +1074,7 @@ func (o *VacanciesStandardVacancyFields) GetWorkingTimeModesOk() ([]VacancyWorki
 
 // HasWorkingTimeModes returns a boolean if a field has been set.
 func (o *VacanciesStandardVacancyFields) HasWorkingTimeModes() bool {
-	if o != nil && IsNil(o.WorkingTimeModes) {
+	if o != nil && !IsNil(o.WorkingTimeModes) {
 		return true
 	}
 

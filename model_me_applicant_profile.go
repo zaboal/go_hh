@@ -119,7 +119,7 @@ func (o *MeApplicantProfile) GetEmployerOk() (map[string]interface{}, bool) {
 
 // HasEmployer returns a boolean if a field has been set.
 func (o *MeApplicantProfile) HasEmployer() bool {
-	if o != nil && IsNil(o.Employer) {
+	if o != nil && !IsNil(o.Employer) {
 		return true
 	}
 
@@ -179,7 +179,7 @@ func (o *MeApplicantProfile) GetManagerOk() (map[string]interface{}, bool) {
 
 // HasManager returns a boolean if a field has been set.
 func (o *MeApplicantProfile) HasManager() bool {
-	if o != nil && IsNil(o.Manager) {
+	if o != nil && !IsNil(o.Manager) {
 		return true
 	}
 
@@ -239,7 +239,7 @@ func (o *MeApplicantProfile) GetPersonalManagerOk() (map[string]interface{}, boo
 
 // HasPersonalManager returns a boolean if a field has been set.
 func (o *MeApplicantProfile) HasPersonalManager() bool {
-	if o != nil && IsNil(o.PersonalManager) {
+	if o != nil && !IsNil(o.PersonalManager) {
 		return true
 	}
 

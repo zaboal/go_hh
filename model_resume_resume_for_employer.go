@@ -39,13 +39,7 @@ type ResumeResumeForEmployer struct {
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
 	Download ResumeObjectsDownload `json:"download"`
-	// Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
-
+	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
@@ -114,10 +108,8 @@ type ResumeResumeForEmployer struct {
 	Actions ResumeObjectsActions `json:"actions"`
 	// Добавлено ли резюме в избранные
 	Favorited bool `json:"favorited"`
-	// Для получения данных нужно передать параметр `with_job_search_status=true`. 
-Возможные значения перечислены в поле `job_search_status` в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
-
-	JobSearchStatus *IncludesIdName `json:"job_search_status,omitempty"`
+	// Для получения данных нужно передать параметр `with_job_search_status=true`.  Возможные значения перечислены в поле `job_search_status` в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+	JobSearchStatus *IncludesIdNameLastChangeTime `json:"job_search_status,omitempty"`
 	// Краткая история откликов/приглашений по резюме
 	NegotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer `json:"negotiations_history"`
 	// Информация о владельце резюме
@@ -1257,7 +1249,7 @@ func (o *ResumeResumeForEmployer) GetProfessionalRolesOk() ([]IncludesIdName, bo
 
 // HasProfessionalRoles returns a boolean if a field has been set.
 func (o *ResumeResumeForEmployer) HasProfessionalRoles() bool {
-	if o != nil && IsNil(o.ProfessionalRoles) {
+	if o != nil && !IsNil(o.ProfessionalRoles) {
 		return true
 	}
 
@@ -1579,9 +1571,9 @@ func (o *ResumeResumeForEmployer) SetFavorited(v bool) {
 }
 
 // GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise.
-func (o *ResumeResumeForEmployer) GetJobSearchStatus() IncludesIdName {
+func (o *ResumeResumeForEmployer) GetJobSearchStatus() IncludesIdNameLastChangeTime {
 	if o == nil || IsNil(o.JobSearchStatus) {
-		var ret IncludesIdName
+		var ret IncludesIdNameLastChangeTime
 		return ret
 	}
 	return *o.JobSearchStatus
@@ -1589,7 +1581,7 @@ func (o *ResumeResumeForEmployer) GetJobSearchStatus() IncludesIdName {
 
 // GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetJobSearchStatusOk() (*IncludesIdName, bool) {
+func (o *ResumeResumeForEmployer) GetJobSearchStatusOk() (*IncludesIdNameLastChangeTime, bool) {
 	if o == nil || IsNil(o.JobSearchStatus) {
 		return nil, false
 	}
@@ -1605,8 +1597,8 @@ func (o *ResumeResumeForEmployer) HasJobSearchStatus() bool {
 	return false
 }
 
-// SetJobSearchStatus gets a reference to the given IncludesIdName and assigns it to the JobSearchStatus field.
-func (o *ResumeResumeForEmployer) SetJobSearchStatus(v IncludesIdName) {
+// SetJobSearchStatus gets a reference to the given IncludesIdNameLastChangeTime and assigns it to the JobSearchStatus field.
+func (o *ResumeResumeForEmployer) SetJobSearchStatus(v IncludesIdNameLastChangeTime) {
 	o.JobSearchStatus = &v
 }
 

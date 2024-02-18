@@ -877,7 +877,7 @@ func (o *VacancyDraftVacancyDraftFull) GetWorkingDaysOk() ([]VacancyWorkingDayIt
 
 // HasWorkingDays returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftFull) HasWorkingDays() bool {
-	if o != nil && IsNil(o.WorkingDays) {
+	if o != nil && !IsNil(o.WorkingDays) {
 		return true
 	}
 
@@ -910,7 +910,7 @@ func (o *VacancyDraftVacancyDraftFull) GetWorkingTimeIntervalsOk() ([]VacancyWor
 
 // HasWorkingTimeIntervals returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftFull) HasWorkingTimeIntervals() bool {
-	if o != nil && IsNil(o.WorkingTimeIntervals) {
+	if o != nil && !IsNil(o.WorkingTimeIntervals) {
 		return true
 	}
 
@@ -943,7 +943,7 @@ func (o *VacancyDraftVacancyDraftFull) GetWorkingTimeModesOk() ([]VacancyWorking
 
 // HasWorkingTimeModes returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftFull) HasWorkingTimeModes() bool {
-	if o != nil && IsNil(o.WorkingTimeModes) {
+	if o != nil && !IsNil(o.WorkingTimeModes) {
 		return true
 	}
 

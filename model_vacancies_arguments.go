@@ -62,7 +62,7 @@ func (o *VacanciesArguments) GetArgumentsOk() ([]VacanciesArgumentItem, bool) {
 
 // HasArguments returns a boolean if a field has been set.
 func (o *VacanciesArguments) HasArguments() bool {
-	if o != nil && IsNil(o.Arguments) {
+	if o != nil && !IsNil(o.Arguments) {
 		return true
 	}
 

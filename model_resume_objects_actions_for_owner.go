@@ -22,8 +22,7 @@ var _ MappedNullable = &ResumeObjectsActionsForOwner{}
 
 // ResumeObjectsActionsForOwner struct for ResumeObjectsActionsForOwner
 type ResumeObjectsActionsForOwner struct {
-	// Ссылки для скачивания резюме в нескольких форматах ([подробнее](#tag/Prosmotr-rezyume/operation/get-resume)) (атрибут 'actions')
-
+	// Ссылки для скачивания резюме в нескольких форматах ([подробнее](#tag/Prosmotr-rezyume/operation/get-resume)) (атрибут 'actions') 
 	Download ResumeObjectsDownload `json:"download"`
 }
 

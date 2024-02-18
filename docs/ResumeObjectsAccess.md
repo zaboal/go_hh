@@ -4,14 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | [**IncludesIdName**](IncludesIdName.md) | Определяет, кому будет доступно резюме в поиске и по прямой ссылке.
-
-Установить значение параметра можно при [создании](#tag/Rezyume.-Sozdanie-i-obnovlenie/operation/create-resume) или [редактировании](#tag/Rezyume.-Sozdanie-i-obnovlenie/operation/edit-resume) резюме. Возможные значения приведены в поле &#x60;resume_access_type&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries).
-
-С 1 сентября 2021 года тип видимости &#x60;everyone&#x60; стал недоступен для сохранения из-за законодательных ограничений.
-
-Чтобы управлять списком работодателей, которые могут просматривать резюме, воспользуйтесь группой методов [Резюме. Списки видимости](#tag/Rezyume.-Spiski-vidimosti)
- | 
+**Type** | [**IncludesIdName**](IncludesIdName.md) | Определяет, кому будет доступно резюме в поиске и по прямой ссылке.  Установить значение параметра можно при [создании](#tag/Rezyume.-Sozdanie-i-obnovlenie/operation/create-resume) или [редактировании](#tag/Rezyume.-Sozdanie-i-obnovlenie/operation/edit-resume) резюме. Возможные значения приведены в поле &#x60;resume_access_type&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries).  С 1 сентября 2021 года тип видимости &#x60;everyone&#x60; стал недоступен для сохранения из-за законодательных ограничений.  Чтобы управлять списком работодателей, которые могут просматривать резюме, воспользуйтесь группой методов [Резюме. Списки видимости](#tag/Rezyume.-Spiski-vidimosti)  | 
 
 ## Methods
 

@@ -31,12 +31,12 @@ Name | Type | Description | Notes
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **TravelTime** | Pointer to [**IncludesId**](IncludesId.md) |  | [optional] 
 **WorkTicket** | Pointer to [**[]IncludesId**](IncludesId.md) | Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | [optional] 
-**Area** | Pointer to [**Id**](Id.md) |  | [optional] 
+**Area** | Pointer to [**NullableId**](Id.md) |  | [optional] 
 **Citizenship** | Pointer to [**[]IncludesId**](IncludesId.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Contact** | Pointer to [**[]IncludesContact**](IncludesContact.md) | Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится * Обязательно указать либо телефон полностью в поле &#x60;formatted&#x60;, либо все три части телефона по отдельности в трёх полях: &#x60;country&#x60;, &#x60;city&#x60; и &#x60;number&#x60;. Если указано и то, и то, используются данные из трёх полей. В поле &#x60;formatted&#x60; допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры  | [optional] 
 **Education** | Pointer to [**NullableResumeObjectsEducation**](ResumeObjectsEducation.md) |  | [optional] 
 **Experience** | Pointer to [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | [optional] 
-**Gender** | Pointer to [**Id**](Id.md) |  | [optional] 
+**Gender** | Pointer to [**NullableId**](Id.md) |  | [optional] 
 **Language** | Pointer to [**[]IncludesLanguageLevel**](IncludesLanguageLevel.md) | Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages) | [optional] 
 
 ## Methods
@@ -948,6 +948,16 @@ SetArea sets Area field to given value.
 
 HasArea returns a boolean if a field has been set.
 
+### SetAreaNil
+
+`func (o *ResumeEditResumeRequest) SetAreaNil(b bool)`
+
+ SetAreaNil sets the value for Area to be an explicit nil
+
+### UnsetArea
+`func (o *ResumeEditResumeRequest) UnsetArea()`
+
+UnsetArea ensures that no value is present for Area, not even an explicit nil
 ### GetCitizenship
 
 `func (o *ResumeEditResumeRequest) GetCitizenship() []IncludesId`
@@ -1113,6 +1123,16 @@ SetGender sets Gender field to given value.
 
 HasGender returns a boolean if a field has been set.
 
+### SetGenderNil
+
+`func (o *ResumeEditResumeRequest) SetGenderNil(b bool)`
+
+ SetGenderNil sets the value for Gender to be an explicit nil
+
+### UnsetGender
+`func (o *ResumeEditResumeRequest) UnsetGender()`
+
+UnsetGender ensures that no value is present for Gender, not even an explicit nil
 ### GetLanguage
 
 `func (o *ResumeEditResumeRequest) GetLanguage() []IncludesLanguageLevel`

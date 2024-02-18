@@ -69,7 +69,7 @@ func (o *ResumesAccessTypes) GetAutoHideTimeOptionsOk() ([]ResumesAutoHideTimeOp
 
 // HasAutoHideTimeOptions returns a boolean if a field has been set.
 func (o *ResumesAccessTypes) HasAutoHideTimeOptions() bool {
-	if o != nil && IsNil(o.AutoHideTimeOptions) {
+	if o != nil && !IsNil(o.AutoHideTimeOptions) {
 		return true
 	}
 

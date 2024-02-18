@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в нескольких форматах ([подробнее](#tag/Prosmotr-rezyume/operation/get-resume)) (атрибут &#39;actions&#39;)
- | 
+**Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в нескольких форматах ([подробнее](#tag/Prosmotr-rezyume/operation/get-resume)) (атрибут &#39;actions&#39;)  | 
 **DownloadWithContact** | Pointer to [**NullableResumeObjectsDownload**](ResumeObjectsDownload.md) |  | [optional] 
 **GetWithContact** | Pointer to [**NullableIncludesUrl**](IncludesUrl.md) |  | [optional] 
 

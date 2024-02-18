@@ -360,7 +360,7 @@ func (o *VacancyDraftVacancyDraftEdit) GetAreasOk() ([]VacancyArea, bool) {
 
 // HasAreas returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasAreas() bool {
-	if o != nil && IsNil(o.Areas) {
+	if o != nil && !IsNil(o.Areas) {
 		return true
 	}
 
@@ -835,7 +835,7 @@ func (o *VacancyDraftVacancyDraftEdit) GetKeySkillsOk() ([]VacancyDraftKeySkillI
 
 // HasKeySkills returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasKeySkills() bool {
-	if o != nil && IsNil(o.KeySkills) {
+	if o != nil && !IsNil(o.KeySkills) {
 		return true
 	}
 
@@ -942,7 +942,7 @@ func (o *VacancyDraftVacancyDraftEdit) GetProfessionalRolesOk() ([]VacancyDraftP
 
 // HasProfessionalRoles returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasProfessionalRoles() bool {
-	if o != nil && IsNil(o.ProfessionalRoles) {
+	if o != nil && !IsNil(o.ProfessionalRoles) {
 		return true
 	}
 
@@ -1281,7 +1281,7 @@ func (o *VacancyDraftVacancyDraftEdit) GetWorkingDaysOk() ([]VacancyWorkingDayIt
 
 // HasWorkingDays returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasWorkingDays() bool {
-	if o != nil && IsNil(o.WorkingDays) {
+	if o != nil && !IsNil(o.WorkingDays) {
 		return true
 	}
 
@@ -1314,7 +1314,7 @@ func (o *VacancyDraftVacancyDraftEdit) GetWorkingTimeIntervalsOk() ([]VacancyWor
 
 // HasWorkingTimeIntervals returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasWorkingTimeIntervals() bool {
-	if o != nil && IsNil(o.WorkingTimeIntervals) {
+	if o != nil && !IsNil(o.WorkingTimeIntervals) {
 		return true
 	}
 
@@ -1347,7 +1347,7 @@ func (o *VacancyDraftVacancyDraftEdit) GetWorkingTimeModesOk() ([]VacancyWorking
 
 // HasWorkingTimeModes returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasWorkingTimeModes() bool {
-	if o != nil && IsNil(o.WorkingTimeModes) {
+	if o != nil && !IsNil(o.WorkingTimeModes) {
 		return true
 	}
 

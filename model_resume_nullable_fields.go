@@ -231,7 +231,7 @@ func (o *ResumeNullableFields) GetCertificateOk() ([]ResumeObjectsCertificate, b
 
 // HasCertificate returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasCertificate() bool {
-	if o != nil && IsNil(o.Certificate) {
+	if o != nil && !IsNil(o.Certificate) {
 		return true
 	}
 
@@ -264,7 +264,7 @@ func (o *ResumeNullableFields) GetDriverLicenseTypesOk() ([]ResumeObjectsDriverL
 
 // HasDriverLicenseTypes returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasDriverLicenseTypes() bool {
-	if o != nil && IsNil(o.DriverLicenseTypes) {
+	if o != nil && !IsNil(o.DriverLicenseTypes) {
 		return true
 	}
 
@@ -297,7 +297,7 @@ func (o *ResumeNullableFields) GetEmploymentsOk() ([]IncludesIdName, bool) {
 
 // HasEmployments returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasEmployments() bool {
-	if o != nil && IsNil(o.Employments) {
+	if o != nil && !IsNil(o.Employments) {
 		return true
 	}
 
@@ -414,7 +414,7 @@ func (o *ResumeNullableFields) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
 
 // HasHiddenFields returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasHiddenFields() bool {
-	if o != nil && IsNil(o.HiddenFields) {
+	if o != nil && !IsNil(o.HiddenFields) {
 		return true
 	}
 
@@ -615,7 +615,7 @@ func (o *ResumeNullableFields) GetPortfolioOk() ([]ResumeObjectsPortfolio, bool)
 
 // HasPortfolio returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasPortfolio() bool {
-	if o != nil && IsNil(o.Portfolio) {
+	if o != nil && !IsNil(o.Portfolio) {
 		return true
 	}
 
@@ -680,7 +680,7 @@ func (o *ResumeNullableFields) GetRecommendationOk() ([]ResumeObjectsRecommendat
 
 // HasRecommendation returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasRecommendation() bool {
-	if o != nil && IsNil(o.Recommendation) {
+	if o != nil && !IsNil(o.Recommendation) {
 		return true
 	}
 
@@ -839,7 +839,7 @@ func (o *ResumeNullableFields) GetSchedulesOk() ([]IncludesIdName, bool) {
 
 // HasSchedules returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasSchedules() bool {
-	if o != nil && IsNil(o.Schedules) {
+	if o != nil && !IsNil(o.Schedules) {
 		return true
 	}
 
@@ -872,7 +872,7 @@ func (o *ResumeNullableFields) GetSiteOk() ([]ResumeObjectsSite, bool) {
 
 // HasSite returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasSite() bool {
-	if o != nil && IsNil(o.Site) {
+	if o != nil && !IsNil(o.Site) {
 		return true
 	}
 
@@ -905,7 +905,7 @@ func (o *ResumeNullableFields) GetSkillSetOk() ([]string, bool) {
 
 // HasSkillSet returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasSkillSet() bool {
-	if o != nil && IsNil(o.SkillSet) {
+	if o != nil && !IsNil(o.SkillSet) {
 		return true
 	}
 
@@ -1106,7 +1106,7 @@ func (o *ResumeNullableFields) GetWorkTicketOk() ([]IncludesId, bool) {
 
 // HasWorkTicket returns a boolean if a field has been set.
 func (o *ResumeNullableFields) HasWorkTicket() bool {
-	if o != nil && IsNil(o.WorkTicket) {
+	if o != nil && !IsNil(o.WorkTicket) {
 		return true
 	}
 

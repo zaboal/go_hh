@@ -93,7 +93,7 @@ func (o *ResumeObjectsNegotiationsHistoryForEmployer) GetVacanciesOk() ([]Resume
 
 // HasVacancies returns a boolean if a field has been set.
 func (o *ResumeObjectsNegotiationsHistoryForEmployer) HasVacancies() bool {
-	if o != nil && IsNil(o.Vacancies) {
+	if o != nil && !IsNil(o.Vacancies) {
 		return true
 	}
 

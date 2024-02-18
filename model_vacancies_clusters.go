@@ -62,7 +62,7 @@ func (o *VacanciesClusters) GetClustersOk() ([]VacanciesClusterItem, bool) {
 
 // HasClusters returns a boolean if a field has been set.
 func (o *VacanciesClusters) HasClusters() bool {
-	if o != nil && IsNil(o.Clusters) {
+	if o != nil && !IsNil(o.Clusters) {
 		return true
 	}
 

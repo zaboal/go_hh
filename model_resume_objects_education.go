@@ -74,7 +74,7 @@ func (o *ResumeObjectsEducation) GetAdditionalOk() ([]ResumeObjectsEducationAddi
 
 // HasAdditional returns a boolean if a field has been set.
 func (o *ResumeObjectsEducation) HasAdditional() bool {
-	if o != nil && IsNil(o.Additional) {
+	if o != nil && !IsNil(o.Additional) {
 		return true
 	}
 
@@ -107,7 +107,7 @@ func (o *ResumeObjectsEducation) GetAttestationOk() ([]ResumeObjectsEducationAdd
 
 // HasAttestation returns a boolean if a field has been set.
 func (o *ResumeObjectsEducation) HasAttestation() bool {
-	if o != nil && IsNil(o.Attestation) {
+	if o != nil && !IsNil(o.Attestation) {
 		return true
 	}
 
@@ -140,7 +140,7 @@ func (o *ResumeObjectsEducation) GetElementaryOk() ([]ResumeObjectsEducationElem
 
 // HasElementary returns a boolean if a field has been set.
 func (o *ResumeObjectsEducation) HasElementary() bool {
-	if o != nil && IsNil(o.Elementary) {
+	if o != nil && !IsNil(o.Elementary) {
 		return true
 	}
 
@@ -199,7 +199,7 @@ func (o *ResumeObjectsEducation) GetPrimaryOk() ([]ResumeObjectsEducationPrimary
 
 // HasPrimary returns a boolean if a field has been set.
 func (o *ResumeObjectsEducation) HasPrimary() bool {
-	if o != nil && IsNil(o.Primary) {
+	if o != nil && !IsNil(o.Primary) {
 		return true
 	}
 

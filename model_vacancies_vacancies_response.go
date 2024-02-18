@@ -207,7 +207,7 @@ func (o *VacanciesVacanciesResponse) GetClustersOk() ([]VacanciesClusterItem, bo
 
 // HasClusters returns a boolean if a field has been set.
 func (o *VacanciesVacanciesResponse) HasClusters() bool {
-	if o != nil && IsNil(o.Clusters) {
+	if o != nil && !IsNil(o.Clusters) {
 		return true
 	}
 
@@ -240,7 +240,7 @@ func (o *VacanciesVacanciesResponse) GetArgumentsOk() ([]VacanciesArgumentItem, 
 
 // HasArguments returns a boolean if a field has been set.
 func (o *VacanciesVacanciesResponse) HasArguments() bool {
-	if o != nil && IsNil(o.Arguments) {
+	if o != nil && !IsNil(o.Arguments) {
 		return true
 	}
 

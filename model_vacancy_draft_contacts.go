@@ -150,7 +150,7 @@ func (o *VacancyDraftContacts) GetPhonesOk() ([]VacancyDraftPhoneItem, bool) {
 
 // HasPhones returns a boolean if a field has been set.
 func (o *VacancyDraftContacts) HasPhones() bool {
-	if o != nil && IsNil(o.Phones) {
+	if o != nil && !IsNil(o.Phones) {
 		return true
 	}
 

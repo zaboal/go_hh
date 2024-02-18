@@ -105,13 +105,13 @@ func NewConfiguration() *Configuration {
 					Description: "No description provided",
 				},
 			},
-			"DefaultApiService.Authorize_1": {
+			"DefaultApiService.Authorize_2": {
 				{
 					URL: "https://hh.ru",
 					Description: "No description provided",
 				},
 			},
-			"DefaultApiService.Authorize_2": {
+			"DefaultApiService.Authorize_3": {
 				{
 					URL: "https://hh.ru",
 					Description: "No description provided",

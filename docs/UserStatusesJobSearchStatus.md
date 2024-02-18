@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Идентификатор статуса | 
+**LastChangeTime** | **string** | Время, когда статус в последний раз менялся | 
 **Name** | **string** | Название статуса | 
 
 ## Methods
 
 ### NewUserStatusesJobSearchStatus
 
-`func NewUserStatusesJobSearchStatus(id string, name string, ) *UserStatusesJobSearchStatus`
+`func NewUserStatusesJobSearchStatus(id string, lastChangeTime string, name string, ) *UserStatusesJobSearchStatus`
 
 NewUserStatusesJobSearchStatus instantiates a new UserStatusesJobSearchStatus object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +45,26 @@ and a boolean to check if the value has been set.
 `func (o *UserStatusesJobSearchStatus) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetLastChangeTime
+
+`func (o *UserStatusesJobSearchStatus) GetLastChangeTime() string`
+
+GetLastChangeTime returns the LastChangeTime field if non-nil, zero value otherwise.
+
+### GetLastChangeTimeOk
+
+`func (o *UserStatusesJobSearchStatus) GetLastChangeTimeOk() (*string, bool)`
+
+GetLastChangeTimeOk returns a tuple with the LastChangeTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastChangeTime
+
+`func (o *UserStatusesJobSearchStatus) SetLastChangeTime(v string)`
+
+SetLastChangeTime sets LastChangeTime field to given value.
 
 
 ### GetName

@@ -7,9 +7,7 @@ Name | Type | Description | Notes
 **Actions** | [**ResumeObjectsActions**](ResumeObjectsActions.md) | Дополнительные действия | 
 **CanViewFullInfo** | Pointer to **NullableBool** | Наличие права просмотра контактной информации в резюме | [optional] 
 **Favorited** | **bool** | Добавлено ли резюме в избранные | 
-**JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) | Для получения данных нужно передать параметр &#x60;with_job_search_status&#x3D;true&#x60;. 
-Возможные значения перечислены в поле &#x60;job_search_status&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
- | [optional] 
+**JobSearchStatus** | Pointer to [**IncludesIdNameLastChangeTime**](IncludesIdNameLastChangeTime.md) | Для получения данных нужно передать параметр &#x60;with_job_search_status&#x3D;true&#x60;.  Возможные значения перечислены в поле &#x60;job_search_status&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | [optional] 
 **NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryForEmployer**](ResumeObjectsNegotiationsHistoryForEmployer.md) | Краткая история откликов/приглашений по резюме | 
 **Owner** | [**ResumeObjectsOwner**](ResumeObjectsOwner.md) | Информация о владельце резюме | 
 **PaidServices** | [**[]ResumeObjectsEmployerPaidServicesInner**](ResumeObjectsEmployerPaidServicesInner.md) | Платные услуги по резюме для работодателя  Работодателю может быть предложен список платных услуг по резюме.  Например, если полные данные по резюме недоступны, то будет выдано предложение покупки рекомендованной услуги, чтобы такой доступ получить  | 
@@ -112,20 +110,20 @@ SetFavorited sets Favorited field to given value.
 
 ### GetJobSearchStatus
 
-`func (o *ResumeEmployerFields) GetJobSearchStatus() IncludesIdName`
+`func (o *ResumeEmployerFields) GetJobSearchStatus() IncludesIdNameLastChangeTime`
 
 GetJobSearchStatus returns the JobSearchStatus field if non-nil, zero value otherwise.
 
 ### GetJobSearchStatusOk
 
-`func (o *ResumeEmployerFields) GetJobSearchStatusOk() (*IncludesIdName, bool)`
+`func (o *ResumeEmployerFields) GetJobSearchStatusOk() (*IncludesIdNameLastChangeTime, bool)`
 
 GetJobSearchStatusOk returns a tuple with the JobSearchStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetJobSearchStatus
 
-`func (o *ResumeEmployerFields) SetJobSearchStatus(v IncludesIdName)`
+`func (o *ResumeEmployerFields) SetJobSearchStatus(v IncludesIdNameLastChangeTime)`
 
 SetJobSearchStatus sets JobSearchStatus field to given value.
 

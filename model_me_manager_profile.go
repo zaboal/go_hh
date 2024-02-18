@@ -117,7 +117,7 @@ func (o *MeManagerProfile) GetIsInSearchOk() (map[string]interface{}, bool) {
 
 // HasIsInSearch returns a boolean if a field has been set.
 func (o *MeManagerProfile) HasIsInSearch() bool {
-	if o != nil && IsNil(o.IsInSearch) {
+	if o != nil && !IsNil(o.IsInSearch) {
 		return true
 	}
 
@@ -185,7 +185,7 @@ func (o *MeManagerProfile) GetNegotiationsUrlOk() (map[string]interface{}, bool)
 
 // HasNegotiationsUrl returns a boolean if a field has been set.
 func (o *MeManagerProfile) HasNegotiationsUrl() bool {
-	if o != nil && IsNil(o.NegotiationsUrl) {
+	if o != nil && !IsNil(o.NegotiationsUrl) {
 		return true
 	}
 
@@ -253,7 +253,7 @@ func (o *MeManagerProfile) GetResumesUrlOk() (map[string]interface{}, bool) {
 
 // HasResumesUrl returns a boolean if a field has been set.
 func (o *MeManagerProfile) HasResumesUrl() bool {
-	if o != nil && IsNil(o.ResumesUrl) {
+	if o != nil && !IsNil(o.ResumesUrl) {
 		return true
 	}
 

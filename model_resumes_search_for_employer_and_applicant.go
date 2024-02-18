@@ -39,13 +39,7 @@ type ResumesSearchForEmployerAndApplicant struct {
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
 	Download ResumeObjectsDownload `json:"download"`
-	// Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования "средний", то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования "высшее", то сохранится только высшее образование
-
+	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education ResumeObjectsEducation `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
@@ -79,9 +73,8 @@ type ResumesSearchForEmployerAndApplicant struct {
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
 	LastNegotiation *ResumesNegotiationNano `json:"last_negotiation,omitempty"`
-	// Для получения данных нужно передать параметр `with_job_search_status=true`
-
-	JobSearchStatus *IncludesIdName `json:"job_search_status,omitempty"`
+	// Для получения данных нужно передать параметр `with_job_search_status=true` 
+	JobSearchStatus *IncludesIdNameLastChangeTime `json:"job_search_status,omitempty"`
 	// Ссылка на резюме
 	Url *string `json:"url,omitempty"`
 }
@@ -999,9 +992,9 @@ func (o *ResumesSearchForEmployerAndApplicant) SetLastNegotiation(v ResumesNegot
 }
 
 // GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise.
-func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() IncludesIdName {
+func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() IncludesIdNameLastChangeTime {
 	if o == nil || IsNil(o.JobSearchStatus) {
-		var ret IncludesIdName
+		var ret IncludesIdNameLastChangeTime
 		return ret
 	}
 	return *o.JobSearchStatus
@@ -1009,7 +1002,7 @@ func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() IncludesIdNa
 
 // GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatusOk() (*IncludesIdName, bool) {
+func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatusOk() (*IncludesIdNameLastChangeTime, bool) {
 	if o == nil || IsNil(o.JobSearchStatus) {
 		return nil, false
 	}
@@ -1025,8 +1018,8 @@ func (o *ResumesSearchForEmployerAndApplicant) HasJobSearchStatus() bool {
 	return false
 }
 
-// SetJobSearchStatus gets a reference to the given IncludesIdName and assigns it to the JobSearchStatus field.
-func (o *ResumesSearchForEmployerAndApplicant) SetJobSearchStatus(v IncludesIdName) {
+// SetJobSearchStatus gets a reference to the given IncludesIdNameLastChangeTime and assigns it to the JobSearchStatus field.
+func (o *ResumesSearchForEmployerAndApplicant) SetJobSearchStatus(v IncludesIdNameLastChangeTime) {
 	o.JobSearchStatus = &v
 }
 

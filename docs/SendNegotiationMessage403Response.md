@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Идентификатор запроса | 
 **BadArgument** | Pointer to **string** |  | [optional] 
-**BadArguments** | Pointer to [**[]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments**](ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md) |  | [optional] 
+**BadArguments** | Pointer to [**[]ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments**](ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md) |  | [optional] 
 **Description** | Pointer to **string** | Описание ошибки | [optional] 
 **Errors** | [**[]ErrorsCommonBadAuthorizationCommonAndEmployerError**](ErrorsCommonBadAuthorizationCommonAndEmployerError.md) | Массив с данными ошибок | 
 **OauthError** | Pointer to **string** | Ошибки авторизации:   * &#x60;token-revoked&#x60; — Токен отозван пользователем, приложению необходимо [запросить новую авторизацию](#tag/Avtorizaciya-rabotodatelya/operation/authorize)   * &#x60;token-expired&#x60; — Время жизни &#x60;access_token&#x60; завершилось, необходимо [получить &#x60;refresh_token&#x60;](#tag/Avtorizaciya-rabotodatelya/operation/authorize)  | [optional] 
@@ -77,20 +77,20 @@ HasBadArgument returns a boolean if a field has been set.
 
 ### GetBadArguments
 
-`func (o *SendNegotiationMessage403Response) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments`
+`func (o *SendNegotiationMessage403Response) GetBadArguments() []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments`
 
 GetBadArguments returns the BadArguments field if non-nil, zero value otherwise.
 
 ### GetBadArgumentsOk
 
-`func (o *SendNegotiationMessage403Response) GetBadArgumentsOk() (*[]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool)`
+`func (o *SendNegotiationMessage403Response) GetBadArgumentsOk() (*[]ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments, bool)`
 
 GetBadArgumentsOk returns a tuple with the BadArguments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBadArguments
 
-`func (o *SendNegotiationMessage403Response) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments)`
+`func (o *SendNegotiationMessage403Response) SetBadArguments(v []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments)`
 
 SetBadArguments sets BadArguments field to given value.
 

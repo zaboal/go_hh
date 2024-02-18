@@ -13,13 +13,7 @@ Name | Type | Description | Notes
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
 **Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
-**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя. 
-
-Особенности сохранения образования:
-
-* Если передать и высшее и среднее образование и уровень образования &quot;средний&quot;, то сохранится только среднее образование.
-* Если передать и высшее и среднее образование и уровень образования &quot;высшее&quot;, то сохранится только высшее образование
- | 
+**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
 **Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
@@ -56,9 +50,7 @@ Name | Type | Description | Notes
 **WorkTicket** | [**[]IncludesIdNameUrl**](IncludesIdNameUrl.md) | Список регионов, в которых соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | 
 **Actions** | [**ResumeObjectsActionsForOwner**](ResumeObjectsActionsForOwner.md) | Дополнительные действия | 
 **Favorited** | **bool** | Добавлено ли резюме в избранные | 
-**JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) | Для получения данных нужно передать параметр &#x60;with_job_search_status&#x3D;true&#x60;. 
-Возможные значения перечислены в поле &#x60;job_search_status&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
- | [optional] 
+**JobSearchStatus** | Pointer to [**IncludesIdNameLastChangeTime**](IncludesIdNameLastChangeTime.md) | Для получения данных нужно передать параметр &#x60;with_job_search_status&#x3D;true&#x60;.  Возможные значения перечислены в поле &#x60;job_search_status&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | [optional] 
 **NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryForEmployer**](ResumeObjectsNegotiationsHistoryForEmployer.md) | Краткая история откликов/приглашений по резюме | 
 **Owner** | [**ResumeObjectsOwner**](ResumeObjectsOwner.md) | Информация о владельце резюме | 
 **Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) |  | [optional] 
@@ -1267,20 +1259,20 @@ SetFavorited sets Favorited field to given value.
 
 ### GetJobSearchStatus
 
-`func (o *ResumeResumeViewResponse) GetJobSearchStatus() IncludesIdName`
+`func (o *ResumeResumeViewResponse) GetJobSearchStatus() IncludesIdNameLastChangeTime`
 
 GetJobSearchStatus returns the JobSearchStatus field if non-nil, zero value otherwise.
 
 ### GetJobSearchStatusOk
 
-`func (o *ResumeResumeViewResponse) GetJobSearchStatusOk() (*IncludesIdName, bool)`
+`func (o *ResumeResumeViewResponse) GetJobSearchStatusOk() (*IncludesIdNameLastChangeTime, bool)`
 
 GetJobSearchStatusOk returns a tuple with the JobSearchStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetJobSearchStatus
 
-`func (o *ResumeResumeViewResponse) SetJobSearchStatus(v IncludesIdName)`
+`func (o *ResumeResumeViewResponse) SetJobSearchStatus(v IncludesIdNameLastChangeTime)`
 
 SetJobSearchStatus sets JobSearchStatus field to given value.
 

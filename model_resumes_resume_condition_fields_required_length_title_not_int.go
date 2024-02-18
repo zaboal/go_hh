@@ -194,7 +194,7 @@ func (o *ResumesResumeConditionFieldsRequiredLengthTitleNotInt) GetNotInOk() ([]
 
 // HasNotIn returns a boolean if a field has been set.
 func (o *ResumesResumeConditionFieldsRequiredLengthTitleNotInt) HasNotIn() bool {
-	if o != nil && IsNil(o.NotIn) {
+	if o != nil && !IsNil(o.NotIn) {
 		return true
 	}
 

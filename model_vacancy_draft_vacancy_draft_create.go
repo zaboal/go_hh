@@ -360,7 +360,7 @@ func (o *VacancyDraftVacancyDraftCreate) GetAreasOk() ([]VacancyArea, bool) {
 
 // HasAreas returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftCreate) HasAreas() bool {
-	if o != nil && IsNil(o.Areas) {
+	if o != nil && !IsNil(o.Areas) {
 		return true
 	}
 
@@ -835,7 +835,7 @@ func (o *VacancyDraftVacancyDraftCreate) GetKeySkillsOk() ([]VacancyDraftKeySkil
 
 // HasKeySkills returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftCreate) HasKeySkills() bool {
-	if o != nil && IsNil(o.KeySkills) {
+	if o != nil && !IsNil(o.KeySkills) {
 		return true
 	}
 
@@ -942,7 +942,7 @@ func (o *VacancyDraftVacancyDraftCreate) GetProfessionalRolesOk() ([]VacancyDraf
 
 // HasProfessionalRoles returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftCreate) HasProfessionalRoles() bool {
-	if o != nil && IsNil(o.ProfessionalRoles) {
+	if o != nil && !IsNil(o.ProfessionalRoles) {
 		return true
 	}
 
@@ -1281,7 +1281,7 @@ func (o *VacancyDraftVacancyDraftCreate) GetWorkingDaysOk() ([]VacancyWorkingDay
 
 // HasWorkingDays returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftCreate) HasWorkingDays() bool {
-	if o != nil && IsNil(o.WorkingDays) {
+	if o != nil && !IsNil(o.WorkingDays) {
 		return true
 	}
 
@@ -1314,7 +1314,7 @@ func (o *VacancyDraftVacancyDraftCreate) GetWorkingTimeIntervalsOk() ([]VacancyW
 
 // HasWorkingTimeIntervals returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftCreate) HasWorkingTimeIntervals() bool {
-	if o != nil && IsNil(o.WorkingTimeIntervals) {
+	if o != nil && !IsNil(o.WorkingTimeIntervals) {
 		return true
 	}
 
@@ -1347,7 +1347,7 @@ func (o *VacancyDraftVacancyDraftCreate) GetWorkingTimeModesOk() ([]VacancyWorki
 
 // HasWorkingTimeModes returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftCreate) HasWorkingTimeModes() bool {
-	if o != nil && IsNil(o.WorkingTimeModes) {
+	if o != nil && !IsNil(o.WorkingTimeModes) {
 		return true
 	}
 

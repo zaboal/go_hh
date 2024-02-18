@@ -24,6 +24,8 @@ var _ MappedNullable = &UserStatusesJobSearchStatus{}
 type UserStatusesJobSearchStatus struct {
 	// Идентификатор статуса
 	Id string `json:"id"`
+	// Время, когда статус в последний раз менялся
+	LastChangeTime string `json:"last_change_time"`
 	// Название статуса
 	Name string `json:"name"`
 }
@@ -34,9 +36,10 @@ type _UserStatusesJobSearchStatus UserStatusesJobSearchStatus
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserStatusesJobSearchStatus(id string, name string) *UserStatusesJobSearchStatus {
+func NewUserStatusesJobSearchStatus(id string, lastChangeTime string, name string) *UserStatusesJobSearchStatus {
 	this := UserStatusesJobSearchStatus{}
 	this.Id = id
+	this.LastChangeTime = lastChangeTime
 	this.Name = name
 	return &this
 }
@@ -71,6 +74,30 @@ func (o *UserStatusesJobSearchStatus) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *UserStatusesJobSearchStatus) SetId(v string) {
 	o.Id = v
+}
+
+// GetLastChangeTime returns the LastChangeTime field value
+func (o *UserStatusesJobSearchStatus) GetLastChangeTime() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LastChangeTime
+}
+
+// GetLastChangeTimeOk returns a tuple with the LastChangeTime field value
+// and a boolean to check if the value has been set.
+func (o *UserStatusesJobSearchStatus) GetLastChangeTimeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastChangeTime, true
+}
+
+// SetLastChangeTime sets field value
+func (o *UserStatusesJobSearchStatus) SetLastChangeTime(v string) {
+	o.LastChangeTime = v
 }
 
 // GetName returns the Name field value
@@ -108,6 +135,7 @@ func (o UserStatusesJobSearchStatus) MarshalJSON() ([]byte, error) {
 func (o UserStatusesJobSearchStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
+	toSerialize["last_change_time"] = o.LastChangeTime
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
 }
@@ -118,6 +146,7 @@ func (o *UserStatusesJobSearchStatus) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
+		"last_change_time",
 		"name",
 	}
 
