@@ -503,8 +503,9 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetMetroStationsInCity**](docs/DefaultApi.md#getmetrostationsincity) | **Get** /metro/{city_id} | Список станций метро в указанном городе
 *DefaultApi* | [**GetMineResumes**](docs/DefaultApi.md#getmineresumes) | **Get** /resumes/mine | Список резюме авторизованного пользователя
 *DefaultApi* | [**GetNegotiationItem**](docs/DefaultApi.md#getnegotiationitem) | **Get** /negotiations/{id} | Просмотр отклика/приглашения
-*DefaultApi* | [**GetNegotiationMessages**](docs/DefaultApi.md#getnegotiationmessages) | **Get** /negotiations/{nid}/messages | Получение сообщении в отклике
-*DefaultApi* | [**GetNegotiations**](docs/DefaultApi.md#getnegotiations) | **Get** /negotiations | Список откликов
+*DefaultApi* | [**GetNegotiationMessages**](docs/DefaultApi.md#getnegotiationmessages) | **Get** /negotiations/{nid}/messages | Просмотр списка сообщений в отклике
+*DefaultApi* | [**GetNegotiations**](docs/DefaultApi.md#getnegotiations) | **Get** /negotiations | Список откликов/приглашений
+*DefaultApi* | [**GetNegotiations_0**](docs/DefaultApi.md#getnegotiations_0) | **Get** /negotiations | Список откликов/приглашений
 *DefaultApi* | [**GetNewResumeConditions**](docs/DefaultApi.md#getnewresumeconditions) | **Get** /resume_conditions | Условия заполнения полей нового резюме
 *DefaultApi* | [**GetPayableApiActions**](docs/DefaultApi.md#getpayableapiactions) | **Get** /employers/{employer_id}/services/payable_api_actions/active | Информация по активным услугам API для платных методов
 *DefaultApi* | [**GetPositionsSuggestions**](docs/DefaultApi.md#getpositionssuggestions) | **Get** /suggests/positions | Подсказки по должностям резюме
@@ -512,6 +513,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetProfessionalRolesDictionary**](docs/DefaultApi.md#getprofessionalrolesdictionary) | **Get** /professional_roles | Справочник профессиональных ролей
 *DefaultApi* | [**GetProfessionalRolesSuggests**](docs/DefaultApi.md#getprofessionalrolessuggests) | **Get** /suggests/professional_roles | Подсказки по профессиональным ролям
 *DefaultApi* | [**GetProlongationVacancyInfo**](docs/DefaultApi.md#getprolongationvacancyinfo) | **Get** /vacancies/{vacancy_id}/prolongate | Информация о возможности продления вакансии
+*DefaultApi* | [**GetProlongationVacancyInfo_0**](docs/DefaultApi.md#getprolongationvacancyinfo_0) | **Get** /vacancies/{vacancy_id}/prolongate | Информация о возможности продления вакансии
 *DefaultApi* | [**GetRegisteredCompaniesSuggests**](docs/DefaultApi.md#getregisteredcompaniessuggests) | **Get** /suggests/companies | Подсказки по зарегистрированным организациям
 *DefaultApi* | [**GetResume**](docs/DefaultApi.md#getresume) | **Get** /resumes/{resume_id} | Просмотр резюме
 *DefaultApi* | [**GetResumeAccessTypes**](docs/DefaultApi.md#getresumeaccesstypes) | **Get** /resumes/{resume_id}/access_types | Получение списка типов видимости резюме
@@ -648,10 +650,10 @@ Class | Method | HTTP request | Description
  - [EmployerManagersEmployerManagerId](docs/EmployerManagersEmployerManagerId.md)
  - [EmployerManagersEmployerManagerInfo](docs/EmployerManagersEmployerManagerInfo.md)
  - [EmployerManagersEmployerManagerItem](docs/EmployerManagersEmployerManagerItem.md)
- - [EmployerManagersEmployerManagerItemAdditionalPhone](docs/EmployerManagersEmployerManagerItemAdditionalPhone.md)
- - [EmployerManagersEmployerManagerItemPhone](docs/EmployerManagersEmployerManagerItemPhone.md)
  - [EmployerManagersEmployerManagerLimits](docs/EmployerManagersEmployerManagerLimits.md)
  - [EmployerManagersManagerData](docs/EmployerManagersManagerData.md)
+ - [EmployerManagersManagerDataAdditionalPhone](docs/EmployerManagersManagerDataAdditionalPhone.md)
+ - [EmployerManagersManagerDataPhone](docs/EmployerManagersManagerDataPhone.md)
  - [EmployerManagersManagerType](docs/EmployerManagersManagerType.md)
  - [EmployerManagersManagerTypeId](docs/EmployerManagersManagerTypeId.md)
  - [EmployerManagersPermissions](docs/EmployerManagersPermissions.md)
@@ -683,6 +685,7 @@ Class | Method | HTTP request | Description
  - [EmployersEmployersBlacklistedItem](docs/EmployersEmployersBlacklistedItem.md)
  - [EmployersEmployersBlacklistedResponse](docs/EmployersEmployersBlacklistedResponse.md)
  - [EmployersEmployersList](docs/EmployersEmployersList.md)
+ - [EmployersEmployersState](docs/EmployersEmployersState.md)
  - [EmployersInsiderInterviews](docs/EmployersInsiderInterviews.md)
  - [EmployersVacancyBrandedTemplatesList](docs/EmployersVacancyBrandedTemplatesList.md)
  - [EmployersVacancyBrandedTemplatesListItemsInner](docs/EmployersVacancyBrandedTemplatesListItemsInner.md)
@@ -715,6 +718,7 @@ Class | Method | HTTP request | Description
  - [ErrorsCommonErrorRequestId](docs/ErrorsCommonErrorRequestId.md)
  - [ErrorsCommonNotFoundError](docs/ErrorsCommonNotFoundError.md)
  - [ErrorsCommonNotFoundErrors](docs/ErrorsCommonNotFoundErrors.md)
+ - [ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors](docs/ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors.md)
  - [ErrorsDictionariesBadArgumentError](docs/ErrorsDictionariesBadArgumentError.md)
  - [ErrorsDictionariesBadArgumentErrors](docs/ErrorsDictionariesBadArgumentErrors.md)
  - [ErrorsDraftError](docs/ErrorsDraftError.md)
@@ -759,9 +763,9 @@ Class | Method | HTTP request | Description
  - [ErrorsVacancyAddEditForbiddenErrors](docs/ErrorsVacancyAddEditForbiddenErrors.md)
  - [ErrorsVacancyApplyBadRequestError](docs/ErrorsVacancyApplyBadRequestError.md)
  - [ErrorsVacancyApplyBadRequestErrors](docs/ErrorsVacancyApplyBadRequestErrors.md)
- - [ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments](docs/ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md)
  - [ErrorsVacancyApplyForbiddenError](docs/ErrorsVacancyApplyForbiddenError.md)
  - [ErrorsVacancyApplyForbiddenErrors](docs/ErrorsVacancyApplyForbiddenErrors.md)
+ - [ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments](docs/ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md)
  - [ErrorsVacancyBlacklistedBadRequestError](docs/ErrorsVacancyBlacklistedBadRequestError.md)
  - [ErrorsVacancyBlacklistedBadRequestErrors](docs/ErrorsVacancyBlacklistedBadRequestErrors.md)
  - [ErrorsVacancyBlacklistedNotFoundError](docs/ErrorsVacancyBlacklistedNotFoundError.md)
@@ -838,6 +842,7 @@ Class | Method | HTTP request | Description
  - [MetroMetroLine](docs/MetroMetroLine.md)
  - [MetroMetroLineWithStations](docs/MetroMetroLineWithStations.md)
  - [NegotiationsAction](docs/NegotiationsAction.md)
+ - [NegotiationsApplicantNegotiationsResponse](docs/NegotiationsApplicantNegotiationsResponse.md)
  - [NegotiationsAssessment](docs/NegotiationsAssessment.md)
  - [NegotiationsAuthor](docs/NegotiationsAuthor.md)
  - [NegotiationsListItem](docs/NegotiationsListItem.md)
@@ -848,7 +853,12 @@ Class | Method | HTTP request | Description
  - [NegotiationsMessagesGet](docs/NegotiationsMessagesGet.md)
  - [NegotiationsMessagesGetResponse](docs/NegotiationsMessagesGetResponse.md)
  - [NegotiationsNegotiationGetResponse](docs/NegotiationsNegotiationGetResponse.md)
+ - [NegotiationsNegotiationsCollection](docs/NegotiationsNegotiationsCollection.md)
+ - [NegotiationsNegotiationsCollections](docs/NegotiationsNegotiationsCollections.md)
+ - [NegotiationsNegotiationsOrderTypes](docs/NegotiationsNegotiationsOrderTypes.md)
  - [NegotiationsObjectsCounters](docs/NegotiationsObjectsCounters.md)
+ - [NegotiationsObjectsEmployerCounters](docs/NegotiationsObjectsEmployerCounters.md)
+ - [NegotiationsObjectsStates](docs/NegotiationsObjectsStates.md)
  - [NegotiationsObjectsTopicItem](docs/NegotiationsObjectsTopicItem.md)
  - [NegotiationsObjectsTopicResume](docs/NegotiationsObjectsTopicResume.md)
  - [NegotiationsPhoneCallItem](docs/NegotiationsPhoneCallItem.md)
@@ -1007,7 +1017,6 @@ Class | Method | HTTP request | Description
  - [SavedSearchesSavedSearchItemNewItems](docs/SavedSearchesSavedSearchItemNewItems.md)
  - [SavedSearchesSavedSearchItems](docs/SavedSearchesSavedSearchItems.md)
  - [SavedSearchesSavedSearchResponse](docs/SavedSearchesSavedSearchResponse.md)
- - [SearchForResumes400Response](docs/SearchForResumes400Response.md)
  - [SearchForResumes403Response](docs/SearchForResumes403Response.md)
  - [SendNegotiationMessage403Response](docs/SendNegotiationMessage403Response.md)
  - [SuggestsArea](docs/SuggestsArea.md)

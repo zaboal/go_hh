@@ -29,7 +29,7 @@ type ResumesSuitableResumeItem struct {
 	// URL резюме на сайте
 	AlternateUrl string `json:"alternate_url"`
 	Area *IncludesIdNameUrl `json:"area,omitempty"`
-	AutoHideTime NullableIncludesIdName `json:"auto_hide_time,omitempty"`
+	AutoHideTime *IncludesIdName `json:"auto_hide_time,omitempty"`
 	// Доступен ли просмотр контактной информации в резюме текущему работодателю
 	CanViewFullInfo NullableBool `json:"can_view_full_info,omitempty"`
 	// Список сертификатов соискателя
@@ -232,46 +232,36 @@ func (o *ResumesSuitableResumeItem) SetArea(v IncludesIdNameUrl) {
 	o.Area = &v
 }
 
-// GetAutoHideTime returns the AutoHideTime field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAutoHideTime returns the AutoHideTime field value if set, zero value otherwise.
 func (o *ResumesSuitableResumeItem) GetAutoHideTime() IncludesIdName {
-	if o == nil || IsNil(o.AutoHideTime.Get()) {
+	if o == nil || IsNil(o.AutoHideTime) {
 		var ret IncludesIdName
 		return ret
 	}
-	return *o.AutoHideTime.Get()
+	return *o.AutoHideTime
 }
 
 // GetAutoHideTimeOk returns a tuple with the AutoHideTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumesSuitableResumeItem) GetAutoHideTimeOk() (*IncludesIdName, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AutoHideTime) {
 		return nil, false
 	}
-	return o.AutoHideTime.Get(), o.AutoHideTime.IsSet()
+	return o.AutoHideTime, true
 }
 
 // HasAutoHideTime returns a boolean if a field has been set.
 func (o *ResumesSuitableResumeItem) HasAutoHideTime() bool {
-	if o != nil && o.AutoHideTime.IsSet() {
+	if o != nil && !IsNil(o.AutoHideTime) {
 		return true
 	}
 
 	return false
 }
 
-// SetAutoHideTime gets a reference to the given NullableIncludesIdName and assigns it to the AutoHideTime field.
+// SetAutoHideTime gets a reference to the given IncludesIdName and assigns it to the AutoHideTime field.
 func (o *ResumesSuitableResumeItem) SetAutoHideTime(v IncludesIdName) {
-	o.AutoHideTime.Set(&v)
-}
-// SetAutoHideTimeNil sets the value for AutoHideTime to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetAutoHideTimeNil() {
-	o.AutoHideTime.Set(nil)
-}
-
-// UnsetAutoHideTime ensures that no value is present for AutoHideTime, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetAutoHideTime() {
-	o.AutoHideTime.Unset()
+	o.AutoHideTime = &v
 }
 
 // GetCanViewFullInfo returns the CanViewFullInfo field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1018,8 +1008,8 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Area) {
 		toSerialize["area"] = o.Area
 	}
-	if o.AutoHideTime.IsSet() {
-		toSerialize["auto_hide_time"] = o.AutoHideTime.Get()
+	if !IsNil(o.AutoHideTime) {
+		toSerialize["auto_hide_time"] = o.AutoHideTime
 	}
 	if o.CanViewFullInfo.IsSet() {
 		toSerialize["can_view_full_info"] = o.CanViewFullInfo.Get()

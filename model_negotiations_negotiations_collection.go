@@ -17,195 +17,200 @@ import (
 	"fmt"
 )
 
-// checks if the ErrorsVacancyApplyForbiddenErrors type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ErrorsVacancyApplyForbiddenErrors{}
+// checks if the NegotiationsNegotiationsCollection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NegotiationsNegotiationsCollection{}
 
-// ErrorsVacancyApplyForbiddenErrors Информация о возникших ошибках
-type ErrorsVacancyApplyForbiddenErrors struct {
-	// Идентификатор запроса
-	RequestId string `json:"request_id"`
-	// Deprecated
-	BadArgument *string `json:"bad_argument,omitempty"`
-	// Deprecated
-	BadArguments []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments `json:"bad_arguments,omitempty"`
-	// Описание ошибки
-	Description *string `json:"description,omitempty"`
-	// Массив с данными ошибок
-	Errors []ErrorsVacancyApplyForbiddenError `json:"errors"`
+// NegotiationsNegotiationsCollection struct for NegotiationsNegotiationsCollection
+type NegotiationsNegotiationsCollection struct {
+	// Описание коллекции
+	Description string `json:"description"`
+	// Идентификатор коллекции
+	Id string `json:"id"`
+	// Название коллекции
+	Name string `json:"name"`
+	// URL, [GET-запрос на который](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#negotiations-list) возвращает список откликов/приглашений коллекции 
+	Url string `json:"url"`
+	Counters *NegotiationsObjectsEmployerCounters `json:"counters,omitempty"`
+	OrderTypes []NegotiationsNegotiationsOrderTypes `json:"order_types"`
 }
 
-type _ErrorsVacancyApplyForbiddenErrors ErrorsVacancyApplyForbiddenErrors
+type _NegotiationsNegotiationsCollection NegotiationsNegotiationsCollection
 
-// NewErrorsVacancyApplyForbiddenErrors instantiates a new ErrorsVacancyApplyForbiddenErrors object
+// NewNegotiationsNegotiationsCollection instantiates a new NegotiationsNegotiationsCollection object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorsVacancyApplyForbiddenErrors(requestId string, errors []ErrorsVacancyApplyForbiddenError) *ErrorsVacancyApplyForbiddenErrors {
-	this := ErrorsVacancyApplyForbiddenErrors{}
-	this.RequestId = requestId
-	this.Errors = errors
+func NewNegotiationsNegotiationsCollection(description string, id string, name string, url string, orderTypes []NegotiationsNegotiationsOrderTypes) *NegotiationsNegotiationsCollection {
+	this := NegotiationsNegotiationsCollection{}
+	this.Description = description
+	this.Id = id
+	this.Name = name
+	this.Url = url
+	this.OrderTypes = orderTypes
 	return &this
 }
 
-// NewErrorsVacancyApplyForbiddenErrorsWithDefaults instantiates a new ErrorsVacancyApplyForbiddenErrors object
+// NewNegotiationsNegotiationsCollectionWithDefaults instantiates a new NegotiationsNegotiationsCollection object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewErrorsVacancyApplyForbiddenErrorsWithDefaults() *ErrorsVacancyApplyForbiddenErrors {
-	this := ErrorsVacancyApplyForbiddenErrors{}
+func NewNegotiationsNegotiationsCollectionWithDefaults() *NegotiationsNegotiationsCollection {
+	this := NegotiationsNegotiationsCollection{}
 	return &this
 }
 
-// GetRequestId returns the RequestId field value
-func (o *ErrorsVacancyApplyForbiddenErrors) GetRequestId() string {
+// GetDescription returns the Description field value
+func (o *NegotiationsNegotiationsCollection) GetDescription() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RequestId
+	return o.Description
 }
 
-// GetRequestIdOk returns a tuple with the RequestId field value
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetRequestIdOk() (*string, bool) {
+func (o *NegotiationsNegotiationsCollection) GetDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestId, true
+	return &o.Description, true
 }
 
-// SetRequestId sets field value
-func (o *ErrorsVacancyApplyForbiddenErrors) SetRequestId(v string) {
-	o.RequestId = v
+// SetDescription sets field value
+func (o *NegotiationsNegotiationsCollection) SetDescription(v string) {
+	o.Description = v
 }
 
-// GetBadArgument returns the BadArgument field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgument() string {
-	if o == nil || IsNil(o.BadArgument) {
+// GetId returns the Id field value
+func (o *NegotiationsNegotiationsCollection) GetId() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BadArgument
+
+	return o.Id
 }
 
-// GetBadArgumentOk returns a tuple with the BadArgument field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgumentOk() (*string, bool) {
-	if o == nil || IsNil(o.BadArgument) {
+func (o *NegotiationsNegotiationsCollection) GetIdOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BadArgument, true
+	return &o.Id, true
 }
 
-// HasBadArgument returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasBadArgument() bool {
-	if o != nil && !IsNil(o.BadArgument) {
+// SetId sets field value
+func (o *NegotiationsNegotiationsCollection) SetId(v string) {
+	o.Id = v
+}
+
+// GetName returns the Name field value
+func (o *NegotiationsNegotiationsCollection) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsNegotiationsCollection) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *NegotiationsNegotiationsCollection) SetName(v string) {
+	o.Name = v
+}
+
+// GetUrl returns the Url field value
+func (o *NegotiationsNegotiationsCollection) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsNegotiationsCollection) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *NegotiationsNegotiationsCollection) SetUrl(v string) {
+	o.Url = v
+}
+
+// GetCounters returns the Counters field value if set, zero value otherwise.
+func (o *NegotiationsNegotiationsCollection) GetCounters() NegotiationsObjectsEmployerCounters {
+	if o == nil || IsNil(o.Counters) {
+		var ret NegotiationsObjectsEmployerCounters
+		return ret
+	}
+	return *o.Counters
+}
+
+// GetCountersOk returns a tuple with the Counters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NegotiationsNegotiationsCollection) GetCountersOk() (*NegotiationsObjectsEmployerCounters, bool) {
+	if o == nil || IsNil(o.Counters) {
+		return nil, false
+	}
+	return o.Counters, true
+}
+
+// HasCounters returns a boolean if a field has been set.
+func (o *NegotiationsNegotiationsCollection) HasCounters() bool {
+	if o != nil && !IsNil(o.Counters) {
 		return true
 	}
 
 	return false
 }
 
-// SetBadArgument gets a reference to the given string and assigns it to the BadArgument field.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) SetBadArgument(v string) {
-	o.BadArgument = &v
+// SetCounters gets a reference to the given NegotiationsObjectsEmployerCounters and assigns it to the Counters field.
+func (o *NegotiationsNegotiationsCollection) SetCounters(v NegotiationsObjectsEmployerCounters) {
+	o.Counters = &v
 }
 
-// GetBadArguments returns the BadArguments field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments {
-	if o == nil || IsNil(o.BadArguments) {
-		var ret []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments
-		return ret
-	}
-	return o.BadArguments
-}
-
-// GetBadArgumentsOk returns a tuple with the BadArguments field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgumentsOk() ([]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool) {
-	if o == nil || IsNil(o.BadArguments) {
-		return nil, false
-	}
-	return o.BadArguments, true
-}
-
-// HasBadArguments returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasBadArguments() bool {
-	if o != nil && !IsNil(o.BadArguments) {
-		return true
-	}
-
-	return false
-}
-
-// SetBadArguments gets a reference to the given []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments and assigns it to the BadArguments field.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments) {
-	o.BadArguments = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ErrorsVacancyApplyForbiddenErrors) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetErrors returns the Errors field value
-func (o *ErrorsVacancyApplyForbiddenErrors) GetErrors() []ErrorsVacancyApplyForbiddenError {
+// GetOrderTypes returns the OrderTypes field value
+func (o *NegotiationsNegotiationsCollection) GetOrderTypes() []NegotiationsNegotiationsOrderTypes {
 	if o == nil {
-		var ret []ErrorsVacancyApplyForbiddenError
+		var ret []NegotiationsNegotiationsOrderTypes
 		return ret
 	}
 
-	return o.Errors
+	return o.OrderTypes
 }
 
-// GetErrorsOk returns a tuple with the Errors field value
+// GetOrderTypesOk returns a tuple with the OrderTypes field value
 // and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetErrorsOk() ([]ErrorsVacancyApplyForbiddenError, bool) {
+func (o *NegotiationsNegotiationsCollection) GetOrderTypesOk() ([]NegotiationsNegotiationsOrderTypes, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Errors, true
+	return o.OrderTypes, true
 }
 
-// SetErrors sets field value
-func (o *ErrorsVacancyApplyForbiddenErrors) SetErrors(v []ErrorsVacancyApplyForbiddenError) {
-	o.Errors = v
+// SetOrderTypes sets field value
+func (o *NegotiationsNegotiationsCollection) SetOrderTypes(v []NegotiationsNegotiationsOrderTypes) {
+	o.OrderTypes = v
 }
 
-func (o ErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
+func (o NegotiationsNegotiationsCollection) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -213,29 +218,29 @@ func (o ErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ErrorsVacancyApplyForbiddenErrors) ToMap() (map[string]interface{}, error) {
+func (o NegotiationsNegotiationsCollection) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["request_id"] = o.RequestId
-	if !IsNil(o.BadArgument) {
-		toSerialize["bad_argument"] = o.BadArgument
+	toSerialize["description"] = o.Description
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["url"] = o.Url
+	if !IsNil(o.Counters) {
+		toSerialize["counters"] = o.Counters
 	}
-	if !IsNil(o.BadArguments) {
-		toSerialize["bad_arguments"] = o.BadArguments
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	toSerialize["errors"] = o.Errors
+	toSerialize["order_types"] = o.OrderTypes
 	return toSerialize, nil
 }
 
-func (o *ErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(data []byte) (err error) {
+func (o *NegotiationsNegotiationsCollection) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"request_id",
-		"errors",
+		"description",
+		"id",
+		"name",
+		"url",
+		"order_types",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -252,53 +257,53 @@ func (o *ErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(data []byte) (err erro
 		}
 	}
 
-	varErrorsVacancyApplyForbiddenErrors := _ErrorsVacancyApplyForbiddenErrors{}
+	varNegotiationsNegotiationsCollection := _NegotiationsNegotiationsCollection{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varErrorsVacancyApplyForbiddenErrors)
+	err = decoder.Decode(&varNegotiationsNegotiationsCollection)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ErrorsVacancyApplyForbiddenErrors(varErrorsVacancyApplyForbiddenErrors)
+	*o = NegotiationsNegotiationsCollection(varNegotiationsNegotiationsCollection)
 
 	return err
 }
 
-type NullableErrorsVacancyApplyForbiddenErrors struct {
-	value *ErrorsVacancyApplyForbiddenErrors
+type NullableNegotiationsNegotiationsCollection struct {
+	value *NegotiationsNegotiationsCollection
 	isSet bool
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) Get() *ErrorsVacancyApplyForbiddenErrors {
+func (v NullableNegotiationsNegotiationsCollection) Get() *NegotiationsNegotiationsCollection {
 	return v.value
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) Set(val *ErrorsVacancyApplyForbiddenErrors) {
+func (v *NullableNegotiationsNegotiationsCollection) Set(val *NegotiationsNegotiationsCollection) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) IsSet() bool {
+func (v NullableNegotiationsNegotiationsCollection) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) Unset() {
+func (v *NullableNegotiationsNegotiationsCollection) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableErrorsVacancyApplyForbiddenErrors(val *ErrorsVacancyApplyForbiddenErrors) *NullableErrorsVacancyApplyForbiddenErrors {
-	return &NullableErrorsVacancyApplyForbiddenErrors{value: val, isSet: true}
+func NewNullableNegotiationsNegotiationsCollection(val *NegotiationsNegotiationsCollection) *NullableNegotiationsNegotiationsCollection {
+	return &NullableNegotiationsNegotiationsCollection{value: val, isSet: true}
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
+func (v NullableNegotiationsNegotiationsCollection) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(src []byte) error {
+func (v *NullableNegotiationsNegotiationsCollection) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -13,228 +13,58 @@ package hh
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
-// checks if the NegotiationsListResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &NegotiationsListResponse{}
-
 // NegotiationsListResponse struct for NegotiationsListResponse
 type NegotiationsListResponse struct {
-	// Список откликов
-	Items []NegotiationsListItem `json:"items"`
-	// Найдено результатов
-	Found float32 `json:"found"`
-	// Номер страницы
-	Page float32 `json:"page"`
-	// Всего страниц
-	Pages float32 `json:"pages"`
-	// Результатов на странице
-	PerPage float32 `json:"per_page"`
+	NegotiationsApplicantNegotiationsResponse *NegotiationsApplicantNegotiationsResponse
+	NegotiationsNegotiationsCollections *NegotiationsNegotiationsCollections
 }
 
-type _NegotiationsListResponse NegotiationsListResponse
-
-// NewNegotiationsListResponse instantiates a new NegotiationsListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewNegotiationsListResponse(items []NegotiationsListItem, found float32, page float32, pages float32, perPage float32) *NegotiationsListResponse {
-	this := NegotiationsListResponse{}
-	this.Items = items
-	this.Found = found
-	this.Page = page
-	this.Pages = pages
-	this.PerPage = perPage
-	return &this
-}
-
-// NewNegotiationsListResponseWithDefaults instantiates a new NegotiationsListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewNegotiationsListResponseWithDefaults() *NegotiationsListResponse {
-	this := NegotiationsListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *NegotiationsListResponse) GetItems() []NegotiationsListItem {
-	if o == nil {
-		var ret []NegotiationsListItem
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsListResponse) GetItemsOk() ([]NegotiationsListItem, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *NegotiationsListResponse) SetItems(v []NegotiationsListItem) {
-	o.Items = v
-}
-
-// GetFound returns the Found field value
-func (o *NegotiationsListResponse) GetFound() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Found
-}
-
-// GetFoundOk returns a tuple with the Found field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsListResponse) GetFoundOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Found, true
-}
-
-// SetFound sets field value
-func (o *NegotiationsListResponse) SetFound(v float32) {
-	o.Found = v
-}
-
-// GetPage returns the Page field value
-func (o *NegotiationsListResponse) GetPage() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Page
-}
-
-// GetPageOk returns a tuple with the Page field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsListResponse) GetPageOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Page, true
-}
-
-// SetPage sets field value
-func (o *NegotiationsListResponse) SetPage(v float32) {
-	o.Page = v
-}
-
-// GetPages returns the Pages field value
-func (o *NegotiationsListResponse) GetPages() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.Pages
-}
-
-// GetPagesOk returns a tuple with the Pages field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsListResponse) GetPagesOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Pages, true
-}
-
-// SetPages sets field value
-func (o *NegotiationsListResponse) SetPages(v float32) {
-	o.Pages = v
-}
-
-// GetPerPage returns the PerPage field value
-func (o *NegotiationsListResponse) GetPerPage() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.PerPage
-}
-
-// GetPerPageOk returns a tuple with the PerPage field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsListResponse) GetPerPageOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PerPage, true
-}
-
-// SetPerPage sets field value
-func (o *NegotiationsListResponse) SetPerPage(v float32) {
-	o.PerPage = v
-}
-
-func (o NegotiationsListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o NegotiationsListResponse) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	toSerialize["items"] = o.Items
-	toSerialize["found"] = o.Found
-	toSerialize["page"] = o.Page
-	toSerialize["pages"] = o.Pages
-	toSerialize["per_page"] = o.PerPage
-	return toSerialize, nil
-}
-
-func (o *NegotiationsListResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-		"found",
-		"page",
-		"pages",
-		"per_page",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+// Unmarshal JSON data into any of the pointers in the struct
+func (dst *NegotiationsListResponse) UnmarshalJSON(data []byte) error {
+	var err error
+	// try to unmarshal JSON data into NegotiationsApplicantNegotiationsResponse
+	err = json.Unmarshal(data, &dst.NegotiationsApplicantNegotiationsResponse);
+	if err == nil {
+		jsonNegotiationsApplicantNegotiationsResponse, _ := json.Marshal(dst.NegotiationsApplicantNegotiationsResponse)
+		if string(jsonNegotiationsApplicantNegotiationsResponse) == "{}" { // empty struct
+			dst.NegotiationsApplicantNegotiationsResponse = nil
+		} else {
+			return nil // data stored in dst.NegotiationsApplicantNegotiationsResponse, return on the first match
 		}
+	} else {
+		dst.NegotiationsApplicantNegotiationsResponse = nil
 	}
 
-	varNegotiationsListResponse := _NegotiationsListResponse{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNegotiationsListResponse)
-
-	if err != nil {
-		return err
+	// try to unmarshal JSON data into NegotiationsNegotiationsCollections
+	err = json.Unmarshal(data, &dst.NegotiationsNegotiationsCollections);
+	if err == nil {
+		jsonNegotiationsNegotiationsCollections, _ := json.Marshal(dst.NegotiationsNegotiationsCollections)
+		if string(jsonNegotiationsNegotiationsCollections) == "{}" { // empty struct
+			dst.NegotiationsNegotiationsCollections = nil
+		} else {
+			return nil // data stored in dst.NegotiationsNegotiationsCollections, return on the first match
+		}
+	} else {
+		dst.NegotiationsNegotiationsCollections = nil
 	}
 
-	*o = NegotiationsListResponse(varNegotiationsListResponse)
+	return fmt.Errorf("data failed to match schemas in anyOf(NegotiationsListResponse)")
+}
 
-	return err
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src *NegotiationsListResponse) MarshalJSON() ([]byte, error) {
+	if src.NegotiationsApplicantNegotiationsResponse != nil {
+		return json.Marshal(&src.NegotiationsApplicantNegotiationsResponse)
+	}
+
+	if src.NegotiationsNegotiationsCollections != nil {
+		return json.Marshal(&src.NegotiationsNegotiationsCollections)
+	}
+
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableNegotiationsListResponse struct {

@@ -65,10 +65,10 @@ docs/EmployerManagersAreaId.md
 docs/EmployerManagersEmployerManagerId.md
 docs/EmployerManagersEmployerManagerInfo.md
 docs/EmployerManagersEmployerManagerItem.md
-docs/EmployerManagersEmployerManagerItemAdditionalPhone.md
-docs/EmployerManagersEmployerManagerItemPhone.md
 docs/EmployerManagersEmployerManagerLimits.md
 docs/EmployerManagersManagerData.md
+docs/EmployerManagersManagerDataAdditionalPhone.md
+docs/EmployerManagersManagerDataPhone.md
 docs/EmployerManagersManagerType.md
 docs/EmployerManagersManagerTypeId.md
 docs/EmployerManagersPermissions.md
@@ -100,6 +100,7 @@ docs/EmployersEmployersBlacklisted.md
 docs/EmployersEmployersBlacklistedItem.md
 docs/EmployersEmployersBlacklistedResponse.md
 docs/EmployersEmployersList.md
+docs/EmployersEmployersState.md
 docs/EmployersInsiderInterviews.md
 docs/EmployersVacancyBrandedTemplatesList.md
 docs/EmployersVacancyBrandedTemplatesListItemsInner.md
@@ -132,6 +133,7 @@ docs/ErrorsCommonConflictBothChangedErrors.md
 docs/ErrorsCommonErrorRequestId.md
 docs/ErrorsCommonNotFoundError.md
 docs/ErrorsCommonNotFoundErrors.md
+docs/ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors.md
 docs/ErrorsDictionariesBadArgumentError.md
 docs/ErrorsDictionariesBadArgumentErrors.md
 docs/ErrorsDraftError.md
@@ -176,9 +178,9 @@ docs/ErrorsVacancyAddEditForbiddenError.md
 docs/ErrorsVacancyAddEditForbiddenErrors.md
 docs/ErrorsVacancyApplyBadRequestError.md
 docs/ErrorsVacancyApplyBadRequestErrors.md
-docs/ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md
 docs/ErrorsVacancyApplyForbiddenError.md
 docs/ErrorsVacancyApplyForbiddenErrors.md
+docs/ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md
 docs/ErrorsVacancyBlacklistedBadRequestError.md
 docs/ErrorsVacancyBlacklistedBadRequestErrors.md
 docs/ErrorsVacancyBlacklistedNotFoundError.md
@@ -255,6 +257,7 @@ docs/MetroMetroItem.md
 docs/MetroMetroLine.md
 docs/MetroMetroLineWithStations.md
 docs/NegotiationsAction.md
+docs/NegotiationsApplicantNegotiationsResponse.md
 docs/NegotiationsAssessment.md
 docs/NegotiationsAuthor.md
 docs/NegotiationsListItem.md
@@ -265,7 +268,12 @@ docs/NegotiationsMessageSent.md
 docs/NegotiationsMessagesGet.md
 docs/NegotiationsMessagesGetResponse.md
 docs/NegotiationsNegotiationGetResponse.md
+docs/NegotiationsNegotiationsCollection.md
+docs/NegotiationsNegotiationsCollections.md
+docs/NegotiationsNegotiationsOrderTypes.md
 docs/NegotiationsObjectsCounters.md
+docs/NegotiationsObjectsEmployerCounters.md
+docs/NegotiationsObjectsStates.md
 docs/NegotiationsObjectsTopicItem.md
 docs/NegotiationsObjectsTopicResume.md
 docs/NegotiationsPhoneCallItem.md
@@ -424,7 +432,6 @@ docs/SavedSearchesSavedSearchItemItems.md
 docs/SavedSearchesSavedSearchItemNewItems.md
 docs/SavedSearchesSavedSearchItems.md
 docs/SavedSearchesSavedSearchResponse.md
-docs/SearchForResumes400Response.md
 docs/SearchForResumes403Response.md
 docs/SendNegotiationMessage403Response.md
 docs/SuggestsArea.md
@@ -760,10 +767,10 @@ model_employer_managers_area_id.go
 model_employer_managers_employer_manager_id.go
 model_employer_managers_employer_manager_info.go
 model_employer_managers_employer_manager_item.go
-model_employer_managers_employer_manager_item_additional_phone.go
-model_employer_managers_employer_manager_item_phone.go
 model_employer_managers_employer_manager_limits.go
 model_employer_managers_manager_data.go
+model_employer_managers_manager_data_additional_phone.go
+model_employer_managers_manager_data_phone.go
 model_employer_managers_manager_type.go
 model_employer_managers_manager_type_id.go
 model_employer_managers_permissions.go
@@ -795,6 +802,7 @@ model_employers_employers_blacklisted.go
 model_employers_employers_blacklisted_item.go
 model_employers_employers_blacklisted_response.go
 model_employers_employers_list.go
+model_employers_employers_state.go
 model_employers_insider_interviews.go
 model_employers_vacancy_branded_templates_list.go
 model_employers_vacancy_branded_templates_list_items_inner.go
@@ -827,6 +835,7 @@ model_errors_common_conflict_both_changed_errors.go
 model_errors_common_error_request_id.go
 model_errors_common_not_found_error.go
 model_errors_common_not_found_errors.go
+model_errors_common_one_of_errors_bad_request_and_bad_argument_errors.go
 model_errors_dictionaries_bad_argument_error.go
 model_errors_dictionaries_bad_argument_errors.go
 model_errors_draft_error.go
@@ -871,9 +880,9 @@ model_errors_vacancy_add_edit_forbidden_error.go
 model_errors_vacancy_add_edit_forbidden_errors.go
 model_errors_vacancy_apply_bad_request_error.go
 model_errors_vacancy_apply_bad_request_errors.go
-model_errors_vacancy_apply_bad_request_errors_all_of_bad_arguments.go
 model_errors_vacancy_apply_forbidden_error.go
 model_errors_vacancy_apply_forbidden_errors.go
+model_errors_vacancy_apply_forbidden_errors_all_of_bad_arguments.go
 model_errors_vacancy_blacklisted_bad_request_error.go
 model_errors_vacancy_blacklisted_bad_request_errors.go
 model_errors_vacancy_blacklisted_not_found_error.go
@@ -918,6 +927,7 @@ model_metro_metro_item.go
 model_metro_metro_line.go
 model_metro_metro_line_with_stations.go
 model_negotiations_action.go
+model_negotiations_applicant_negotiations_response.go
 model_negotiations_assessment.go
 model_negotiations_author.go
 model_negotiations_list_item.go
@@ -928,7 +938,12 @@ model_negotiations_message_sent.go
 model_negotiations_messages_get.go
 model_negotiations_messages_get_response.go
 model_negotiations_negotiation_get_response.go
+model_negotiations_negotiations_collection.go
+model_negotiations_negotiations_collections.go
+model_negotiations_negotiations_order_types.go
 model_negotiations_objects_counters.go
+model_negotiations_objects_employer_counters.go
+model_negotiations_objects_states.go
 model_negotiations_objects_topic_item.go
 model_negotiations_objects_topic_resume.go
 model_negotiations_phone_call_item.go
@@ -1087,7 +1102,6 @@ model_saved_searches_saved_search_item_items.go
 model_saved_searches_saved_search_item_new_items.go
 model_saved_searches_saved_search_items.go
 model_saved_searches_saved_search_response.go
-model_search_for_resumes_400_response.go
 model_search_for_resumes_403_response.go
 model_send_negotiation_message_403_response.go
 model_suggests_area.go

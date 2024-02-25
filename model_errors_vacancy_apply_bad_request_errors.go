@@ -27,7 +27,7 @@ type ErrorsVacancyApplyBadRequestErrors struct {
 	// Deprecated
 	BadArgument *string `json:"bad_argument,omitempty"`
 	// Deprecated
-	BadArguments []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments `json:"bad_arguments,omitempty"`
+	BadArguments []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments `json:"bad_arguments,omitempty"`
 	// Описание ошибки
 	Description *string `json:"description,omitempty"`
 	// Массив с данными ошибок
@@ -116,9 +116,9 @@ func (o *ErrorsVacancyApplyBadRequestErrors) SetBadArgument(v string) {
 
 // GetBadArguments returns the BadArguments field value if set, zero value otherwise.
 // Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArguments() []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments {
+func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments {
 	if o == nil || IsNil(o.BadArguments) {
-		var ret []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments
+		var ret []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments
 		return ret
 	}
 	return o.BadArguments
@@ -127,7 +127,7 @@ func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArguments() []ErrorsVacancyAp
 // GetBadArgumentsOk returns a tuple with the BadArguments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArgumentsOk() ([]ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments, bool) {
+func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArgumentsOk() ([]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool) {
 	if o == nil || IsNil(o.BadArguments) {
 		return nil, false
 	}
@@ -143,9 +143,9 @@ func (o *ErrorsVacancyApplyBadRequestErrors) HasBadArguments() bool {
 	return false
 }
 
-// SetBadArguments gets a reference to the given []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments and assigns it to the BadArguments field.
+// SetBadArguments gets a reference to the given []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments and assigns it to the BadArguments field.
 // Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) SetBadArguments(v []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments) {
+func (o *ErrorsVacancyApplyBadRequestErrors) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments) {
 	o.BadArguments = v
 }
 

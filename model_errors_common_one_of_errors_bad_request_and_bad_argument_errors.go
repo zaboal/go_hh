@@ -13,292 +13,135 @@ package hh
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
-// checks if the ErrorsVacancyApplyForbiddenErrors type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ErrorsVacancyApplyForbiddenErrors{}
-
-// ErrorsVacancyApplyForbiddenErrors Информация о возникших ошибках
-type ErrorsVacancyApplyForbiddenErrors struct {
-	// Идентификатор запроса
-	RequestId string `json:"request_id"`
-	// Deprecated
-	BadArgument *string `json:"bad_argument,omitempty"`
-	// Deprecated
-	BadArguments []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments `json:"bad_arguments,omitempty"`
-	// Описание ошибки
-	Description *string `json:"description,omitempty"`
-	// Массив с данными ошибок
-	Errors []ErrorsVacancyApplyForbiddenError `json:"errors"`
+// ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors - struct for ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors
+type ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors struct {
+	ErrorsCommonBadArgumentErrors *ErrorsCommonBadArgumentErrors
+	ErrorsCommonBadRequestErrors *ErrorsCommonBadRequestErrors
 }
 
-type _ErrorsVacancyApplyForbiddenErrors ErrorsVacancyApplyForbiddenErrors
-
-// NewErrorsVacancyApplyForbiddenErrors instantiates a new ErrorsVacancyApplyForbiddenErrors object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewErrorsVacancyApplyForbiddenErrors(requestId string, errors []ErrorsVacancyApplyForbiddenError) *ErrorsVacancyApplyForbiddenErrors {
-	this := ErrorsVacancyApplyForbiddenErrors{}
-	this.RequestId = requestId
-	this.Errors = errors
-	return &this
-}
-
-// NewErrorsVacancyApplyForbiddenErrorsWithDefaults instantiates a new ErrorsVacancyApplyForbiddenErrors object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewErrorsVacancyApplyForbiddenErrorsWithDefaults() *ErrorsVacancyApplyForbiddenErrors {
-	this := ErrorsVacancyApplyForbiddenErrors{}
-	return &this
-}
-
-// GetRequestId returns the RequestId field value
-func (o *ErrorsVacancyApplyForbiddenErrors) GetRequestId() string {
-	if o == nil {
-		var ret string
-		return ret
+// ErrorsCommonBadArgumentErrorsAsErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors is a convenience function that returns ErrorsCommonBadArgumentErrors wrapped in ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors
+func ErrorsCommonBadArgumentErrorsAsErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors(v *ErrorsCommonBadArgumentErrors) ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors {
+	return ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors{
+		ErrorsCommonBadArgumentErrors: v,
 	}
-
-	return o.RequestId
 }
 
-// GetRequestIdOk returns a tuple with the RequestId field value
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetRequestIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
+// ErrorsCommonBadRequestErrorsAsErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors is a convenience function that returns ErrorsCommonBadRequestErrors wrapped in ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors
+func ErrorsCommonBadRequestErrorsAsErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors(v *ErrorsCommonBadRequestErrors) ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors {
+	return ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors{
+		ErrorsCommonBadRequestErrors: v,
 	}
-	return &o.RequestId, true
 }
 
-// SetRequestId sets field value
-func (o *ErrorsVacancyApplyForbiddenErrors) SetRequestId(v string) {
-	o.RequestId = v
-}
 
-// GetBadArgument returns the BadArgument field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgument() string {
-	if o == nil || IsNil(o.BadArgument) {
-		var ret string
-		return ret
-	}
-	return *o.BadArgument
-}
-
-// GetBadArgumentOk returns a tuple with the BadArgument field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgumentOk() (*string, bool) {
-	if o == nil || IsNil(o.BadArgument) {
-		return nil, false
-	}
-	return o.BadArgument, true
-}
-
-// HasBadArgument returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasBadArgument() bool {
-	if o != nil && !IsNil(o.BadArgument) {
-		return true
-	}
-
-	return false
-}
-
-// SetBadArgument gets a reference to the given string and assigns it to the BadArgument field.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) SetBadArgument(v string) {
-	o.BadArgument = &v
-}
-
-// GetBadArguments returns the BadArguments field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments {
-	if o == nil || IsNil(o.BadArguments) {
-		var ret []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments
-		return ret
-	}
-	return o.BadArguments
-}
-
-// GetBadArgumentsOk returns a tuple with the BadArguments field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgumentsOk() ([]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool) {
-	if o == nil || IsNil(o.BadArguments) {
-		return nil, false
-	}
-	return o.BadArguments, true
-}
-
-// HasBadArguments returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasBadArguments() bool {
-	if o != nil && !IsNil(o.BadArguments) {
-		return true
-	}
-
-	return false
-}
-
-// SetBadArguments gets a reference to the given []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments and assigns it to the BadArguments field.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments) {
-	o.BadArguments = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ErrorsVacancyApplyForbiddenErrors) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetErrors returns the Errors field value
-func (o *ErrorsVacancyApplyForbiddenErrors) GetErrors() []ErrorsVacancyApplyForbiddenError {
-	if o == nil {
-		var ret []ErrorsVacancyApplyForbiddenError
-		return ret
-	}
-
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetErrorsOk() ([]ErrorsVacancyApplyForbiddenError, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Errors, true
-}
-
-// SetErrors sets field value
-func (o *ErrorsVacancyApplyForbiddenErrors) SetErrors(v []ErrorsVacancyApplyForbiddenError) {
-	o.Errors = v
-}
-
-func (o ErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o ErrorsVacancyApplyForbiddenErrors) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	toSerialize["request_id"] = o.RequestId
-	if !IsNil(o.BadArgument) {
-		toSerialize["bad_argument"] = o.BadArgument
-	}
-	if !IsNil(o.BadArguments) {
-		toSerialize["bad_arguments"] = o.BadArguments
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	toSerialize["errors"] = o.Errors
-	return toSerialize, nil
-}
-
-func (o *ErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"request_id",
-		"errors",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into ErrorsCommonBadArgumentErrors
+	err = newStrictDecoder(data).Decode(&dst.ErrorsCommonBadArgumentErrors)
+	if err == nil {
+		jsonErrorsCommonBadArgumentErrors, _ := json.Marshal(dst.ErrorsCommonBadArgumentErrors)
+		if string(jsonErrorsCommonBadArgumentErrors) == "{}" { // empty struct
+			dst.ErrorsCommonBadArgumentErrors = nil
+		} else {
+			match++
 		}
+	} else {
+		dst.ErrorsCommonBadArgumentErrors = nil
 	}
 
-	varErrorsVacancyApplyForbiddenErrors := _ErrorsVacancyApplyForbiddenErrors{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varErrorsVacancyApplyForbiddenErrors)
-
-	if err != nil {
-		return err
+	// try to unmarshal data into ErrorsCommonBadRequestErrors
+	err = newStrictDecoder(data).Decode(&dst.ErrorsCommonBadRequestErrors)
+	if err == nil {
+		jsonErrorsCommonBadRequestErrors, _ := json.Marshal(dst.ErrorsCommonBadRequestErrors)
+		if string(jsonErrorsCommonBadRequestErrors) == "{}" { // empty struct
+			dst.ErrorsCommonBadRequestErrors = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ErrorsCommonBadRequestErrors = nil
 	}
 
-	*o = ErrorsVacancyApplyForbiddenErrors(varErrorsVacancyApplyForbiddenErrors)
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ErrorsCommonBadArgumentErrors = nil
+		dst.ErrorsCommonBadRequestErrors = nil
 
-	return err
+		return fmt.Errorf("data matches more than one schema in oneOf(ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors)")
+	}
 }
 
-type NullableErrorsVacancyApplyForbiddenErrors struct {
-	value *ErrorsVacancyApplyForbiddenErrors
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) MarshalJSON() ([]byte, error) {
+	if src.ErrorsCommonBadArgumentErrors != nil {
+		return json.Marshal(&src.ErrorsCommonBadArgumentErrors)
+	}
+
+	if src.ErrorsCommonBadRequestErrors != nil {
+		return json.Marshal(&src.ErrorsCommonBadRequestErrors)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.ErrorsCommonBadArgumentErrors != nil {
+		return obj.ErrorsCommonBadArgumentErrors
+	}
+
+	if obj.ErrorsCommonBadRequestErrors != nil {
+		return obj.ErrorsCommonBadRequestErrors
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+type NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors struct {
+	value *ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors
 	isSet bool
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) Get() *ErrorsVacancyApplyForbiddenErrors {
+func (v NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) Get() *ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors {
 	return v.value
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) Set(val *ErrorsVacancyApplyForbiddenErrors) {
+func (v *NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) Set(val *ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) IsSet() bool {
+func (v NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) Unset() {
+func (v *NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableErrorsVacancyApplyForbiddenErrors(val *ErrorsVacancyApplyForbiddenErrors) *NullableErrorsVacancyApplyForbiddenErrors {
-	return &NullableErrorsVacancyApplyForbiddenErrors{value: val, isSet: true}
+func NewNullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors(val *ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) *NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors {
+	return &NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors{value: val, isSet: true}
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
+func (v NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(src []byte) error {
+func (v *NullableErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

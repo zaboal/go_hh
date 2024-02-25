@@ -17,195 +17,87 @@ import (
 	"fmt"
 )
 
-// checks if the ErrorsVacancyApplyForbiddenErrors type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ErrorsVacancyApplyForbiddenErrors{}
+// checks if the EmployersEmployersState type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EmployersEmployersState{}
 
-// ErrorsVacancyApplyForbiddenErrors Информация о возникших ошибках
-type ErrorsVacancyApplyForbiddenErrors struct {
-	// Идентификатор запроса
-	RequestId string `json:"request_id"`
-	// Deprecated
-	BadArgument *string `json:"bad_argument,omitempty"`
-	// Deprecated
-	BadArguments []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments `json:"bad_arguments,omitempty"`
-	// Описание ошибки
-	Description *string `json:"description,omitempty"`
-	// Массив с данными ошибок
-	Errors []ErrorsVacancyApplyForbiddenError `json:"errors"`
+// EmployersEmployersState struct for EmployersEmployersState
+type EmployersEmployersState struct {
+	// Идентификатор состояния отклика
+	Id string `json:"id"`
+	// Название состояния
+	Name string `json:"name"`
 }
 
-type _ErrorsVacancyApplyForbiddenErrors ErrorsVacancyApplyForbiddenErrors
+type _EmployersEmployersState EmployersEmployersState
 
-// NewErrorsVacancyApplyForbiddenErrors instantiates a new ErrorsVacancyApplyForbiddenErrors object
+// NewEmployersEmployersState instantiates a new EmployersEmployersState object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorsVacancyApplyForbiddenErrors(requestId string, errors []ErrorsVacancyApplyForbiddenError) *ErrorsVacancyApplyForbiddenErrors {
-	this := ErrorsVacancyApplyForbiddenErrors{}
-	this.RequestId = requestId
-	this.Errors = errors
+func NewEmployersEmployersState(id string, name string) *EmployersEmployersState {
+	this := EmployersEmployersState{}
+	this.Id = id
+	this.Name = name
 	return &this
 }
 
-// NewErrorsVacancyApplyForbiddenErrorsWithDefaults instantiates a new ErrorsVacancyApplyForbiddenErrors object
+// NewEmployersEmployersStateWithDefaults instantiates a new EmployersEmployersState object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewErrorsVacancyApplyForbiddenErrorsWithDefaults() *ErrorsVacancyApplyForbiddenErrors {
-	this := ErrorsVacancyApplyForbiddenErrors{}
+func NewEmployersEmployersStateWithDefaults() *EmployersEmployersState {
+	this := EmployersEmployersState{}
 	return &this
 }
 
-// GetRequestId returns the RequestId field value
-func (o *ErrorsVacancyApplyForbiddenErrors) GetRequestId() string {
+// GetId returns the Id field value
+func (o *EmployersEmployersState) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RequestId
+	return o.Id
 }
 
-// GetRequestIdOk returns a tuple with the RequestId field value
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetRequestIdOk() (*string, bool) {
+func (o *EmployersEmployersState) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequestId, true
+	return &o.Id, true
 }
 
-// SetRequestId sets field value
-func (o *ErrorsVacancyApplyForbiddenErrors) SetRequestId(v string) {
-	o.RequestId = v
+// SetId sets field value
+func (o *EmployersEmployersState) SetId(v string) {
+	o.Id = v
 }
 
-// GetBadArgument returns the BadArgument field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgument() string {
-	if o == nil || IsNil(o.BadArgument) {
+// GetName returns the Name field value
+func (o *EmployersEmployersState) GetName() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BadArgument
+
+	return o.Name
 }
 
-// GetBadArgumentOk returns a tuple with the BadArgument field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgumentOk() (*string, bool) {
-	if o == nil || IsNil(o.BadArgument) {
-		return nil, false
-	}
-	return o.BadArgument, true
-}
-
-// HasBadArgument returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasBadArgument() bool {
-	if o != nil && !IsNil(o.BadArgument) {
-		return true
-	}
-
-	return false
-}
-
-// SetBadArgument gets a reference to the given string and assigns it to the BadArgument field.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) SetBadArgument(v string) {
-	o.BadArgument = &v
-}
-
-// GetBadArguments returns the BadArguments field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments {
-	if o == nil || IsNil(o.BadArguments) {
-		var ret []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments
-		return ret
-	}
-	return o.BadArguments
-}
-
-// GetBadArgumentsOk returns a tuple with the BadArguments field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) GetBadArgumentsOk() ([]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool) {
-	if o == nil || IsNil(o.BadArguments) {
-		return nil, false
-	}
-	return o.BadArguments, true
-}
-
-// HasBadArguments returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasBadArguments() bool {
-	if o != nil && !IsNil(o.BadArguments) {
-		return true
-	}
-
-	return false
-}
-
-// SetBadArguments gets a reference to the given []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments and assigns it to the BadArguments field.
-// Deprecated
-func (o *ErrorsVacancyApplyForbiddenErrors) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments) {
-	o.BadArguments = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ErrorsVacancyApplyForbiddenErrors) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetErrors returns the Errors field value
-func (o *ErrorsVacancyApplyForbiddenErrors) GetErrors() []ErrorsVacancyApplyForbiddenError {
-	if o == nil {
-		var ret []ErrorsVacancyApplyForbiddenError
-		return ret
-	}
-
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyForbiddenErrors) GetErrorsOk() ([]ErrorsVacancyApplyForbiddenError, bool) {
+func (o *EmployersEmployersState) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Errors, true
+	return &o.Name, true
 }
 
-// SetErrors sets field value
-func (o *ErrorsVacancyApplyForbiddenErrors) SetErrors(v []ErrorsVacancyApplyForbiddenError) {
-	o.Errors = v
+// SetName sets field value
+func (o *EmployersEmployersState) SetName(v string) {
+	o.Name = v
 }
 
-func (o ErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
+func (o EmployersEmployersState) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -213,29 +105,20 @@ func (o ErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ErrorsVacancyApplyForbiddenErrors) ToMap() (map[string]interface{}, error) {
+func (o EmployersEmployersState) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["request_id"] = o.RequestId
-	if !IsNil(o.BadArgument) {
-		toSerialize["bad_argument"] = o.BadArgument
-	}
-	if !IsNil(o.BadArguments) {
-		toSerialize["bad_arguments"] = o.BadArguments
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	toSerialize["errors"] = o.Errors
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
 	return toSerialize, nil
 }
 
-func (o *ErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(data []byte) (err error) {
+func (o *EmployersEmployersState) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"request_id",
-		"errors",
+		"id",
+		"name",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -252,53 +135,53 @@ func (o *ErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(data []byte) (err erro
 		}
 	}
 
-	varErrorsVacancyApplyForbiddenErrors := _ErrorsVacancyApplyForbiddenErrors{}
+	varEmployersEmployersState := _EmployersEmployersState{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varErrorsVacancyApplyForbiddenErrors)
+	err = decoder.Decode(&varEmployersEmployersState)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ErrorsVacancyApplyForbiddenErrors(varErrorsVacancyApplyForbiddenErrors)
+	*o = EmployersEmployersState(varEmployersEmployersState)
 
 	return err
 }
 
-type NullableErrorsVacancyApplyForbiddenErrors struct {
-	value *ErrorsVacancyApplyForbiddenErrors
+type NullableEmployersEmployersState struct {
+	value *EmployersEmployersState
 	isSet bool
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) Get() *ErrorsVacancyApplyForbiddenErrors {
+func (v NullableEmployersEmployersState) Get() *EmployersEmployersState {
 	return v.value
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) Set(val *ErrorsVacancyApplyForbiddenErrors) {
+func (v *NullableEmployersEmployersState) Set(val *EmployersEmployersState) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) IsSet() bool {
+func (v NullableEmployersEmployersState) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) Unset() {
+func (v *NullableEmployersEmployersState) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableErrorsVacancyApplyForbiddenErrors(val *ErrorsVacancyApplyForbiddenErrors) *NullableErrorsVacancyApplyForbiddenErrors {
-	return &NullableErrorsVacancyApplyForbiddenErrors{value: val, isSet: true}
+func NewNullableEmployersEmployersState(val *EmployersEmployersState) *NullableEmployersEmployersState {
+	return &NullableEmployersEmployersState{value: val, isSet: true}
 }
 
-func (v NullableErrorsVacancyApplyForbiddenErrors) MarshalJSON() ([]byte, error) {
+func (v NullableEmployersEmployersState) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableErrorsVacancyApplyForbiddenErrors) UnmarshalJSON(src []byte) error {
+func (v *NullableEmployersEmployersState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
