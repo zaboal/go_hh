@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **NullableString** | Описание ошибки | [optional] 
 **Pointer** | Pointer to **string** | Путь до параметра, в котором возникла ошибка.  Для указания параметра используется формат JsonPointer [RFC 6901](https://tools.ietf.org/html/rfc6901)  | [optional] 
-**Reason** | Pointer to **string** | Причина ошибки. Возможные значения:   * &#x60;required&#x60; - отсутствует обязательное поле   * &#x60;invalid&#x60; - значение введено не корректно   * &#x60;size_less_than_min&#x60; - пустой массив   * &#x60;unexpected&#x60; - поле не ожидается  | [optional] 
+**Reason** | Pointer to **string** | Причина ошибки. Возможные значения:   * &#x60;required&#x60; - отсутствует обязательное поле   * &#x60;invalid&#x60; - значение введено не корректно   * &#x60;size_less_than_min&#x60; - пустой массив   * &#x60;unexpected&#x60; - поле не ожидается   * &#x60;greater_than_max&#x60; - значение больше максимума  | [optional] 
 **Type** | **string** | Текстовый идентификатор типа ошибки | 
 **Value** | Pointer to **string** | Название поля с ошибкой | [optional] 
 

@@ -14,7 +14,6 @@ package hh
 import (
 	"encoding/json"
 	"fmt"
-	"bytes"
 )
 
 // WebhookSubscriptionCommonItemActionsInner struct for WebhookSubscriptionCommonItemActionsInner

@@ -26,7 +26,7 @@ type ErrorsCommonBadJsonDataError struct {
 	Description NullableString `json:"description,omitempty"`
 	// Путь до параметра, в котором возникла ошибка.  Для указания параметра используется формат JsonPointer [RFC 6901](https://tools.ietf.org/html/rfc6901) 
 	Pointer *string `json:"pointer,omitempty"`
-	// Причина ошибки. Возможные значения:   * `required` - отсутствует обязательное поле   * `invalid` - значение введено не корректно   * `size_less_than_min` - пустой массив   * `unexpected` - поле не ожидается 
+	// Причина ошибки. Возможные значения:   * `required` - отсутствует обязательное поле   * `invalid` - значение введено не корректно   * `size_less_than_min` - пустой массив   * `unexpected` - поле не ожидается   * `greater_than_max` - значение больше максимума 
 	Reason *string `json:"reason,omitempty"`
 	// Текстовый идентификатор типа ошибки
 	Type string `json:"type"`
