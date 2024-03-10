@@ -17,213 +17,43 @@ import (
 	"fmt"
 )
 
-// checks if the EmployerManagersEmployerManagerInfo type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EmployerManagersEmployerManagerInfo{}
+// checks if the IncludesIdNameUid type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IncludesIdNameUid{}
 
-// EmployerManagersEmployerManagerInfo struct for EmployerManagersEmployerManagerInfo
-type EmployerManagersEmployerManagerInfo struct {
-	AdditionalPhone *EmployerManagersAddEmployerManagerAdditionalPhone `json:"additional_phone,omitempty"`
-	Area *EmployerManagersArea `json:"area,omitempty"`
-	// Адрес электронной почты менеджера
-	Email string `json:"email"`
-	// Имя менеджера
-	FirstName string `json:"first_name"`
-	// Полное имя менеджера
-	FullName *string `json:"full_name,omitempty"`
-	// Идентификатор менеджера
+// IncludesIdNameUid struct for IncludesIdNameUid
+type IncludesIdNameUid struct {
+	// Идентификатор
 	Id string `json:"id"`
-	// Является ли менеджер основным контактным лицом
-	IsMainContactPerson bool `json:"is_main_contact_person"`
-	// Фамилия менеджера
-	LastName string `json:"last_name"`
-	ManagerType *EmployerManagersManagerType `json:"manager_type,omitempty"`
-	// Отчество менеджера
-	MiddleName *string `json:"middle_name,omitempty"`
-	// Полное имя менеджера
-	// Deprecated
-	Name *string `json:"name,omitempty"`
-	// Список [прав менеджера](#tag/Menedzhery-rabotodatelya/operation/get-employer-manager-types)
-	Permissions []EmployerManagerTypesAvailablePermissions `json:"permissions"`
-	Phone EmployerManagersAddEmployerManagerPhone `json:"phone"`
-	// Должность менеджера
-	Position string `json:"position"`
-	// Количество опубликованных (активных) вакансий у данного менеджера. `null` — если у пользователя нет прав на просмотр вакансий этого менеджера
-	VacanciesCount NullableFloat32 `json:"vacancies_count,omitempty"`
+	// Название
+	Name string `json:"name"`
+	// Универсальный идентификатор
+	Uid string `json:"uid"`
 }
 
-type _EmployerManagersEmployerManagerInfo EmployerManagersEmployerManagerInfo
+type _IncludesIdNameUid IncludesIdNameUid
 
-// NewEmployerManagersEmployerManagerInfo instantiates a new EmployerManagersEmployerManagerInfo object
+// NewIncludesIdNameUid instantiates a new IncludesIdNameUid object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployerManagersEmployerManagerInfo(email string, firstName string, id string, isMainContactPerson bool, lastName string, permissions []EmployerManagerTypesAvailablePermissions, phone EmployerManagersAddEmployerManagerPhone, position string) *EmployerManagersEmployerManagerInfo {
-	this := EmployerManagersEmployerManagerInfo{}
-	this.Email = email
-	this.FirstName = firstName
+func NewIncludesIdNameUid(id string, name string, uid string) *IncludesIdNameUid {
+	this := IncludesIdNameUid{}
 	this.Id = id
-	this.IsMainContactPerson = isMainContactPerson
-	this.LastName = lastName
-	this.Permissions = permissions
-	this.Phone = phone
-	this.Position = position
+	this.Name = name
+	this.Uid = uid
 	return &this
 }
 
-// NewEmployerManagersEmployerManagerInfoWithDefaults instantiates a new EmployerManagersEmployerManagerInfo object
+// NewIncludesIdNameUidWithDefaults instantiates a new IncludesIdNameUid object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEmployerManagersEmployerManagerInfoWithDefaults() *EmployerManagersEmployerManagerInfo {
-	this := EmployerManagersEmployerManagerInfo{}
+func NewIncludesIdNameUidWithDefaults() *IncludesIdNameUid {
+	this := IncludesIdNameUid{}
 	return &this
-}
-
-// GetAdditionalPhone returns the AdditionalPhone field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerInfo) GetAdditionalPhone() EmployerManagersAddEmployerManagerAdditionalPhone {
-	if o == nil || IsNil(o.AdditionalPhone) {
-		var ret EmployerManagersAddEmployerManagerAdditionalPhone
-		return ret
-	}
-	return *o.AdditionalPhone
-}
-
-// GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetAdditionalPhoneOk() (*EmployerManagersAddEmployerManagerAdditionalPhone, bool) {
-	if o == nil || IsNil(o.AdditionalPhone) {
-		return nil, false
-	}
-	return o.AdditionalPhone, true
-}
-
-// HasAdditionalPhone returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasAdditionalPhone() bool {
-	if o != nil && !IsNil(o.AdditionalPhone) {
-		return true
-	}
-
-	return false
-}
-
-// SetAdditionalPhone gets a reference to the given EmployerManagersAddEmployerManagerAdditionalPhone and assigns it to the AdditionalPhone field.
-func (o *EmployerManagersEmployerManagerInfo) SetAdditionalPhone(v EmployerManagersAddEmployerManagerAdditionalPhone) {
-	o.AdditionalPhone = &v
-}
-
-// GetArea returns the Area field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerInfo) GetArea() EmployerManagersArea {
-	if o == nil || IsNil(o.Area) {
-		var ret EmployerManagersArea
-		return ret
-	}
-	return *o.Area
-}
-
-// GetAreaOk returns a tuple with the Area field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetAreaOk() (*EmployerManagersArea, bool) {
-	if o == nil || IsNil(o.Area) {
-		return nil, false
-	}
-	return o.Area, true
-}
-
-// HasArea returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasArea() bool {
-	if o != nil && !IsNil(o.Area) {
-		return true
-	}
-
-	return false
-}
-
-// SetArea gets a reference to the given EmployerManagersArea and assigns it to the Area field.
-func (o *EmployerManagersEmployerManagerInfo) SetArea(v EmployerManagersArea) {
-	o.Area = &v
-}
-
-// GetEmail returns the Email field value
-func (o *EmployerManagersEmployerManagerInfo) GetEmail() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Email
-}
-
-// GetEmailOk returns a tuple with the Email field value
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetEmailOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Email, true
-}
-
-// SetEmail sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetEmail(v string) {
-	o.Email = v
-}
-
-// GetFirstName returns the FirstName field value
-func (o *EmployerManagersEmployerManagerInfo) GetFirstName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FirstName
-}
-
-// GetFirstNameOk returns a tuple with the FirstName field value
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetFirstNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FirstName, true
-}
-
-// SetFirstName sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetFirstName(v string) {
-	o.FirstName = v
-}
-
-// GetFullName returns the FullName field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerInfo) GetFullName() string {
-	if o == nil || IsNil(o.FullName) {
-		var ret string
-		return ret
-	}
-	return *o.FullName
-}
-
-// GetFullNameOk returns a tuple with the FullName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetFullNameOk() (*string, bool) {
-	if o == nil || IsNil(o.FullName) {
-		return nil, false
-	}
-	return o.FullName, true
-}
-
-// HasFullName returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasFullName() bool {
-	if o != nil && !IsNil(o.FullName) {
-		return true
-	}
-
-	return false
-}
-
-// SetFullName gets a reference to the given string and assigns it to the FullName field.
-func (o *EmployerManagersEmployerManagerInfo) SetFullName(v string) {
-	o.FullName = &v
 }
 
 // GetId returns the Id field value
-func (o *EmployerManagersEmployerManagerInfo) GetId() string {
+func (o *IncludesIdNameUid) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -234,7 +64,7 @@ func (o *EmployerManagersEmployerManagerInfo) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetIdOk() (*string, bool) {
+func (o *IncludesIdNameUid) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -242,272 +72,59 @@ func (o *EmployerManagersEmployerManagerInfo) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetId(v string) {
+func (o *IncludesIdNameUid) SetId(v string) {
 	o.Id = v
 }
 
-// GetIsMainContactPerson returns the IsMainContactPerson field value
-func (o *EmployerManagersEmployerManagerInfo) GetIsMainContactPerson() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsMainContactPerson
-}
-
-// GetIsMainContactPersonOk returns a tuple with the IsMainContactPerson field value
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetIsMainContactPersonOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsMainContactPerson, true
-}
-
-// SetIsMainContactPerson sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetIsMainContactPerson(v bool) {
-	o.IsMainContactPerson = v
-}
-
-// GetLastName returns the LastName field value
-func (o *EmployerManagersEmployerManagerInfo) GetLastName() string {
+// GetName returns the Name field value
+func (o *IncludesIdNameUid) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.LastName
+	return o.Name
 }
 
-// GetLastNameOk returns a tuple with the LastName field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetLastNameOk() (*string, bool) {
+func (o *IncludesIdNameUid) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.LastName, true
+	return &o.Name, true
 }
 
-// SetLastName sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetLastName(v string) {
-	o.LastName = v
+// SetName sets field value
+func (o *IncludesIdNameUid) SetName(v string) {
+	o.Name = v
 }
 
-// GetManagerType returns the ManagerType field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerInfo) GetManagerType() EmployerManagersManagerType {
-	if o == nil || IsNil(o.ManagerType) {
-		var ret EmployerManagersManagerType
-		return ret
-	}
-	return *o.ManagerType
-}
-
-// GetManagerTypeOk returns a tuple with the ManagerType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetManagerTypeOk() (*EmployerManagersManagerType, bool) {
-	if o == nil || IsNil(o.ManagerType) {
-		return nil, false
-	}
-	return o.ManagerType, true
-}
-
-// HasManagerType returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasManagerType() bool {
-	if o != nil && !IsNil(o.ManagerType) {
-		return true
-	}
-
-	return false
-}
-
-// SetManagerType gets a reference to the given EmployerManagersManagerType and assigns it to the ManagerType field.
-func (o *EmployerManagersEmployerManagerInfo) SetManagerType(v EmployerManagersManagerType) {
-	o.ManagerType = &v
-}
-
-// GetMiddleName returns the MiddleName field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerInfo) GetMiddleName() string {
-	if o == nil || IsNil(o.MiddleName) {
-		var ret string
-		return ret
-	}
-	return *o.MiddleName
-}
-
-// GetMiddleNameOk returns a tuple with the MiddleName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetMiddleNameOk() (*string, bool) {
-	if o == nil || IsNil(o.MiddleName) {
-		return nil, false
-	}
-	return o.MiddleName, true
-}
-
-// HasMiddleName returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasMiddleName() bool {
-	if o != nil && !IsNil(o.MiddleName) {
-		return true
-	}
-
-	return false
-}
-
-// SetMiddleName gets a reference to the given string and assigns it to the MiddleName field.
-func (o *EmployerManagersEmployerManagerInfo) SetMiddleName(v string) {
-	o.MiddleName = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-// Deprecated
-func (o *EmployerManagersEmployerManagerInfo) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *EmployerManagersEmployerManagerInfo) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-// Deprecated
-func (o *EmployerManagersEmployerManagerInfo) SetName(v string) {
-	o.Name = &v
-}
-
-// GetPermissions returns the Permissions field value
-func (o *EmployerManagersEmployerManagerInfo) GetPermissions() []EmployerManagerTypesAvailablePermissions {
-	if o == nil {
-		var ret []EmployerManagerTypesAvailablePermissions
-		return ret
-	}
-
-	return o.Permissions
-}
-
-// GetPermissionsOk returns a tuple with the Permissions field value
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetPermissionsOk() ([]EmployerManagerTypesAvailablePermissions, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Permissions, true
-}
-
-// SetPermissions sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetPermissions(v []EmployerManagerTypesAvailablePermissions) {
-	o.Permissions = v
-}
-
-// GetPhone returns the Phone field value
-func (o *EmployerManagersEmployerManagerInfo) GetPhone() EmployerManagersAddEmployerManagerPhone {
-	if o == nil {
-		var ret EmployerManagersAddEmployerManagerPhone
-		return ret
-	}
-
-	return o.Phone
-}
-
-// GetPhoneOk returns a tuple with the Phone field value
-// and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetPhoneOk() (*EmployerManagersAddEmployerManagerPhone, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Phone, true
-}
-
-// SetPhone sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetPhone(v EmployerManagersAddEmployerManagerPhone) {
-	o.Phone = v
-}
-
-// GetPosition returns the Position field value
-func (o *EmployerManagersEmployerManagerInfo) GetPosition() string {
+// GetUid returns the Uid field value
+func (o *IncludesIdNameUid) GetUid() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Position
+	return o.Uid
 }
 
-// GetPositionOk returns a tuple with the Position field value
+// GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetPositionOk() (*string, bool) {
+func (o *IncludesIdNameUid) GetUidOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Position, true
+	return &o.Uid, true
 }
 
-// SetPosition sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetPosition(v string) {
-	o.Position = v
+// SetUid sets field value
+func (o *IncludesIdNameUid) SetUid(v string) {
+	o.Uid = v
 }
 
-// GetVacanciesCount returns the VacanciesCount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EmployerManagersEmployerManagerInfo) GetVacanciesCount() float32 {
-	if o == nil || IsNil(o.VacanciesCount.Get()) {
-		var ret float32
-		return ret
-	}
-	return *o.VacanciesCount.Get()
-}
-
-// GetVacanciesCountOk returns a tuple with the VacanciesCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EmployerManagersEmployerManagerInfo) GetVacanciesCountOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.VacanciesCount.Get(), o.VacanciesCount.IsSet()
-}
-
-// HasVacanciesCount returns a boolean if a field has been set.
-func (o *EmployerManagersEmployerManagerInfo) HasVacanciesCount() bool {
-	if o != nil && o.VacanciesCount.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetVacanciesCount gets a reference to the given NullableFloat32 and assigns it to the VacanciesCount field.
-func (o *EmployerManagersEmployerManagerInfo) SetVacanciesCount(v float32) {
-	o.VacanciesCount.Set(&v)
-}
-// SetVacanciesCountNil sets the value for VacanciesCount to be an explicit nil
-func (o *EmployerManagersEmployerManagerInfo) SetVacanciesCountNil() {
-	o.VacanciesCount.Set(nil)
-}
-
-// UnsetVacanciesCount ensures that no value is present for VacanciesCount, not even an explicit nil
-func (o *EmployerManagersEmployerManagerInfo) UnsetVacanciesCount() {
-	o.VacanciesCount.Unset()
-}
-
-func (o EmployerManagersEmployerManagerInfo) MarshalJSON() ([]byte, error) {
+func (o IncludesIdNameUid) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -515,53 +132,22 @@ func (o EmployerManagersEmployerManagerInfo) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EmployerManagersEmployerManagerInfo) ToMap() (map[string]interface{}, error) {
+func (o IncludesIdNameUid) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AdditionalPhone) {
-		toSerialize["additional_phone"] = o.AdditionalPhone
-	}
-	if !IsNil(o.Area) {
-		toSerialize["area"] = o.Area
-	}
-	toSerialize["email"] = o.Email
-	toSerialize["first_name"] = o.FirstName
-	if !IsNil(o.FullName) {
-		toSerialize["full_name"] = o.FullName
-	}
 	toSerialize["id"] = o.Id
-	toSerialize["is_main_contact_person"] = o.IsMainContactPerson
-	toSerialize["last_name"] = o.LastName
-	if !IsNil(o.ManagerType) {
-		toSerialize["manager_type"] = o.ManagerType
-	}
-	if !IsNil(o.MiddleName) {
-		toSerialize["middle_name"] = o.MiddleName
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	toSerialize["permissions"] = o.Permissions
-	toSerialize["phone"] = o.Phone
-	toSerialize["position"] = o.Position
-	if o.VacanciesCount.IsSet() {
-		toSerialize["vacancies_count"] = o.VacanciesCount.Get()
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["uid"] = o.Uid
 	return toSerialize, nil
 }
 
-func (o *EmployerManagersEmployerManagerInfo) UnmarshalJSON(data []byte) (err error) {
+func (o *IncludesIdNameUid) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"email",
-		"first_name",
 		"id",
-		"is_main_contact_person",
-		"last_name",
-		"permissions",
-		"phone",
-		"position",
+		"name",
+		"uid",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -578,53 +164,53 @@ func (o *EmployerManagersEmployerManagerInfo) UnmarshalJSON(data []byte) (err er
 		}
 	}
 
-	varEmployerManagersEmployerManagerInfo := _EmployerManagersEmployerManagerInfo{}
+	varIncludesIdNameUid := _IncludesIdNameUid{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEmployerManagersEmployerManagerInfo)
+	err = decoder.Decode(&varIncludesIdNameUid)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EmployerManagersEmployerManagerInfo(varEmployerManagersEmployerManagerInfo)
+	*o = IncludesIdNameUid(varIncludesIdNameUid)
 
 	return err
 }
 
-type NullableEmployerManagersEmployerManagerInfo struct {
-	value *EmployerManagersEmployerManagerInfo
+type NullableIncludesIdNameUid struct {
+	value *IncludesIdNameUid
 	isSet bool
 }
 
-func (v NullableEmployerManagersEmployerManagerInfo) Get() *EmployerManagersEmployerManagerInfo {
+func (v NullableIncludesIdNameUid) Get() *IncludesIdNameUid {
 	return v.value
 }
 
-func (v *NullableEmployerManagersEmployerManagerInfo) Set(val *EmployerManagersEmployerManagerInfo) {
+func (v *NullableIncludesIdNameUid) Set(val *IncludesIdNameUid) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEmployerManagersEmployerManagerInfo) IsSet() bool {
+func (v NullableIncludesIdNameUid) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEmployerManagersEmployerManagerInfo) Unset() {
+func (v *NullableIncludesIdNameUid) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEmployerManagersEmployerManagerInfo(val *EmployerManagersEmployerManagerInfo) *NullableEmployerManagersEmployerManagerInfo {
-	return &NullableEmployerManagersEmployerManagerInfo{value: val, isSet: true}
+func NewNullableIncludesIdNameUid(val *IncludesIdNameUid) *NullableIncludesIdNameUid {
+	return &NullableIncludesIdNameUid{value: val, isSet: true}
 }
 
-func (v NullableEmployerManagersEmployerManagerInfo) MarshalJSON() ([]byte, error) {
+func (v NullableIncludesIdNameUid) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEmployerManagersEmployerManagerInfo) UnmarshalJSON(src []byte) error {
+func (v *NullableIncludesIdNameUid) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

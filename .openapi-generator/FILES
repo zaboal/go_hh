@@ -60,13 +60,13 @@ docs/EmployerManagerTypesAvailablePermissions.md
 docs/EmployerManagerTypesEmployerManagerTypesItem.md
 docs/EmployerManagerTypesResponse.md
 docs/EmployerManagersAddEmployerManager.md
+docs/EmployerManagersAddEmployerManagerAdditionalPhone.md
+docs/EmployerManagersAddEmployerManagerPhone.md
 docs/EmployerManagersArea.md
 docs/EmployerManagersAreaId.md
 docs/EmployerManagersEmployerManagerId.md
 docs/EmployerManagersEmployerManagerInfo.md
 docs/EmployerManagersEmployerManagerItem.md
-docs/EmployerManagersEmployerManagerItemAdditionalPhone.md
-docs/EmployerManagersEmployerManagerItemPhone.md
 docs/EmployerManagersEmployerManagerLimits.md
 docs/EmployerManagersManagerData.md
 docs/EmployerManagersManagerType.md
@@ -78,6 +78,9 @@ docs/EmployerManagersResumeView.md
 docs/EmployerServicesBalance.md
 docs/EmployerServicesEmployerServiceItem.md
 docs/EmployerServicesEmployerServices.md
+docs/EmployerServicesMethodAccess.md
+docs/EmployerServicesMethodAccessItem.md
+docs/EmployerServicesMethodAccessItemAccess.md
 docs/EmployerServicesServiceType.md
 docs/EmployersBrandingConstructor.md
 docs/EmployersBrandingConstructorConstructor.md
@@ -153,6 +156,8 @@ docs/ErrorsNegotiationEditMessageForbiddenErrors.md
 docs/ErrorsNegotiationHideResponseError.md
 docs/ErrorsNegotiationHideResponseErrors.md
 docs/ErrorsNegotiationHideResponseForbiddenErrors.md
+docs/ErrorsNegotiationSendMessageNotFoundError.md
+docs/ErrorsNegotiationSendMessageNotFoundErrors.md
 docs/ErrorsRequestEntityTooLargeError.md
 docs/ErrorsRequestEntityTooLargeErrors.md
 docs/ErrorsResumeAddEditError.md
@@ -178,9 +183,9 @@ docs/ErrorsVacancyAddEditForbiddenError.md
 docs/ErrorsVacancyAddEditForbiddenErrors.md
 docs/ErrorsVacancyApplyBadRequestError.md
 docs/ErrorsVacancyApplyBadRequestErrors.md
+docs/ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md
 docs/ErrorsVacancyApplyForbiddenError.md
 docs/ErrorsVacancyApplyForbiddenErrors.md
-docs/ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md
 docs/ErrorsVacancyBlacklistedBadRequestError.md
 docs/ErrorsVacancyBlacklistedBadRequestErrors.md
 docs/ErrorsVacancyBlacklistedNotFoundError.md
@@ -215,6 +220,7 @@ docs/IncludesId.md
 docs/IncludesIdName.md
 docs/IncludesIdNameDesc.md
 docs/IncludesIdNameLastChangeTime.md
+docs/IncludesIdNameUid.md
 docs/IncludesIdNameUrl.md
 docs/IncludesLanguageLevel.md
 docs/IncludesLanguageProperties.md
@@ -434,6 +440,7 @@ docs/SavedSearchesSavedSearchItems.md
 docs/SavedSearchesSavedSearchResponse.md
 docs/SearchForResumes403Response.md
 docs/SendNegotiationMessage403Response.md
+docs/SendNegotiationMessage404Response.md
 docs/SuggestsArea.md
 docs/SuggestsAreas.md
 docs/SuggestsAreasItem.md
@@ -666,10 +673,10 @@ docs/WebhookPayloadVacancyPublicationForVacancyManager.md
 docs/WebhookSendObjectBaseUser.md
 docs/WebhookSendObjectBaseUserPayload.md
 docs/WebhookSubscriptionCommonItem.md
-docs/WebhookSubscriptionCommonItemActionsInner.md
 docs/WebhookSubscriptionCreate.md
 docs/WebhookSubscriptionItem.md
 docs/WebhookSubscriptionUpdate.md
+docs/WebhookSubscriptionUpdateActionsInner.md
 docs/WebhookSubscriptionsOutput.md
 docs/WebhookSubscriptionsPostRequest.md
 git_push.sh
@@ -694,6 +701,7 @@ model__includes_id.go
 model__includes_id_name.go
 model__includes_id_name_desc.go
 model__includes_id_name_last_change_time.go
+model__includes_id_name_uid.go
 model__includes_id_name_url.go
 model__includes_language_level.go
 model__includes_language_properties.go
@@ -762,13 +770,13 @@ model_employer_manager_types_available_permissions.go
 model_employer_manager_types_employer_manager_types_item.go
 model_employer_manager_types_response.go
 model_employer_managers_add_employer_manager.go
+model_employer_managers_add_employer_manager_additional_phone.go
+model_employer_managers_add_employer_manager_phone.go
 model_employer_managers_area.go
 model_employer_managers_area_id.go
 model_employer_managers_employer_manager_id.go
 model_employer_managers_employer_manager_info.go
 model_employer_managers_employer_manager_item.go
-model_employer_managers_employer_manager_item_additional_phone.go
-model_employer_managers_employer_manager_item_phone.go
 model_employer_managers_employer_manager_limits.go
 model_employer_managers_manager_data.go
 model_employer_managers_manager_type.go
@@ -780,6 +788,9 @@ model_employer_managers_resume_view.go
 model_employer_services_balance.go
 model_employer_services_employer_service_item.go
 model_employer_services_employer_services.go
+model_employer_services_method_access.go
+model_employer_services_method_access_item.go
+model_employer_services_method_access_item_access.go
 model_employer_services_service_type.go
 model_employers_branding_constructor.go
 model_employers_branding_constructor_constructor.go
@@ -855,6 +866,8 @@ model_errors_negotiation_edit_message_forbidden_errors.go
 model_errors_negotiation_hide_response_error.go
 model_errors_negotiation_hide_response_errors.go
 model_errors_negotiation_hide_response_forbidden_errors.go
+model_errors_negotiation_send_message_not_found_error.go
+model_errors_negotiation_send_message_not_found_errors.go
 model_errors_request_entity_too_large_error.go
 model_errors_request_entity_too_large_errors.go
 model_errors_resume_add_edit_error.go
@@ -880,9 +893,9 @@ model_errors_vacancy_add_edit_forbidden_error.go
 model_errors_vacancy_add_edit_forbidden_errors.go
 model_errors_vacancy_apply_bad_request_error.go
 model_errors_vacancy_apply_bad_request_errors.go
+model_errors_vacancy_apply_bad_request_errors_all_of_bad_arguments.go
 model_errors_vacancy_apply_forbidden_error.go
 model_errors_vacancy_apply_forbidden_errors.go
-model_errors_vacancy_apply_forbidden_errors_all_of_bad_arguments.go
 model_errors_vacancy_blacklisted_bad_request_error.go
 model_errors_vacancy_blacklisted_bad_request_errors.go
 model_errors_vacancy_blacklisted_not_found_error.go
@@ -1104,6 +1117,7 @@ model_saved_searches_saved_search_items.go
 model_saved_searches_saved_search_response.go
 model_search_for_resumes_403_response.go
 model_send_negotiation_message_403_response.go
+model_send_negotiation_message_404_response.go
 model_suggests_area.go
 model_suggests_areas.go
 model_suggests_areas_item.go
@@ -1336,10 +1350,10 @@ model_webhook_payload_vacancy_publication_for_vacancy_manager.go
 model_webhook_send_object_base_user.go
 model_webhook_send_object_base_user_payload.go
 model_webhook_subscription_common_item.go
-model_webhook_subscription_common_item_actions_inner.go
 model_webhook_subscription_create.go
 model_webhook_subscription_item.go
 model_webhook_subscription_update.go
+model_webhook_subscription_update_actions_inner.go
 model_webhook_subscriptions_output.go
 response.go
 utils.go

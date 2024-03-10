@@ -24,7 +24,7 @@ var _ MappedNullable = &ErrorsCommonBadAuthorizationPaymentMethodError{}
 type ErrorsCommonBadAuthorizationPaymentMethodError struct {
 	// Текстовый идентификатор типа ошибки
 	Type string `json:"type"`
-	// Описание ошибки.  Причина ошибки в том, что вы запрашиваете один из [платных методов](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md) без купленного доступа 
+	// Описание ошибки.  Причина ошибки в том, что вы запрашиваете один из [платных методов](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access) без купленного доступа 
 	Value string `json:"value"`
 }
 

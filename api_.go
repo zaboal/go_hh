@@ -73,7 +73,7 @@ func (r ApiAddApplicantCommentRequest) Execute() (*ApplicantCommentsApplicantCom
 /*
 AddApplicantComment Добавление комментария
 
-Метод требует наличия [платного доступа для работодателя](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md)
+Метод требует наличия [платного доступа для работодателя](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicantId Идентификатор соискателя, который можно узнать из поля `owner` [в резюме](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#owner-field)
@@ -3992,7 +3992,7 @@ func (r ApiDeleteApplicantCommentRequest) Execute() (*http.Response, error) {
 /*
 DeleteApplicantComment Удаление комментария
 
-Метод требует наличия [платного доступа для работодателя](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+Метод требует наличия [платного доступа для работодателя](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 
 Удалить комментарий может только его автор
 
@@ -8507,7 +8507,7 @@ func (r ApiGetApplicantCommentsListRequest) Execute() (*ApplicantCommentsApplica
 /*
 GetApplicantCommentsList Получение списка комментариев
 
-Метод требует наличия [платного доступа для работодателя](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+Метод требует наличия [платного доступа для работодателя](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 
 Список будет содержать комментарии текущего пользователя, а также комментарии других менеджеров компании, если они открыли доступ к ним при публикации
 
@@ -17978,6 +17978,192 @@ func (a *DefaultApiService) GetPayableApiActionsExecute(r ApiGetPayableApiAction
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetPayableApiMethodAccessRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	employerId string
+	managerId string
+	hHUserAgent *string
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiGetPayableApiMethodAccessRequest) HHUserAgent(hHUserAgent string) ApiGetPayableApiMethodAccessRequest {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiGetPayableApiMethodAccessRequest) Locale(locale string) ApiGetPayableApiMethodAccessRequest {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiGetPayableApiMethodAccessRequest) Host(host string) ApiGetPayableApiMethodAccessRequest {
+	r.host = &host
+	return r
+}
+
+func (r ApiGetPayableApiMethodAccessRequest) Execute() (*EmployerServicesMethodAccess, *http.Response, error) {
+	return r.ApiService.GetPayableApiMethodAccessExecute(r)
+}
+
+/*
+GetPayableApiMethodAccess Проверка доступа к платным методам
+
+Начиная с 16 июля 2018 года, некоторые методы API HH для работодателей стали платными.
+
+Такие методы отмечены в [оглавлении GitHub](https://github.com/hhru/api/blob/master/README.md#content) лейблом <img src="http://hhru.github.io/api/badges/emp_paid.png" alt="employer with paid access" />
+
+Чтобы приобрести доступ к платным методам, обратитесь к своему персональному менеджеру.
+
+> Если вы работаете от имени нескольких учетных записей работодателя, проверьте [информацию о подключенных услугах](#tag/Uslugi-rabotodatelya/operation/get-payable-api-actions) — каждой учетной записи должен быть предоставлен доступ к платным методам API. При отсутствии доступа будет выдана ошибка `403 Forbidden`.
+
+Метод возвращает информацию о доступе к группам платных методов. Существующие группы:
+
+1. Наличие доступа к методам резюме:
+  * [Просмотр резюме](#tag/Prosmotr-rezyume/operation/get-resume).
+  * [Работа с откликами](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md).
+  * [Переписка с соискателем](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages).
+2. Наличие доступа к методам поиска вакансий:
+  * [Поиск резюме](#tag/Poisk-rezyume/operation/search-for-resumes).
+  * [Сохраненные поиски резюме](#tag/Sohranennye-poiski-rezyume/operation/get-saved-resume-searches).
+3. Наличие доступа к [просмотру резюме](#tag/Prosmotr-rezyume/operation/get-resume), у которого есть отклик или приглашение.
+4. Наличие доступа к [просмотру резюме](#tag/Prosmotr-rezyume/operation/get-resume), найденных через [поиск по базе](#tag/Poisk-rezyume/operation/search-for-resumes).
+
+**Внимание!** Изменился доступ к контактной информации резюме, подробнее [о новой модели работы с базой резюме](https://github.com/hhru/api/blob/master/docs/payable/resume.md)
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param employerId Идентификатор работодателя. Можно узнать в [информации о текущем пользователе](#tag/Informaciya-o-menedzhere/operation/get-current-user-info) 
+ @param managerId Идентификатор менеджера. Можно узнать в [информации о текущем пользователе](#tag/Informaciya-o-menedzhere/operation/get-current-user-info) 
+ @return ApiGetPayableApiMethodAccessRequest
+*/
+func (a *DefaultApiService) GetPayableApiMethodAccess(ctx context.Context, employerId string, managerId string) ApiGetPayableApiMethodAccessRequest {
+	return ApiGetPayableApiMethodAccessRequest{
+		ApiService: a,
+		ctx: ctx,
+		employerId: employerId,
+		managerId: managerId,
+	}
+}
+
+// Execute executes the request
+//  @return EmployerServicesMethodAccess
+func (a *DefaultApiService) GetPayableApiMethodAccessExecute(r ApiGetPayableApiMethodAccessRequest) (*EmployerServicesMethodAccess, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *EmployerServicesMethodAccess
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPayableApiMethodAccess")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/employers/{employer_id}/managers/{manager_id}/method_access"
+	localVarPath = strings.Replace(localVarPath, "{"+"employer_id"+"}", url.PathEscape(parameterValueToString(r.employerId, "employerId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"manager_id"+"}", url.PathEscape(parameterValueToString(r.managerId, "managerId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsCommonBadAuthorizationErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorsCommonNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetPositionsSuggestionsRequest struct {
 	ctx context.Context
 	ApiService *DefaultApiService
@@ -19131,7 +19317,7 @@ GetResume Просмотр резюме
 
 Особенности работы метода при запросе от работодателя:
 
-* Требуется наличие [платного доступа](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+* Требуется наличие [платного доступа](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 * При просмотре резюме с контактами действуют [специальные правила](https://github.com/hhru/api/blob/master/docs/payable/resume.md#просмотр-резюме-с-контактами).
 * Если просмотр полных данных по резюме недоступен при текущей авторизации, в некоторых полях вернется `null`, а поле `can_view_full_info` будет иметь значение `false`.
 * Если у работодателя есть отклик/приглашение на это резюме, отклик будет считаться просмотренным
@@ -19784,7 +19970,7 @@ GetResumeNegotiationsHistory История откликов/приглашен�
 
 Возвращает последние действия с указанным резюме, ограниченные 30-ю вакансиями данного работодателя, и 10-ю изменениями состояний откликов/приглашений по каждой из этих вакансий.
 
-Метод требует наличия [платного доступа для работодателя](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md)
+Метод требует наличия [платного доступа для работодателя](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access)
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -20838,7 +21024,7 @@ GetResume_0 Просмотр резюме
 
 Особенности работы метода при запросе от работодателя:
 
-* Требуется наличие [платного доступа](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+* Требуется наличие [платного доступа](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 * При просмотре резюме с контактами действуют [специальные правила](https://github.com/hhru/api/blob/master/docs/payable/resume.md#просмотр-резюме-с-контактами).
 * Если просмотр полных данных по резюме недоступен при текущей авторизации, в некоторых полях вернется `null`, а поле `can_view_full_info` будет иметь значение `false`.
 * Если у работодателя есть отклик/приглашение на это резюме, отклик будет считаться просмотренным
@@ -21048,7 +21234,7 @@ GetResume_1 Просмотр резюме
 
 Особенности работы метода при запросе от работодателя:
 
-* Требуется наличие [платного доступа](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+* Требуется наличие [платного доступа](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 * При просмотре резюме с контактами действуют [специальные правила](https://github.com/hhru/api/blob/master/docs/payable/resume.md#просмотр-резюме-с-контактами).
 * Если просмотр полных данных по резюме недоступен при текущей авторизации, в некоторых полях вернется `null`, а поле `can_view_full_info` будет иметь значение `false`.
 * Если у работодателя есть отклик/приглашение на это резюме, отклик будет считаться просмотренным
@@ -21077,6 +21263,216 @@ func (a *DefaultApiService) GetResume_21Execute(r ApiGetResume_1Request) (*Resum
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_21")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/resumes/{resume_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"resume_id"+"}", url.PathEscape(parameterValueToString(r.resumeId, "resumeId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.withNegotiationsHistory != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "with_negotiations_history", r.withNegotiationsHistory, "")
+	}
+	if r.withCreds != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "with_creds", r.withCreds, "")
+	}
+	if r.withJobSearchStatus != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "with_job_search_status", r.withJobSearchStatus, "")
+	}
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsCommonBadAuthorizationErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorsCommonNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ErrorsResumeTooManyRequestsErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetResume_2Request struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	resumeId string
+	hHUserAgent *string
+	withNegotiationsHistory *bool
+	withCreds *bool
+	withJobSearchStatus *bool
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiGetResume_2Request) HHUserAgent(hHUserAgent string) ApiGetResume_2Request {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// В случае, если передан данный параметр, в ответе добавится поле negotiations_history.vacancies.  Его формат подробно описан в методе [полной истории откликов/приглашений по резюме](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-resume-negotiations-history) и различается лишь тем,  что в данном случае список будет ограничен тремя вакансиями данного работодателя и последним изменением состояния отклика/приглашения по каждой из этих вакансий 
+func (r ApiGetResume_2Request) WithNegotiationsHistory(withNegotiationsHistory bool) ApiGetResume_2Request {
+	r.withNegotiationsHistory = &withNegotiationsHistory
+	return r
+}
+
+// В случае, если передан данный параметр, в ответе добавится поле creds
+func (r ApiGetResume_2Request) WithCreds(withCreds bool) ApiGetResume_2Request {
+	r.withCreds = &withCreds
+	return r
+}
+
+// Параметр для просмотра в резюме статуса поиска кандидата 
+func (r ApiGetResume_2Request) WithJobSearchStatus(withJobSearchStatus bool) ApiGetResume_2Request {
+	r.withJobSearchStatus = &withJobSearchStatus
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiGetResume_2Request) Locale(locale string) ApiGetResume_2Request {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiGetResume_2Request) Host(host string) ApiGetResume_2Request {
+	r.host = &host
+	return r
+}
+
+func (r ApiGetResume_2Request) Execute() (*ResumeResumeViewResponse, *http.Response, error) {
+	return r.ApiService.GetResume_22Execute(r)
+}
+
+/*
+GetResume_2 Просмотр резюме
+
+Возвращает информацию об указанном резюме.
+
+Особенности работы метода при запросе от работодателя:
+
+* Требуется наличие [платного доступа](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
+* При просмотре резюме с контактами действуют [специальные правила](https://github.com/hhru/api/blob/master/docs/payable/resume.md#просмотр-резюме-с-контактами).
+* Если просмотр полных данных по резюме недоступен при текущей авторизации, в некоторых полях вернется `null`, а поле `can_view_full_info` будет иметь значение `false`.
+* Если у работодателя есть отклик/приглашение на это резюме, отклик будет считаться просмотренным
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param resumeId Идентификатор резюме
+ @return ApiGetResume_2Request
+*/
+func (a *DefaultApiService) GetResume_22(ctx context.Context, resumeId string) ApiGetResume_2Request {
+	return ApiGetResume_2Request{
+		ApiService: a,
+		ctx: ctx,
+		resumeId: resumeId,
+	}
+}
+
+// Execute executes the request
+//  @return ResumeResumeViewResponse
+func (a *DefaultApiService) GetResume_22Execute(r ApiGetResume_2Request) (*ResumeResumeViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResumeResumeViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_22")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -21801,7 +22197,7 @@ func (r ApiGetSalaryEvaluation_0Request) Host(host string) ApiGetSalaryEvaluatio
 }
 
 func (r ApiGetSalaryEvaluation_0Request) Execute() (*SalaryStatisticsEvaluationResponse, *http.Response, error) {
-	return r.ApiService.GetSalaryEvaluation_22Execute(r)
+	return r.ApiService.GetSalaryEvaluation_23Execute(r)
 }
 
 /*
@@ -21827,7 +22223,7 @@ GetSalaryEvaluation_0 Оценка заработной платы без про
  @param areaId Код [региона](#tag/Spravochniki-Banka-dannyh-zarabotnyh-plat/operation/get-salary-salary-areas), по которому будет построена выборка для формирования отчета 
  @return ApiGetSalaryEvaluation_0Request
 */
-func (a *DefaultApiService) GetSalaryEvaluation_22(ctx context.Context, areaId string) ApiGetSalaryEvaluation_0Request {
+func (a *DefaultApiService) GetSalaryEvaluation_23(ctx context.Context, areaId string) ApiGetSalaryEvaluation_0Request {
 	return ApiGetSalaryEvaluation_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -21837,7 +22233,7 @@ func (a *DefaultApiService) GetSalaryEvaluation_22(ctx context.Context, areaId s
 
 // Execute executes the request
 //  @return SalaryStatisticsEvaluationResponse
-func (a *DefaultApiService) GetSalaryEvaluation_22Execute(r ApiGetSalaryEvaluation_0Request) (*SalaryStatisticsEvaluationResponse, *http.Response, error) {
+func (a *DefaultApiService) GetSalaryEvaluation_23Execute(r ApiGetSalaryEvaluation_0Request) (*SalaryStatisticsEvaluationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -21845,7 +22241,7 @@ func (a *DefaultApiService) GetSalaryEvaluation_22Execute(r ApiGetSalaryEvaluati
 		localVarReturnValue  *SalaryStatisticsEvaluationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSalaryEvaluation_22")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSalaryEvaluation_23")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -23703,7 +24099,7 @@ func (r ApiGetTestsDictionary_0Request) Host(host string) ApiGetTestsDictionary_
 }
 
 func (r ApiGetTestsDictionary_0Request) Execute() (*EmployerDictionariesTestsResponse, *http.Response, error) {
-	return r.ApiService.GetTestsDictionary_23Execute(r)
+	return r.ApiService.GetTestsDictionary_24Execute(r)
 }
 
 /*
@@ -23715,7 +24111,7 @@ GetTestsDictionary_0 Справочник тестов работодателя
  @param employerId Идентификатор работодателя
  @return ApiGetTestsDictionary_0Request
 */
-func (a *DefaultApiService) GetTestsDictionary_23(ctx context.Context, employerId string) ApiGetTestsDictionary_0Request {
+func (a *DefaultApiService) GetTestsDictionary_24(ctx context.Context, employerId string) ApiGetTestsDictionary_0Request {
 	return ApiGetTestsDictionary_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -23725,7 +24121,7 @@ func (a *DefaultApiService) GetTestsDictionary_23(ctx context.Context, employerI
 
 // Execute executes the request
 //  @return EmployerDictionariesTestsResponse
-func (a *DefaultApiService) GetTestsDictionary_23Execute(r ApiGetTestsDictionary_0Request) (*EmployerDictionariesTestsResponse, *http.Response, error) {
+func (a *DefaultApiService) GetTestsDictionary_24Execute(r ApiGetTestsDictionary_0Request) (*EmployerDictionariesTestsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -23733,7 +24129,7 @@ func (a *DefaultApiService) GetTestsDictionary_23Execute(r ApiGetTestsDictionary
 		localVarReturnValue  *EmployerDictionariesTestsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTestsDictionary_23")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTestsDictionary_24")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -25688,7 +26084,7 @@ func (r ApiGetVacancyBrandedTemplatesList_0Request) Host(host string) ApiGetVaca
 }
 
 func (r ApiGetVacancyBrandedTemplatesList_0Request) Execute() (*EmployersVacancyBrandedTemplatesList, *http.Response, error) {
-	return r.ApiService.GetVacancyBrandedTemplatesList_24Execute(r)
+	return r.ApiService.GetVacancyBrandedTemplatesList_25Execute(r)
 }
 
 /*
@@ -25704,7 +26100,7 @@ GetVacancyBrandedTemplatesList_0 Список доступных бренд ша
  @param employerId Идентификатор работодателя
  @return ApiGetVacancyBrandedTemplatesList_0Request
 */
-func (a *DefaultApiService) GetVacancyBrandedTemplatesList_24(ctx context.Context, employerId string) ApiGetVacancyBrandedTemplatesList_0Request {
+func (a *DefaultApiService) GetVacancyBrandedTemplatesList_25(ctx context.Context, employerId string) ApiGetVacancyBrandedTemplatesList_0Request {
 	return ApiGetVacancyBrandedTemplatesList_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -25714,7 +26110,7 @@ func (a *DefaultApiService) GetVacancyBrandedTemplatesList_24(ctx context.Contex
 
 // Execute executes the request
 //  @return EmployersVacancyBrandedTemplatesList
-func (a *DefaultApiService) GetVacancyBrandedTemplatesList_24Execute(r ApiGetVacancyBrandedTemplatesList_0Request) (*EmployersVacancyBrandedTemplatesList, *http.Response, error) {
+func (a *DefaultApiService) GetVacancyBrandedTemplatesList_25Execute(r ApiGetVacancyBrandedTemplatesList_0Request) (*EmployersVacancyBrandedTemplatesList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -25722,7 +26118,7 @@ func (a *DefaultApiService) GetVacancyBrandedTemplatesList_24Execute(r ApiGetVac
 		localVarReturnValue  *EmployersVacancyBrandedTemplatesList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancyBrandedTemplatesList_24")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancyBrandedTemplatesList_25")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -27142,7 +27538,7 @@ func (r ApiGetVacancy_0Request) Host(host string) ApiGetVacancy_0Request {
 }
 
 func (r ApiGetVacancy_0Request) Execute() (*VacanciesVacancy, *http.Response, error) {
-	return r.ApiService.GetVacancy_25Execute(r)
+	return r.ApiService.GetVacancy_26Execute(r)
 }
 
 /*
@@ -27154,7 +27550,7 @@ GetVacancy_0 Просмотр вакансии
  @param vacancyId Идентификатор вакансии
  @return ApiGetVacancy_0Request
 */
-func (a *DefaultApiService) GetVacancy_25(ctx context.Context, vacancyId string) ApiGetVacancy_0Request {
+func (a *DefaultApiService) GetVacancy_26(ctx context.Context, vacancyId string) ApiGetVacancy_0Request {
 	return ApiGetVacancy_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -27164,7 +27560,7 @@ func (a *DefaultApiService) GetVacancy_25(ctx context.Context, vacancyId string)
 
 // Execute executes the request
 //  @return VacanciesVacancy
-func (a *DefaultApiService) GetVacancy_25Execute(r ApiGetVacancy_0Request) (*VacanciesVacancy, *http.Response, error) {
+func (a *DefaultApiService) GetVacancy_26Execute(r ApiGetVacancy_0Request) (*VacanciesVacancy, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -27172,7 +27568,7 @@ func (a *DefaultApiService) GetVacancy_25Execute(r ApiGetVacancy_0Request) (*Vac
 		localVarReturnValue  *VacanciesVacancy
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancy_25")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancy_26")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -27551,7 +27947,7 @@ type ApiInvalidateToken_0Request struct {
 }
 
 func (r ApiInvalidateToken_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.InvalidateToken_26Execute(r)
+	return r.ApiService.InvalidateToken_27Execute(r)
 }
 
 /*
@@ -27565,7 +27961,7 @@ InvalidateToken_0 Инвалидация токена
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiInvalidateToken_0Request
 */
-func (a *DefaultApiService) InvalidateToken_26(ctx context.Context) ApiInvalidateToken_0Request {
+func (a *DefaultApiService) InvalidateToken_27(ctx context.Context) ApiInvalidateToken_0Request {
 	return ApiInvalidateToken_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -27573,14 +27969,14 @@ func (a *DefaultApiService) InvalidateToken_26(ctx context.Context) ApiInvalidat
 }
 
 // Execute executes the request
-func (a *DefaultApiService) InvalidateToken_26Execute(r ApiInvalidateToken_0Request) (*http.Response, error) {
+func (a *DefaultApiService) InvalidateToken_27Execute(r ApiInvalidateToken_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_26")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_27")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -27652,7 +28048,7 @@ type ApiInvalidateToken_1Request struct {
 }
 
 func (r ApiInvalidateToken_1Request) Execute() (*http.Response, error) {
-	return r.ApiService.InvalidateToken_27Execute(r)
+	return r.ApiService.InvalidateToken_28Execute(r)
 }
 
 /*
@@ -27666,7 +28062,7 @@ InvalidateToken_1 Инвалидация токена
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiInvalidateToken_1Request
 */
-func (a *DefaultApiService) InvalidateToken_27(ctx context.Context) ApiInvalidateToken_1Request {
+func (a *DefaultApiService) InvalidateToken_28(ctx context.Context) ApiInvalidateToken_1Request {
 	return ApiInvalidateToken_1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -27674,14 +28070,14 @@ func (a *DefaultApiService) InvalidateToken_27(ctx context.Context) ApiInvalidat
 }
 
 // Execute executes the request
-func (a *DefaultApiService) InvalidateToken_27Execute(r ApiInvalidateToken_1Request) (*http.Response, error) {
+func (a *DefaultApiService) InvalidateToken_28Execute(r ApiInvalidateToken_1Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_27")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_28")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -28861,7 +29257,7 @@ func (r ApiPublishVacancy_0Request) Host(host string) ApiPublishVacancy_0Request
 }
 
 func (r ApiPublishVacancy_0Request) Execute() (*IncludesId, *http.Response, error) {
-	return r.ApiService.PublishVacancy_28Execute(r)
+	return r.ApiService.PublishVacancy_29Execute(r)
 }
 
 /*
@@ -28886,7 +29282,7 @@ PublishVacancy_0 Публикация вакансии
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPublishVacancy_0Request
 */
-func (a *DefaultApiService) PublishVacancy_28(ctx context.Context) ApiPublishVacancy_0Request {
+func (a *DefaultApiService) PublishVacancy_29(ctx context.Context) ApiPublishVacancy_0Request {
 	return ApiPublishVacancy_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -28895,7 +29291,7 @@ func (a *DefaultApiService) PublishVacancy_28(ctx context.Context) ApiPublishVac
 
 // Execute executes the request
 //  @return IncludesId
-func (a *DefaultApiService) PublishVacancy_28Execute(r ApiPublishVacancy_0Request) (*IncludesId, *http.Response, error) {
+func (a *DefaultApiService) PublishVacancy_29Execute(r ApiPublishVacancy_0Request) (*IncludesId, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -28903,7 +29299,7 @@ func (a *DefaultApiService) PublishVacancy_28Execute(r ApiPublishVacancy_0Reques
 		localVarReturnValue  *IncludesId
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PublishVacancy_28")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PublishVacancy_29")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -30255,7 +30651,7 @@ SearchForResumes Поиск резюме
 
 Возвращает результаты поиска резюме.
 
-Требуется наличие [платного доступа](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+Требуется наличие [платного доступа](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 
 Некоторые параметры запроса могут принимать множественные значения: `key=value&key=value`. Если параметр может принимать несколько значений, об этом явно указано в его описании. Неизвестные параметры и параметры с ошибкой в названии игнорируются.
 
@@ -30842,6 +31238,7 @@ type ApiSendNegotiationMessageRequest struct {
 	hHUserAgent *string
 	locale *string
 	host *string
+	message *string
 }
 
 // Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
@@ -30862,6 +31259,12 @@ func (r ApiSendNegotiationMessageRequest) Host(host string) ApiSendNegotiationMe
 	return r
 }
 
+// Сообщение отклика/приглашения
+func (r ApiSendNegotiationMessageRequest) Message(message string) ApiSendNegotiationMessageRequest {
+	r.message = &message
+	return r
+}
+
 func (r ApiSendNegotiationMessageRequest) Execute() (*NegotiationsMessageSent, *http.Response, error) {
 	return r.ApiService.SendNegotiationMessageExecute(r)
 }
@@ -30869,14 +31272,14 @@ func (r ApiSendNegotiationMessageRequest) Execute() (*NegotiationsMessageSent, *
 /*
 SendNegotiationMessage Отправка нового сообщения
 
-Запрос отправляет новое сообщение работодателю в рамках переписки.
+Запрос отправляет новое сообщение в рамках переписки.
 
-Отправить новое сообщение работодателю можно, если:
+Отправить новое сообщение можно, если:
 
 * Работодатель пригласил соискателя на вакансию.
-* Работодатель отказал соискателю по результатам собеседования.
+* Соискатель оставил отклик на вакансию.
 
-Если вакансия была отправлена в архив или соискатель удалил резюме, переписка будет недоступна. Работодатель также может вручную отключить переписку для вакансии
+Если вакансия была отправлена в архив или соискатель удалил резюме, переписка будет недоступна. Работодатель также может вручную отключить переписку для вакансии.
 
 ‼️ Обратите внимание, что методы для работы с сообщениями в рамках отклика/приглашения от имени [соискателя](https://api.hh.ru/openapi/redoc#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/get-negotiation-messages) и 
   [менеджера работодателя](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#%D0%BF%D1%80%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0-%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D0%B9-%D0%B2-%D0%BE%D1%82%D0%BA%D0%BB%D0%B8%D0%BA%D0%B5%D0%BF%D1%80%D0%B8%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B8) устарели, и новые возможности [чатов](https://feedback.hh.ru/knowledge-base/article/1290) в них не будут поддерживаться.
@@ -30884,7 +31287,7 @@ SendNegotiationMessage Отправка нового сообщения
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param nid Идентификатор отклика
+ @param nid Идентификатор отклика/приглашения
  @return ApiSendNegotiationMessageRequest
 */
 func (a *DefaultApiService) SendNegotiationMessage(ctx context.Context, nid string) ApiSendNegotiationMessageRequest {
@@ -30933,7 +31336,7 @@ func (a *DefaultApiService) SendNegotiationMessageExecute(r ApiSendNegotiationMe
 		r.host = &defaultValue
 	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30942,7 +31345,7 @@ func (a *DefaultApiService) SendNegotiationMessageExecute(r ApiSendNegotiationMe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/html"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30950,6 +31353,9 @@ func (a *DefaultApiService) SendNegotiationMessageExecute(r ApiSendNegotiationMe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	if r.message != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "message", r.message, "")
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30972,6 +31378,17 @@ func (a *DefaultApiService) SendNegotiationMessageExecute(r ApiSendNegotiationMe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v SendNegotiationMessage403Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -30984,7 +31401,201 @@ func (a *DefaultApiService) SendNegotiationMessageExecute(r ApiSendNegotiationMe
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v SendNegotiationMessage404Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSendNegotiationMessage_0Request struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	nid string
+	hHUserAgent *string
+	locale *string
+	host *string
+	message *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiSendNegotiationMessage_0Request) HHUserAgent(hHUserAgent string) ApiSendNegotiationMessage_0Request {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiSendNegotiationMessage_0Request) Locale(locale string) ApiSendNegotiationMessage_0Request {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiSendNegotiationMessage_0Request) Host(host string) ApiSendNegotiationMessage_0Request {
+	r.host = &host
+	return r
+}
+
+// Сообщение отклика/приглашения
+func (r ApiSendNegotiationMessage_0Request) Message(message string) ApiSendNegotiationMessage_0Request {
+	r.message = &message
+	return r
+}
+
+func (r ApiSendNegotiationMessage_0Request) Execute() (*NegotiationsMessageSent, *http.Response, error) {
+	return r.ApiService.SendNegotiationMessage_30Execute(r)
+}
+
+/*
+SendNegotiationMessage_0 Отправка нового сообщения
+
+Запрос отправляет новое сообщение в рамках переписки.
+
+Отправить новое сообщение можно, если:
+
+* Работодатель пригласил соискателя на вакансию.
+* Соискатель оставил отклик на вакансию.
+
+Если вакансия была отправлена в архив или соискатель удалил резюме, переписка будет недоступна. Работодатель также может вручную отключить переписку для вакансии.
+
+‼️ Обратите внимание, что методы для работы с сообщениями в рамках отклика/приглашения от имени [соискателя](https://api.hh.ru/openapi/redoc#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/get-negotiation-messages) и 
+  [менеджера работодателя](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#%D0%BF%D1%80%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80-%D1%81%D0%BF%D0%B8%D1%81%D0%BA%D0%B0-%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D0%B9-%D0%B2-%D0%BE%D1%82%D0%BA%D0%BB%D0%B8%D0%BA%D0%B5%D0%BF%D1%80%D0%B8%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B8) устарели, и новые возможности [чатов](https://feedback.hh.ru/knowledge-base/article/1290) в них не будут поддерживаться.
+  В связи с этим переписка может некорректно отображаться
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param nid Идентификатор отклика/приглашения
+ @return ApiSendNegotiationMessage_0Request
+*/
+func (a *DefaultApiService) SendNegotiationMessage_30(ctx context.Context, nid string) ApiSendNegotiationMessage_0Request {
+	return ApiSendNegotiationMessage_0Request{
+		ApiService: a,
+		ctx: ctx,
+		nid: nid,
+	}
+}
+
+// Execute executes the request
+//  @return NegotiationsMessageSent
+func (a *DefaultApiService) SendNegotiationMessage_30Execute(r ApiSendNegotiationMessage_0Request) (*NegotiationsMessageSent, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *NegotiationsMessageSent
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SendNegotiationMessage_30")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/negotiations/{nid}/messages"
+	localVarPath = strings.Replace(localVarPath, "{"+"nid"+"}", url.PathEscape(parameterValueToString(r.nid, "nid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/html"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	if r.message != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "message", r.message, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorsCommonNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v SendNegotiationMessage403Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v SendNegotiationMessage404Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -31057,7 +31668,7 @@ func (r ApiUpdateApplicantCommentRequest) Execute() (*http.Response, error) {
 /*
 UpdateApplicantComment Обновление комментария
 
-Метод требует наличия [платного доступа для работодателя](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md).
+Метод требует наличия [платного доступа для работодателя](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
 
 Автор комментария может изменить его текст и тип доступа. Если параметр не передан, то его значение останется прежним
 
@@ -31765,7 +32376,7 @@ func (r ApiVacancyProlongation_0Request) Host(host string) ApiVacancyProlongatio
 }
 
 func (r ApiVacancyProlongation_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.VacancyProlongation_29Execute(r)
+	return r.ApiService.VacancyProlongation_31Execute(r)
 }
 
 /*
@@ -31784,7 +32395,7 @@ VacancyProlongation_0 Продление вакансии
  @param vacancyId Идентификатор вакансии
  @return ApiVacancyProlongation_0Request
 */
-func (a *DefaultApiService) VacancyProlongation_29(ctx context.Context, vacancyId string) ApiVacancyProlongation_0Request {
+func (a *DefaultApiService) VacancyProlongation_31(ctx context.Context, vacancyId string) ApiVacancyProlongation_0Request {
 	return ApiVacancyProlongation_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -31793,14 +32404,14 @@ func (a *DefaultApiService) VacancyProlongation_29(ctx context.Context, vacancyI
 }
 
 // Execute executes the request
-func (a *DefaultApiService) VacancyProlongation_29Execute(r ApiVacancyProlongation_0Request) (*http.Response, error) {
+func (a *DefaultApiService) VacancyProlongation_31Execute(r ApiVacancyProlongation_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.VacancyProlongation_29")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.VacancyProlongation_31")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

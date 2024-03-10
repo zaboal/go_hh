@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Текстовый идентификатор типа ошибки | 
-**Value** | **string** | Описание ошибки.  Причина ошибки в том, что вы запрашиваете один из [платных методов](https://github.com/hhru/api/blob/master/docs/payable/employer_methods.md) без купленного доступа  | 
+**Value** | **string** | Описание ошибки.  Причина ошибки в том, что вы запрашиваете один из [платных методов](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access) без купленного доступа  | 
 
 ## Methods
 

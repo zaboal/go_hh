@@ -40,7 +40,7 @@ Name | Type | Description | Notes
 **ResumeSearchOrder** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Тип сортировки резюме | [optional] 
 **ResumeSearchRelocation** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Условие поиска по проживанию в регионе и готовности к переезду | [optional] 
 **ResumeStatus** | [**[]IncludesIdName**](IncludesIdName.md) | Статус резюме | 
-**Schedule** | [**[]IncludesIdName**](IncludesIdName.md) | График работы | 
+**Schedule** | [**[]IncludesIdNameUid**](IncludesIdNameUid.md) | График работы | 
 **TravelTime** | [**[]IncludesIdName**](IncludesIdName.md) | Время в пути | 
 **VacancyBillingType** | [**[]IncludesIdName**](IncludesIdName.md) | Варианты размещения вакансии с точки зрения биллинга | 
 **VacancyCluster** | [**[]IncludesIdName**](IncludesIdName.md) | Тип кластеров | 
@@ -58,7 +58,7 @@ Name | Type | Description | Notes
 
 ### NewDictionariesDictResponse
 
-`func NewDictionariesDictResponse(applicantCommentAccessType []IncludesIdName, applicantCommentsOrder []IncludesIdName, applicantNegotiationStatus []IncludesIdName, businessTripReadiness []IncludesIdName, currency []DictionariesCurrencyItem, driverLicenseTypes []IncludesId, educationLevel []IncludesIdName, employerActiveVacanciesOrder []IncludesIdName, employerArchivedVacanciesOrder []IncludesIdName, employerRelation []IncludesIdName, employerType []IncludesIdName, employment []IncludesIdName, experience []IncludesIdName, gender []IncludesIdName, jobSearchStatusesApplicant []IncludesIdName, jobSearchStatusesEmployer []IncludesIdName, languageLevel []IncludesIdName, messagingStatus []IncludesIdName, negotiationsOrder []IncludesIdName, negotiationsParticipantType []IncludesIdName, negotiationsState []IncludesIdName, phoneCallStatus []IncludesIdName, preferredContactType []IncludesIdName, relocationType []IncludesIdName, resumeAccessType []IncludesIdName, resumeContactsSiteType []IncludesIdName, resumeHiddenFields []IncludesIdName, resumeModerationNote []IncludesIdName, resumeStatus []IncludesIdName, schedule []IncludesIdName, travelTime []IncludesIdName, vacancyBillingType []IncludesIdName, vacancyCluster []IncludesIdName, vacancyLabel []IncludesIdName, vacancyNotProlongedReason []IncludesIdName, vacancyRelation []IncludesIdName, vacancySearchFields []IncludesIdName, vacancySearchOrder []IncludesIdName, vacancyType []IncludesIdName, workingDays []IncludesIdName, workingTimeIntervals []IncludesIdName, workingTimeModes []IncludesIdName, ) *DictionariesDictResponse`
+`func NewDictionariesDictResponse(applicantCommentAccessType []IncludesIdName, applicantCommentsOrder []IncludesIdName, applicantNegotiationStatus []IncludesIdName, businessTripReadiness []IncludesIdName, currency []DictionariesCurrencyItem, driverLicenseTypes []IncludesId, educationLevel []IncludesIdName, employerActiveVacanciesOrder []IncludesIdName, employerArchivedVacanciesOrder []IncludesIdName, employerRelation []IncludesIdName, employerType []IncludesIdName, employment []IncludesIdName, experience []IncludesIdName, gender []IncludesIdName, jobSearchStatusesApplicant []IncludesIdName, jobSearchStatusesEmployer []IncludesIdName, languageLevel []IncludesIdName, messagingStatus []IncludesIdName, negotiationsOrder []IncludesIdName, negotiationsParticipantType []IncludesIdName, negotiationsState []IncludesIdName, phoneCallStatus []IncludesIdName, preferredContactType []IncludesIdName, relocationType []IncludesIdName, resumeAccessType []IncludesIdName, resumeContactsSiteType []IncludesIdName, resumeHiddenFields []IncludesIdName, resumeModerationNote []IncludesIdName, resumeStatus []IncludesIdName, schedule []IncludesIdNameUid, travelTime []IncludesIdName, vacancyBillingType []IncludesIdName, vacancyCluster []IncludesIdName, vacancyLabel []IncludesIdName, vacancyNotProlongedReason []IncludesIdName, vacancyRelation []IncludesIdName, vacancySearchFields []IncludesIdName, vacancySearchOrder []IncludesIdName, vacancyType []IncludesIdName, workingDays []IncludesIdName, workingTimeIntervals []IncludesIdName, workingTimeModes []IncludesIdName, ) *DictionariesDictResponse`
 
 NewDictionariesDictResponse instantiates a new DictionariesDictResponse object
 This constructor will assign default values to properties that have it defined,
@@ -830,20 +830,20 @@ SetResumeStatus sets ResumeStatus field to given value.
 
 ### GetSchedule
 
-`func (o *DictionariesDictResponse) GetSchedule() []IncludesIdName`
+`func (o *DictionariesDictResponse) GetSchedule() []IncludesIdNameUid`
 
 GetSchedule returns the Schedule field if non-nil, zero value otherwise.
 
 ### GetScheduleOk
 
-`func (o *DictionariesDictResponse) GetScheduleOk() (*[]IncludesIdName, bool)`
+`func (o *DictionariesDictResponse) GetScheduleOk() (*[]IncludesIdNameUid, bool)`
 
 GetScheduleOk returns a tuple with the Schedule field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSchedule
 
-`func (o *DictionariesDictResponse) SetSchedule(v []IncludesIdName)`
+`func (o *DictionariesDictResponse) SetSchedule(v []IncludesIdNameUid)`
 
 SetSchedule sets Schedule field to given value.
 

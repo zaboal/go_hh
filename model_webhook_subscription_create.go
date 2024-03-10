@@ -23,7 +23,7 @@ var _ MappedNullable = &WebhookSubscriptionCreate{}
 // WebhookSubscriptionCreate struct for WebhookSubscriptionCreate
 type WebhookSubscriptionCreate struct {
 	// Cписок событий
-	Actions []WebhookSubscriptionCommonItemActionsInner `json:"actions"`
+	Actions []WebhookSubscriptionUpdateActionsInner `json:"actions"`
 	// URL, на который будет отправляться POST запрос при наступлении события
 	Url string `json:"url"`
 }
@@ -34,7 +34,7 @@ type _WebhookSubscriptionCreate WebhookSubscriptionCreate
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebhookSubscriptionCreate(actions []WebhookSubscriptionCommonItemActionsInner, url string) *WebhookSubscriptionCreate {
+func NewWebhookSubscriptionCreate(actions []WebhookSubscriptionUpdateActionsInner, url string) *WebhookSubscriptionCreate {
 	this := WebhookSubscriptionCreate{}
 	this.Actions = actions
 	this.Url = url
@@ -50,9 +50,9 @@ func NewWebhookSubscriptionCreateWithDefaults() *WebhookSubscriptionCreate {
 }
 
 // GetActions returns the Actions field value
-func (o *WebhookSubscriptionCreate) GetActions() []WebhookSubscriptionCommonItemActionsInner {
+func (o *WebhookSubscriptionCreate) GetActions() []WebhookSubscriptionUpdateActionsInner {
 	if o == nil {
-		var ret []WebhookSubscriptionCommonItemActionsInner
+		var ret []WebhookSubscriptionUpdateActionsInner
 		return ret
 	}
 
@@ -61,7 +61,7 @@ func (o *WebhookSubscriptionCreate) GetActions() []WebhookSubscriptionCommonItem
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-func (o *WebhookSubscriptionCreate) GetActionsOk() ([]WebhookSubscriptionCommonItemActionsInner, bool) {
+func (o *WebhookSubscriptionCreate) GetActionsOk() ([]WebhookSubscriptionUpdateActionsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *WebhookSubscriptionCreate) GetActionsOk() ([]WebhookSubscriptionCommonI
 }
 
 // SetActions sets field value
-func (o *WebhookSubscriptionCreate) SetActions(v []WebhookSubscriptionCommonItemActionsInner) {
+func (o *WebhookSubscriptionCreate) SetActions(v []WebhookSubscriptionUpdateActionsInner) {
 	o.Actions = v
 }
 

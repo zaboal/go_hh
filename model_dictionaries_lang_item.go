@@ -26,6 +26,8 @@ type DictionariesLangItem struct {
 	Id string `json:"id"`
 	// Название языка
 	Name string `json:"name"`
+	// Универсальный идентификатор языка
+	Uid string `json:"uid"`
 }
 
 type _DictionariesLangItem DictionariesLangItem
@@ -34,10 +36,11 @@ type _DictionariesLangItem DictionariesLangItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDictionariesLangItem(id string, name string) *DictionariesLangItem {
+func NewDictionariesLangItem(id string, name string, uid string) *DictionariesLangItem {
 	this := DictionariesLangItem{}
 	this.Id = id
 	this.Name = name
+	this.Uid = uid
 	return &this
 }
 
@@ -97,6 +100,30 @@ func (o *DictionariesLangItem) SetName(v string) {
 	o.Name = v
 }
 
+// GetUid returns the Uid field value
+func (o *DictionariesLangItem) GetUid() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Uid
+}
+
+// GetUidOk returns a tuple with the Uid field value
+// and a boolean to check if the value has been set.
+func (o *DictionariesLangItem) GetUidOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Uid, true
+}
+
+// SetUid sets field value
+func (o *DictionariesLangItem) SetUid(v string) {
+	o.Uid = v
+}
+
 func (o DictionariesLangItem) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -109,6 +136,7 @@ func (o DictionariesLangItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	toSerialize["uid"] = o.Uid
 	return toSerialize, nil
 }
 
@@ -119,6 +147,7 @@ func (o *DictionariesLangItem) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"name",
+		"uid",
 	}
 
 	allProperties := make(map[string]interface{})

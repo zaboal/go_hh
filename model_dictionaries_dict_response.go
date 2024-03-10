@@ -95,7 +95,7 @@ type DictionariesDictResponse struct {
 	// Статус резюме
 	ResumeStatus []IncludesIdName `json:"resume_status"`
 	// График работы
-	Schedule []IncludesIdName `json:"schedule"`
+	Schedule []IncludesIdNameUid `json:"schedule"`
 	// Время в пути
 	TravelTime []IncludesIdName `json:"travel_time"`
 	// Варианты размещения вакансии с точки зрения биллинга
@@ -128,7 +128,7 @@ type _DictionariesDictResponse DictionariesDictResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDictionariesDictResponse(applicantCommentAccessType []IncludesIdName, applicantCommentsOrder []IncludesIdName, applicantNegotiationStatus []IncludesIdName, businessTripReadiness []IncludesIdName, currency []DictionariesCurrencyItem, driverLicenseTypes []IncludesId, educationLevel []IncludesIdName, employerActiveVacanciesOrder []IncludesIdName, employerArchivedVacanciesOrder []IncludesIdName, employerRelation []IncludesIdName, employerType []IncludesIdName, employment []IncludesIdName, experience []IncludesIdName, gender []IncludesIdName, jobSearchStatusesApplicant []IncludesIdName, jobSearchStatusesEmployer []IncludesIdName, languageLevel []IncludesIdName, messagingStatus []IncludesIdName, negotiationsOrder []IncludesIdName, negotiationsParticipantType []IncludesIdName, negotiationsState []IncludesIdName, phoneCallStatus []IncludesIdName, preferredContactType []IncludesIdName, relocationType []IncludesIdName, resumeAccessType []IncludesIdName, resumeContactsSiteType []IncludesIdName, resumeHiddenFields []IncludesIdName, resumeModerationNote []IncludesIdName, resumeStatus []IncludesIdName, schedule []IncludesIdName, travelTime []IncludesIdName, vacancyBillingType []IncludesIdName, vacancyCluster []IncludesIdName, vacancyLabel []IncludesIdName, vacancyNotProlongedReason []IncludesIdName, vacancyRelation []IncludesIdName, vacancySearchFields []IncludesIdName, vacancySearchOrder []IncludesIdName, vacancyType []IncludesIdName, workingDays []IncludesIdName, workingTimeIntervals []IncludesIdName, workingTimeModes []IncludesIdName) *DictionariesDictResponse {
+func NewDictionariesDictResponse(applicantCommentAccessType []IncludesIdName, applicantCommentsOrder []IncludesIdName, applicantNegotiationStatus []IncludesIdName, businessTripReadiness []IncludesIdName, currency []DictionariesCurrencyItem, driverLicenseTypes []IncludesId, educationLevel []IncludesIdName, employerActiveVacanciesOrder []IncludesIdName, employerArchivedVacanciesOrder []IncludesIdName, employerRelation []IncludesIdName, employerType []IncludesIdName, employment []IncludesIdName, experience []IncludesIdName, gender []IncludesIdName, jobSearchStatusesApplicant []IncludesIdName, jobSearchStatusesEmployer []IncludesIdName, languageLevel []IncludesIdName, messagingStatus []IncludesIdName, negotiationsOrder []IncludesIdName, negotiationsParticipantType []IncludesIdName, negotiationsState []IncludesIdName, phoneCallStatus []IncludesIdName, preferredContactType []IncludesIdName, relocationType []IncludesIdName, resumeAccessType []IncludesIdName, resumeContactsSiteType []IncludesIdName, resumeHiddenFields []IncludesIdName, resumeModerationNote []IncludesIdName, resumeStatus []IncludesIdName, schedule []IncludesIdNameUid, travelTime []IncludesIdName, vacancyBillingType []IncludesIdName, vacancyCluster []IncludesIdName, vacancyLabel []IncludesIdName, vacancyNotProlongedReason []IncludesIdName, vacancyRelation []IncludesIdName, vacancySearchFields []IncludesIdName, vacancySearchOrder []IncludesIdName, vacancyType []IncludesIdName, workingDays []IncludesIdName, workingTimeIntervals []IncludesIdName, workingTimeModes []IncludesIdName) *DictionariesDictResponse {
 	this := DictionariesDictResponse{}
 	this.ApplicantCommentAccessType = applicantCommentAccessType
 	this.ApplicantCommentsOrder = applicantCommentsOrder
@@ -1104,9 +1104,9 @@ func (o *DictionariesDictResponse) SetResumeStatus(v []IncludesIdName) {
 }
 
 // GetSchedule returns the Schedule field value
-func (o *DictionariesDictResponse) GetSchedule() []IncludesIdName {
+func (o *DictionariesDictResponse) GetSchedule() []IncludesIdNameUid {
 	if o == nil {
-		var ret []IncludesIdName
+		var ret []IncludesIdNameUid
 		return ret
 	}
 
@@ -1115,7 +1115,7 @@ func (o *DictionariesDictResponse) GetSchedule() []IncludesIdName {
 
 // GetScheduleOk returns a tuple with the Schedule field value
 // and a boolean to check if the value has been set.
-func (o *DictionariesDictResponse) GetScheduleOk() ([]IncludesIdName, bool) {
+func (o *DictionariesDictResponse) GetScheduleOk() ([]IncludesIdNameUid, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1123,7 +1123,7 @@ func (o *DictionariesDictResponse) GetScheduleOk() ([]IncludesIdName, bool) {
 }
 
 // SetSchedule sets field value
-func (o *DictionariesDictResponse) SetSchedule(v []IncludesIdName) {
+func (o *DictionariesDictResponse) SetSchedule(v []IncludesIdNameUid) {
 	o.Schedule = v
 }
 
