@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **AllowMessages** | **bool** | Возможность [переписки с кандидатами](https://inboxemp.hh.ru/) по данной вакансии | 
 **AlternateUrl** | **string** | Ссылка на представление вакансии на сайте | 
 **ApplyAlternateUrl** | **string** | Ссылка на отклик на вакансию на сайте | 
+**Approved** | **bool** | Прошла ли вакансия модерацию | 
 **Archived** | **bool** | Находится ли данная вакансия в архиве | 
 **Area** | [**IncludesArea**](IncludesArea.md) |  | 
 **BillingType** | [**NullableVacancyBillingTypeOutput**](VacancyBillingTypeOutput.md) |  | 
@@ -53,7 +54,7 @@ Name | Type | Description | Notes
 
 ### NewVacanciesVacancyCommonFields
 
-`func NewVacanciesVacancyCommonFields(acceptHandicapped bool, acceptIncompleteResumes bool, acceptKids bool, allowMessages bool, alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, billingType NullableVacancyBillingTypeOutput, createdAt string, description string, driverLicenseTypes []VacancyDriverLicenceTypeItem, experience NullableVacancyExperienceOutput, hasTest bool, id string, initialCreatedAt string, keySkills []VacancyKeySkillItem, name string, premium bool, professionalRoles []VacancyProfessionalRoleItemOutput, publishedAt string, responseLetterRequired bool, schedule VacancyScheduleOutput, type_ IncludesIdName, ) *VacanciesVacancyCommonFields`
+`func NewVacanciesVacancyCommonFields(acceptHandicapped bool, acceptIncompleteResumes bool, acceptKids bool, allowMessages bool, alternateUrl string, applyAlternateUrl string, approved bool, archived bool, area IncludesArea, billingType NullableVacancyBillingTypeOutput, createdAt string, description string, driverLicenseTypes []VacancyDriverLicenceTypeItem, experience NullableVacancyExperienceOutput, hasTest bool, id string, initialCreatedAt string, keySkills []VacancyKeySkillItem, name string, premium bool, professionalRoles []VacancyProfessionalRoleItemOutput, publishedAt string, responseLetterRequired bool, schedule VacancyScheduleOutput, type_ IncludesIdName, ) *VacanciesVacancyCommonFields`
 
 NewVacanciesVacancyCommonFields instantiates a new VacanciesVacancyCommonFields object
 This constructor will assign default values to properties that have it defined,
@@ -221,6 +222,26 @@ and a boolean to check if the value has been set.
 `func (o *VacanciesVacancyCommonFields) SetApplyAlternateUrl(v string)`
 
 SetApplyAlternateUrl sets ApplyAlternateUrl field to given value.
+
+
+### GetApproved
+
+`func (o *VacanciesVacancyCommonFields) GetApproved() bool`
+
+GetApproved returns the Approved field if non-nil, zero value otherwise.
+
+### GetApprovedOk
+
+`func (o *VacanciesVacancyCommonFields) GetApprovedOk() (*bool, bool)`
+
+GetApprovedOk returns a tuple with the Approved field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApproved
+
+`func (o *VacanciesVacancyCommonFields) SetApproved(v bool)`
+
+SetApproved sets Approved field to given value.
 
 
 ### GetArchived

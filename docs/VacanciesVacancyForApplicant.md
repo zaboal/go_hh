@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **AllowMessages** | **bool** | Возможность [переписки с кандидатами](https://inboxemp.hh.ru/) по данной вакансии | 
 **AlternateUrl** | **string** | Ссылка на представление вакансии на сайте | 
 **ApplyAlternateUrl** | **string** | Ссылка на отклик на вакансию на сайте | 
+**Approved** | **bool** | Прошла ли вакансия модерацию | 
 **Archived** | **bool** | Находится ли данная вакансия в архиве | 
 **Area** | [**IncludesArea**](IncludesArea.md) |  | 
 **BillingType** | [**NullableVacancyBillingTypeOutput**](VacancyBillingTypeOutput.md) |  | 
@@ -55,7 +56,7 @@ Name | Type | Description | Notes
 
 ### NewVacanciesVacancyForApplicant
 
-`func NewVacanciesVacancyForApplicant(acceptHandicapped bool, acceptIncompleteResumes bool, acceptKids bool, allowMessages bool, alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, billingType NullableVacancyBillingTypeOutput, createdAt string, description string, driverLicenseTypes []VacancyDriverLicenceTypeItem, experience NullableVacancyExperienceOutput, hasTest bool, id string, initialCreatedAt string, keySkills []VacancyKeySkillItem, name string, premium bool, professionalRoles []VacancyProfessionalRoleItemOutput, publishedAt string, responseLetterRequired bool, schedule VacancyScheduleOutput, type_ IncludesIdName, ) *VacanciesVacancyForApplicant`
+`func NewVacanciesVacancyForApplicant(acceptHandicapped bool, acceptIncompleteResumes bool, acceptKids bool, allowMessages bool, alternateUrl string, applyAlternateUrl string, approved bool, archived bool, area IncludesArea, billingType NullableVacancyBillingTypeOutput, createdAt string, description string, driverLicenseTypes []VacancyDriverLicenceTypeItem, experience NullableVacancyExperienceOutput, hasTest bool, id string, initialCreatedAt string, keySkills []VacancyKeySkillItem, name string, premium bool, professionalRoles []VacancyProfessionalRoleItemOutput, publishedAt string, responseLetterRequired bool, schedule VacancyScheduleOutput, type_ IncludesIdName, ) *VacanciesVacancyForApplicant`
 
 NewVacanciesVacancyForApplicant instantiates a new VacanciesVacancyForApplicant object
 This constructor will assign default values to properties that have it defined,
@@ -223,6 +224,26 @@ and a boolean to check if the value has been set.
 `func (o *VacanciesVacancyForApplicant) SetApplyAlternateUrl(v string)`
 
 SetApplyAlternateUrl sets ApplyAlternateUrl field to given value.
+
+
+### GetApproved
+
+`func (o *VacanciesVacancyForApplicant) GetApproved() bool`
+
+GetApproved returns the Approved field if non-nil, zero value otherwise.
+
+### GetApprovedOk
+
+`func (o *VacanciesVacancyForApplicant) GetApprovedOk() (*bool, bool)`
+
+GetApprovedOk returns a tuple with the Approved field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApproved
+
+`func (o *VacanciesVacancyForApplicant) SetApproved(v bool)`
+
+SetApproved sets Approved field to given value.
 
 
 ### GetArchived

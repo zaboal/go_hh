@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Reason** | Pointer to **string** | Причина ошибки. Возможные значения:   * &#x60;too_long_value&#x60; - слишком длинное значение   * &#x60;too_many_arguments&#x60; - слишком много аргументов   * &#x60;invalid&#x60; - значение введено не корректно  | [optional] 
+**Reason** | Pointer to **string** | Причина ошибки. Возможные значения:   * &#x60;too_long_value&#x60; — слишком длинное значение   * &#x60;too_many_arguments&#x60; — слишком много аргументов   * &#x60;invalid&#x60; — значение введено некорректно  | [optional] 
 **Type** | **string** | Текстовый идентификатор типа ошибки | 
 **Value** | Pointer to **string** | Название поля с ошибкой  | [optional] 
 
