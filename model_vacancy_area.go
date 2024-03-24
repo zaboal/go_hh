@@ -22,7 +22,7 @@ var _ MappedNullable = &VacancyArea{}
 
 // VacancyArea struct for VacancyArea
 type VacancyArea struct {
-	// Город публикации из [справочника](#tag/Obshie-spravochniki/operation/get-areas). Можно передать не более 50 элементов
+	// Город публикации из [справочника](#tag/Obshie-spravochniki/operation/get-areas)
 	Id string `json:"id"`
 }
 

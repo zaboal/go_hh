@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Город публикации из [справочника](#tag/Obshie-spravochniki/operation/get-areas). Можно передать не более 50 элементов | 
+**Id** | **string** | Город публикации из [справочника](#tag/Obshie-spravochniki/operation/get-areas) | 
 
 ## Methods
 

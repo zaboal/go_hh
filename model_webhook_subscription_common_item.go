@@ -23,7 +23,7 @@ var _ MappedNullable = &WebhookSubscriptionCommonItem{}
 // WebhookSubscriptionCommonItem struct for WebhookSubscriptionCommonItem
 type WebhookSubscriptionCommonItem struct {
 	// Cписок событий
-	Actions []WebhookSubscriptionCommonItemActionsInner `json:"actions"`
+	Actions []WebhookSubscriptionUpdateActionsInner `json:"actions"`
 	// URL, на который будет отправляться POST запрос при наступлении события
 	Url string `json:"url"`
 }
@@ -34,7 +34,7 @@ type _WebhookSubscriptionCommonItem WebhookSubscriptionCommonItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebhookSubscriptionCommonItem(actions []WebhookSubscriptionCommonItemActionsInner, url string) *WebhookSubscriptionCommonItem {
+func NewWebhookSubscriptionCommonItem(actions []WebhookSubscriptionUpdateActionsInner, url string) *WebhookSubscriptionCommonItem {
 	this := WebhookSubscriptionCommonItem{}
 	this.Actions = actions
 	this.Url = url
@@ -50,9 +50,9 @@ func NewWebhookSubscriptionCommonItemWithDefaults() *WebhookSubscriptionCommonIt
 }
 
 // GetActions returns the Actions field value
-func (o *WebhookSubscriptionCommonItem) GetActions() []WebhookSubscriptionCommonItemActionsInner {
+func (o *WebhookSubscriptionCommonItem) GetActions() []WebhookSubscriptionUpdateActionsInner {
 	if o == nil {
-		var ret []WebhookSubscriptionCommonItemActionsInner
+		var ret []WebhookSubscriptionUpdateActionsInner
 		return ret
 	}
 
@@ -61,7 +61,7 @@ func (o *WebhookSubscriptionCommonItem) GetActions() []WebhookSubscriptionCommon
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-func (o *WebhookSubscriptionCommonItem) GetActionsOk() ([]WebhookSubscriptionCommonItemActionsInner, bool) {
+func (o *WebhookSubscriptionCommonItem) GetActionsOk() ([]WebhookSubscriptionUpdateActionsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *WebhookSubscriptionCommonItem) GetActionsOk() ([]WebhookSubscriptionCom
 }
 
 // SetActions sets field value
-func (o *WebhookSubscriptionCommonItem) SetActions(v []WebhookSubscriptionCommonItemActionsInner) {
+func (o *WebhookSubscriptionCommonItem) SetActions(v []WebhookSubscriptionUpdateActionsInner) {
 	o.Actions = v
 }
 

@@ -674,10 +674,10 @@ docs/WebhookPayloadVacancyPublicationForVacancyManager.md
 docs/WebhookSendObjectBaseUser.md
 docs/WebhookSendObjectBaseUserPayload.md
 docs/WebhookSubscriptionCommonItem.md
-docs/WebhookSubscriptionCommonItemActionsInner.md
 docs/WebhookSubscriptionCreate.md
 docs/WebhookSubscriptionItem.md
 docs/WebhookSubscriptionUpdate.md
+docs/WebhookSubscriptionUpdateActionsInner.md
 docs/WebhookSubscriptionsOutput.md
 docs/WebhookSubscriptionsPostRequest.md
 git_push.sh
@@ -1352,10 +1352,10 @@ model_webhook_payload_vacancy_publication_for_vacancy_manager.go
 model_webhook_send_object_base_user.go
 model_webhook_send_object_base_user_payload.go
 model_webhook_subscription_common_item.go
-model_webhook_subscription_common_item_actions_inner.go
 model_webhook_subscription_create.go
 model_webhook_subscription_item.go
 model_webhook_subscription_update.go
+model_webhook_subscription_update_actions_inner.go
 model_webhook_subscriptions_output.go
 response.go
 utils.go
