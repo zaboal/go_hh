@@ -1,4 +1,4 @@
-# NegotiationsNegotiationGetResponse
+# NegotiationsApplicantNegotiation
 
 ## Properties
 
@@ -21,531 +21,437 @@ Name | Type | Description | Notes
 **JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **PhoneCalls** | Pointer to [**NegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
 **Url** | **string** | Ссылка на полную версию отклика | 
-**Resume** | Pointer to [**NegotiationsObjectsEmployerTopicResume**](NegotiationsObjectsEmployerTopicResume.md) |  | [optional] 
-**Actions** | Pointer to [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info)  | [optional] 
-**EmployerState** | Pointer to [**EmployersEmployersState**](EmployersEmployersState.md) |  | [optional] 
-**Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 
-**TestResult** | Pointer to [**SkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
+**Resume** | Pointer to [**NullableNegotiationsObjectsTopicResume**](NegotiationsObjectsTopicResume.md) |  | [optional] 
 
 ## Methods
 
-### NewNegotiationsNegotiationGetResponse
+### NewNegotiationsApplicantNegotiation
 
-`func NewNegotiationsNegotiationGetResponse(createdAt string, hasUpdates bool, id string, messagingStatus string, state IncludesIdName, updatedAt string, viewedByOpponent bool, declineAllowed bool, hidden bool, url string, ) *NegotiationsNegotiationGetResponse`
+`func NewNegotiationsApplicantNegotiation(createdAt string, hasUpdates bool, id string, messagingStatus string, state IncludesIdName, updatedAt string, viewedByOpponent bool, declineAllowed bool, hidden bool, url string, ) *NegotiationsApplicantNegotiation`
 
-NewNegotiationsNegotiationGetResponse instantiates a new NegotiationsNegotiationGetResponse object
+NewNegotiationsApplicantNegotiation instantiates a new NegotiationsApplicantNegotiation object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewNegotiationsNegotiationGetResponseWithDefaults
+### NewNegotiationsApplicantNegotiationWithDefaults
 
-`func NewNegotiationsNegotiationGetResponseWithDefaults() *NegotiationsNegotiationGetResponse`
+`func NewNegotiationsApplicantNegotiationWithDefaults() *NegotiationsApplicantNegotiation`
 
-NewNegotiationsNegotiationGetResponseWithDefaults instantiates a new NegotiationsNegotiationGetResponse object
+NewNegotiationsApplicantNegotiationWithDefaults instantiates a new NegotiationsApplicantNegotiation object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetCounters
 
-`func (o *NegotiationsNegotiationGetResponse) GetCounters() NegotiationsObjectsCounters`
+`func (o *NegotiationsApplicantNegotiation) GetCounters() NegotiationsObjectsCounters`
 
 GetCounters returns the Counters field if non-nil, zero value otherwise.
 
 ### GetCountersOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetCountersOk() (*NegotiationsObjectsCounters, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetCountersOk() (*NegotiationsObjectsCounters, bool)`
 
 GetCountersOk returns a tuple with the Counters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCounters
 
-`func (o *NegotiationsNegotiationGetResponse) SetCounters(v NegotiationsObjectsCounters)`
+`func (o *NegotiationsApplicantNegotiation) SetCounters(v NegotiationsObjectsCounters)`
 
 SetCounters sets Counters field to given value.
 
 ### HasCounters
 
-`func (o *NegotiationsNegotiationGetResponse) HasCounters() bool`
+`func (o *NegotiationsApplicantNegotiation) HasCounters() bool`
 
 HasCounters returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *NegotiationsNegotiationGetResponse) GetCreatedAt() string`
+`func (o *NegotiationsApplicantNegotiation) GetCreatedAt() string`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetCreatedAtOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetCreatedAtOk() (*string, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *NegotiationsNegotiationGetResponse) SetCreatedAt(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetCreatedAt(v string)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetHasUpdates
 
-`func (o *NegotiationsNegotiationGetResponse) GetHasUpdates() bool`
+`func (o *NegotiationsApplicantNegotiation) GetHasUpdates() bool`
 
 GetHasUpdates returns the HasUpdates field if non-nil, zero value otherwise.
 
 ### GetHasUpdatesOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetHasUpdatesOk() (*bool, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetHasUpdatesOk() (*bool, bool)`
 
 GetHasUpdatesOk returns a tuple with the HasUpdates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHasUpdates
 
-`func (o *NegotiationsNegotiationGetResponse) SetHasUpdates(v bool)`
+`func (o *NegotiationsApplicantNegotiation) SetHasUpdates(v bool)`
 
 SetHasUpdates sets HasUpdates field to given value.
 
 
 ### GetId
 
-`func (o *NegotiationsNegotiationGetResponse) GetId() string`
+`func (o *NegotiationsApplicantNegotiation) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetIdOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *NegotiationsNegotiationGetResponse) SetId(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
 ### GetMessagesUrl
 
-`func (o *NegotiationsNegotiationGetResponse) GetMessagesUrl() string`
+`func (o *NegotiationsApplicantNegotiation) GetMessagesUrl() string`
 
 GetMessagesUrl returns the MessagesUrl field if non-nil, zero value otherwise.
 
 ### GetMessagesUrlOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetMessagesUrlOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetMessagesUrlOk() (*string, bool)`
 
 GetMessagesUrlOk returns a tuple with the MessagesUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessagesUrl
 
-`func (o *NegotiationsNegotiationGetResponse) SetMessagesUrl(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetMessagesUrl(v string)`
 
 SetMessagesUrl sets MessagesUrl field to given value.
 
 ### HasMessagesUrl
 
-`func (o *NegotiationsNegotiationGetResponse) HasMessagesUrl() bool`
+`func (o *NegotiationsApplicantNegotiation) HasMessagesUrl() bool`
 
 HasMessagesUrl returns a boolean if a field has been set.
 
 ### GetMessagingStatus
 
-`func (o *NegotiationsNegotiationGetResponse) GetMessagingStatus() string`
+`func (o *NegotiationsApplicantNegotiation) GetMessagingStatus() string`
 
 GetMessagingStatus returns the MessagingStatus field if non-nil, zero value otherwise.
 
 ### GetMessagingStatusOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetMessagingStatusOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetMessagingStatusOk() (*string, bool)`
 
 GetMessagingStatusOk returns a tuple with the MessagingStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessagingStatus
 
-`func (o *NegotiationsNegotiationGetResponse) SetMessagingStatus(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetMessagingStatus(v string)`
 
 SetMessagingStatus sets MessagingStatus field to given value.
 
 
 ### GetProfessionalRoles
 
-`func (o *NegotiationsNegotiationGetResponse) GetProfessionalRoles() []VacancyProfessionalRoleItem`
+`func (o *NegotiationsApplicantNegotiation) GetProfessionalRoles() []VacancyProfessionalRoleItem`
 
 GetProfessionalRoles returns the ProfessionalRoles field if non-nil, zero value otherwise.
 
 ### GetProfessionalRolesOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetProfessionalRolesOk() (*[]VacancyProfessionalRoleItem, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetProfessionalRolesOk() (*[]VacancyProfessionalRoleItem, bool)`
 
 GetProfessionalRolesOk returns a tuple with the ProfessionalRoles field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfessionalRoles
 
-`func (o *NegotiationsNegotiationGetResponse) SetProfessionalRoles(v []VacancyProfessionalRoleItem)`
+`func (o *NegotiationsApplicantNegotiation) SetProfessionalRoles(v []VacancyProfessionalRoleItem)`
 
 SetProfessionalRoles sets ProfessionalRoles field to given value.
 
 ### HasProfessionalRoles
 
-`func (o *NegotiationsNegotiationGetResponse) HasProfessionalRoles() bool`
+`func (o *NegotiationsApplicantNegotiation) HasProfessionalRoles() bool`
 
 HasProfessionalRoles returns a boolean if a field has been set.
 
 ### GetSource
 
-`func (o *NegotiationsNegotiationGetResponse) GetSource() string`
+`func (o *NegotiationsApplicantNegotiation) GetSource() string`
 
 GetSource returns the Source field if non-nil, zero value otherwise.
 
 ### GetSourceOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetSourceOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetSourceOk() (*string, bool)`
 
 GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSource
 
-`func (o *NegotiationsNegotiationGetResponse) SetSource(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetSource(v string)`
 
 SetSource sets Source field to given value.
 
 ### HasSource
 
-`func (o *NegotiationsNegotiationGetResponse) HasSource() bool`
+`func (o *NegotiationsApplicantNegotiation) HasSource() bool`
 
 HasSource returns a boolean if a field has been set.
 
 ### GetState
 
-`func (o *NegotiationsNegotiationGetResponse) GetState() IncludesIdName`
+`func (o *NegotiationsApplicantNegotiation) GetState() IncludesIdName`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetStateOk() (*IncludesIdName, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetStateOk() (*IncludesIdName, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *NegotiationsNegotiationGetResponse) SetState(v IncludesIdName)`
+`func (o *NegotiationsApplicantNegotiation) SetState(v IncludesIdName)`
 
 SetState sets State field to given value.
 
 
 ### GetUpdatedAt
 
-`func (o *NegotiationsNegotiationGetResponse) GetUpdatedAt() string`
+`func (o *NegotiationsApplicantNegotiation) GetUpdatedAt() string`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetUpdatedAtOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetUpdatedAtOk() (*string, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *NegotiationsNegotiationGetResponse) SetUpdatedAt(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetUpdatedAt(v string)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
 ### GetVacancy
 
-`func (o *NegotiationsNegotiationGetResponse) GetVacancy() VacanciesNegotiationsVacancyShort`
+`func (o *NegotiationsApplicantNegotiation) GetVacancy() VacanciesNegotiationsVacancyShort`
 
 GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
 
 ### GetVacancyOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
 
 GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVacancy
 
-`func (o *NegotiationsNegotiationGetResponse) SetVacancy(v VacanciesNegotiationsVacancyShort)`
+`func (o *NegotiationsApplicantNegotiation) SetVacancy(v VacanciesNegotiationsVacancyShort)`
 
 SetVacancy sets Vacancy field to given value.
 
 ### HasVacancy
 
-`func (o *NegotiationsNegotiationGetResponse) HasVacancy() bool`
+`func (o *NegotiationsApplicantNegotiation) HasVacancy() bool`
 
 HasVacancy returns a boolean if a field has been set.
 
 ### GetViewedByOpponent
 
-`func (o *NegotiationsNegotiationGetResponse) GetViewedByOpponent() bool`
+`func (o *NegotiationsApplicantNegotiation) GetViewedByOpponent() bool`
 
 GetViewedByOpponent returns the ViewedByOpponent field if non-nil, zero value otherwise.
 
 ### GetViewedByOpponentOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetViewedByOpponentOk() (*bool, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetViewedByOpponentOk() (*bool, bool)`
 
 GetViewedByOpponentOk returns a tuple with the ViewedByOpponent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetViewedByOpponent
 
-`func (o *NegotiationsNegotiationGetResponse) SetViewedByOpponent(v bool)`
+`func (o *NegotiationsApplicantNegotiation) SetViewedByOpponent(v bool)`
 
 SetViewedByOpponent sets ViewedByOpponent field to given value.
 
 
 ### GetDeclineAllowed
 
-`func (o *NegotiationsNegotiationGetResponse) GetDeclineAllowed() bool`
+`func (o *NegotiationsApplicantNegotiation) GetDeclineAllowed() bool`
 
 GetDeclineAllowed returns the DeclineAllowed field if non-nil, zero value otherwise.
 
 ### GetDeclineAllowedOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetDeclineAllowedOk() (*bool, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetDeclineAllowedOk() (*bool, bool)`
 
 GetDeclineAllowedOk returns a tuple with the DeclineAllowed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeclineAllowed
 
-`func (o *NegotiationsNegotiationGetResponse) SetDeclineAllowed(v bool)`
+`func (o *NegotiationsApplicantNegotiation) SetDeclineAllowed(v bool)`
 
 SetDeclineAllowed sets DeclineAllowed field to given value.
 
 
 ### GetHidden
 
-`func (o *NegotiationsNegotiationGetResponse) GetHidden() bool`
+`func (o *NegotiationsApplicantNegotiation) GetHidden() bool`
 
 GetHidden returns the Hidden field if non-nil, zero value otherwise.
 
 ### GetHiddenOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetHiddenOk() (*bool, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetHiddenOk() (*bool, bool)`
 
 GetHiddenOk returns a tuple with the Hidden field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHidden
 
-`func (o *NegotiationsNegotiationGetResponse) SetHidden(v bool)`
+`func (o *NegotiationsApplicantNegotiation) SetHidden(v bool)`
 
 SetHidden sets Hidden field to given value.
 
 
 ### GetJobSearchStatus
 
-`func (o *NegotiationsNegotiationGetResponse) GetJobSearchStatus() IncludesIdName`
+`func (o *NegotiationsApplicantNegotiation) GetJobSearchStatus() IncludesIdName`
 
 GetJobSearchStatus returns the JobSearchStatus field if non-nil, zero value otherwise.
 
 ### GetJobSearchStatusOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetJobSearchStatusOk() (*IncludesIdName, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetJobSearchStatusOk() (*IncludesIdName, bool)`
 
 GetJobSearchStatusOk returns a tuple with the JobSearchStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetJobSearchStatus
 
-`func (o *NegotiationsNegotiationGetResponse) SetJobSearchStatus(v IncludesIdName)`
+`func (o *NegotiationsApplicantNegotiation) SetJobSearchStatus(v IncludesIdName)`
 
 SetJobSearchStatus sets JobSearchStatus field to given value.
 
 ### HasJobSearchStatus
 
-`func (o *NegotiationsNegotiationGetResponse) HasJobSearchStatus() bool`
+`func (o *NegotiationsApplicantNegotiation) HasJobSearchStatus() bool`
 
 HasJobSearchStatus returns a boolean if a field has been set.
 
 ### GetPhoneCalls
 
-`func (o *NegotiationsNegotiationGetResponse) GetPhoneCalls() NegotiationsPhoneCalls`
+`func (o *NegotiationsApplicantNegotiation) GetPhoneCalls() NegotiationsPhoneCalls`
 
 GetPhoneCalls returns the PhoneCalls field if non-nil, zero value otherwise.
 
 ### GetPhoneCallsOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool)`
 
 GetPhoneCallsOk returns a tuple with the PhoneCalls field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhoneCalls
 
-`func (o *NegotiationsNegotiationGetResponse) SetPhoneCalls(v NegotiationsPhoneCalls)`
+`func (o *NegotiationsApplicantNegotiation) SetPhoneCalls(v NegotiationsPhoneCalls)`
 
 SetPhoneCalls sets PhoneCalls field to given value.
 
 ### HasPhoneCalls
 
-`func (o *NegotiationsNegotiationGetResponse) HasPhoneCalls() bool`
+`func (o *NegotiationsApplicantNegotiation) HasPhoneCalls() bool`
 
 HasPhoneCalls returns a boolean if a field has been set.
 
 ### GetUrl
 
-`func (o *NegotiationsNegotiationGetResponse) GetUrl() string`
+`func (o *NegotiationsApplicantNegotiation) GetUrl() string`
 
 GetUrl returns the Url field if non-nil, zero value otherwise.
 
 ### GetUrlOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetUrlOk() (*string, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetUrlOk() (*string, bool)`
 
 GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUrl
 
-`func (o *NegotiationsNegotiationGetResponse) SetUrl(v string)`
+`func (o *NegotiationsApplicantNegotiation) SetUrl(v string)`
 
 SetUrl sets Url field to given value.
 
 
 ### GetResume
 
-`func (o *NegotiationsNegotiationGetResponse) GetResume() NegotiationsObjectsEmployerTopicResume`
+`func (o *NegotiationsApplicantNegotiation) GetResume() NegotiationsObjectsTopicResume`
 
 GetResume returns the Resume field if non-nil, zero value otherwise.
 
 ### GetResumeOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetResumeOk() (*NegotiationsObjectsEmployerTopicResume, bool)`
+`func (o *NegotiationsApplicantNegotiation) GetResumeOk() (*NegotiationsObjectsTopicResume, bool)`
 
 GetResumeOk returns a tuple with the Resume field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResume
 
-`func (o *NegotiationsNegotiationGetResponse) SetResume(v NegotiationsObjectsEmployerTopicResume)`
+`func (o *NegotiationsApplicantNegotiation) SetResume(v NegotiationsObjectsTopicResume)`
 
 SetResume sets Resume field to given value.
 
 ### HasResume
 
-`func (o *NegotiationsNegotiationGetResponse) HasResume() bool`
+`func (o *NegotiationsApplicantNegotiation) HasResume() bool`
 
 HasResume returns a boolean if a field has been set.
 
-### GetActions
+### SetResumeNil
 
-`func (o *NegotiationsNegotiationGetResponse) GetActions() []VacancyNegotiationActions`
+`func (o *NegotiationsApplicantNegotiation) SetResumeNil(b bool)`
 
-GetActions returns the Actions field if non-nil, zero value otherwise.
+ SetResumeNil sets the value for Resume to be an explicit nil
 
-### GetActionsOk
+### UnsetResume
+`func (o *NegotiationsApplicantNegotiation) UnsetResume()`
 
-`func (o *NegotiationsNegotiationGetResponse) GetActionsOk() (*[]VacancyNegotiationActions, bool)`
-
-GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActions
-
-`func (o *NegotiationsNegotiationGetResponse) SetActions(v []VacancyNegotiationActions)`
-
-SetActions sets Actions field to given value.
-
-### HasActions
-
-`func (o *NegotiationsNegotiationGetResponse) HasActions() bool`
-
-HasActions returns a boolean if a field has been set.
-
-### GetEmployerState
-
-`func (o *NegotiationsNegotiationGetResponse) GetEmployerState() EmployersEmployersState`
-
-GetEmployerState returns the EmployerState field if non-nil, zero value otherwise.
-
-### GetEmployerStateOk
-
-`func (o *NegotiationsNegotiationGetResponse) GetEmployerStateOk() (*EmployersEmployersState, bool)`
-
-GetEmployerStateOk returns a tuple with the EmployerState field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEmployerState
-
-`func (o *NegotiationsNegotiationGetResponse) SetEmployerState(v EmployersEmployersState)`
-
-SetEmployerState sets EmployerState field to given value.
-
-### HasEmployerState
-
-`func (o *NegotiationsNegotiationGetResponse) HasEmployerState() bool`
-
-HasEmployerState returns a boolean if a field has been set.
-
-### GetTemplates
-
-`func (o *NegotiationsNegotiationGetResponse) GetTemplates() []VacancyTemplates`
-
-GetTemplates returns the Templates field if non-nil, zero value otherwise.
-
-### GetTemplatesOk
-
-`func (o *NegotiationsNegotiationGetResponse) GetTemplatesOk() (*[]VacancyTemplates, bool)`
-
-GetTemplatesOk returns a tuple with the Templates field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTemplates
-
-`func (o *NegotiationsNegotiationGetResponse) SetTemplates(v []VacancyTemplates)`
-
-SetTemplates sets Templates field to given value.
-
-### HasTemplates
-
-`func (o *NegotiationsNegotiationGetResponse) HasTemplates() bool`
-
-HasTemplates returns a boolean if a field has been set.
-
-### GetTestResult
-
-`func (o *NegotiationsNegotiationGetResponse) GetTestResult() SkillVerificationsTestResultWithUrl`
-
-GetTestResult returns the TestResult field if non-nil, zero value otherwise.
-
-### GetTestResultOk
-
-`func (o *NegotiationsNegotiationGetResponse) GetTestResultOk() (*SkillVerificationsTestResultWithUrl, bool)`
-
-GetTestResultOk returns a tuple with the TestResult field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTestResult
-
-`func (o *NegotiationsNegotiationGetResponse) SetTestResult(v SkillVerificationsTestResultWithUrl)`
-
-SetTestResult sets TestResult field to given value.
-
-### HasTestResult
-
-`func (o *NegotiationsNegotiationGetResponse) HasTestResult() bool`
-
-HasTestResult returns a boolean if a field has been set.
-
+UnsetResume ensures that no value is present for Resume, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

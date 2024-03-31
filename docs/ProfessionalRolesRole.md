@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **Id** | **string** | Идентификатор профессиональной роли | 
 **IsDefault** | **bool** | Дефолтная роль | 
 **Name** | **string** | Имя профессиональной роли | 
+**SearchDeprecated** | Pointer to **bool** | Наличие запрета на использование в поиске при составлении поискового запроса | [optional] 
+**SelectDeprecated** | Pointer to **bool** | Наличие запрета на использование при создании новых сущностей (резюме или вакансии) | [optional] 
 
 ## Methods
 
@@ -107,6 +109,56 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetSearchDeprecated
+
+`func (o *ProfessionalRolesRole) GetSearchDeprecated() bool`
+
+GetSearchDeprecated returns the SearchDeprecated field if non-nil, zero value otherwise.
+
+### GetSearchDeprecatedOk
+
+`func (o *ProfessionalRolesRole) GetSearchDeprecatedOk() (*bool, bool)`
+
+GetSearchDeprecatedOk returns a tuple with the SearchDeprecated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSearchDeprecated
+
+`func (o *ProfessionalRolesRole) SetSearchDeprecated(v bool)`
+
+SetSearchDeprecated sets SearchDeprecated field to given value.
+
+### HasSearchDeprecated
+
+`func (o *ProfessionalRolesRole) HasSearchDeprecated() bool`
+
+HasSearchDeprecated returns a boolean if a field has been set.
+
+### GetSelectDeprecated
+
+`func (o *ProfessionalRolesRole) GetSelectDeprecated() bool`
+
+GetSelectDeprecated returns the SelectDeprecated field if non-nil, zero value otherwise.
+
+### GetSelectDeprecatedOk
+
+`func (o *ProfessionalRolesRole) GetSelectDeprecatedOk() (*bool, bool)`
+
+GetSelectDeprecatedOk returns a tuple with the SelectDeprecated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelectDeprecated
+
+`func (o *ProfessionalRolesRole) SetSelectDeprecated(v bool)`
+
+SetSelectDeprecated sets SelectDeprecated field to given value.
+
+### HasSelectDeprecated
+
+`func (o *ProfessionalRolesRole) HasSelectDeprecated() bool`
+
+HasSelectDeprecated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -127,6 +127,7 @@ docs/ErrorsCommonBadAuthorizationPaymentMethodErrors.md
 docs/ErrorsCommonBadAuthorizationUnsupportedGrantTypeError.md
 docs/ErrorsCommonBadJsonDataError.md
 docs/ErrorsCommonBadJsonDataErrors.md
+docs/ErrorsCommonBadRequestBadArgumentBadRequestAndBadArgumentErrors.md
 docs/ErrorsCommonBadRequestError.md
 docs/ErrorsCommonBadRequestErrors.md
 docs/ErrorsCommonCaptchaError.md
@@ -136,7 +137,6 @@ docs/ErrorsCommonConflictBothChangedErrors.md
 docs/ErrorsCommonErrorRequestId.md
 docs/ErrorsCommonNotFoundError.md
 docs/ErrorsCommonNotFoundErrors.md
-docs/ErrorsCommonOneOfErrorsBadRequestAndBadArgumentErrors.md
 docs/ErrorsDictionariesBadArgumentError.md
 docs/ErrorsDictionariesBadArgumentErrors.md
 docs/ErrorsDraftError.md
@@ -156,8 +156,9 @@ docs/ErrorsNegotiationEditMessageForbiddenErrors.md
 docs/ErrorsNegotiationHideResponseError.md
 docs/ErrorsNegotiationHideResponseErrors.md
 docs/ErrorsNegotiationHideResponseForbiddenErrors.md
-docs/ErrorsNegotiationSendMessageNotFoundError.md
-docs/ErrorsNegotiationSendMessageNotFoundErrors.md
+docs/ErrorsNegotiationNegotiationsNotFoundErrors.md
+docs/ErrorsNegotiationNotFoundError.md
+docs/ErrorsNegotiationNotFoundErrors.md
 docs/ErrorsRequestEntityTooLargeError.md
 docs/ErrorsRequestEntityTooLargeErrors.md
 docs/ErrorsResumeAddEditError.md
@@ -183,9 +184,9 @@ docs/ErrorsVacancyAddEditForbiddenError.md
 docs/ErrorsVacancyAddEditForbiddenErrors.md
 docs/ErrorsVacancyApplyBadRequestError.md
 docs/ErrorsVacancyApplyBadRequestErrors.md
+docs/ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md
 docs/ErrorsVacancyApplyForbiddenError.md
 docs/ErrorsVacancyApplyForbiddenErrors.md
-docs/ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md
 docs/ErrorsVacancyBlacklistedBadRequestError.md
 docs/ErrorsVacancyBlacklistedBadRequestErrors.md
 docs/ErrorsVacancyBlacklistedNotFoundError.md
@@ -263,9 +264,11 @@ docs/MetroMetroItem.md
 docs/MetroMetroLine.md
 docs/MetroMetroLineWithStations.md
 docs/NegotiationsAction.md
+docs/NegotiationsApplicantNegotiation.md
 docs/NegotiationsApplicantNegotiationsResponse.md
 docs/NegotiationsAssessment.md
 docs/NegotiationsAuthor.md
+docs/NegotiationsEmployerNegotiation.md
 docs/NegotiationsListItem.md
 docs/NegotiationsListItems.md
 docs/NegotiationsListResponse.md
@@ -280,8 +283,10 @@ docs/NegotiationsNegotiationsCollections.md
 docs/NegotiationsNegotiationsOrderTypes.md
 docs/NegotiationsObjectsCounters.md
 docs/NegotiationsObjectsEmployerCounters.md
+docs/NegotiationsObjectsEmployerTopicResume.md
 docs/NegotiationsObjectsStates.md
 docs/NegotiationsObjectsTopicItem.md
+docs/NegotiationsObjectsTopicItemCommon.md
 docs/NegotiationsObjectsTopicResume.md
 docs/NegotiationsPhoneCallItem.md
 docs/NegotiationsPhoneCalls.md
@@ -441,7 +446,8 @@ docs/SavedSearchesSavedSearchItems.md
 docs/SavedSearchesSavedSearchResponse.md
 docs/SearchForResumes403Response.md
 docs/SendNegotiationMessage403Response.md
-docs/SendNegotiationMessage404Response.md
+docs/SkillVerificationsTestResultNano.md
+docs/SkillVerificationsTestResultWithUrl.md
 docs/SuggestsArea.md
 docs/SuggestsAreas.md
 docs/SuggestsAreasItem.md
@@ -674,10 +680,10 @@ docs/WebhookPayloadVacancyPublicationForVacancyManager.md
 docs/WebhookSendObjectBaseUser.md
 docs/WebhookSendObjectBaseUserPayload.md
 docs/WebhookSubscriptionCommonItem.md
+docs/WebhookSubscriptionCommonItemActionsInner.md
 docs/WebhookSubscriptionCreate.md
 docs/WebhookSubscriptionItem.md
 docs/WebhookSubscriptionUpdate.md
-docs/WebhookSubscriptionUpdateActionsInner.md
 docs/WebhookSubscriptionsOutput.md
 docs/WebhookSubscriptionsPostRequest.md
 git_push.sh
@@ -838,6 +844,7 @@ model_errors_common_bad_authorization_payment_method_errors.go
 model_errors_common_bad_authorization_unsupported_grant_type_error.go
 model_errors_common_bad_json_data_error.go
 model_errors_common_bad_json_data_errors.go
+model_errors_common_bad_request_bad_argument_bad_request_and_bad_argument_errors.go
 model_errors_common_bad_request_error.go
 model_errors_common_bad_request_errors.go
 model_errors_common_captcha_error.go
@@ -847,7 +854,6 @@ model_errors_common_conflict_both_changed_errors.go
 model_errors_common_error_request_id.go
 model_errors_common_not_found_error.go
 model_errors_common_not_found_errors.go
-model_errors_common_one_of_errors_bad_request_and_bad_argument_errors.go
 model_errors_dictionaries_bad_argument_error.go
 model_errors_dictionaries_bad_argument_errors.go
 model_errors_draft_error.go
@@ -867,8 +873,9 @@ model_errors_negotiation_edit_message_forbidden_errors.go
 model_errors_negotiation_hide_response_error.go
 model_errors_negotiation_hide_response_errors.go
 model_errors_negotiation_hide_response_forbidden_errors.go
-model_errors_negotiation_send_message_not_found_error.go
-model_errors_negotiation_send_message_not_found_errors.go
+model_errors_negotiation_negotiations_not_found_errors.go
+model_errors_negotiation_not_found_error.go
+model_errors_negotiation_not_found_errors.go
 model_errors_request_entity_too_large_error.go
 model_errors_request_entity_too_large_errors.go
 model_errors_resume_add_edit_error.go
@@ -894,9 +901,9 @@ model_errors_vacancy_add_edit_forbidden_error.go
 model_errors_vacancy_add_edit_forbidden_errors.go
 model_errors_vacancy_apply_bad_request_error.go
 model_errors_vacancy_apply_bad_request_errors.go
+model_errors_vacancy_apply_bad_request_errors_all_of_bad_arguments.go
 model_errors_vacancy_apply_forbidden_error.go
 model_errors_vacancy_apply_forbidden_errors.go
-model_errors_vacancy_apply_forbidden_errors_all_of_bad_arguments.go
 model_errors_vacancy_blacklisted_bad_request_error.go
 model_errors_vacancy_blacklisted_bad_request_errors.go
 model_errors_vacancy_blacklisted_not_found_error.go
@@ -941,9 +948,11 @@ model_metro_metro_item.go
 model_metro_metro_line.go
 model_metro_metro_line_with_stations.go
 model_negotiations_action.go
+model_negotiations_applicant_negotiation.go
 model_negotiations_applicant_negotiations_response.go
 model_negotiations_assessment.go
 model_negotiations_author.go
+model_negotiations_employer_negotiation.go
 model_negotiations_list_item.go
 model_negotiations_list_items.go
 model_negotiations_list_response.go
@@ -958,8 +967,10 @@ model_negotiations_negotiations_collections.go
 model_negotiations_negotiations_order_types.go
 model_negotiations_objects_counters.go
 model_negotiations_objects_employer_counters.go
+model_negotiations_objects_employer_topic_resume.go
 model_negotiations_objects_states.go
 model_negotiations_objects_topic_item.go
+model_negotiations_objects_topic_item_common.go
 model_negotiations_objects_topic_resume.go
 model_negotiations_phone_call_item.go
 model_negotiations_phone_calls.go
@@ -1119,7 +1130,8 @@ model_saved_searches_saved_search_items.go
 model_saved_searches_saved_search_response.go
 model_search_for_resumes_403_response.go
 model_send_negotiation_message_403_response.go
-model_send_negotiation_message_404_response.go
+model_skill_verifications_test_result_nano.go
+model_skill_verifications_test_result_with_url.go
 model_suggests_area.go
 model_suggests_areas.go
 model_suggests_areas_item.go
@@ -1352,10 +1364,10 @@ model_webhook_payload_vacancy_publication_for_vacancy_manager.go
 model_webhook_send_object_base_user.go
 model_webhook_send_object_base_user_payload.go
 model_webhook_subscription_common_item.go
+model_webhook_subscription_common_item_actions_inner.go
 model_webhook_subscription_create.go
 model_webhook_subscription_item.go
 model_webhook_subscription_update.go
-model_webhook_subscription_update_actions_inner.go
 model_webhook_subscriptions_output.go
 response.go
 utils.go

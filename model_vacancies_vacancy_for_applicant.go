@@ -63,7 +63,7 @@ type VacanciesVacancyForApplicant struct {
 	Id string `json:"id"`
 	// Дата и время создания вакансии
 	InitialCreatedAt string `json:"initial_created_at"`
-	InsiderInterview NullableVacancyInsiderInterview `json:"insider_interview,omitempty"`
+	InsiderInterview *VacancyInsiderInterview `json:"insider_interview,omitempty"`
 	// Список ключевых навыков, не более 30
 	KeySkills []VacancyKeySkillItem `json:"key_skills"`
 	// Список языков вакансии. Значения из справочника [/languages](#tag/Obshie-spravochniki/operation/get-dictionaries)
@@ -835,46 +835,36 @@ func (o *VacanciesVacancyForApplicant) SetInitialCreatedAt(v string) {
 	o.InitialCreatedAt = v
 }
 
-// GetInsiderInterview returns the InsiderInterview field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetInsiderInterview returns the InsiderInterview field value if set, zero value otherwise.
 func (o *VacanciesVacancyForApplicant) GetInsiderInterview() VacancyInsiderInterview {
-	if o == nil || IsNil(o.InsiderInterview.Get()) {
+	if o == nil || IsNil(o.InsiderInterview) {
 		var ret VacancyInsiderInterview
 		return ret
 	}
-	return *o.InsiderInterview.Get()
+	return *o.InsiderInterview
 }
 
 // GetInsiderInterviewOk returns a tuple with the InsiderInterview field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyForApplicant) GetInsiderInterviewOk() (*VacancyInsiderInterview, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.InsiderInterview) {
 		return nil, false
 	}
-	return o.InsiderInterview.Get(), o.InsiderInterview.IsSet()
+	return o.InsiderInterview, true
 }
 
 // HasInsiderInterview returns a boolean if a field has been set.
 func (o *VacanciesVacancyForApplicant) HasInsiderInterview() bool {
-	if o != nil && o.InsiderInterview.IsSet() {
+	if o != nil && !IsNil(o.InsiderInterview) {
 		return true
 	}
 
 	return false
 }
 
-// SetInsiderInterview gets a reference to the given NullableVacancyInsiderInterview and assigns it to the InsiderInterview field.
+// SetInsiderInterview gets a reference to the given VacancyInsiderInterview and assigns it to the InsiderInterview field.
 func (o *VacanciesVacancyForApplicant) SetInsiderInterview(v VacancyInsiderInterview) {
-	o.InsiderInterview.Set(&v)
-}
-// SetInsiderInterviewNil sets the value for InsiderInterview to be an explicit nil
-func (o *VacanciesVacancyForApplicant) SetInsiderInterviewNil() {
-	o.InsiderInterview.Set(nil)
-}
-
-// UnsetInsiderInterview ensures that no value is present for InsiderInterview, not even an explicit nil
-func (o *VacanciesVacancyForApplicant) UnsetInsiderInterview() {
-	o.InsiderInterview.Unset()
+	o.InsiderInterview = &v
 }
 
 // GetKeySkills returns the KeySkills field value
@@ -1631,8 +1621,8 @@ func (o VacanciesVacancyForApplicant) ToMap() (map[string]interface{}, error) {
 	toSerialize["has_test"] = o.HasTest
 	toSerialize["id"] = o.Id
 	toSerialize["initial_created_at"] = o.InitialCreatedAt
-	if o.InsiderInterview.IsSet() {
-		toSerialize["insider_interview"] = o.InsiderInterview.Get()
+	if !IsNil(o.InsiderInterview) {
+		toSerialize["insider_interview"] = o.InsiderInterview
 	}
 	toSerialize["key_skills"] = o.KeySkills
 	if !IsNil(o.Languages) {

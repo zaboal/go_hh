@@ -13,307 +13,135 @@ package hh
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
-// checks if the ProfessionalRolesRole type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ProfessionalRolesRole{}
-
-// ProfessionalRolesRole struct for ProfessionalRolesRole
-type ProfessionalRolesRole struct {
-	// На роль принимаются отклики неполным резюме
-	AcceptIncompleteResumes bool `json:"accept_incomplete_resumes"`
-	// Идентификатор профессиональной роли
-	Id string `json:"id"`
-	// Дефолтная роль
-	IsDefault bool `json:"is_default"`
-	// Имя профессиональной роли
-	Name string `json:"name"`
-	// Наличие запрета на использование в поиске при составлении поискового запроса
-	SearchDeprecated *bool `json:"search_deprecated,omitempty"`
-	// Наличие запрета на использование при создании новых сущностей (резюме или вакансии)
-	SelectDeprecated *bool `json:"select_deprecated,omitempty"`
+// ErrorsNegotiationNegotiationsNotFoundErrors - Информация о возникших ошибках
+type ErrorsNegotiationNegotiationsNotFoundErrors struct {
+	ErrorsCommonNotFoundErrors *ErrorsCommonNotFoundErrors
+	ErrorsNegotiationNotFoundErrors *ErrorsNegotiationNotFoundErrors
 }
 
-type _ProfessionalRolesRole ProfessionalRolesRole
-
-// NewProfessionalRolesRole instantiates a new ProfessionalRolesRole object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewProfessionalRolesRole(acceptIncompleteResumes bool, id string, isDefault bool, name string) *ProfessionalRolesRole {
-	this := ProfessionalRolesRole{}
-	this.AcceptIncompleteResumes = acceptIncompleteResumes
-	this.Id = id
-	this.IsDefault = isDefault
-	this.Name = name
-	return &this
-}
-
-// NewProfessionalRolesRoleWithDefaults instantiates a new ProfessionalRolesRole object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewProfessionalRolesRoleWithDefaults() *ProfessionalRolesRole {
-	this := ProfessionalRolesRole{}
-	return &this
-}
-
-// GetAcceptIncompleteResumes returns the AcceptIncompleteResumes field value
-func (o *ProfessionalRolesRole) GetAcceptIncompleteResumes() bool {
-	if o == nil {
-		var ret bool
-		return ret
+// ErrorsCommonNotFoundErrorsAsErrorsNegotiationNegotiationsNotFoundErrors is a convenience function that returns ErrorsCommonNotFoundErrors wrapped in ErrorsNegotiationNegotiationsNotFoundErrors
+func ErrorsCommonNotFoundErrorsAsErrorsNegotiationNegotiationsNotFoundErrors(v *ErrorsCommonNotFoundErrors) ErrorsNegotiationNegotiationsNotFoundErrors {
+	return ErrorsNegotiationNegotiationsNotFoundErrors{
+		ErrorsCommonNotFoundErrors: v,
 	}
-
-	return o.AcceptIncompleteResumes
 }
 
-// GetAcceptIncompleteResumesOk returns a tuple with the AcceptIncompleteResumes field value
-// and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetAcceptIncompleteResumesOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
+// ErrorsNegotiationNotFoundErrorsAsErrorsNegotiationNegotiationsNotFoundErrors is a convenience function that returns ErrorsNegotiationNotFoundErrors wrapped in ErrorsNegotiationNegotiationsNotFoundErrors
+func ErrorsNegotiationNotFoundErrorsAsErrorsNegotiationNegotiationsNotFoundErrors(v *ErrorsNegotiationNotFoundErrors) ErrorsNegotiationNegotiationsNotFoundErrors {
+	return ErrorsNegotiationNegotiationsNotFoundErrors{
+		ErrorsNegotiationNotFoundErrors: v,
 	}
-	return &o.AcceptIncompleteResumes, true
 }
 
-// SetAcceptIncompleteResumes sets field value
-func (o *ProfessionalRolesRole) SetAcceptIncompleteResumes(v bool) {
-	o.AcceptIncompleteResumes = v
-}
 
-// GetId returns the Id field value
-func (o *ProfessionalRolesRole) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *ProfessionalRolesRole) SetId(v string) {
-	o.Id = v
-}
-
-// GetIsDefault returns the IsDefault field value
-func (o *ProfessionalRolesRole) GetIsDefault() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.IsDefault
-}
-
-// GetIsDefaultOk returns a tuple with the IsDefault field value
-// and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetIsDefaultOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IsDefault, true
-}
-
-// SetIsDefault sets field value
-func (o *ProfessionalRolesRole) SetIsDefault(v bool) {
-	o.IsDefault = v
-}
-
-// GetName returns the Name field value
-func (o *ProfessionalRolesRole) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ProfessionalRolesRole) SetName(v string) {
-	o.Name = v
-}
-
-// GetSearchDeprecated returns the SearchDeprecated field value if set, zero value otherwise.
-func (o *ProfessionalRolesRole) GetSearchDeprecated() bool {
-	if o == nil || IsNil(o.SearchDeprecated) {
-		var ret bool
-		return ret
-	}
-	return *o.SearchDeprecated
-}
-
-// GetSearchDeprecatedOk returns a tuple with the SearchDeprecated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetSearchDeprecatedOk() (*bool, bool) {
-	if o == nil || IsNil(o.SearchDeprecated) {
-		return nil, false
-	}
-	return o.SearchDeprecated, true
-}
-
-// HasSearchDeprecated returns a boolean if a field has been set.
-func (o *ProfessionalRolesRole) HasSearchDeprecated() bool {
-	if o != nil && !IsNil(o.SearchDeprecated) {
-		return true
-	}
-
-	return false
-}
-
-// SetSearchDeprecated gets a reference to the given bool and assigns it to the SearchDeprecated field.
-func (o *ProfessionalRolesRole) SetSearchDeprecated(v bool) {
-	o.SearchDeprecated = &v
-}
-
-// GetSelectDeprecated returns the SelectDeprecated field value if set, zero value otherwise.
-func (o *ProfessionalRolesRole) GetSelectDeprecated() bool {
-	if o == nil || IsNil(o.SelectDeprecated) {
-		var ret bool
-		return ret
-	}
-	return *o.SelectDeprecated
-}
-
-// GetSelectDeprecatedOk returns a tuple with the SelectDeprecated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetSelectDeprecatedOk() (*bool, bool) {
-	if o == nil || IsNil(o.SelectDeprecated) {
-		return nil, false
-	}
-	return o.SelectDeprecated, true
-}
-
-// HasSelectDeprecated returns a boolean if a field has been set.
-func (o *ProfessionalRolesRole) HasSelectDeprecated() bool {
-	if o != nil && !IsNil(o.SelectDeprecated) {
-		return true
-	}
-
-	return false
-}
-
-// SetSelectDeprecated gets a reference to the given bool and assigns it to the SelectDeprecated field.
-func (o *ProfessionalRolesRole) SetSelectDeprecated(v bool) {
-	o.SelectDeprecated = &v
-}
-
-func (o ProfessionalRolesRole) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o ProfessionalRolesRole) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	toSerialize["accept_incomplete_resumes"] = o.AcceptIncompleteResumes
-	toSerialize["id"] = o.Id
-	toSerialize["is_default"] = o.IsDefault
-	toSerialize["name"] = o.Name
-	if !IsNil(o.SearchDeprecated) {
-		toSerialize["search_deprecated"] = o.SearchDeprecated
-	}
-	if !IsNil(o.SelectDeprecated) {
-		toSerialize["select_deprecated"] = o.SelectDeprecated
-	}
-	return toSerialize, nil
-}
-
-func (o *ProfessionalRolesRole) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"accept_incomplete_resumes",
-		"id",
-		"is_default",
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *ErrorsNegotiationNegotiationsNotFoundErrors) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into ErrorsCommonNotFoundErrors
+	err = newStrictDecoder(data).Decode(&dst.ErrorsCommonNotFoundErrors)
+	if err == nil {
+		jsonErrorsCommonNotFoundErrors, _ := json.Marshal(dst.ErrorsCommonNotFoundErrors)
+		if string(jsonErrorsCommonNotFoundErrors) == "{}" { // empty struct
+			dst.ErrorsCommonNotFoundErrors = nil
+		} else {
+			match++
 		}
+	} else {
+		dst.ErrorsCommonNotFoundErrors = nil
 	}
 
-	varProfessionalRolesRole := _ProfessionalRolesRole{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProfessionalRolesRole)
-
-	if err != nil {
-		return err
+	// try to unmarshal data into ErrorsNegotiationNotFoundErrors
+	err = newStrictDecoder(data).Decode(&dst.ErrorsNegotiationNotFoundErrors)
+	if err == nil {
+		jsonErrorsNegotiationNotFoundErrors, _ := json.Marshal(dst.ErrorsNegotiationNotFoundErrors)
+		if string(jsonErrorsNegotiationNotFoundErrors) == "{}" { // empty struct
+			dst.ErrorsNegotiationNotFoundErrors = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ErrorsNegotiationNotFoundErrors = nil
 	}
 
-	*o = ProfessionalRolesRole(varProfessionalRolesRole)
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ErrorsCommonNotFoundErrors = nil
+		dst.ErrorsNegotiationNotFoundErrors = nil
 
-	return err
+		return fmt.Errorf("data matches more than one schema in oneOf(ErrorsNegotiationNegotiationsNotFoundErrors)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(ErrorsNegotiationNegotiationsNotFoundErrors)")
+	}
 }
 
-type NullableProfessionalRolesRole struct {
-	value *ProfessionalRolesRole
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src ErrorsNegotiationNegotiationsNotFoundErrors) MarshalJSON() ([]byte, error) {
+	if src.ErrorsCommonNotFoundErrors != nil {
+		return json.Marshal(&src.ErrorsCommonNotFoundErrors)
+	}
+
+	if src.ErrorsNegotiationNotFoundErrors != nil {
+		return json.Marshal(&src.ErrorsNegotiationNotFoundErrors)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *ErrorsNegotiationNegotiationsNotFoundErrors) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.ErrorsCommonNotFoundErrors != nil {
+		return obj.ErrorsCommonNotFoundErrors
+	}
+
+	if obj.ErrorsNegotiationNotFoundErrors != nil {
+		return obj.ErrorsNegotiationNotFoundErrors
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+type NullableErrorsNegotiationNegotiationsNotFoundErrors struct {
+	value *ErrorsNegotiationNegotiationsNotFoundErrors
 	isSet bool
 }
 
-func (v NullableProfessionalRolesRole) Get() *ProfessionalRolesRole {
+func (v NullableErrorsNegotiationNegotiationsNotFoundErrors) Get() *ErrorsNegotiationNegotiationsNotFoundErrors {
 	return v.value
 }
 
-func (v *NullableProfessionalRolesRole) Set(val *ProfessionalRolesRole) {
+func (v *NullableErrorsNegotiationNegotiationsNotFoundErrors) Set(val *ErrorsNegotiationNegotiationsNotFoundErrors) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableProfessionalRolesRole) IsSet() bool {
+func (v NullableErrorsNegotiationNegotiationsNotFoundErrors) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableProfessionalRolesRole) Unset() {
+func (v *NullableErrorsNegotiationNegotiationsNotFoundErrors) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableProfessionalRolesRole(val *ProfessionalRolesRole) *NullableProfessionalRolesRole {
-	return &NullableProfessionalRolesRole{value: val, isSet: true}
+func NewNullableErrorsNegotiationNegotiationsNotFoundErrors(val *ErrorsNegotiationNegotiationsNotFoundErrors) *NullableErrorsNegotiationNegotiationsNotFoundErrors {
+	return &NullableErrorsNegotiationNegotiationsNotFoundErrors{value: val, isSet: true}
 }
 
-func (v NullableProfessionalRolesRole) MarshalJSON() ([]byte, error) {
+func (v NullableErrorsNegotiationNegotiationsNotFoundErrors) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableProfessionalRolesRole) UnmarshalJSON(src []byte) error {
+func (v *NullableErrorsNegotiationNegotiationsNotFoundErrors) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

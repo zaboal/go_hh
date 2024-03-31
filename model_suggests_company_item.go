@@ -24,7 +24,7 @@ var _ MappedNullable = &SuggestsCompanyItem{}
 type SuggestsCompanyItem struct {
 	// Идентификатор организации
 	Id string `json:"id"`
-	LogoUrls *SuggestsLogoUrl `json:"logo_urls,omitempty"`
+	LogoUrls SuggestsLogoUrl `json:"logo_urls,omitempty"`
 	// Название организации
 	Text string `json:"text"`
 	// Сайт организации
@@ -86,14 +86,14 @@ func (o *SuggestsCompanyItem) GetLogoUrls() SuggestsLogoUrl {
 		var ret SuggestsLogoUrl
 		return ret
 	}
-	return *o.LogoUrls
+	return o.LogoUrls
 }
 
 // GetLogoUrlsOk returns a tuple with the LogoUrls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SuggestsCompanyItem) GetLogoUrlsOk() (*SuggestsLogoUrl, bool) {
+func (o *SuggestsCompanyItem) GetLogoUrlsOk() (SuggestsLogoUrl, bool) {
 	if o == nil || IsNil(o.LogoUrls) {
-		return nil, false
+		return SuggestsLogoUrl{}, false
 	}
 	return o.LogoUrls, true
 }
@@ -109,7 +109,7 @@ func (o *SuggestsCompanyItem) HasLogoUrls() bool {
 
 // SetLogoUrls gets a reference to the given SuggestsLogoUrl and assigns it to the LogoUrls field.
 func (o *SuggestsCompanyItem) SetLogoUrls(v SuggestsLogoUrl) {
-	o.LogoUrls = &v
+	o.LogoUrls = v
 }
 
 // GetText returns the Text field value

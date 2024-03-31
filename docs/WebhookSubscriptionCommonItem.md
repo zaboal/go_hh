@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Actions** | [**[]WebhookSubscriptionUpdateActionsInner**](WebhookSubscriptionUpdateActionsInner.md) | Cписок событий | 
+**Actions** | [**[]WebhookSubscriptionCommonItemActionsInner**](WebhookSubscriptionCommonItemActionsInner.md) | Cписок событий | 
 **Url** | **string** | URL, на который будет отправляться POST запрос при наступлении события | 
 
 ## Methods
 
 ### NewWebhookSubscriptionCommonItem
 
-`func NewWebhookSubscriptionCommonItem(actions []WebhookSubscriptionUpdateActionsInner, url string, ) *WebhookSubscriptionCommonItem`
+`func NewWebhookSubscriptionCommonItem(actions []WebhookSubscriptionCommonItemActionsInner, url string, ) *WebhookSubscriptionCommonItem`
 
 NewWebhookSubscriptionCommonItem instantiates a new WebhookSubscriptionCommonItem object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetActions
 
-`func (o *WebhookSubscriptionCommonItem) GetActions() []WebhookSubscriptionUpdateActionsInner`
+`func (o *WebhookSubscriptionCommonItem) GetActions() []WebhookSubscriptionCommonItemActionsInner`
 
 GetActions returns the Actions field if non-nil, zero value otherwise.
 
 ### GetActionsOk
 
-`func (o *WebhookSubscriptionCommonItem) GetActionsOk() (*[]WebhookSubscriptionUpdateActionsInner, bool)`
+`func (o *WebhookSubscriptionCommonItem) GetActionsOk() (*[]WebhookSubscriptionCommonItemActionsInner, bool)`
 
 GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActions
 
-`func (o *WebhookSubscriptionCommonItem) SetActions(v []WebhookSubscriptionUpdateActionsInner)`
+`func (o *WebhookSubscriptionCommonItem) SetActions(v []WebhookSubscriptionCommonItemActionsInner)`
 
 SetActions sets Actions field to given value.
 

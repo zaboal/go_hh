@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Actions** | Pointer to [**[]WebhookSubscriptionUpdateActionsInner**](WebhookSubscriptionUpdateActionsInner.md) | Cписок событий, на которые нужно подписаться | [optional] 
+**Actions** | Pointer to [**[]WebhookSubscriptionCommonItemActionsInner**](WebhookSubscriptionCommonItemActionsInner.md) | Cписок событий, на которые нужно подписаться | [optional] 
 **Url** | Pointer to **string** | URL, на который будет отправляться POST запрос при наступлении события | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetActions
 
-`func (o *WebhookSubscriptionUpdate) GetActions() []WebhookSubscriptionUpdateActionsInner`
+`func (o *WebhookSubscriptionUpdate) GetActions() []WebhookSubscriptionCommonItemActionsInner`
 
 GetActions returns the Actions field if non-nil, zero value otherwise.
 
 ### GetActionsOk
 
-`func (o *WebhookSubscriptionUpdate) GetActionsOk() (*[]WebhookSubscriptionUpdateActionsInner, bool)`
+`func (o *WebhookSubscriptionUpdate) GetActionsOk() (*[]WebhookSubscriptionCommonItemActionsInner, bool)`
 
 GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActions
 
-`func (o *WebhookSubscriptionUpdate) SetActions(v []WebhookSubscriptionUpdateActionsInner)`
+`func (o *WebhookSubscriptionUpdate) SetActions(v []WebhookSubscriptionCommonItemActionsInner)`
 
 SetActions sets Actions field to given value.
 

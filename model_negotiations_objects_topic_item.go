@@ -23,35 +23,36 @@ var _ MappedNullable = &NegotiationsObjectsTopicItem{}
 // NegotiationsObjectsTopicItem struct for NegotiationsObjectsTopicItem
 type NegotiationsObjectsTopicItem struct {
 	Counters *NegotiationsObjectsCounters `json:"counters,omitempty"`
-	// Дата и время создания отклика
+	// Дата и время создания отклика/приглашения
 	CreatedAt string `json:"created_at"`
-	// Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе
-	DeclineAllowed bool `json:"decline_allowed"`
-	// Есть ли непросмотренные сообщения в отклике. Флаг сбрасывается при различных действиях с откликом, например, [просмотре списка сообщений](https://github.com/hhru/api/blob/master/docs/negotiations.md#get_messages)
+	// Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания
 	HasUpdates bool `json:"has_updates"`
-	// Скрыт ли текущий отклик от соискателя
-	Hidden bool `json:"hidden"`
-	// Идентификатор отклика
+	// Идентификатор отклика/приглашения
 	Id string `json:"id"`
-	JobSearchStatus NullableIncludesIdName `json:"job_search_status,omitempty"`
 	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
 	// Deprecated
 	MessagesUrl *string `json:"messages_url,omitempty"`
 	// Текущий статус переписки.  Возможные значения приведены в поле `messaging_status` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
 	MessagingStatus string `json:"messaging_status"`
-	PhoneCalls NullableNegotiationsPhoneCalls `json:"phone_calls,omitempty"`
-	ProfessionalRoles *IncludesIdName `json:"professional_roles,omitempty"`
-	// Источник отклика
-	Source string `json:"source"`
-	// Текущее состояние отклика.  Возможные значения приведены в поле `negotiations_state` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+	// Список профессиональных ролей
+	ProfessionalRoles []VacancyProfessionalRoleItem `json:"professional_roles,omitempty"`
+	// Источник отклика/приглашения
+	Source *string `json:"source,omitempty"`
+	// Текущее состояние отклика/приглашения.  Возможные значения приведены в поле `negotiations_state` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
 	State IncludesIdName `json:"state"`
-	// Дата и время последнего обновления отклика
+	// Дата и время последнего обновления отклика/приглашения
 	UpdatedAt string `json:"updated_at"`
-	// Ссылка на полную версию отклика
-	Url string `json:"url"`
-	Vacancy NullableVacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
+	Vacancy *VacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
 	// Был ли отклик просмотрен работодателем
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
+	// Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе
+	DeclineAllowed bool `json:"decline_allowed"`
+	// Скрыт ли текущий отклик от соискателя
+	Hidden bool `json:"hidden"`
+	JobSearchStatus NullableIncludesIdName `json:"job_search_status,omitempty"`
+	PhoneCalls NullableNegotiationsPhoneCalls `json:"phone_calls,omitempty"`
+	// Ссылка на полную версию отклика
+	Url string `json:"url"`
 }
 
 type _NegotiationsObjectsTopicItem NegotiationsObjectsTopicItem
@@ -60,19 +61,18 @@ type _NegotiationsObjectsTopicItem NegotiationsObjectsTopicItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNegotiationsObjectsTopicItem(createdAt string, declineAllowed bool, hasUpdates bool, hidden bool, id string, messagingStatus string, source string, state IncludesIdName, updatedAt string, url string, viewedByOpponent bool) *NegotiationsObjectsTopicItem {
+func NewNegotiationsObjectsTopicItem(createdAt string, hasUpdates bool, id string, messagingStatus string, state IncludesIdName, updatedAt string, viewedByOpponent bool, declineAllowed bool, hidden bool, url string) *NegotiationsObjectsTopicItem {
 	this := NegotiationsObjectsTopicItem{}
 	this.CreatedAt = createdAt
-	this.DeclineAllowed = declineAllowed
 	this.HasUpdates = hasUpdates
-	this.Hidden = hidden
 	this.Id = id
 	this.MessagingStatus = messagingStatus
-	this.Source = source
 	this.State = state
 	this.UpdatedAt = updatedAt
-	this.Url = url
 	this.ViewedByOpponent = viewedByOpponent
+	this.DeclineAllowed = declineAllowed
+	this.Hidden = hidden
+	this.Url = url
 	return &this
 }
 
@@ -140,30 +140,6 @@ func (o *NegotiationsObjectsTopicItem) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
-// GetDeclineAllowed returns the DeclineAllowed field value
-func (o *NegotiationsObjectsTopicItem) GetDeclineAllowed() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.DeclineAllowed
-}
-
-// GetDeclineAllowedOk returns a tuple with the DeclineAllowed field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsObjectsTopicItem) GetDeclineAllowedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DeclineAllowed, true
-}
-
-// SetDeclineAllowed sets field value
-func (o *NegotiationsObjectsTopicItem) SetDeclineAllowed(v bool) {
-	o.DeclineAllowed = v
-}
-
 // GetHasUpdates returns the HasUpdates field value
 func (o *NegotiationsObjectsTopicItem) GetHasUpdates() bool {
 	if o == nil {
@@ -188,30 +164,6 @@ func (o *NegotiationsObjectsTopicItem) SetHasUpdates(v bool) {
 	o.HasUpdates = v
 }
 
-// GetHidden returns the Hidden field value
-func (o *NegotiationsObjectsTopicItem) GetHidden() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Hidden
-}
-
-// GetHiddenOk returns a tuple with the Hidden field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsObjectsTopicItem) GetHiddenOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Hidden, true
-}
-
-// SetHidden sets field value
-func (o *NegotiationsObjectsTopicItem) SetHidden(v bool) {
-	o.Hidden = v
-}
-
 // GetId returns the Id field value
 func (o *NegotiationsObjectsTopicItem) GetId() string {
 	if o == nil {
@@ -234,48 +186,6 @@ func (o *NegotiationsObjectsTopicItem) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *NegotiationsObjectsTopicItem) SetId(v string) {
 	o.Id = v
-}
-
-// GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NegotiationsObjectsTopicItem) GetJobSearchStatus() IncludesIdName {
-	if o == nil || IsNil(o.JobSearchStatus.Get()) {
-		var ret IncludesIdName
-		return ret
-	}
-	return *o.JobSearchStatus.Get()
-}
-
-// GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsObjectsTopicItem) GetJobSearchStatusOk() (*IncludesIdName, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.JobSearchStatus.Get(), o.JobSearchStatus.IsSet()
-}
-
-// HasJobSearchStatus returns a boolean if a field has been set.
-func (o *NegotiationsObjectsTopicItem) HasJobSearchStatus() bool {
-	if o != nil && o.JobSearchStatus.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetJobSearchStatus gets a reference to the given NullableIncludesIdName and assigns it to the JobSearchStatus field.
-func (o *NegotiationsObjectsTopicItem) SetJobSearchStatus(v IncludesIdName) {
-	o.JobSearchStatus.Set(&v)
-}
-// SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
-func (o *NegotiationsObjectsTopicItem) SetJobSearchStatusNil() {
-	o.JobSearchStatus.Set(nil)
-}
-
-// UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
-func (o *NegotiationsObjectsTopicItem) UnsetJobSearchStatus() {
-	o.JobSearchStatus.Unset()
 }
 
 // GetMessagesUrl returns the MessagesUrl field value if set, zero value otherwise.
@@ -337,60 +247,18 @@ func (o *NegotiationsObjectsTopicItem) SetMessagingStatus(v string) {
 	o.MessagingStatus = v
 }
 
-// GetPhoneCalls returns the PhoneCalls field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NegotiationsObjectsTopicItem) GetPhoneCalls() NegotiationsPhoneCalls {
-	if o == nil || IsNil(o.PhoneCalls.Get()) {
-		var ret NegotiationsPhoneCalls
-		return ret
-	}
-	return *o.PhoneCalls.Get()
-}
-
-// GetPhoneCallsOk returns a tuple with the PhoneCalls field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsObjectsTopicItem) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PhoneCalls.Get(), o.PhoneCalls.IsSet()
-}
-
-// HasPhoneCalls returns a boolean if a field has been set.
-func (o *NegotiationsObjectsTopicItem) HasPhoneCalls() bool {
-	if o != nil && o.PhoneCalls.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPhoneCalls gets a reference to the given NullableNegotiationsPhoneCalls and assigns it to the PhoneCalls field.
-func (o *NegotiationsObjectsTopicItem) SetPhoneCalls(v NegotiationsPhoneCalls) {
-	o.PhoneCalls.Set(&v)
-}
-// SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
-func (o *NegotiationsObjectsTopicItem) SetPhoneCallsNil() {
-	o.PhoneCalls.Set(nil)
-}
-
-// UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
-func (o *NegotiationsObjectsTopicItem) UnsetPhoneCalls() {
-	o.PhoneCalls.Unset()
-}
-
 // GetProfessionalRoles returns the ProfessionalRoles field value if set, zero value otherwise.
-func (o *NegotiationsObjectsTopicItem) GetProfessionalRoles() IncludesIdName {
+func (o *NegotiationsObjectsTopicItem) GetProfessionalRoles() []VacancyProfessionalRoleItem {
 	if o == nil || IsNil(o.ProfessionalRoles) {
-		var ret IncludesIdName
+		var ret []VacancyProfessionalRoleItem
 		return ret
 	}
-	return *o.ProfessionalRoles
+	return o.ProfessionalRoles
 }
 
 // GetProfessionalRolesOk returns a tuple with the ProfessionalRoles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NegotiationsObjectsTopicItem) GetProfessionalRolesOk() (*IncludesIdName, bool) {
+func (o *NegotiationsObjectsTopicItem) GetProfessionalRolesOk() ([]VacancyProfessionalRoleItem, bool) {
 	if o == nil || IsNil(o.ProfessionalRoles) {
 		return nil, false
 	}
@@ -406,33 +274,41 @@ func (o *NegotiationsObjectsTopicItem) HasProfessionalRoles() bool {
 	return false
 }
 
-// SetProfessionalRoles gets a reference to the given IncludesIdName and assigns it to the ProfessionalRoles field.
-func (o *NegotiationsObjectsTopicItem) SetProfessionalRoles(v IncludesIdName) {
-	o.ProfessionalRoles = &v
+// SetProfessionalRoles gets a reference to the given []VacancyProfessionalRoleItem and assigns it to the ProfessionalRoles field.
+func (o *NegotiationsObjectsTopicItem) SetProfessionalRoles(v []VacancyProfessionalRoleItem) {
+	o.ProfessionalRoles = v
 }
 
-// GetSource returns the Source field value
+// GetSource returns the Source field value if set, zero value otherwise.
 func (o *NegotiationsObjectsTopicItem) GetSource() string {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
-
-	return o.Source
+	return *o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NegotiationsObjectsTopicItem) GetSourceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
-	return &o.Source, true
+	return o.Source, true
 }
 
-// SetSource sets field value
+// HasSource returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItem) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
 func (o *NegotiationsObjectsTopicItem) SetSource(v string) {
-	o.Source = v
+	o.Source = &v
 }
 
 // GetState returns the State field value
@@ -483,70 +359,36 @@ func (o *NegotiationsObjectsTopicItem) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
-// GetUrl returns the Url field value
-func (o *NegotiationsObjectsTopicItem) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *NegotiationsObjectsTopicItem) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *NegotiationsObjectsTopicItem) SetUrl(v string) {
-	o.Url = v
-}
-
-// GetVacancy returns the Vacancy field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetVacancy returns the Vacancy field value if set, zero value otherwise.
 func (o *NegotiationsObjectsTopicItem) GetVacancy() VacanciesNegotiationsVacancyShort {
-	if o == nil || IsNil(o.Vacancy.Get()) {
+	if o == nil || IsNil(o.Vacancy) {
 		var ret VacanciesNegotiationsVacancyShort
 		return ret
 	}
-	return *o.Vacancy.Get()
+	return *o.Vacancy
 }
 
 // GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsObjectsTopicItem) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Vacancy) {
 		return nil, false
 	}
-	return o.Vacancy.Get(), o.Vacancy.IsSet()
+	return o.Vacancy, true
 }
 
 // HasVacancy returns a boolean if a field has been set.
 func (o *NegotiationsObjectsTopicItem) HasVacancy() bool {
-	if o != nil && o.Vacancy.IsSet() {
+	if o != nil && !IsNil(o.Vacancy) {
 		return true
 	}
 
 	return false
 }
 
-// SetVacancy gets a reference to the given NullableVacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
+// SetVacancy gets a reference to the given VacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
 func (o *NegotiationsObjectsTopicItem) SetVacancy(v VacanciesNegotiationsVacancyShort) {
-	o.Vacancy.Set(&v)
-}
-// SetVacancyNil sets the value for Vacancy to be an explicit nil
-func (o *NegotiationsObjectsTopicItem) SetVacancyNil() {
-	o.Vacancy.Set(nil)
-}
-
-// UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
-func (o *NegotiationsObjectsTopicItem) UnsetVacancy() {
-	o.Vacancy.Unset()
+	o.Vacancy = &v
 }
 
 // GetViewedByOpponent returns the ViewedByOpponent field value
@@ -573,6 +415,162 @@ func (o *NegotiationsObjectsTopicItem) SetViewedByOpponent(v bool) {
 	o.ViewedByOpponent = v
 }
 
+// GetDeclineAllowed returns the DeclineAllowed field value
+func (o *NegotiationsObjectsTopicItem) GetDeclineAllowed() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.DeclineAllowed
+}
+
+// GetDeclineAllowedOk returns a tuple with the DeclineAllowed field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItem) GetDeclineAllowedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DeclineAllowed, true
+}
+
+// SetDeclineAllowed sets field value
+func (o *NegotiationsObjectsTopicItem) SetDeclineAllowed(v bool) {
+	o.DeclineAllowed = v
+}
+
+// GetHidden returns the Hidden field value
+func (o *NegotiationsObjectsTopicItem) GetHidden() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Hidden
+}
+
+// GetHiddenOk returns a tuple with the Hidden field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItem) GetHiddenOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Hidden, true
+}
+
+// SetHidden sets field value
+func (o *NegotiationsObjectsTopicItem) SetHidden(v bool) {
+	o.Hidden = v
+}
+
+// GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NegotiationsObjectsTopicItem) GetJobSearchStatus() IncludesIdName {
+	if o == nil || IsNil(o.JobSearchStatus.Get()) {
+		var ret IncludesIdName
+		return ret
+	}
+	return *o.JobSearchStatus.Get()
+}
+
+// GetJobSearchStatusOk returns a tuple with the JobSearchStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NegotiationsObjectsTopicItem) GetJobSearchStatusOk() (*IncludesIdName, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.JobSearchStatus.Get(), o.JobSearchStatus.IsSet()
+}
+
+// HasJobSearchStatus returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItem) HasJobSearchStatus() bool {
+	if o != nil && o.JobSearchStatus.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetJobSearchStatus gets a reference to the given NullableIncludesIdName and assigns it to the JobSearchStatus field.
+func (o *NegotiationsObjectsTopicItem) SetJobSearchStatus(v IncludesIdName) {
+	o.JobSearchStatus.Set(&v)
+}
+// SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
+func (o *NegotiationsObjectsTopicItem) SetJobSearchStatusNil() {
+	o.JobSearchStatus.Set(nil)
+}
+
+// UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
+func (o *NegotiationsObjectsTopicItem) UnsetJobSearchStatus() {
+	o.JobSearchStatus.Unset()
+}
+
+// GetPhoneCalls returns the PhoneCalls field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NegotiationsObjectsTopicItem) GetPhoneCalls() NegotiationsPhoneCalls {
+	if o == nil || IsNil(o.PhoneCalls.Get()) {
+		var ret NegotiationsPhoneCalls
+		return ret
+	}
+	return *o.PhoneCalls.Get()
+}
+
+// GetPhoneCallsOk returns a tuple with the PhoneCalls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NegotiationsObjectsTopicItem) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PhoneCalls.Get(), o.PhoneCalls.IsSet()
+}
+
+// HasPhoneCalls returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItem) HasPhoneCalls() bool {
+	if o != nil && o.PhoneCalls.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPhoneCalls gets a reference to the given NullableNegotiationsPhoneCalls and assigns it to the PhoneCalls field.
+func (o *NegotiationsObjectsTopicItem) SetPhoneCalls(v NegotiationsPhoneCalls) {
+	o.PhoneCalls.Set(&v)
+}
+// SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
+func (o *NegotiationsObjectsTopicItem) SetPhoneCallsNil() {
+	o.PhoneCalls.Set(nil)
+}
+
+// UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
+func (o *NegotiationsObjectsTopicItem) UnsetPhoneCalls() {
+	o.PhoneCalls.Unset()
+}
+
+// GetUrl returns the Url field value
+func (o *NegotiationsObjectsTopicItem) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItem) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *NegotiationsObjectsTopicItem) SetUrl(v string) {
+	o.Url = v
+}
+
 func (o NegotiationsObjectsTopicItem) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -587,31 +585,33 @@ func (o NegotiationsObjectsTopicItem) ToMap() (map[string]interface{}, error) {
 		toSerialize["counters"] = o.Counters
 	}
 	toSerialize["created_at"] = o.CreatedAt
-	toSerialize["decline_allowed"] = o.DeclineAllowed
 	toSerialize["has_updates"] = o.HasUpdates
-	toSerialize["hidden"] = o.Hidden
 	toSerialize["id"] = o.Id
-	if o.JobSearchStatus.IsSet() {
-		toSerialize["job_search_status"] = o.JobSearchStatus.Get()
-	}
 	if !IsNil(o.MessagesUrl) {
 		toSerialize["messages_url"] = o.MessagesUrl
 	}
 	toSerialize["messaging_status"] = o.MessagingStatus
-	if o.PhoneCalls.IsSet() {
-		toSerialize["phone_calls"] = o.PhoneCalls.Get()
-	}
 	if !IsNil(o.ProfessionalRoles) {
 		toSerialize["professional_roles"] = o.ProfessionalRoles
 	}
-	toSerialize["source"] = o.Source
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
 	toSerialize["state"] = o.State
 	toSerialize["updated_at"] = o.UpdatedAt
-	toSerialize["url"] = o.Url
-	if o.Vacancy.IsSet() {
-		toSerialize["vacancy"] = o.Vacancy.Get()
+	if !IsNil(o.Vacancy) {
+		toSerialize["vacancy"] = o.Vacancy
 	}
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
+	toSerialize["decline_allowed"] = o.DeclineAllowed
+	toSerialize["hidden"] = o.Hidden
+	if o.JobSearchStatus.IsSet() {
+		toSerialize["job_search_status"] = o.JobSearchStatus.Get()
+	}
+	if o.PhoneCalls.IsSet() {
+		toSerialize["phone_calls"] = o.PhoneCalls.Get()
+	}
+	toSerialize["url"] = o.Url
 	return toSerialize, nil
 }
 
@@ -621,16 +621,15 @@ func (o *NegotiationsObjectsTopicItem) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"created_at",
-		"decline_allowed",
 		"has_updates",
-		"hidden",
 		"id",
 		"messaging_status",
-		"source",
 		"state",
 		"updated_at",
-		"url",
 		"viewed_by_opponent",
+		"decline_allowed",
+		"hidden",
+		"url",
 	}
 
 	allProperties := make(map[string]interface{})

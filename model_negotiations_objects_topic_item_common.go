@@ -17,74 +17,144 @@ import (
 	"fmt"
 )
 
-// checks if the ProfessionalRolesRole type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ProfessionalRolesRole{}
+// checks if the NegotiationsObjectsTopicItemCommon type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NegotiationsObjectsTopicItemCommon{}
 
-// ProfessionalRolesRole struct for ProfessionalRolesRole
-type ProfessionalRolesRole struct {
-	// На роль принимаются отклики неполным резюме
-	AcceptIncompleteResumes bool `json:"accept_incomplete_resumes"`
-	// Идентификатор профессиональной роли
+// NegotiationsObjectsTopicItemCommon struct for NegotiationsObjectsTopicItemCommon
+type NegotiationsObjectsTopicItemCommon struct {
+	Counters *NegotiationsObjectsCounters `json:"counters,omitempty"`
+	// Дата и время создания отклика/приглашения
+	CreatedAt string `json:"created_at"`
+	// Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания
+	HasUpdates bool `json:"has_updates"`
+	// Идентификатор отклика/приглашения
 	Id string `json:"id"`
-	// Дефолтная роль
-	IsDefault bool `json:"is_default"`
-	// Имя профессиональной роли
-	Name string `json:"name"`
-	// Наличие запрета на использование в поиске при составлении поискового запроса
-	SearchDeprecated *bool `json:"search_deprecated,omitempty"`
-	// Наличие запрета на использование при создании новых сущностей (резюме или вакансии)
-	SelectDeprecated *bool `json:"select_deprecated,omitempty"`
+	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
+	// Deprecated
+	MessagesUrl *string `json:"messages_url,omitempty"`
+	// Текущий статус переписки.  Возможные значения приведены в поле `messaging_status` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+	MessagingStatus string `json:"messaging_status"`
+	// Список профессиональных ролей
+	ProfessionalRoles []VacancyProfessionalRoleItem `json:"professional_roles,omitempty"`
+	// Источник отклика/приглашения
+	Source *string `json:"source,omitempty"`
+	// Текущее состояние отклика/приглашения.  Возможные значения приведены в поле `negotiations_state` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+	State IncludesIdName `json:"state"`
+	// Дата и время последнего обновления отклика/приглашения
+	UpdatedAt string `json:"updated_at"`
+	Vacancy NullableVacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
+	// Был ли отклик просмотрен работодателем
+	ViewedByOpponent bool `json:"viewed_by_opponent"`
 }
 
-type _ProfessionalRolesRole ProfessionalRolesRole
+type _NegotiationsObjectsTopicItemCommon NegotiationsObjectsTopicItemCommon
 
-// NewProfessionalRolesRole instantiates a new ProfessionalRolesRole object
+// NewNegotiationsObjectsTopicItemCommon instantiates a new NegotiationsObjectsTopicItemCommon object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProfessionalRolesRole(acceptIncompleteResumes bool, id string, isDefault bool, name string) *ProfessionalRolesRole {
-	this := ProfessionalRolesRole{}
-	this.AcceptIncompleteResumes = acceptIncompleteResumes
+func NewNegotiationsObjectsTopicItemCommon(createdAt string, hasUpdates bool, id string, messagingStatus string, state IncludesIdName, updatedAt string, viewedByOpponent bool) *NegotiationsObjectsTopicItemCommon {
+	this := NegotiationsObjectsTopicItemCommon{}
+	this.CreatedAt = createdAt
+	this.HasUpdates = hasUpdates
 	this.Id = id
-	this.IsDefault = isDefault
-	this.Name = name
+	this.MessagingStatus = messagingStatus
+	this.State = state
+	this.UpdatedAt = updatedAt
+	this.ViewedByOpponent = viewedByOpponent
 	return &this
 }
 
-// NewProfessionalRolesRoleWithDefaults instantiates a new ProfessionalRolesRole object
+// NewNegotiationsObjectsTopicItemCommonWithDefaults instantiates a new NegotiationsObjectsTopicItemCommon object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewProfessionalRolesRoleWithDefaults() *ProfessionalRolesRole {
-	this := ProfessionalRolesRole{}
+func NewNegotiationsObjectsTopicItemCommonWithDefaults() *NegotiationsObjectsTopicItemCommon {
+	this := NegotiationsObjectsTopicItemCommon{}
 	return &this
 }
 
-// GetAcceptIncompleteResumes returns the AcceptIncompleteResumes field value
-func (o *ProfessionalRolesRole) GetAcceptIncompleteResumes() bool {
+// GetCounters returns the Counters field value if set, zero value otherwise.
+func (o *NegotiationsObjectsTopicItemCommon) GetCounters() NegotiationsObjectsCounters {
+	if o == nil || IsNil(o.Counters) {
+		var ret NegotiationsObjectsCounters
+		return ret
+	}
+	return *o.Counters
+}
+
+// GetCountersOk returns a tuple with the Counters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItemCommon) GetCountersOk() (*NegotiationsObjectsCounters, bool) {
+	if o == nil || IsNil(o.Counters) {
+		return nil, false
+	}
+	return o.Counters, true
+}
+
+// HasCounters returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItemCommon) HasCounters() bool {
+	if o != nil && !IsNil(o.Counters) {
+		return true
+	}
+
+	return false
+}
+
+// SetCounters gets a reference to the given NegotiationsObjectsCounters and assigns it to the Counters field.
+func (o *NegotiationsObjectsTopicItemCommon) SetCounters(v NegotiationsObjectsCounters) {
+	o.Counters = &v
+}
+
+// GetCreatedAt returns the CreatedAt field value
+func (o *NegotiationsObjectsTopicItemCommon) GetCreatedAt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItemCommon) GetCreatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *NegotiationsObjectsTopicItemCommon) SetCreatedAt(v string) {
+	o.CreatedAt = v
+}
+
+// GetHasUpdates returns the HasUpdates field value
+func (o *NegotiationsObjectsTopicItemCommon) GetHasUpdates() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.AcceptIncompleteResumes
+	return o.HasUpdates
 }
 
-// GetAcceptIncompleteResumesOk returns a tuple with the AcceptIncompleteResumes field value
+// GetHasUpdatesOk returns a tuple with the HasUpdates field value
 // and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetAcceptIncompleteResumesOk() (*bool, bool) {
+func (o *NegotiationsObjectsTopicItemCommon) GetHasUpdatesOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AcceptIncompleteResumes, true
+	return &o.HasUpdates, true
 }
 
-// SetAcceptIncompleteResumes sets field value
-func (o *ProfessionalRolesRole) SetAcceptIncompleteResumes(v bool) {
-	o.AcceptIncompleteResumes = v
+// SetHasUpdates sets field value
+func (o *NegotiationsObjectsTopicItemCommon) SetHasUpdates(v bool) {
+	o.HasUpdates = v
 }
 
 // GetId returns the Id field value
-func (o *ProfessionalRolesRole) GetId() string {
+func (o *NegotiationsObjectsTopicItemCommon) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -95,7 +165,7 @@ func (o *ProfessionalRolesRole) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetIdOk() (*string, bool) {
+func (o *NegotiationsObjectsTopicItemCommon) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,123 +173,248 @@ func (o *ProfessionalRolesRole) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *ProfessionalRolesRole) SetId(v string) {
+func (o *NegotiationsObjectsTopicItemCommon) SetId(v string) {
 	o.Id = v
 }
 
-// GetIsDefault returns the IsDefault field value
-func (o *ProfessionalRolesRole) GetIsDefault() bool {
-	if o == nil {
-		var ret bool
+// GetMessagesUrl returns the MessagesUrl field value if set, zero value otherwise.
+// Deprecated
+func (o *NegotiationsObjectsTopicItemCommon) GetMessagesUrl() string {
+	if o == nil || IsNil(o.MessagesUrl) {
+		var ret string
 		return ret
 	}
-
-	return o.IsDefault
+	return *o.MessagesUrl
 }
 
-// GetIsDefaultOk returns a tuple with the IsDefault field value
+// GetMessagesUrlOk returns a tuple with the MessagesUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetIsDefaultOk() (*bool, bool) {
-	if o == nil {
+// Deprecated
+func (o *NegotiationsObjectsTopicItemCommon) GetMessagesUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.MessagesUrl) {
 		return nil, false
 	}
-	return &o.IsDefault, true
+	return o.MessagesUrl, true
 }
 
-// SetIsDefault sets field value
-func (o *ProfessionalRolesRole) SetIsDefault(v bool) {
-	o.IsDefault = v
+// HasMessagesUrl returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItemCommon) HasMessagesUrl() bool {
+	if o != nil && !IsNil(o.MessagesUrl) {
+		return true
+	}
+
+	return false
 }
 
-// GetName returns the Name field value
-func (o *ProfessionalRolesRole) GetName() string {
+// SetMessagesUrl gets a reference to the given string and assigns it to the MessagesUrl field.
+// Deprecated
+func (o *NegotiationsObjectsTopicItemCommon) SetMessagesUrl(v string) {
+	o.MessagesUrl = &v
+}
+
+// GetMessagingStatus returns the MessagingStatus field value
+func (o *NegotiationsObjectsTopicItemCommon) GetMessagingStatus() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return o.MessagingStatus
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetMessagingStatusOk returns a tuple with the MessagingStatus field value
 // and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetNameOk() (*string, bool) {
+func (o *NegotiationsObjectsTopicItemCommon) GetMessagingStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.MessagingStatus, true
 }
 
-// SetName sets field value
-func (o *ProfessionalRolesRole) SetName(v string) {
-	o.Name = v
+// SetMessagingStatus sets field value
+func (o *NegotiationsObjectsTopicItemCommon) SetMessagingStatus(v string) {
+	o.MessagingStatus = v
 }
 
-// GetSearchDeprecated returns the SearchDeprecated field value if set, zero value otherwise.
-func (o *ProfessionalRolesRole) GetSearchDeprecated() bool {
-	if o == nil || IsNil(o.SearchDeprecated) {
-		var ret bool
+// GetProfessionalRoles returns the ProfessionalRoles field value if set, zero value otherwise.
+func (o *NegotiationsObjectsTopicItemCommon) GetProfessionalRoles() []VacancyProfessionalRoleItem {
+	if o == nil || IsNil(o.ProfessionalRoles) {
+		var ret []VacancyProfessionalRoleItem
 		return ret
 	}
-	return *o.SearchDeprecated
+	return o.ProfessionalRoles
 }
 
-// GetSearchDeprecatedOk returns a tuple with the SearchDeprecated field value if set, nil otherwise
+// GetProfessionalRolesOk returns a tuple with the ProfessionalRoles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetSearchDeprecatedOk() (*bool, bool) {
-	if o == nil || IsNil(o.SearchDeprecated) {
+func (o *NegotiationsObjectsTopicItemCommon) GetProfessionalRolesOk() ([]VacancyProfessionalRoleItem, bool) {
+	if o == nil || IsNil(o.ProfessionalRoles) {
 		return nil, false
 	}
-	return o.SearchDeprecated, true
+	return o.ProfessionalRoles, true
 }
 
-// HasSearchDeprecated returns a boolean if a field has been set.
-func (o *ProfessionalRolesRole) HasSearchDeprecated() bool {
-	if o != nil && !IsNil(o.SearchDeprecated) {
+// HasProfessionalRoles returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItemCommon) HasProfessionalRoles() bool {
+	if o != nil && !IsNil(o.ProfessionalRoles) {
 		return true
 	}
 
 	return false
 }
 
-// SetSearchDeprecated gets a reference to the given bool and assigns it to the SearchDeprecated field.
-func (o *ProfessionalRolesRole) SetSearchDeprecated(v bool) {
-	o.SearchDeprecated = &v
+// SetProfessionalRoles gets a reference to the given []VacancyProfessionalRoleItem and assigns it to the ProfessionalRoles field.
+func (o *NegotiationsObjectsTopicItemCommon) SetProfessionalRoles(v []VacancyProfessionalRoleItem) {
+	o.ProfessionalRoles = v
 }
 
-// GetSelectDeprecated returns the SelectDeprecated field value if set, zero value otherwise.
-func (o *ProfessionalRolesRole) GetSelectDeprecated() bool {
-	if o == nil || IsNil(o.SelectDeprecated) {
-		var ret bool
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *NegotiationsObjectsTopicItemCommon) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
 		return ret
 	}
-	return *o.SelectDeprecated
+	return *o.Source
 }
 
-// GetSelectDeprecatedOk returns a tuple with the SelectDeprecated field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProfessionalRolesRole) GetSelectDeprecatedOk() (*bool, bool) {
-	if o == nil || IsNil(o.SelectDeprecated) {
+func (o *NegotiationsObjectsTopicItemCommon) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
-	return o.SelectDeprecated, true
+	return o.Source, true
 }
 
-// HasSelectDeprecated returns a boolean if a field has been set.
-func (o *ProfessionalRolesRole) HasSelectDeprecated() bool {
-	if o != nil && !IsNil(o.SelectDeprecated) {
+// HasSource returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItemCommon) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
 	return false
 }
 
-// SetSelectDeprecated gets a reference to the given bool and assigns it to the SelectDeprecated field.
-func (o *ProfessionalRolesRole) SetSelectDeprecated(v bool) {
-	o.SelectDeprecated = &v
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *NegotiationsObjectsTopicItemCommon) SetSource(v string) {
+	o.Source = &v
 }
 
-func (o ProfessionalRolesRole) MarshalJSON() ([]byte, error) {
+// GetState returns the State field value
+func (o *NegotiationsObjectsTopicItemCommon) GetState() IncludesIdName {
+	if o == nil {
+		var ret IncludesIdName
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItemCommon) GetStateOk() (*IncludesIdName, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *NegotiationsObjectsTopicItemCommon) SetState(v IncludesIdName) {
+	o.State = v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *NegotiationsObjectsTopicItemCommon) GetUpdatedAt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItemCommon) GetUpdatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *NegotiationsObjectsTopicItemCommon) SetUpdatedAt(v string) {
+	o.UpdatedAt = v
+}
+
+// GetVacancy returns the Vacancy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NegotiationsObjectsTopicItemCommon) GetVacancy() VacanciesNegotiationsVacancyShort {
+	if o == nil || IsNil(o.Vacancy.Get()) {
+		var ret VacanciesNegotiationsVacancyShort
+		return ret
+	}
+	return *o.Vacancy.Get()
+}
+
+// GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NegotiationsObjectsTopicItemCommon) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Vacancy.Get(), o.Vacancy.IsSet()
+}
+
+// HasVacancy returns a boolean if a field has been set.
+func (o *NegotiationsObjectsTopicItemCommon) HasVacancy() bool {
+	if o != nil && o.Vacancy.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetVacancy gets a reference to the given NullableVacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
+func (o *NegotiationsObjectsTopicItemCommon) SetVacancy(v VacanciesNegotiationsVacancyShort) {
+	o.Vacancy.Set(&v)
+}
+// SetVacancyNil sets the value for Vacancy to be an explicit nil
+func (o *NegotiationsObjectsTopicItemCommon) SetVacancyNil() {
+	o.Vacancy.Set(nil)
+}
+
+// UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
+func (o *NegotiationsObjectsTopicItemCommon) UnsetVacancy() {
+	o.Vacancy.Unset()
+}
+
+// GetViewedByOpponent returns the ViewedByOpponent field value
+func (o *NegotiationsObjectsTopicItemCommon) GetViewedByOpponent() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ViewedByOpponent
+}
+
+// GetViewedByOpponentOk returns a tuple with the ViewedByOpponent field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsTopicItemCommon) GetViewedByOpponentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ViewedByOpponent, true
+}
+
+// SetViewedByOpponent sets field value
+func (o *NegotiationsObjectsTopicItemCommon) SetViewedByOpponent(v bool) {
+	o.ViewedByOpponent = v
+}
+
+func (o NegotiationsObjectsTopicItemCommon) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -227,30 +422,45 @@ func (o ProfessionalRolesRole) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ProfessionalRolesRole) ToMap() (map[string]interface{}, error) {
+func (o NegotiationsObjectsTopicItemCommon) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["accept_incomplete_resumes"] = o.AcceptIncompleteResumes
+	if !IsNil(o.Counters) {
+		toSerialize["counters"] = o.Counters
+	}
+	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["has_updates"] = o.HasUpdates
 	toSerialize["id"] = o.Id
-	toSerialize["is_default"] = o.IsDefault
-	toSerialize["name"] = o.Name
-	if !IsNil(o.SearchDeprecated) {
-		toSerialize["search_deprecated"] = o.SearchDeprecated
+	if !IsNil(o.MessagesUrl) {
+		toSerialize["messages_url"] = o.MessagesUrl
 	}
-	if !IsNil(o.SelectDeprecated) {
-		toSerialize["select_deprecated"] = o.SelectDeprecated
+	toSerialize["messaging_status"] = o.MessagingStatus
+	if !IsNil(o.ProfessionalRoles) {
+		toSerialize["professional_roles"] = o.ProfessionalRoles
 	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	toSerialize["state"] = o.State
+	toSerialize["updated_at"] = o.UpdatedAt
+	if o.Vacancy.IsSet() {
+		toSerialize["vacancy"] = o.Vacancy.Get()
+	}
+	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
 	return toSerialize, nil
 }
 
-func (o *ProfessionalRolesRole) UnmarshalJSON(data []byte) (err error) {
+func (o *NegotiationsObjectsTopicItemCommon) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"accept_incomplete_resumes",
+		"created_at",
+		"has_updates",
 		"id",
-		"is_default",
-		"name",
+		"messaging_status",
+		"state",
+		"updated_at",
+		"viewed_by_opponent",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -267,53 +477,53 @@ func (o *ProfessionalRolesRole) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varProfessionalRolesRole := _ProfessionalRolesRole{}
+	varNegotiationsObjectsTopicItemCommon := _NegotiationsObjectsTopicItemCommon{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProfessionalRolesRole)
+	err = decoder.Decode(&varNegotiationsObjectsTopicItemCommon)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ProfessionalRolesRole(varProfessionalRolesRole)
+	*o = NegotiationsObjectsTopicItemCommon(varNegotiationsObjectsTopicItemCommon)
 
 	return err
 }
 
-type NullableProfessionalRolesRole struct {
-	value *ProfessionalRolesRole
+type NullableNegotiationsObjectsTopicItemCommon struct {
+	value *NegotiationsObjectsTopicItemCommon
 	isSet bool
 }
 
-func (v NullableProfessionalRolesRole) Get() *ProfessionalRolesRole {
+func (v NullableNegotiationsObjectsTopicItemCommon) Get() *NegotiationsObjectsTopicItemCommon {
 	return v.value
 }
 
-func (v *NullableProfessionalRolesRole) Set(val *ProfessionalRolesRole) {
+func (v *NullableNegotiationsObjectsTopicItemCommon) Set(val *NegotiationsObjectsTopicItemCommon) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableProfessionalRolesRole) IsSet() bool {
+func (v NullableNegotiationsObjectsTopicItemCommon) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableProfessionalRolesRole) Unset() {
+func (v *NullableNegotiationsObjectsTopicItemCommon) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableProfessionalRolesRole(val *ProfessionalRolesRole) *NullableProfessionalRolesRole {
-	return &NullableProfessionalRolesRole{value: val, isSet: true}
+func NewNullableNegotiationsObjectsTopicItemCommon(val *NegotiationsObjectsTopicItemCommon) *NullableNegotiationsObjectsTopicItemCommon {
+	return &NullableNegotiationsObjectsTopicItemCommon{value: val, isSet: true}
 }
 
-func (v NullableProfessionalRolesRole) MarshalJSON() ([]byte, error) {
+func (v NullableNegotiationsObjectsTopicItemCommon) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableProfessionalRolesRole) UnmarshalJSON(src []byte) error {
+func (v *NullableNegotiationsObjectsTopicItemCommon) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

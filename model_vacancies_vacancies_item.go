@@ -374,11 +374,11 @@ func (o *VacanciesVacanciesItem) GetArea() IncludesArea {
 
 // GetAreaOk returns a tuple with the Area field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVacanciesItem) GetAreaOk() (*IncludesArea, bool) {
+func (o *VacanciesVacanciesItem) GetAreaOk() (IncludesArea, bool) {
 	if o == nil {
-		return nil, false
+		return IncludesArea{}, false
 	}
-	return &o.Area, true
+	return o.Area, true
 }
 
 // SetArea sets field value

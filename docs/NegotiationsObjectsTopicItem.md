@@ -5,28 +5,28 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Counters** | Pointer to [**NegotiationsObjectsCounters**](NegotiationsObjectsCounters.md) |  | [optional] 
-**CreatedAt** | **string** | Дата и время создания отклика | 
-**DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
-**HasUpdates** | **bool** | Есть ли непросмотренные сообщения в отклике. Флаг сбрасывается при различных действиях с откликом, например, [просмотре списка сообщений](https://github.com/hhru/api/blob/master/docs/negotiations.md#get_messages) | 
-**Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
-**Id** | **string** | Идентификатор отклика | 
-**JobSearchStatus** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**CreatedAt** | **string** | Дата и время создания отклика/приглашения | 
+**HasUpdates** | **bool** | Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания | 
+**Id** | **string** | Идентификатор отклика/приглашения | 
 **MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
 **MessagingStatus** | **string** | Текущий статус переписки.  Возможные значения приведены в поле &#x60;messaging_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
-**PhoneCalls** | Pointer to [**NullableNegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
-**ProfessionalRoles** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
-**Source** | **string** | Источник отклика | 
-**State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
-**UpdatedAt** | **string** | Дата и время последнего обновления отклика | 
-**Url** | **string** | Ссылка на полную версию отклика | 
-**Vacancy** | Pointer to [**NullableVacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
+**ProfessionalRoles** | Pointer to [**[]VacancyProfessionalRoleItem**](VacancyProfessionalRoleItem.md) | Список профессиональных ролей | [optional] 
+**Source** | Pointer to **string** | Источник отклика/приглашения | [optional] 
+**State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика/приглашения.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
+**UpdatedAt** | **string** | Дата и время последнего обновления отклика/приглашения | 
+**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
+**DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
+**Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
+**JobSearchStatus** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**PhoneCalls** | Pointer to [**NullableNegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
+**Url** | **string** | Ссылка на полную версию отклика | 
 
 ## Methods
 
 ### NewNegotiationsObjectsTopicItem
 
-`func NewNegotiationsObjectsTopicItem(createdAt string, declineAllowed bool, hasUpdates bool, hidden bool, id string, messagingStatus string, source string, state IncludesIdName, updatedAt string, url string, viewedByOpponent bool, ) *NegotiationsObjectsTopicItem`
+`func NewNegotiationsObjectsTopicItem(createdAt string, hasUpdates bool, id string, messagingStatus string, state IncludesIdName, updatedAt string, viewedByOpponent bool, declineAllowed bool, hidden bool, url string, ) *NegotiationsObjectsTopicItem`
 
 NewNegotiationsObjectsTopicItem instantiates a new NegotiationsObjectsTopicItem object
 This constructor will assign default values to properties that have it defined,
@@ -86,26 +86,6 @@ and a boolean to check if the value has been set.
 SetCreatedAt sets CreatedAt field to given value.
 
 
-### GetDeclineAllowed
-
-`func (o *NegotiationsObjectsTopicItem) GetDeclineAllowed() bool`
-
-GetDeclineAllowed returns the DeclineAllowed field if non-nil, zero value otherwise.
-
-### GetDeclineAllowedOk
-
-`func (o *NegotiationsObjectsTopicItem) GetDeclineAllowedOk() (*bool, bool)`
-
-GetDeclineAllowedOk returns a tuple with the DeclineAllowed field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeclineAllowed
-
-`func (o *NegotiationsObjectsTopicItem) SetDeclineAllowed(v bool)`
-
-SetDeclineAllowed sets DeclineAllowed field to given value.
-
-
 ### GetHasUpdates
 
 `func (o *NegotiationsObjectsTopicItem) GetHasUpdates() bool`
@@ -124,26 +104,6 @@ and a boolean to check if the value has been set.
 `func (o *NegotiationsObjectsTopicItem) SetHasUpdates(v bool)`
 
 SetHasUpdates sets HasUpdates field to given value.
-
-
-### GetHidden
-
-`func (o *NegotiationsObjectsTopicItem) GetHidden() bool`
-
-GetHidden returns the Hidden field if non-nil, zero value otherwise.
-
-### GetHiddenOk
-
-`func (o *NegotiationsObjectsTopicItem) GetHiddenOk() (*bool, bool)`
-
-GetHiddenOk returns a tuple with the Hidden field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHidden
-
-`func (o *NegotiationsObjectsTopicItem) SetHidden(v bool)`
-
-SetHidden sets Hidden field to given value.
 
 
 ### GetId
@@ -166,41 +126,6 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetJobSearchStatus
-
-`func (o *NegotiationsObjectsTopicItem) GetJobSearchStatus() IncludesIdName`
-
-GetJobSearchStatus returns the JobSearchStatus field if non-nil, zero value otherwise.
-
-### GetJobSearchStatusOk
-
-`func (o *NegotiationsObjectsTopicItem) GetJobSearchStatusOk() (*IncludesIdName, bool)`
-
-GetJobSearchStatusOk returns a tuple with the JobSearchStatus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetJobSearchStatus
-
-`func (o *NegotiationsObjectsTopicItem) SetJobSearchStatus(v IncludesIdName)`
-
-SetJobSearchStatus sets JobSearchStatus field to given value.
-
-### HasJobSearchStatus
-
-`func (o *NegotiationsObjectsTopicItem) HasJobSearchStatus() bool`
-
-HasJobSearchStatus returns a boolean if a field has been set.
-
-### SetJobSearchStatusNil
-
-`func (o *NegotiationsObjectsTopicItem) SetJobSearchStatusNil(b bool)`
-
- SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
-
-### UnsetJobSearchStatus
-`func (o *NegotiationsObjectsTopicItem) UnsetJobSearchStatus()`
-
-UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
 ### GetMessagesUrl
 
 `func (o *NegotiationsObjectsTopicItem) GetMessagesUrl() string`
@@ -246,57 +171,22 @@ and a boolean to check if the value has been set.
 SetMessagingStatus sets MessagingStatus field to given value.
 
 
-### GetPhoneCalls
-
-`func (o *NegotiationsObjectsTopicItem) GetPhoneCalls() NegotiationsPhoneCalls`
-
-GetPhoneCalls returns the PhoneCalls field if non-nil, zero value otherwise.
-
-### GetPhoneCallsOk
-
-`func (o *NegotiationsObjectsTopicItem) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool)`
-
-GetPhoneCallsOk returns a tuple with the PhoneCalls field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPhoneCalls
-
-`func (o *NegotiationsObjectsTopicItem) SetPhoneCalls(v NegotiationsPhoneCalls)`
-
-SetPhoneCalls sets PhoneCalls field to given value.
-
-### HasPhoneCalls
-
-`func (o *NegotiationsObjectsTopicItem) HasPhoneCalls() bool`
-
-HasPhoneCalls returns a boolean if a field has been set.
-
-### SetPhoneCallsNil
-
-`func (o *NegotiationsObjectsTopicItem) SetPhoneCallsNil(b bool)`
-
- SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
-
-### UnsetPhoneCalls
-`func (o *NegotiationsObjectsTopicItem) UnsetPhoneCalls()`
-
-UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
 ### GetProfessionalRoles
 
-`func (o *NegotiationsObjectsTopicItem) GetProfessionalRoles() IncludesIdName`
+`func (o *NegotiationsObjectsTopicItem) GetProfessionalRoles() []VacancyProfessionalRoleItem`
 
 GetProfessionalRoles returns the ProfessionalRoles field if non-nil, zero value otherwise.
 
 ### GetProfessionalRolesOk
 
-`func (o *NegotiationsObjectsTopicItem) GetProfessionalRolesOk() (*IncludesIdName, bool)`
+`func (o *NegotiationsObjectsTopicItem) GetProfessionalRolesOk() (*[]VacancyProfessionalRoleItem, bool)`
 
 GetProfessionalRolesOk returns a tuple with the ProfessionalRoles field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfessionalRoles
 
-`func (o *NegotiationsObjectsTopicItem) SetProfessionalRoles(v IncludesIdName)`
+`func (o *NegotiationsObjectsTopicItem) SetProfessionalRoles(v []VacancyProfessionalRoleItem)`
 
 SetProfessionalRoles sets ProfessionalRoles field to given value.
 
@@ -325,6 +215,11 @@ and a boolean to check if the value has been set.
 
 SetSource sets Source field to given value.
 
+### HasSource
+
+`func (o *NegotiationsObjectsTopicItem) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
 
 ### GetState
 
@@ -366,26 +261,6 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
-### GetUrl
-
-`func (o *NegotiationsObjectsTopicItem) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *NegotiationsObjectsTopicItem) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrl
-
-`func (o *NegotiationsObjectsTopicItem) SetUrl(v string)`
-
-SetUrl sets Url field to given value.
-
-
 ### GetVacancy
 
 `func (o *NegotiationsObjectsTopicItem) GetVacancy() VacanciesNegotiationsVacancyShort`
@@ -411,16 +286,6 @@ SetVacancy sets Vacancy field to given value.
 
 HasVacancy returns a boolean if a field has been set.
 
-### SetVacancyNil
-
-`func (o *NegotiationsObjectsTopicItem) SetVacancyNil(b bool)`
-
- SetVacancyNil sets the value for Vacancy to be an explicit nil
-
-### UnsetVacancy
-`func (o *NegotiationsObjectsTopicItem) UnsetVacancy()`
-
-UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
 ### GetViewedByOpponent
 
 `func (o *NegotiationsObjectsTopicItem) GetViewedByOpponent() bool`
@@ -439,6 +304,136 @@ and a boolean to check if the value has been set.
 `func (o *NegotiationsObjectsTopicItem) SetViewedByOpponent(v bool)`
 
 SetViewedByOpponent sets ViewedByOpponent field to given value.
+
+
+### GetDeclineAllowed
+
+`func (o *NegotiationsObjectsTopicItem) GetDeclineAllowed() bool`
+
+GetDeclineAllowed returns the DeclineAllowed field if non-nil, zero value otherwise.
+
+### GetDeclineAllowedOk
+
+`func (o *NegotiationsObjectsTopicItem) GetDeclineAllowedOk() (*bool, bool)`
+
+GetDeclineAllowedOk returns a tuple with the DeclineAllowed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeclineAllowed
+
+`func (o *NegotiationsObjectsTopicItem) SetDeclineAllowed(v bool)`
+
+SetDeclineAllowed sets DeclineAllowed field to given value.
+
+
+### GetHidden
+
+`func (o *NegotiationsObjectsTopicItem) GetHidden() bool`
+
+GetHidden returns the Hidden field if non-nil, zero value otherwise.
+
+### GetHiddenOk
+
+`func (o *NegotiationsObjectsTopicItem) GetHiddenOk() (*bool, bool)`
+
+GetHiddenOk returns a tuple with the Hidden field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHidden
+
+`func (o *NegotiationsObjectsTopicItem) SetHidden(v bool)`
+
+SetHidden sets Hidden field to given value.
+
+
+### GetJobSearchStatus
+
+`func (o *NegotiationsObjectsTopicItem) GetJobSearchStatus() IncludesIdName`
+
+GetJobSearchStatus returns the JobSearchStatus field if non-nil, zero value otherwise.
+
+### GetJobSearchStatusOk
+
+`func (o *NegotiationsObjectsTopicItem) GetJobSearchStatusOk() (*IncludesIdName, bool)`
+
+GetJobSearchStatusOk returns a tuple with the JobSearchStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobSearchStatus
+
+`func (o *NegotiationsObjectsTopicItem) SetJobSearchStatus(v IncludesIdName)`
+
+SetJobSearchStatus sets JobSearchStatus field to given value.
+
+### HasJobSearchStatus
+
+`func (o *NegotiationsObjectsTopicItem) HasJobSearchStatus() bool`
+
+HasJobSearchStatus returns a boolean if a field has been set.
+
+### SetJobSearchStatusNil
+
+`func (o *NegotiationsObjectsTopicItem) SetJobSearchStatusNil(b bool)`
+
+ SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
+
+### UnsetJobSearchStatus
+`func (o *NegotiationsObjectsTopicItem) UnsetJobSearchStatus()`
+
+UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
+### GetPhoneCalls
+
+`func (o *NegotiationsObjectsTopicItem) GetPhoneCalls() NegotiationsPhoneCalls`
+
+GetPhoneCalls returns the PhoneCalls field if non-nil, zero value otherwise.
+
+### GetPhoneCallsOk
+
+`func (o *NegotiationsObjectsTopicItem) GetPhoneCallsOk() (*NegotiationsPhoneCalls, bool)`
+
+GetPhoneCallsOk returns a tuple with the PhoneCalls field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPhoneCalls
+
+`func (o *NegotiationsObjectsTopicItem) SetPhoneCalls(v NegotiationsPhoneCalls)`
+
+SetPhoneCalls sets PhoneCalls field to given value.
+
+### HasPhoneCalls
+
+`func (o *NegotiationsObjectsTopicItem) HasPhoneCalls() bool`
+
+HasPhoneCalls returns a boolean if a field has been set.
+
+### SetPhoneCallsNil
+
+`func (o *NegotiationsObjectsTopicItem) SetPhoneCallsNil(b bool)`
+
+ SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
+
+### UnsetPhoneCalls
+`func (o *NegotiationsObjectsTopicItem) UnsetPhoneCalls()`
+
+UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
+### GetUrl
+
+`func (o *NegotiationsObjectsTopicItem) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *NegotiationsObjectsTopicItem) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *NegotiationsObjectsTopicItem) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
 
 
 
