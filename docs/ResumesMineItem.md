@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Age** | Pointer to **NullableFloat32** | Возраст | [optional] 
 **AlternateUrl** | **string** | URL резюме на сайте | 
 **Area** | Pointer to [**IncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
-**AutoHideTime** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**AutoHideTime** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
@@ -42,6 +42,7 @@ Name | Type | Description | Notes
 **Contact** | [**[]IncludesContact**](IncludesContact.md) | Список контактов соискателя | 
 **Created** | **string** | Дата и время создания резюме | 
 **SimilarVacancies** | [**ResumeObjectsSimilarVacancies**](ResumeObjectsSimilarVacancies.md) |  | 
+**Tags** | Pointer to [**[]IncludesId**](IncludesId.md) | Теги к резюме | [optional] 
 **Updated** | **string** | Дата и время обновления резюме | 
 **Visible** | **bool** | Видно ли резюме в поиске | 
 
@@ -189,16 +190,6 @@ SetAutoHideTime sets AutoHideTime field to given value.
 
 HasAutoHideTime returns a boolean if a field has been set.
 
-### SetAutoHideTimeNil
-
-`func (o *ResumesMineItem) SetAutoHideTimeNil(b bool)`
-
- SetAutoHideTimeNil sets the value for AutoHideTime to be an explicit nil
-
-### UnsetAutoHideTime
-`func (o *ResumesMineItem) UnsetAutoHideTime()`
-
-UnsetAutoHideTime ensures that no value is present for AutoHideTime, not even an explicit nil
 ### GetCanViewFullInfo
 
 `func (o *ResumesMineItem) GetCanViewFullInfo() bool`
@@ -1008,6 +999,31 @@ and a boolean to check if the value has been set.
 
 SetSimilarVacancies sets SimilarVacancies field to given value.
 
+
+### GetTags
+
+`func (o *ResumesMineItem) GetTags() []IncludesId`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *ResumesMineItem) GetTagsOk() (*[]IncludesId, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *ResumesMineItem) SetTags(v []IncludesId)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *ResumesMineItem) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetUpdated
 

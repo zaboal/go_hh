@@ -482,11 +482,17 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetMetroStations**](docs/DefaultApi.md#getmetrostations) | **Get** /metro | Список станций метро во всех городах
 *DefaultApi* | [**GetMetroStationsInCity**](docs/DefaultApi.md#getmetrostationsincity) | **Get** /metro/{city_id} | Список станций метро в указанном городе
 *DefaultApi* | [**GetMineResumes**](docs/DefaultApi.md#getmineresumes) | **Get** /resumes/mine | Список резюме авторизованного пользователя
-*DefaultApi* | [**GetNegotiationItem**](docs/DefaultApi.md#getnegotiationitem) | **Get** /negotiations/{id} | Просмотр отклика/приглашения
-*DefaultApi* | [**GetNegotiationItem_0**](docs/DefaultApi.md#getnegotiationitem_0) | **Get** /negotiations/{id} | Просмотр отклика/приглашения
+*DefaultApi* | [**GetNegotiationItem**](docs/DefaultApi.md#getnegotiationitem) | **Get** /negotiations/{nid} | Просмотр отклика/приглашения
+*DefaultApi* | [**GetNegotiationItem_0**](docs/DefaultApi.md#getnegotiationitem_0) | **Get** /negotiations/{nid} | Просмотр отклика/приглашения
 *DefaultApi* | [**GetNegotiationMessageTemplates**](docs/DefaultApi.md#getnegotiationmessagetemplates) | **Get** /message_templates/{template} | Список шаблонов ответов для отклика/приглашения
 *DefaultApi* | [**GetNegotiationMessages**](docs/DefaultApi.md#getnegotiationmessages) | **Get** /negotiations/{nid}/messages | Просмотр списка сообщений в отклике
+*DefaultApi* | [**GetNegotiationTestResults**](docs/DefaultApi.md#getnegotiationtestresults) | **Get** /negotiations/{nid}/test/solution | Получить результаты тестов, прикрепленных к вакансии
+*DefaultApi* | [**GetNegotiationTestResults_0**](docs/DefaultApi.md#getnegotiationtestresults_0) | **Get** /negotiations/{nid}/test/solution | Получить результаты тестов, прикрепленных к вакансии
 *DefaultApi* | [**GetNegotiations**](docs/DefaultApi.md#getnegotiations) | **Get** /negotiations | Список откликов/приглашений
+*DefaultApi* | [**GetNegotiationsStatisticsEmployer**](docs/DefaultApi.md#getnegotiationsstatisticsemployer) | **Get** /employers/{employer_id}/negotiations_statistics | Статистика откликов для компании
+*DefaultApi* | [**GetNegotiationsStatisticsEmployer_0**](docs/DefaultApi.md#getnegotiationsstatisticsemployer_0) | **Get** /employers/{employer_id}/negotiations_statistics | Статистика откликов для компании
+*DefaultApi* | [**GetNegotiationsStatisticsManager**](docs/DefaultApi.md#getnegotiationsstatisticsmanager) | **Get** /employers/{employer_id}/managers/{manager_id}/negotiations_statistics | Статистика откликов для менеджера
+*DefaultApi* | [**GetNegotiationsStatisticsManager_0**](docs/DefaultApi.md#getnegotiationsstatisticsmanager_0) | **Get** /employers/{employer_id}/managers/{manager_id}/negotiations_statistics | Статистика откликов для менеджера
 *DefaultApi* | [**GetNegotiations_0**](docs/DefaultApi.md#getnegotiations_0) | **Get** /negotiations | Список откликов/приглашений
 *DefaultApi* | [**GetNegotiations_1**](docs/DefaultApi.md#getnegotiations_1) | **Get** /negotiations | Список откликов/приглашений
 *DefaultApi* | [**GetNewResumeConditions**](docs/DefaultApi.md#getnewresumeconditions) | **Get** /resume_conditions | Условия заполнения полей нового резюме
@@ -559,7 +565,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**PublishVacancy_0**](docs/DefaultApi.md#publishvacancy_0) | **Post** /vacancies | Публикация вакансии
 *DefaultApi* | [**PutMailTemplatesItem**](docs/DefaultApi.md#putmailtemplatesitem) | **Put** /employers/{employer_id}/mail_templates/{template_id} | Изменение шаблона ответа соискателю
 *DefaultApi* | [**PutMailTemplatesItem_0**](docs/DefaultApi.md#putmailtemplatesitem_0) | **Put** /employers/{employer_id}/mail_templates/{template_id} | Изменение шаблона ответа соискателю
-*DefaultApi* | [**PutNegotiationsCollectionToNextState**](docs/DefaultApi.md#putnegotiationscollectiontonextstate) | **Put** /negotiations/{id} | Действия по откликам/приглашениям
+*DefaultApi* | [**PutNegotiationsCollectionToNextState**](docs/DefaultApi.md#putnegotiationscollectiontonextstate) | **Put** /negotiations/{nid} | Действия по откликам/приглашениям
 *DefaultApi* | [**PutPrefNegotiationsOrder**](docs/DefaultApi.md#putprefnegotiationsorder) | **Put** /vacancies/{id}/preferred_negotiations_order | Изменение предпочитаемой сортировки откликов
 *DefaultApi* | [**PutPrefNegotiationsOrder_0**](docs/DefaultApi.md#putprefnegotiationsorder_0) | **Put** /vacancies/{id}/preferred_negotiations_order | Изменение предпочитаемой сортировки откликов
 *DefaultApi* | [**RestoreVacancyFromHidden**](docs/DefaultApi.md#restorevacancyfromhidden) | **Delete** /employers/{employer_id}/vacancies/hidden/{vacancy_id} | Восстановление вакансии из удаленных
@@ -619,12 +625,12 @@ Class | Method | HTTP request | Description
  - [DictionariesBranchItem](docs/DictionariesBranchItem.md)
  - [DictionariesCurrencyItem](docs/DictionariesCurrencyItem.md)
  - [DictionariesDictResponse](docs/DictionariesDictResponse.md)
+ - [DictionariesDistrictItem](docs/DictionariesDistrictItem.md)
  - [DictionariesLangItem](docs/DictionariesLangItem.md)
  - [DictionariesSalaryStatisticsAreaItem](docs/DictionariesSalaryStatisticsAreaItem.md)
  - [DictionariesSalaryStatisticsProfessionalAreasResponseInner](docs/DictionariesSalaryStatisticsProfessionalAreasResponseInner.md)
  - [DictionariesSalaryStatisticsSpecializations](docs/DictionariesSalaryStatisticsSpecializations.md)
  - [DictionariesSkillsResponse](docs/DictionariesSkillsResponse.md)
- - [DistrictsDistrictItem](docs/DistrictsDistrictItem.md)
  - [EmployerAddressesEmployerAddressItem](docs/EmployerAddressesEmployerAddressItem.md)
  - [EmployerAddressesEmployerAddressItemManager](docs/EmployerAddressesEmployerAddressItemManager.md)
  - [EmployerAddressesEmployerAddressItemResponse](docs/EmployerAddressesEmployerAddressItemResponse.md)
@@ -854,12 +860,18 @@ Class | Method | HTTP request | Description
  - [NegotiationsMessagesGetResponse](docs/NegotiationsMessagesGetResponse.md)
  - [NegotiationsNegotiationGetResponse](docs/NegotiationsNegotiationGetResponse.md)
  - [NegotiationsNegotiationMessageTemplates](docs/NegotiationsNegotiationMessageTemplates.md)
+ - [NegotiationsNegotiationTestResultsResponse](docs/NegotiationsNegotiationTestResultsResponse.md)
+ - [NegotiationsNegotiationTestResultsResponseTestResult](docs/NegotiationsNegotiationTestResultsResponseTestResult.md)
  - [NegotiationsNegotiationsCollection](docs/NegotiationsNegotiationsCollection.md)
  - [NegotiationsNegotiationsCollections](docs/NegotiationsNegotiationsCollections.md)
  - [NegotiationsNegotiationsOrderTypes](docs/NegotiationsNegotiationsOrderTypes.md)
+ - [NegotiationsNegotiationsStatistics](docs/NegotiationsNegotiationsStatistics.md)
+ - [NegotiationsNegotiationsStatisticsEmployerResponse](docs/NegotiationsNegotiationsStatisticsEmployerResponse.md)
+ - [NegotiationsNegotiationsStatisticsManagerResponse](docs/NegotiationsNegotiationsStatisticsManagerResponse.md)
  - [NegotiationsObjectsCounters](docs/NegotiationsObjectsCounters.md)
  - [NegotiationsObjectsEmployerCounters](docs/NegotiationsObjectsEmployerCounters.md)
  - [NegotiationsObjectsEmployerTopicResume](docs/NegotiationsObjectsEmployerTopicResume.md)
+ - [NegotiationsObjectsPoliteness](docs/NegotiationsObjectsPoliteness.md)
  - [NegotiationsObjectsStates](docs/NegotiationsObjectsStates.md)
  - [NegotiationsObjectsTopicItem](docs/NegotiationsObjectsTopicItem.md)
  - [NegotiationsObjectsTopicItemCommon](docs/NegotiationsObjectsTopicItemCommon.md)
@@ -1022,7 +1034,10 @@ Class | Method | HTTP request | Description
  - [SavedSearchesSavedSearchResponse](docs/SavedSearchesSavedSearchResponse.md)
  - [SearchForResumes403Response](docs/SearchForResumes403Response.md)
  - [SendNegotiationMessage403Response](docs/SendNegotiationMessage403Response.md)
+ - [SkillVerificationsOpenedAnswer](docs/SkillVerificationsOpenedAnswer.md)
  - [SkillVerificationsTestResultNano](docs/SkillVerificationsTestResultNano.md)
+ - [SkillVerificationsTestResultTasks](docs/SkillVerificationsTestResultTasks.md)
+ - [SkillVerificationsTestResultTasksClosedAnswersInner](docs/SkillVerificationsTestResultTasksClosedAnswersInner.md)
  - [SkillVerificationsTestResultWithUrl](docs/SkillVerificationsTestResultWithUrl.md)
  - [SuggestsArea](docs/SuggestsArea.md)
  - [SuggestsAreas](docs/SuggestsAreas.md)

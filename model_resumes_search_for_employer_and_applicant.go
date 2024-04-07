@@ -70,6 +70,8 @@ type ResumesSearchForEmployerAndApplicant struct {
 	Owner ResumeObjectsOwner `json:"owner"`
 	// Фотография пользователя
 	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
+	// Теги к резюме
+	Tags []IncludesId `json:"tags,omitempty"`
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
 	LastNegotiation *ResumesNegotiationNano `json:"last_negotiation,omitempty"`
@@ -935,6 +937,38 @@ func (o *ResumesSearchForEmployerAndApplicant) UnsetPhoto() {
 	o.Photo.Unset()
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ResumesSearchForEmployerAndApplicant) GetTags() []IncludesId {
+	if o == nil || IsNil(o.Tags) {
+		var ret []IncludesId
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResumesSearchForEmployerAndApplicant) GetTagsOk() ([]IncludesId, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ResumesSearchForEmployerAndApplicant) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []IncludesId and assigns it to the Tags field.
+func (o *ResumesSearchForEmployerAndApplicant) SetTags(v []IncludesId) {
+	o.Tags = v
+}
+
 // GetViewed returns the Viewed field value
 func (o *ResumesSearchForEmployerAndApplicant) GetViewed() bool {
 	if o == nil {
@@ -1114,6 +1148,9 @@ func (o ResumesSearchForEmployerAndApplicant) ToMap() (map[string]interface{}, e
 	toSerialize["owner"] = o.Owner
 	if o.Photo.IsSet() {
 		toSerialize["photo"] = o.Photo.Get()
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["viewed"] = o.Viewed
 	if !IsNil(o.LastNegotiation) {

@@ -46,6 +46,7 @@ Name | Type | Description | Notes
 **Site** | [**[]ResumeObjectsSite**](ResumeObjectsSite.md) | Профили в соц. сетях и других сервисах | 
 **SkillSet** | **[]string** | Ключевые навыки (список уникальных строк) | 
 **Skills** | Pointer to **NullableString** | Дополнительная информация, описание навыков в свободной форме | [optional] 
+**Tags** | Pointer to [**[]IncludesId**](IncludesId.md) | Теги к резюме | [optional] 
 **TravelTime** | [**IncludesIdName**](IncludesIdName.md) | Желательное время в пути до работы. Элемент справочника [travel_time](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **WorkTicket** | [**[]IncludesIdNameUrl**](IncludesIdNameUrl.md) | Список регионов, в которых соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | 
 
@@ -1158,6 +1159,31 @@ HasSkills returns a boolean if a field has been set.
 `func (o *ResumeResumeFull) UnsetSkills()`
 
 UnsetSkills ensures that no value is present for Skills, not even an explicit nil
+### GetTags
+
+`func (o *ResumeResumeFull) GetTags() []IncludesId`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *ResumeResumeFull) GetTagsOk() (*[]IncludesId, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *ResumeResumeFull) SetTags(v []IncludesId)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *ResumeResumeFull) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
 ### GetTravelTime
 
 `func (o *ResumeResumeFull) GetTravelTime() IncludesIdName`

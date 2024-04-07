@@ -70,6 +70,8 @@ type NegotiationsObjectsEmployerTopicResume struct {
 	Owner ResumeObjectsOwner `json:"owner"`
 	// Фотография пользователя
 	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
+	// Теги к резюме
+	Tags []IncludesId `json:"tags,omitempty"`
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
 	// Ссылка на получение элементов
@@ -935,6 +937,38 @@ func (o *NegotiationsObjectsEmployerTopicResume) UnsetPhoto() {
 	o.Photo.Unset()
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *NegotiationsObjectsEmployerTopicResume) GetTags() []IncludesId {
+	if o == nil || IsNil(o.Tags) {
+		var ret []IncludesId
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NegotiationsObjectsEmployerTopicResume) GetTagsOk() ([]IncludesId, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *NegotiationsObjectsEmployerTopicResume) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []IncludesId and assigns it to the Tags field.
+func (o *NegotiationsObjectsEmployerTopicResume) SetTags(v []IncludesId) {
+	o.Tags = v
+}
+
 // GetViewed returns the Viewed field value
 func (o *NegotiationsObjectsEmployerTopicResume) GetViewed() bool {
 	if o == nil {
@@ -1074,6 +1108,9 @@ func (o NegotiationsObjectsEmployerTopicResume) ToMap() (map[string]interface{},
 	toSerialize["owner"] = o.Owner
 	if o.Photo.IsSet() {
 		toSerialize["photo"] = o.Photo.Get()
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["viewed"] = o.Viewed
 	toSerialize["url"] = o.Url

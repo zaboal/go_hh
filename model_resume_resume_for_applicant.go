@@ -100,6 +100,8 @@ type ResumeResumeForApplicant struct {
 	SkillSet []string `json:"skill_set"`
 	// Дополнительная информация, описание навыков в свободной форме
 	Skills NullableString `json:"skills,omitempty"`
+	// Теги к резюме
+	Tags []IncludesId `json:"tags,omitempty"`
 	// Желательное время в пути до работы. Элемент справочника [travel_time](#tag/Obshie-spravochniki/operation/get-dictionaries)
 	TravelTime IncludesIdName `json:"travel_time"`
 	// Список регионов, в которых соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) 
@@ -1494,6 +1496,38 @@ func (o *ResumeResumeForApplicant) UnsetSkills() {
 	o.Skills.Unset()
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ResumeResumeForApplicant) GetTags() []IncludesId {
+	if o == nil || IsNil(o.Tags) {
+		var ret []IncludesId
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeForApplicant) GetTagsOk() ([]IncludesId, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ResumeResumeForApplicant) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []IncludesId and assigns it to the Tags field.
+func (o *ResumeResumeForApplicant) SetTags(v []IncludesId) {
+	o.Tags = v
+}
+
 // GetTravelTime returns the TravelTime field value
 func (o *ResumeResumeForApplicant) GetTravelTime() IncludesIdName {
 	if o == nil {
@@ -2043,6 +2077,9 @@ func (o ResumeResumeForApplicant) ToMap() (map[string]interface{}, error) {
 	toSerialize["skill_set"] = o.SkillSet
 	if o.Skills.IsSet() {
 		toSerialize["skills"] = o.Skills.Get()
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["travel_time"] = o.TravelTime
 	toSerialize["work_ticket"] = o.WorkTicket

@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryUrl**](ResumeObjectsNegotiationsHistoryUrl.md) | Краткая история откликов/приглашений по резюме | 
 **Owner** | [**ResumeObjectsOwner**](ResumeObjectsOwner.md) | Информация о владельце резюме | 
 **Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) | Фотография пользователя | [optional] 
+**Tags** | Pointer to [**[]IncludesId**](IncludesId.md) | Теги к резюме | [optional] 
 **Viewed** | **bool** | Было ли резюме уже просмотрено работодателем | 
 **Url** | **string** | Ссылка на получение элементов | 
 **JobSearchStatus** | Pointer to [**IncludesIdNameLastChangeTime**](IncludesIdNameLastChangeTime.md) | Для получения данных нужно передать параметр &#x60;with_job_search_status&#x3D;true&#x60;.  Возможные значения перечислены в поле &#x60;job_search_statuses_employer&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | [optional] 
@@ -743,6 +744,31 @@ HasPhoto returns a boolean if a field has been set.
 `func (o *NegotiationsObjectsEmployerTopicResume) UnsetPhoto()`
 
 UnsetPhoto ensures that no value is present for Photo, not even an explicit nil
+### GetTags
+
+`func (o *NegotiationsObjectsEmployerTopicResume) GetTags() []IncludesId`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *NegotiationsObjectsEmployerTopicResume) GetTagsOk() (*[]IncludesId, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *NegotiationsObjectsEmployerTopicResume) SetTags(v []IncludesId)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *NegotiationsObjectsEmployerTopicResume) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
 ### GetViewed
 
 `func (o *NegotiationsObjectsEmployerTopicResume) GetViewed() bool`

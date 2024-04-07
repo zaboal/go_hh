@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryUrl**](ResumeObjectsNegotiationsHistoryUrl.md) | Краткая история откликов/приглашений по резюме | 
 **Owner** | [**ResumeObjectsOwner**](ResumeObjectsOwner.md) | Информация о владельце резюме | 
 **Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) | Фотография пользователя | [optional] 
+**Tags** | Pointer to [**[]IncludesId**](IncludesId.md) | Теги к резюме | [optional] 
 **Viewed** | **bool** | Было ли резюме уже просмотрено работодателем | 
 
 ## Methods
@@ -741,6 +742,31 @@ HasPhoto returns a boolean if a field has been set.
 `func (o *ResumeResumeShort) UnsetPhoto()`
 
 UnsetPhoto ensures that no value is present for Photo, not even an explicit nil
+### GetTags
+
+`func (o *ResumeResumeShort) GetTags() []IncludesId`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *ResumeResumeShort) GetTagsOk() (*[]IncludesId, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *ResumeResumeShort) SetTags(v []IncludesId)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *ResumeResumeShort) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
 ### GetViewed
 
 `func (o *ResumeResumeShort) GetViewed() bool`
