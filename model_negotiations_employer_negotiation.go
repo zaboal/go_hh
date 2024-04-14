@@ -29,7 +29,7 @@ type NegotiationsEmployerNegotiation struct {
 	HasUpdates bool `json:"has_updates"`
 	// Идентификатор отклика/приглашения
 	Id string `json:"id"`
-	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
+	// URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
 	// Deprecated
 	MessagesUrl *string `json:"messages_url,omitempty"`
 	// Текущий статус переписки.  Возможные значения приведены в поле `messaging_status` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
@@ -42,18 +42,16 @@ type NegotiationsEmployerNegotiation struct {
 	State IncludesIdName `json:"state"`
 	// Дата и время последнего обновления отклика/приглашения
 	UpdatedAt string `json:"updated_at"`
-	Vacancy *VacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
 	// Был ли отклик просмотрен работодателем
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
 	// Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info) 
 	Actions []VacancyNegotiationActions `json:"actions,omitempty"`
 	EmployerState *EmployersEmployersState `json:"employer_state,omitempty"`
-	Resume NullableNegotiationsObjectsEmployerTopicResume `json:"resume,omitempty"`
 	// Шаблоны писем
 	Templates []VacancyTemplates `json:"templates,omitempty"`
-	TestResult NullableSkillVerificationsTestResultWithUrl `json:"test_result,omitempty"`
-	// Ссылка на полную версию отклика
-	Url *string `json:"url,omitempty"`
+	TestResult *SkillVerificationsTestResultWithUrl `json:"test_result,omitempty"`
+	Resume NullableNegotiationsObjectsEmployerTopicResume `json:"resume,omitempty"`
+	Vacancy NullableVacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
 }
 
 type _NegotiationsEmployerNegotiation NegotiationsEmployerNegotiation
@@ -357,38 +355,6 @@ func (o *NegotiationsEmployerNegotiation) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
-// GetVacancy returns the Vacancy field value if set, zero value otherwise.
-func (o *NegotiationsEmployerNegotiation) GetVacancy() VacanciesNegotiationsVacancyShort {
-	if o == nil || IsNil(o.Vacancy) {
-		var ret VacanciesNegotiationsVacancyShort
-		return ret
-	}
-	return *o.Vacancy
-}
-
-// GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NegotiationsEmployerNegotiation) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
-	if o == nil || IsNil(o.Vacancy) {
-		return nil, false
-	}
-	return o.Vacancy, true
-}
-
-// HasVacancy returns a boolean if a field has been set.
-func (o *NegotiationsEmployerNegotiation) HasVacancy() bool {
-	if o != nil && !IsNil(o.Vacancy) {
-		return true
-	}
-
-	return false
-}
-
-// SetVacancy gets a reference to the given VacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
-func (o *NegotiationsEmployerNegotiation) SetVacancy(v VacanciesNegotiationsVacancyShort) {
-	o.Vacancy = &v
-}
-
 // GetViewedByOpponent returns the ViewedByOpponent field value
 func (o *NegotiationsEmployerNegotiation) GetViewedByOpponent() bool {
 	if o == nil {
@@ -477,6 +443,70 @@ func (o *NegotiationsEmployerNegotiation) SetEmployerState(v EmployersEmployersS
 	o.EmployerState = &v
 }
 
+// GetTemplates returns the Templates field value if set, zero value otherwise.
+func (o *NegotiationsEmployerNegotiation) GetTemplates() []VacancyTemplates {
+	if o == nil || IsNil(o.Templates) {
+		var ret []VacancyTemplates
+		return ret
+	}
+	return o.Templates
+}
+
+// GetTemplatesOk returns a tuple with the Templates field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NegotiationsEmployerNegotiation) GetTemplatesOk() ([]VacancyTemplates, bool) {
+	if o == nil || IsNil(o.Templates) {
+		return nil, false
+	}
+	return o.Templates, true
+}
+
+// HasTemplates returns a boolean if a field has been set.
+func (o *NegotiationsEmployerNegotiation) HasTemplates() bool {
+	if o != nil && !IsNil(o.Templates) {
+		return true
+	}
+
+	return false
+}
+
+// SetTemplates gets a reference to the given []VacancyTemplates and assigns it to the Templates field.
+func (o *NegotiationsEmployerNegotiation) SetTemplates(v []VacancyTemplates) {
+	o.Templates = v
+}
+
+// GetTestResult returns the TestResult field value if set, zero value otherwise.
+func (o *NegotiationsEmployerNegotiation) GetTestResult() SkillVerificationsTestResultWithUrl {
+	if o == nil || IsNil(o.TestResult) {
+		var ret SkillVerificationsTestResultWithUrl
+		return ret
+	}
+	return *o.TestResult
+}
+
+// GetTestResultOk returns a tuple with the TestResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NegotiationsEmployerNegotiation) GetTestResultOk() (*SkillVerificationsTestResultWithUrl, bool) {
+	if o == nil || IsNil(o.TestResult) {
+		return nil, false
+	}
+	return o.TestResult, true
+}
+
+// HasTestResult returns a boolean if a field has been set.
+func (o *NegotiationsEmployerNegotiation) HasTestResult() bool {
+	if o != nil && !IsNil(o.TestResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetTestResult gets a reference to the given SkillVerificationsTestResultWithUrl and assigns it to the TestResult field.
+func (o *NegotiationsEmployerNegotiation) SetTestResult(v SkillVerificationsTestResultWithUrl) {
+	o.TestResult = &v
+}
+
 // GetResume returns the Resume field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NegotiationsEmployerNegotiation) GetResume() NegotiationsObjectsEmployerTopicResume {
 	if o == nil || IsNil(o.Resume.Get()) {
@@ -519,110 +549,46 @@ func (o *NegotiationsEmployerNegotiation) UnsetResume() {
 	o.Resume.Unset()
 }
 
-// GetTemplates returns the Templates field value if set, zero value otherwise.
-func (o *NegotiationsEmployerNegotiation) GetTemplates() []VacancyTemplates {
-	if o == nil || IsNil(o.Templates) {
-		var ret []VacancyTemplates
+// GetVacancy returns the Vacancy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NegotiationsEmployerNegotiation) GetVacancy() VacanciesNegotiationsVacancyShort {
+	if o == nil || IsNil(o.Vacancy.Get()) {
+		var ret VacanciesNegotiationsVacancyShort
 		return ret
 	}
-	return o.Templates
+	return *o.Vacancy.Get()
 }
 
-// GetTemplatesOk returns a tuple with the Templates field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NegotiationsEmployerNegotiation) GetTemplatesOk() ([]VacancyTemplates, bool) {
-	if o == nil || IsNil(o.Templates) {
-		return nil, false
-	}
-	return o.Templates, true
-}
-
-// HasTemplates returns a boolean if a field has been set.
-func (o *NegotiationsEmployerNegotiation) HasTemplates() bool {
-	if o != nil && !IsNil(o.Templates) {
-		return true
-	}
-
-	return false
-}
-
-// SetTemplates gets a reference to the given []VacancyTemplates and assigns it to the Templates field.
-func (o *NegotiationsEmployerNegotiation) SetTemplates(v []VacancyTemplates) {
-	o.Templates = v
-}
-
-// GetTestResult returns the TestResult field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NegotiationsEmployerNegotiation) GetTestResult() SkillVerificationsTestResultWithUrl {
-	if o == nil || IsNil(o.TestResult.Get()) {
-		var ret SkillVerificationsTestResultWithUrl
-		return ret
-	}
-	return *o.TestResult.Get()
-}
-
-// GetTestResultOk returns a tuple with the TestResult field value if set, nil otherwise
+// GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsEmployerNegotiation) GetTestResultOk() (*SkillVerificationsTestResultWithUrl, bool) {
+func (o *NegotiationsEmployerNegotiation) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.TestResult.Get(), o.TestResult.IsSet()
+	return o.Vacancy.Get(), o.Vacancy.IsSet()
 }
 
-// HasTestResult returns a boolean if a field has been set.
-func (o *NegotiationsEmployerNegotiation) HasTestResult() bool {
-	if o != nil && o.TestResult.IsSet() {
+// HasVacancy returns a boolean if a field has been set.
+func (o *NegotiationsEmployerNegotiation) HasVacancy() bool {
+	if o != nil && o.Vacancy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTestResult gets a reference to the given NullableSkillVerificationsTestResultWithUrl and assigns it to the TestResult field.
-func (o *NegotiationsEmployerNegotiation) SetTestResult(v SkillVerificationsTestResultWithUrl) {
-	o.TestResult.Set(&v)
+// SetVacancy gets a reference to the given NullableVacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
+func (o *NegotiationsEmployerNegotiation) SetVacancy(v VacanciesNegotiationsVacancyShort) {
+	o.Vacancy.Set(&v)
 }
-// SetTestResultNil sets the value for TestResult to be an explicit nil
-func (o *NegotiationsEmployerNegotiation) SetTestResultNil() {
-	o.TestResult.Set(nil)
-}
-
-// UnsetTestResult ensures that no value is present for TestResult, not even an explicit nil
-func (o *NegotiationsEmployerNegotiation) UnsetTestResult() {
-	o.TestResult.Unset()
+// SetVacancyNil sets the value for Vacancy to be an explicit nil
+func (o *NegotiationsEmployerNegotiation) SetVacancyNil() {
+	o.Vacancy.Set(nil)
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
-func (o *NegotiationsEmployerNegotiation) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
-		var ret string
-		return ret
-	}
-	return *o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NegotiationsEmployerNegotiation) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
-		return nil, false
-	}
-	return o.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (o *NegotiationsEmployerNegotiation) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *NegotiationsEmployerNegotiation) SetUrl(v string) {
-	o.Url = &v
+// UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
+func (o *NegotiationsEmployerNegotiation) UnsetVacancy() {
+	o.Vacancy.Unset()
 }
 
 func (o NegotiationsEmployerNegotiation) MarshalJSON() ([]byte, error) {
@@ -653,9 +619,6 @@ func (o NegotiationsEmployerNegotiation) ToMap() (map[string]interface{}, error)
 	}
 	toSerialize["state"] = o.State
 	toSerialize["updated_at"] = o.UpdatedAt
-	if !IsNil(o.Vacancy) {
-		toSerialize["vacancy"] = o.Vacancy
-	}
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
 	if !IsNil(o.Actions) {
 		toSerialize["actions"] = o.Actions
@@ -663,17 +626,17 @@ func (o NegotiationsEmployerNegotiation) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.EmployerState) {
 		toSerialize["employer_state"] = o.EmployerState
 	}
-	if o.Resume.IsSet() {
-		toSerialize["resume"] = o.Resume.Get()
-	}
 	if !IsNil(o.Templates) {
 		toSerialize["templates"] = o.Templates
 	}
-	if o.TestResult.IsSet() {
-		toSerialize["test_result"] = o.TestResult.Get()
+	if !IsNil(o.TestResult) {
+		toSerialize["test_result"] = o.TestResult
 	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
+	if o.Resume.IsSet() {
+		toSerialize["resume"] = o.Resume.Get()
+	}
+	if o.Vacancy.IsSet() {
+		toSerialize["vacancy"] = o.Vacancy.Get()
 	}
 	return toSerialize, nil
 }

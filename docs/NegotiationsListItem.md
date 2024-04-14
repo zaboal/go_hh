@@ -8,20 +8,20 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания отклика/приглашения | 
 **HasUpdates** | **bool** | Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания | 
 **Id** | **string** | Идентификатор отклика/приглашения | 
-**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
+**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
 **MessagingStatus** | **string** | Текущий статус переписки.  Возможные значения приведены в поле &#x60;messaging_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **ProfessionalRoles** | Pointer to [**[]VacancyProfessionalRoleItem**](VacancyProfessionalRoleItem.md) | Список профессиональных ролей | [optional] 
 **Source** | Pointer to **string** | Источник отклика/приглашения | [optional] 
 **State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика/приглашения.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **UpdatedAt** | **string** | Дата и время последнего обновления отклика/приглашения | 
-**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 **DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
 **Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
 **JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **PhoneCalls** | Pointer to [**NegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
-**Url** | **string** | Ссылка на полную версию отклика | 
+**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **Resume** | Pointer to [**NullableResumeResumeNanoWithUrl**](ResumeResumeNanoWithUrl.md) |  | [optional] 
+**Url** | **string** | Ссылка на полную версию отклика | 
 
 ## Methods
 
@@ -262,31 +262,6 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
-### GetVacancy
-
-`func (o *NegotiationsListItem) GetVacancy() VacanciesNegotiationsVacancyShort`
-
-GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
-
-### GetVacancyOk
-
-`func (o *NegotiationsListItem) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
-
-GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVacancy
-
-`func (o *NegotiationsListItem) SetVacancy(v VacanciesNegotiationsVacancyShort)`
-
-SetVacancy sets Vacancy field to given value.
-
-### HasVacancy
-
-`func (o *NegotiationsListItem) HasVacancy() bool`
-
-HasVacancy returns a boolean if a field has been set.
-
 ### GetViewedByOpponent
 
 `func (o *NegotiationsListItem) GetViewedByOpponent() bool`
@@ -397,25 +372,30 @@ SetPhoneCalls sets PhoneCalls field to given value.
 
 HasPhoneCalls returns a boolean if a field has been set.
 
-### GetUrl
+### GetVacancy
 
-`func (o *NegotiationsListItem) GetUrl() string`
+`func (o *NegotiationsListItem) GetVacancy() VacanciesNegotiationsVacancyShort`
 
-GetUrl returns the Url field if non-nil, zero value otherwise.
+GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
 
-### GetUrlOk
+### GetVacancyOk
 
-`func (o *NegotiationsListItem) GetUrlOk() (*string, bool)`
+`func (o *NegotiationsListItem) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
 
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUrl
+### SetVacancy
 
-`func (o *NegotiationsListItem) SetUrl(v string)`
+`func (o *NegotiationsListItem) SetVacancy(v VacanciesNegotiationsVacancyShort)`
 
-SetUrl sets Url field to given value.
+SetVacancy sets Vacancy field to given value.
 
+### HasVacancy
+
+`func (o *NegotiationsListItem) HasVacancy() bool`
+
+HasVacancy returns a boolean if a field has been set.
 
 ### GetResume
 
@@ -452,6 +432,26 @@ HasResume returns a boolean if a field has been set.
 `func (o *NegotiationsListItem) UnsetResume()`
 
 UnsetResume ensures that no value is present for Resume, not even an explicit nil
+### GetUrl
+
+`func (o *NegotiationsListItem) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *NegotiationsListItem) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *NegotiationsListItem) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

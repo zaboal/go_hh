@@ -444,6 +444,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetAvailableVacancyTypes**](docs/DefaultApi.md#getavailablevacancytypes) | **Get** /employers/{employer_id}/managers/{manager_id}/vacancies/available_types | Варианты публикации вакансий у текущего менеджера
 *DefaultApi* | [**GetBlacklistedEmployers**](docs/DefaultApi.md#getblacklistedemployers) | **Get** /employers/blacklisted | Список скрытых работодателей
 *DefaultApi* | [**GetBlacklistedVacancies**](docs/DefaultApi.md#getblacklistedvacancies) | **Get** /vacancies/blacklisted | Список скрытых вакансий
+*DefaultApi* | [**GetCollectionNegotiationsList**](docs/DefaultApi.md#getcollectionnegotiationslist) | **Get** /negotiations/response | Список откликов/приглашений коллекции
+*DefaultApi* | [**GetCollectionNegotiationsList_0**](docs/DefaultApi.md#getcollectionnegotiationslist_0) | **Get** /negotiations/response | Список откликов/приглашений коллекции
 *DefaultApi* | [**GetCountries**](docs/DefaultApi.md#getcountries) | **Get** /areas/countries | Справочник стран
 *DefaultApi* | [**GetCurrentUserInfo**](docs/DefaultApi.md#getcurrentuserinfo) | **Get** /me | Информация о текущем пользователе
 *DefaultApi* | [**GetCurrentUserInfo_0**](docs/DefaultApi.md#getcurrentuserinfo_0) | **Get** /me | Информация о текущем пользователе
@@ -566,6 +568,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**PutMailTemplatesItem**](docs/DefaultApi.md#putmailtemplatesitem) | **Put** /employers/{employer_id}/mail_templates/{template_id} | Изменение шаблона ответа соискателю
 *DefaultApi* | [**PutMailTemplatesItem_0**](docs/DefaultApi.md#putmailtemplatesitem_0) | **Put** /employers/{employer_id}/mail_templates/{template_id} | Изменение шаблона ответа соискателю
 *DefaultApi* | [**PutNegotiationsCollectionToNextState**](docs/DefaultApi.md#putnegotiationscollectiontonextstate) | **Put** /negotiations/{nid} | Действия по откликам/приглашениям
+*DefaultApi* | [**PutNegotiationsCollectionToNextState_0**](docs/DefaultApi.md#putnegotiationscollectiontonextstate_0) | **Put** /negotiations/{nid} | Действия по откликам/приглашениям
 *DefaultApi* | [**PutPrefNegotiationsOrder**](docs/DefaultApi.md#putprefnegotiationsorder) | **Put** /vacancies/{id}/preferred_negotiations_order | Изменение предпочитаемой сортировки откликов
 *DefaultApi* | [**PutPrefNegotiationsOrder_0**](docs/DefaultApi.md#putprefnegotiationsorder_0) | **Put** /vacancies/{id}/preferred_negotiations_order | Изменение предпочитаемой сортировки откликов
 *DefaultApi* | [**RestoreVacancyFromHidden**](docs/DefaultApi.md#restorevacancyfromhidden) | **Delete** /employers/{employer_id}/vacancies/hidden/{vacancy_id} | Восстановление вакансии из удаленных
@@ -647,10 +650,10 @@ Class | Method | HTTP request | Description
  - [EmployerManagersEmployerManagerId](docs/EmployerManagersEmployerManagerId.md)
  - [EmployerManagersEmployerManagerInfo](docs/EmployerManagersEmployerManagerInfo.md)
  - [EmployerManagersEmployerManagerItem](docs/EmployerManagersEmployerManagerItem.md)
+ - [EmployerManagersEmployerManagerItemAdditionalPhone](docs/EmployerManagersEmployerManagerItemAdditionalPhone.md)
+ - [EmployerManagersEmployerManagerItemPhone](docs/EmployerManagersEmployerManagerItemPhone.md)
  - [EmployerManagersEmployerManagerLimits](docs/EmployerManagersEmployerManagerLimits.md)
  - [EmployerManagersManagerData](docs/EmployerManagersManagerData.md)
- - [EmployerManagersManagerDataAdditionalPhone](docs/EmployerManagersManagerDataAdditionalPhone.md)
- - [EmployerManagersManagerDataPhone](docs/EmployerManagersManagerDataPhone.md)
  - [EmployerManagersManagerType](docs/EmployerManagersManagerType.md)
  - [EmployerManagersManagerTypeId](docs/EmployerManagersManagerTypeId.md)
  - [EmployerManagersPermissions](docs/EmployerManagersPermissions.md)
@@ -677,6 +680,7 @@ Class | Method | HTTP request | Description
  - [EmployersEmployerInfo](docs/EmployersEmployerInfo.md)
  - [EmployersEmployerInfoArea](docs/EmployersEmployerInfoArea.md)
  - [EmployersEmployerInfoShort](docs/EmployersEmployerInfoShort.md)
+ - [EmployersEmployerInfoShortLogoUrl90](docs/EmployersEmployerInfoShortLogoUrl90.md)
  - [EmployersEmployerItem](docs/EmployersEmployerItem.md)
  - [EmployersEmployerItemShort](docs/EmployersEmployerItemShort.md)
  - [EmployersEmployerVacancyAreasItems](docs/EmployersEmployerVacancyAreasItems.md)
@@ -698,6 +702,7 @@ Class | Method | HTTP request | Description
  - [ErrorsCommonBadArgumentErrors](docs/ErrorsCommonBadArgumentErrors.md)
  - [ErrorsCommonBadAuthorizationBadParameters](docs/ErrorsCommonBadAuthorizationBadParameters.md)
  - [ErrorsCommonBadAuthorizationCommonAndEmployerError](docs/ErrorsCommonBadAuthorizationCommonAndEmployerError.md)
+ - [ErrorsCommonBadAuthorizationCommonAndPaymentMethodError](docs/ErrorsCommonBadAuthorizationCommonAndPaymentMethodError.md)
  - [ErrorsCommonBadAuthorizationEmployerError](docs/ErrorsCommonBadAuthorizationEmployerError.md)
  - [ErrorsCommonBadAuthorizationError](docs/ErrorsCommonBadAuthorizationError.md)
  - [ErrorsCommonBadAuthorizationErrors](docs/ErrorsCommonBadAuthorizationErrors.md)
@@ -816,6 +821,7 @@ Class | Method | HTTP request | Description
  - [IncludesNumericId](docs/IncludesNumericId.md)
  - [IncludesPagination](docs/IncludesPagination.md)
  - [IncludesSkillSetItem](docs/IncludesSkillSetItem.md)
+ - [IncludesSortingType](docs/IncludesSortingType.md)
  - [IncludesUrl](docs/IncludesUrl.md)
  - [LocalesLocaleItem](docs/LocalesLocaleItem.md)
  - [LocalesResumeLocaleItem](docs/LocalesResumeLocaleItem.md)
@@ -850,6 +856,9 @@ Class | Method | HTTP request | Description
  - [NegotiationsApplicantNegotiationsResponse](docs/NegotiationsApplicantNegotiationsResponse.md)
  - [NegotiationsAssessment](docs/NegotiationsAssessment.md)
  - [NegotiationsAuthor](docs/NegotiationsAuthor.md)
+ - [NegotiationsCollectionNegotiations](docs/NegotiationsCollectionNegotiations.md)
+ - [NegotiationsCollectionNegotiationsItemsInner](docs/NegotiationsCollectionNegotiationsItemsInner.md)
+ - [NegotiationsCollectionNegotiationsResponse](docs/NegotiationsCollectionNegotiationsResponse.md)
  - [NegotiationsEmployerNegotiation](docs/NegotiationsEmployerNegotiation.md)
  - [NegotiationsListItem](docs/NegotiationsListItem.md)
  - [NegotiationsListItems](docs/NegotiationsListItems.md)
@@ -858,6 +867,7 @@ Class | Method | HTTP request | Description
  - [NegotiationsMessageSent](docs/NegotiationsMessageSent.md)
  - [NegotiationsMessagesGet](docs/NegotiationsMessagesGet.md)
  - [NegotiationsMessagesGetResponse](docs/NegotiationsMessagesGetResponse.md)
+ - [NegotiationsNegotiationCommonFields](docs/NegotiationsNegotiationCommonFields.md)
  - [NegotiationsNegotiationGetResponse](docs/NegotiationsNegotiationGetResponse.md)
  - [NegotiationsNegotiationMessageTemplates](docs/NegotiationsNegotiationMessageTemplates.md)
  - [NegotiationsNegotiationTestResultsResponse](docs/NegotiationsNegotiationTestResultsResponse.md)
@@ -910,7 +920,9 @@ Class | Method | HTTP request | Description
  - [ResumeObjectsExperience](docs/ResumeObjectsExperience.md)
  - [ResumeObjectsExperienceCreateEditResume](docs/ResumeObjectsExperienceCreateEditResume.md)
  - [ResumeObjectsExperienceForOwner](docs/ResumeObjectsExperienceForOwner.md)
+ - [ResumeObjectsExperienceLogoUrl90](docs/ResumeObjectsExperienceLogoUrl90.md)
  - [ResumeObjectsExperienceProperties](docs/ResumeObjectsExperienceProperties.md)
+ - [ResumeObjectsExperiencePropertiesLogoUrl90](docs/ResumeObjectsExperiencePropertiesLogoUrl90.md)
  - [ResumeObjectsIndustry](docs/ResumeObjectsIndustry.md)
  - [ResumeObjectsLanguage](docs/ResumeObjectsLanguage.md)
  - [ResumeObjectsLastNegotiations](docs/ResumeObjectsLastNegotiations.md)
@@ -944,8 +956,11 @@ Class | Method | HTTP request | Description
  - [ResumeResumeNano](docs/ResumeResumeNano.md)
  - [ResumeResumeNanoWithUrl](docs/ResumeResumeNanoWithUrl.md)
  - [ResumeResumeProfile](docs/ResumeResumeProfile.md)
+ - [ResumeResumeProfileLogoUrl90](docs/ResumeResumeProfileLogoUrl90.md)
  - [ResumeResumeShort](docs/ResumeResumeShort.md)
+ - [ResumeResumeShortAdditionalFields](docs/ResumeResumeShortAdditionalFields.md)
  - [ResumeResumeShortForOwner](docs/ResumeResumeShortForOwner.md)
+ - [ResumeResumeShortLogoUrl90](docs/ResumeResumeShortLogoUrl90.md)
  - [ResumeResumeViewResponse](docs/ResumeResumeViewResponse.md)
  - [ResumeShouldSendSmsContainer](docs/ResumeShouldSendSmsContainer.md)
  - [ResumeShouldSendSmsPhone](docs/ResumeShouldSendSmsPhone.md)
@@ -1032,7 +1047,6 @@ Class | Method | HTTP request | Description
  - [SavedSearchesSavedSearchItemNewItems](docs/SavedSearchesSavedSearchItemNewItems.md)
  - [SavedSearchesSavedSearchItems](docs/SavedSearchesSavedSearchItems.md)
  - [SavedSearchesSavedSearchResponse](docs/SavedSearchesSavedSearchResponse.md)
- - [SearchForResumes403Response](docs/SearchForResumes403Response.md)
  - [SendNegotiationMessage403Response](docs/SendNegotiationMessage403Response.md)
  - [SkillVerificationsOpenedAnswer](docs/SkillVerificationsOpenedAnswer.md)
  - [SkillVerificationsTestResultNano](docs/SkillVerificationsTestResultNano.md)

@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | [**NullableVacancyAddressOutput**](VacancyAddressOutput.md) |  | 
 **Author** | [**NegotiationsAuthor**](NegotiationsAuthor.md) |  | 
 **CreatedAt** | **string** | Дата и время создания сообщения | 
 **Editable** | **bool** | Можно ли редактировать текст сообщения | 
@@ -19,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewNegotiationsMessage
 
-`func NewNegotiationsMessage(address NullableVacancyAddressOutput, author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessage`
+`func NewNegotiationsMessage(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessage`
 
 NewNegotiationsMessage instantiates a new NegotiationsMessage object
 This constructor will assign default values to properties that have it defined,
@@ -34,36 +33,6 @@ NewNegotiationsMessageWithDefaults instantiates a new NegotiationsMessage object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAddress
-
-`func (o *NegotiationsMessage) GetAddress() VacancyAddressOutput`
-
-GetAddress returns the Address field if non-nil, zero value otherwise.
-
-### GetAddressOk
-
-`func (o *NegotiationsMessage) GetAddressOk() (*VacancyAddressOutput, bool)`
-
-GetAddressOk returns a tuple with the Address field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAddress
-
-`func (o *NegotiationsMessage) SetAddress(v VacancyAddressOutput)`
-
-SetAddress sets Address field to given value.
-
-
-### SetAddressNil
-
-`func (o *NegotiationsMessage) SetAddressNil(b bool)`
-
- SetAddressNil sets the value for Address to be an explicit nil
-
-### UnsetAddress
-`func (o *NegotiationsMessage) UnsetAddress()`
-
-UnsetAddress ensures that no value is present for Address, not even an explicit nil
 ### GetAuthor
 
 `func (o *NegotiationsMessage) GetAuthor() NegotiationsAuthor`

@@ -8,20 +8,20 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания отклика/приглашения | 
 **HasUpdates** | **bool** | Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания | 
 **Id** | **string** | Идентификатор отклика/приглашения | 
-**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
+**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
 **MessagingStatus** | **string** | Текущий статус переписки.  Возможные значения приведены в поле &#x60;messaging_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **ProfessionalRoles** | Pointer to [**[]VacancyProfessionalRoleItem**](VacancyProfessionalRoleItem.md) | Список профессиональных ролей | [optional] 
 **Source** | Pointer to **string** | Источник отклика/приглашения | [optional] 
 **State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика/приглашения.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **UpdatedAt** | **string** | Дата и время последнего обновления отклика/приглашения | 
-**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 **DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
 **Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
 **JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **PhoneCalls** | Pointer to [**NegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
-**Url** | **string** | Ссылка на полную версию отклика | 
+**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **Resume** | Pointer to [**NegotiationsObjectsEmployerTopicResume**](NegotiationsObjectsEmployerTopicResume.md) |  | [optional] 
+**Url** | **string** | Ссылка на полную версию отклика | 
 **Actions** | Pointer to [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info)  | [optional] 
 **EmployerState** | Pointer to [**EmployersEmployersState**](EmployersEmployersState.md) |  | [optional] 
 **Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 
@@ -266,31 +266,6 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
-### GetVacancy
-
-`func (o *NegotiationsNegotiationGetResponse) GetVacancy() VacanciesNegotiationsVacancyShort`
-
-GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
-
-### GetVacancyOk
-
-`func (o *NegotiationsNegotiationGetResponse) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
-
-GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVacancy
-
-`func (o *NegotiationsNegotiationGetResponse) SetVacancy(v VacanciesNegotiationsVacancyShort)`
-
-SetVacancy sets Vacancy field to given value.
-
-### HasVacancy
-
-`func (o *NegotiationsNegotiationGetResponse) HasVacancy() bool`
-
-HasVacancy returns a boolean if a field has been set.
-
 ### GetViewedByOpponent
 
 `func (o *NegotiationsNegotiationGetResponse) GetViewedByOpponent() bool`
@@ -401,25 +376,30 @@ SetPhoneCalls sets PhoneCalls field to given value.
 
 HasPhoneCalls returns a boolean if a field has been set.
 
-### GetUrl
+### GetVacancy
 
-`func (o *NegotiationsNegotiationGetResponse) GetUrl() string`
+`func (o *NegotiationsNegotiationGetResponse) GetVacancy() VacanciesNegotiationsVacancyShort`
 
-GetUrl returns the Url field if non-nil, zero value otherwise.
+GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
 
-### GetUrlOk
+### GetVacancyOk
 
-`func (o *NegotiationsNegotiationGetResponse) GetUrlOk() (*string, bool)`
+`func (o *NegotiationsNegotiationGetResponse) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
 
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUrl
+### SetVacancy
 
-`func (o *NegotiationsNegotiationGetResponse) SetUrl(v string)`
+`func (o *NegotiationsNegotiationGetResponse) SetVacancy(v VacanciesNegotiationsVacancyShort)`
 
-SetUrl sets Url field to given value.
+SetVacancy sets Vacancy field to given value.
 
+### HasVacancy
+
+`func (o *NegotiationsNegotiationGetResponse) HasVacancy() bool`
+
+HasVacancy returns a boolean if a field has been set.
 
 ### GetResume
 
@@ -445,6 +425,26 @@ SetResume sets Resume field to given value.
 `func (o *NegotiationsNegotiationGetResponse) HasResume() bool`
 
 HasResume returns a boolean if a field has been set.
+
+### GetUrl
+
+`func (o *NegotiationsNegotiationGetResponse) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *NegotiationsNegotiationGetResponse) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *NegotiationsNegotiationGetResponse) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
 
 ### GetActions
 

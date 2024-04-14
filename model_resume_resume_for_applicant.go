@@ -38,9 +38,9 @@ type ResumeResumeForApplicant struct {
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
-	Download ResumeObjectsDownload `json:"download"`
+	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
-	Education ResumeObjectsEducation `json:"education"`
+	Education map[string]interface{} `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -55,7 +55,7 @@ type ResumeResumeForApplicant struct {
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
 	// Ресурс, на котором было размещено резюме
-	Platform *IncludesId `json:"platform,omitempty"`
+	Platform map[string]interface{} `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
@@ -87,9 +87,9 @@ type ResumeResumeForApplicant struct {
 	// Список рекомендаций
 	Recommendation []ResumeObjectsRecommendation `json:"recommendation"`
 	// Возможность переезда
-	Relocation ResumeObjectsRelocationPublic `json:"relocation"`
+	Relocation map[string]interface{} `json:"relocation"`
 	// Язык, на котором составлено резюме (локаль). Элемент справочника [локали резюме](#tag/Obshie-spravochniki/operation/get-locales)
-	ResumeLocale IncludesIdName `json:"resume_locale"`
+	ResumeLocale map[string]interface{} `json:"resume_locale"`
 	// Deprecated
 	Schedule IncludesIdName `json:"schedule"`
 	// Список подходящих соискателю графиков работы. Элементы справочника [schedule](#tag/Obshie-spravochniki/operation/get-dictionaries)
@@ -140,7 +140,7 @@ type _ResumeResumeForApplicant ResumeResumeForApplicant
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeForApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsPaidServices, recommendation []ResumeObjectsRecommendation, relocation ResumeObjectsRelocationPublic, resumeLocale IncludesIdName, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, blocked bool, finished bool, status IncludesIdName, moderationNote []ResumeObjectsModerationNote, progress ResumeObjectsProgress, publishUrl string, access ResumeObjectsAccess, actions ResumeObjectsActionsForOwner, newViews float32, totalViews float32, viewsUrl string, portfolio []ResumeObjectsPortfolio) *ResumeResumeForApplicant {
+func NewResumeResumeForApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsPaidServices, recommendation []ResumeObjectsRecommendation, relocation map[string]interface{}, resumeLocale map[string]interface{}, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, blocked bool, finished bool, status IncludesIdName, moderationNote []ResumeObjectsModerationNote, progress ResumeObjectsProgress, publishUrl string, access ResumeObjectsAccess, actions ResumeObjectsActionsForOwner, newViews float32, totalViews float32, viewsUrl string, portfolio []ResumeObjectsPortfolio) *ResumeResumeForApplicant {
 	this := ResumeResumeForApplicant{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -444,9 +444,9 @@ func (o *ResumeResumeForApplicant) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *ResumeResumeForApplicant) GetDownload() ResumeObjectsDownload {
+func (o *ResumeResumeForApplicant) GetDownload() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsDownload
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -455,22 +455,22 @@ func (o *ResumeResumeForApplicant) GetDownload() ResumeObjectsDownload {
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForApplicant) GetDownloadOk() (*ResumeObjectsDownload, bool) {
+func (o *ResumeResumeForApplicant) GetDownloadOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Download, true
+	return o.Download, true
 }
 
 // SetDownload sets field value
-func (o *ResumeResumeForApplicant) SetDownload(v ResumeObjectsDownload) {
+func (o *ResumeResumeForApplicant) SetDownload(v map[string]interface{}) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *ResumeResumeForApplicant) GetEducation() ResumeObjectsEducation {
+func (o *ResumeResumeForApplicant) GetEducation() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsEducation
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -479,15 +479,15 @@ func (o *ResumeResumeForApplicant) GetEducation() ResumeObjectsEducation {
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForApplicant) GetEducationOk() (*ResumeObjectsEducation, bool) {
+func (o *ResumeResumeForApplicant) GetEducationOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Education, true
+	return o.Education, true
 }
 
 // SetEducation sets field value
-func (o *ResumeResumeForApplicant) SetEducation(v ResumeObjectsEducation) {
+func (o *ResumeResumeForApplicant) SetEducation(v map[string]interface{}) {
 	o.Education = v
 }
 
@@ -740,19 +740,19 @@ func (o *ResumeResumeForApplicant) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumeResumeForApplicant) GetPlatform() IncludesId {
+func (o *ResumeResumeForApplicant) GetPlatform() map[string]interface{} {
 	if o == nil || IsNil(o.Platform) {
-		var ret IncludesId
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Platform
+	return o.Platform
 }
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForApplicant) GetPlatformOk() (*IncludesId, bool) {
+func (o *ResumeResumeForApplicant) GetPlatformOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Platform) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Platform, true
 }
@@ -766,9 +766,9 @@ func (o *ResumeResumeForApplicant) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
-func (o *ResumeResumeForApplicant) SetPlatform(v IncludesId) {
-	o.Platform = &v
+// SetPlatform gets a reference to the given map[string]interface{} and assigns it to the Platform field.
+func (o *ResumeResumeForApplicant) SetPlatform(v map[string]interface{}) {
+	o.Platform = v
 }
 
 // GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1308,9 +1308,9 @@ func (o *ResumeResumeForApplicant) SetRecommendation(v []ResumeObjectsRecommenda
 }
 
 // GetRelocation returns the Relocation field value
-func (o *ResumeResumeForApplicant) GetRelocation() ResumeObjectsRelocationPublic {
+func (o *ResumeResumeForApplicant) GetRelocation() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsRelocationPublic
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -1319,22 +1319,22 @@ func (o *ResumeResumeForApplicant) GetRelocation() ResumeObjectsRelocationPublic
 
 // GetRelocationOk returns a tuple with the Relocation field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForApplicant) GetRelocationOk() (*ResumeObjectsRelocationPublic, bool) {
+func (o *ResumeResumeForApplicant) GetRelocationOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Relocation, true
+	return o.Relocation, true
 }
 
 // SetRelocation sets field value
-func (o *ResumeResumeForApplicant) SetRelocation(v ResumeObjectsRelocationPublic) {
+func (o *ResumeResumeForApplicant) SetRelocation(v map[string]interface{}) {
 	o.Relocation = v
 }
 
 // GetResumeLocale returns the ResumeLocale field value
-func (o *ResumeResumeForApplicant) GetResumeLocale() IncludesIdName {
+func (o *ResumeResumeForApplicant) GetResumeLocale() map[string]interface{} {
 	if o == nil {
-		var ret IncludesIdName
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -1343,15 +1343,15 @@ func (o *ResumeResumeForApplicant) GetResumeLocale() IncludesIdName {
 
 // GetResumeLocaleOk returns a tuple with the ResumeLocale field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeForApplicant) GetResumeLocaleOk() (*IncludesIdName, bool) {
+func (o *ResumeResumeForApplicant) GetResumeLocaleOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.ResumeLocale, true
+	return o.ResumeLocale, true
 }
 
 // SetResumeLocale sets field value
-func (o *ResumeResumeForApplicant) SetResumeLocale(v IncludesIdName) {
+func (o *ResumeResumeForApplicant) SetResumeLocale(v map[string]interface{}) {
 	o.ResumeLocale = v
 }
 

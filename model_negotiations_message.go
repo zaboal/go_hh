@@ -22,7 +22,6 @@ var _ MappedNullable = &NegotiationsMessage{}
 
 // NegotiationsMessage Сообщение в отклике
 type NegotiationsMessage struct {
-	Address NullableVacancyAddressOutput `json:"address"`
 	Author NegotiationsAuthor `json:"author"`
 	// Дата и время создания сообщения
 	CreatedAt string `json:"created_at"`
@@ -48,9 +47,8 @@ type _NegotiationsMessage NegotiationsMessage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNegotiationsMessage(address NullableVacancyAddressOutput, author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessage {
+func NewNegotiationsMessage(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessage {
 	this := NegotiationsMessage{}
-	this.Address = address
 	this.Author = author
 	this.CreatedAt = createdAt
 	this.Editable = editable
@@ -68,32 +66,6 @@ func NewNegotiationsMessage(address NullableVacancyAddressOutput, author Negotia
 func NewNegotiationsMessageWithDefaults() *NegotiationsMessage {
 	this := NegotiationsMessage{}
 	return &this
-}
-
-// GetAddress returns the Address field value
-// If the value is explicit nil, the zero value for VacancyAddressOutput will be returned
-func (o *NegotiationsMessage) GetAddress() VacancyAddressOutput {
-	if o == nil || o.Address.Get() == nil {
-		var ret VacancyAddressOutput
-		return ret
-	}
-
-	return *o.Address.Get()
-}
-
-// GetAddressOk returns a tuple with the Address field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsMessage) GetAddressOk() (*VacancyAddressOutput, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Address.Get(), o.Address.IsSet()
-}
-
-// SetAddress sets field value
-func (o *NegotiationsMessage) SetAddress(v VacancyAddressOutput) {
-	o.Address.Set(&v)
 }
 
 // GetAuthor returns the Author field value
@@ -330,7 +302,6 @@ func (o NegotiationsMessage) MarshalJSON() ([]byte, error) {
 
 func (o NegotiationsMessage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["address"] = o.Address.Get()
 	toSerialize["author"] = o.Author
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["editable"] = o.Editable
@@ -350,7 +321,6 @@ func (o *NegotiationsMessage) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"address",
 		"author",
 		"created_at",
 		"editable",

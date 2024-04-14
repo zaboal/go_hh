@@ -15,11 +15,11 @@ Name | Type | Description | Notes
 **Contacts** | Pointer to [**NullableVacancyContacts**](VacancyContacts.md) |  | [optional] 
 **CustomEmployerName** | Pointer to **NullableString** | Название компании для анонимных вакансий (&#x60;type.id&#x3D;anonymous&#x60;), например \&quot;крупный российский банк\&quot;. Поле становится обязательным при публикации вакансии **анонимного** типа | [optional] 
 **Department** | Pointer to [**NullableVacancyDepartment**](VacancyDepartment.md) |  | [optional] 
-**DriverLicenseTypes** | Pointer to [**[]VacancyDriverLicenceTypeItem**](VacancyDriverLicenceTypeItem.md) | Список требуемых категорий водительских прав | [optional] 
+**DriverLicenseTypes** | Pointer to **[]string** |  | [optional] 
 **Employment** | Pointer to [**NullableVacancyEmployment**](VacancyEmployment.md) |  | [optional] 
 **Experience** | Pointer to [**NullableVacancyExperience**](VacancyExperience.md) |  | [optional] 
-**KeySkills** | Pointer to [**[]VacancyKeySkillItem**](VacancyKeySkillItem.md) | Список ключевых навыков, не более 30 | [optional] 
-**Languages** | Pointer to [**[]VacancyLanguage**](VacancyLanguage.md) | Список языков вакансии | [optional] 
+**KeySkills** | Pointer to **[]string** |  | [optional] 
+**Languages** | Pointer to **[]string** |  | [optional] 
 **ProfessionalRoles** | Pointer to [**[]VacancyProfessionalRoleItem**](VacancyProfessionalRoleItem.md) | Список профессиональных ролей | [optional] 
 **ResponseLetterRequired** | Pointer to **bool** | Обязательно ли заполнять сообщение при отклике на вакансию | [optional] 
 **ResponseNotifications** | Pointer to **bool** | Уведомлять ли менеджера о новых откликах | [optional] 
@@ -399,20 +399,20 @@ HasDepartment returns a boolean if a field has been set.
 UnsetDepartment ensures that no value is present for Department, not even an explicit nil
 ### GetDriverLicenseTypes
 
-`func (o *VacancyEditCommon) GetDriverLicenseTypes() []VacancyDriverLicenceTypeItem`
+`func (o *VacancyEditCommon) GetDriverLicenseTypes() []string`
 
 GetDriverLicenseTypes returns the DriverLicenseTypes field if non-nil, zero value otherwise.
 
 ### GetDriverLicenseTypesOk
 
-`func (o *VacancyEditCommon) GetDriverLicenseTypesOk() (*[]VacancyDriverLicenceTypeItem, bool)`
+`func (o *VacancyEditCommon) GetDriverLicenseTypesOk() (*[]string, bool)`
 
 GetDriverLicenseTypesOk returns a tuple with the DriverLicenseTypes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDriverLicenseTypes
 
-`func (o *VacancyEditCommon) SetDriverLicenseTypes(v []VacancyDriverLicenceTypeItem)`
+`func (o *VacancyEditCommon) SetDriverLicenseTypes(v []string)`
 
 SetDriverLicenseTypes sets DriverLicenseTypes field to given value.
 
@@ -422,6 +422,16 @@ SetDriverLicenseTypes sets DriverLicenseTypes field to given value.
 
 HasDriverLicenseTypes returns a boolean if a field has been set.
 
+### SetDriverLicenseTypesNil
+
+`func (o *VacancyEditCommon) SetDriverLicenseTypesNil(b bool)`
+
+ SetDriverLicenseTypesNil sets the value for DriverLicenseTypes to be an explicit nil
+
+### UnsetDriverLicenseTypes
+`func (o *VacancyEditCommon) UnsetDriverLicenseTypes()`
+
+UnsetDriverLicenseTypes ensures that no value is present for DriverLicenseTypes, not even an explicit nil
 ### GetEmployment
 
 `func (o *VacancyEditCommon) GetEmployment() VacancyEmployment`
@@ -494,20 +504,20 @@ HasExperience returns a boolean if a field has been set.
 UnsetExperience ensures that no value is present for Experience, not even an explicit nil
 ### GetKeySkills
 
-`func (o *VacancyEditCommon) GetKeySkills() []VacancyKeySkillItem`
+`func (o *VacancyEditCommon) GetKeySkills() []string`
 
 GetKeySkills returns the KeySkills field if non-nil, zero value otherwise.
 
 ### GetKeySkillsOk
 
-`func (o *VacancyEditCommon) GetKeySkillsOk() (*[]VacancyKeySkillItem, bool)`
+`func (o *VacancyEditCommon) GetKeySkillsOk() (*[]string, bool)`
 
 GetKeySkillsOk returns a tuple with the KeySkills field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKeySkills
 
-`func (o *VacancyEditCommon) SetKeySkills(v []VacancyKeySkillItem)`
+`func (o *VacancyEditCommon) SetKeySkills(v []string)`
 
 SetKeySkills sets KeySkills field to given value.
 
@@ -517,22 +527,32 @@ SetKeySkills sets KeySkills field to given value.
 
 HasKeySkills returns a boolean if a field has been set.
 
+### SetKeySkillsNil
+
+`func (o *VacancyEditCommon) SetKeySkillsNil(b bool)`
+
+ SetKeySkillsNil sets the value for KeySkills to be an explicit nil
+
+### UnsetKeySkills
+`func (o *VacancyEditCommon) UnsetKeySkills()`
+
+UnsetKeySkills ensures that no value is present for KeySkills, not even an explicit nil
 ### GetLanguages
 
-`func (o *VacancyEditCommon) GetLanguages() []VacancyLanguage`
+`func (o *VacancyEditCommon) GetLanguages() []string`
 
 GetLanguages returns the Languages field if non-nil, zero value otherwise.
 
 ### GetLanguagesOk
 
-`func (o *VacancyEditCommon) GetLanguagesOk() (*[]VacancyLanguage, bool)`
+`func (o *VacancyEditCommon) GetLanguagesOk() (*[]string, bool)`
 
 GetLanguagesOk returns a tuple with the Languages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLanguages
 
-`func (o *VacancyEditCommon) SetLanguages(v []VacancyLanguage)`
+`func (o *VacancyEditCommon) SetLanguages(v []string)`
 
 SetLanguages sets Languages field to given value.
 
@@ -542,6 +562,16 @@ SetLanguages sets Languages field to given value.
 
 HasLanguages returns a boolean if a field has been set.
 
+### SetLanguagesNil
+
+`func (o *VacancyEditCommon) SetLanguagesNil(b bool)`
+
+ SetLanguagesNil sets the value for Languages to be an explicit nil
+
+### UnsetLanguages
+`func (o *VacancyEditCommon) UnsetLanguages()`
+
+UnsetLanguages ensures that no value is present for Languages, not even an explicit nil
 ### GetProfessionalRoles
 
 `func (o *VacancyEditCommon) GetProfessionalRoles() []VacancyProfessionalRoleItem`

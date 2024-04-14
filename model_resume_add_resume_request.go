@@ -72,7 +72,7 @@ type ResumeAddResumeRequest struct {
 	// Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится. * Обязательно указать либо телефон полностью в поле `formatted`, либо все три части телефона по отдельности в трёх полях: `country`, `city` и `number`. Если указано и то, и то, используются данные из трёх полей. В поле `formatted` допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры 
 	Contact []ResumeObjectsContact `json:"contact,omitempty"`
 	// Образование соискателя.  Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
-	Education *ResumeObjectsEducation `json:"education,omitempty"`
+	Education map[string]interface{} `json:"education,omitempty"`
 	// Опыт работы
 	Experience []ResumeObjectsExperienceCreateEditResume `json:"experience,omitempty"`
 	// Пол. Элемент справочника [gender](#tag/Obshie-spravochniki/operation/get-dictionaries)
@@ -1159,19 +1159,19 @@ func (o *ResumeAddResumeRequest) SetContact(v []ResumeObjectsContact) {
 }
 
 // GetEducation returns the Education field value if set, zero value otherwise.
-func (o *ResumeAddResumeRequest) GetEducation() ResumeObjectsEducation {
+func (o *ResumeAddResumeRequest) GetEducation() map[string]interface{} {
 	if o == nil || IsNil(o.Education) {
-		var ret ResumeObjectsEducation
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Education
+	return o.Education
 }
 
 // GetEducationOk returns a tuple with the Education field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeAddResumeRequest) GetEducationOk() (*ResumeObjectsEducation, bool) {
+func (o *ResumeAddResumeRequest) GetEducationOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Education) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Education, true
 }
@@ -1185,9 +1185,9 @@ func (o *ResumeAddResumeRequest) HasEducation() bool {
 	return false
 }
 
-// SetEducation gets a reference to the given ResumeObjectsEducation and assigns it to the Education field.
-func (o *ResumeAddResumeRequest) SetEducation(v ResumeObjectsEducation) {
-	o.Education = &v
+// SetEducation gets a reference to the given map[string]interface{} and assigns it to the Education field.
+func (o *ResumeAddResumeRequest) SetEducation(v map[string]interface{}) {
+	o.Education = v
 }
 
 // GetExperience returns the Experience field value if set, zero value otherwise.

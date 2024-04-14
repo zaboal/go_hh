@@ -29,7 +29,7 @@ type NegotiationsObjectsTopicItemCommon struct {
 	HasUpdates bool `json:"has_updates"`
 	// Идентификатор отклика/приглашения
 	Id string `json:"id"`
-	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
+	// URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
 	// Deprecated
 	MessagesUrl *string `json:"messages_url,omitempty"`
 	// Текущий статус переписки.  Возможные значения приведены в поле `messaging_status` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
@@ -42,7 +42,6 @@ type NegotiationsObjectsTopicItemCommon struct {
 	State IncludesIdName `json:"state"`
 	// Дата и время последнего обновления отклика/приглашения
 	UpdatedAt string `json:"updated_at"`
-	Vacancy NullableVacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
 	// Был ли отклик просмотрен работодателем
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
 }
@@ -348,48 +347,6 @@ func (o *NegotiationsObjectsTopicItemCommon) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
-// GetVacancy returns the Vacancy field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NegotiationsObjectsTopicItemCommon) GetVacancy() VacanciesNegotiationsVacancyShort {
-	if o == nil || IsNil(o.Vacancy.Get()) {
-		var ret VacanciesNegotiationsVacancyShort
-		return ret
-	}
-	return *o.Vacancy.Get()
-}
-
-// GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsObjectsTopicItemCommon) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Vacancy.Get(), o.Vacancy.IsSet()
-}
-
-// HasVacancy returns a boolean if a field has been set.
-func (o *NegotiationsObjectsTopicItemCommon) HasVacancy() bool {
-	if o != nil && o.Vacancy.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetVacancy gets a reference to the given NullableVacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
-func (o *NegotiationsObjectsTopicItemCommon) SetVacancy(v VacanciesNegotiationsVacancyShort) {
-	o.Vacancy.Set(&v)
-}
-// SetVacancyNil sets the value for Vacancy to be an explicit nil
-func (o *NegotiationsObjectsTopicItemCommon) SetVacancyNil() {
-	o.Vacancy.Set(nil)
-}
-
-// UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
-func (o *NegotiationsObjectsTopicItemCommon) UnsetVacancy() {
-	o.Vacancy.Unset()
-}
-
 // GetViewedByOpponent returns the ViewedByOpponent field value
 func (o *NegotiationsObjectsTopicItemCommon) GetViewedByOpponent() bool {
 	if o == nil {
@@ -442,9 +399,6 @@ func (o NegotiationsObjectsTopicItemCommon) ToMap() (map[string]interface{}, err
 	}
 	toSerialize["state"] = o.State
 	toSerialize["updated_at"] = o.UpdatedAt
-	if o.Vacancy.IsSet() {
-		toSerialize["vacancy"] = o.Vacancy.Get()
-	}
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
 	return toSerialize, nil
 }

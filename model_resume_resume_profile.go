@@ -38,9 +38,9 @@ type ResumeResumeProfile struct {
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
-	Download ResumeObjectsDownload `json:"download"`
+	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
-	Education ResumeObjectsEducation `json:"education"`
+	Education map[string]interface{} `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -55,7 +55,7 @@ type ResumeResumeProfile struct {
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
 	// Ресурс, на котором было размещено резюме
-	Platform *IncludesId `json:"platform,omitempty"`
+	Platform map[string]interface{} `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
@@ -68,7 +68,7 @@ type _ResumeResumeProfile ResumeResumeProfile
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string) *ResumeResumeProfile {
+func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string) *ResumeResumeProfile {
 	this := ResumeResumeProfile{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -344,9 +344,9 @@ func (o *ResumeResumeProfile) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *ResumeResumeProfile) GetDownload() ResumeObjectsDownload {
+func (o *ResumeResumeProfile) GetDownload() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsDownload
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -355,22 +355,22 @@ func (o *ResumeResumeProfile) GetDownload() ResumeObjectsDownload {
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetDownloadOk() (*ResumeObjectsDownload, bool) {
+func (o *ResumeResumeProfile) GetDownloadOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Download, true
+	return o.Download, true
 }
 
 // SetDownload sets field value
-func (o *ResumeResumeProfile) SetDownload(v ResumeObjectsDownload) {
+func (o *ResumeResumeProfile) SetDownload(v map[string]interface{}) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *ResumeResumeProfile) GetEducation() ResumeObjectsEducation {
+func (o *ResumeResumeProfile) GetEducation() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsEducation
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -379,15 +379,15 @@ func (o *ResumeResumeProfile) GetEducation() ResumeObjectsEducation {
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetEducationOk() (*ResumeObjectsEducation, bool) {
+func (o *ResumeResumeProfile) GetEducationOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Education, true
+	return o.Education, true
 }
 
 // SetEducation sets field value
-func (o *ResumeResumeProfile) SetEducation(v ResumeObjectsEducation) {
+func (o *ResumeResumeProfile) SetEducation(v map[string]interface{}) {
 	o.Education = v
 }
 
@@ -640,19 +640,19 @@ func (o *ResumeResumeProfile) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumeResumeProfile) GetPlatform() IncludesId {
+func (o *ResumeResumeProfile) GetPlatform() map[string]interface{} {
 	if o == nil || IsNil(o.Platform) {
-		var ret IncludesId
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Platform
+	return o.Platform
 }
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetPlatformOk() (*IncludesId, bool) {
+func (o *ResumeResumeProfile) GetPlatformOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Platform) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Platform, true
 }
@@ -666,9 +666,9 @@ func (o *ResumeResumeProfile) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
-func (o *ResumeResumeProfile) SetPlatform(v IncludesId) {
-	o.Platform = &v
+// SetPlatform gets a reference to the given map[string]interface{} and assigns it to the Platform field.
+func (o *ResumeResumeProfile) SetPlatform(v map[string]interface{}) {
+	o.Platform = v
 }
 
 // GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).

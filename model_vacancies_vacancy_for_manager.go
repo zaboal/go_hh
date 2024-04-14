@@ -48,6 +48,7 @@ type VacanciesVacancyForManager struct {
 	Code NullableString `json:"code,omitempty"`
 	Contacts NullableVacancyContactsOutput `json:"contacts,omitempty"`
 	// Дата и время публикации вакансии
+	// Deprecated
 	CreatedAt string `json:"created_at"`
 	Department NullableVacancyDepartmentOutput `json:"department,omitempty"`
 	// Описание в html, не менее 200 символов
@@ -66,8 +67,7 @@ type VacanciesVacancyForManager struct {
 	InsiderInterview NullableVacancyInsiderInterview `json:"insider_interview,omitempty"`
 	// Список ключевых навыков, не более 30
 	KeySkills []VacancyKeySkillItem `json:"key_skills"`
-	// Список языков вакансии. Значения из справочника [/languages](#tag/Obshie-spravochniki/operation/get-dictionaries)
-	Languages []VacancyLanguageOutput `json:"languages,omitempty"`
+	Languages []string `json:"languages,omitempty"`
 	// Название
 	Name string `json:"name"`
 	// Ссылка для получения списка откликов/приглашений
@@ -569,6 +569,7 @@ func (o *VacanciesVacancyForManager) UnsetContacts() {
 }
 
 // GetCreatedAt returns the CreatedAt field value
+// Deprecated
 func (o *VacanciesVacancyForManager) GetCreatedAt() string {
 	if o == nil {
 		var ret string
@@ -580,6 +581,7 @@ func (o *VacanciesVacancyForManager) GetCreatedAt() string {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *VacanciesVacancyForManager) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -588,6 +590,7 @@ func (o *VacanciesVacancyForManager) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value
+// Deprecated
 func (o *VacanciesVacancyForManager) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
@@ -920,10 +923,10 @@ func (o *VacanciesVacancyForManager) SetKeySkills(v []VacancyKeySkillItem) {
 	o.KeySkills = v
 }
 
-// GetLanguages returns the Languages field value if set, zero value otherwise.
-func (o *VacanciesVacancyForManager) GetLanguages() []VacancyLanguageOutput {
-	if o == nil || IsNil(o.Languages) {
-		var ret []VacancyLanguageOutput
+// GetLanguages returns the Languages field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VacanciesVacancyForManager) GetLanguages() []string {
+	if o == nil {
+		var ret []string
 		return ret
 	}
 	return o.Languages
@@ -931,7 +934,8 @@ func (o *VacanciesVacancyForManager) GetLanguages() []VacancyLanguageOutput {
 
 // GetLanguagesOk returns a tuple with the Languages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VacanciesVacancyForManager) GetLanguagesOk() ([]VacancyLanguageOutput, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VacanciesVacancyForManager) GetLanguagesOk() ([]string, bool) {
 	if o == nil || IsNil(o.Languages) {
 		return nil, false
 	}
@@ -947,8 +951,8 @@ func (o *VacanciesVacancyForManager) HasLanguages() bool {
 	return false
 }
 
-// SetLanguages gets a reference to the given []VacancyLanguageOutput and assigns it to the Languages field.
-func (o *VacanciesVacancyForManager) SetLanguages(v []VacancyLanguageOutput) {
+// SetLanguages gets a reference to the given []string and assigns it to the Languages field.
+func (o *VacanciesVacancyForManager) SetLanguages(v []string) {
 	o.Languages = v
 }
 
@@ -1853,7 +1857,7 @@ func (o VacanciesVacancyForManager) ToMap() (map[string]interface{}, error) {
 		toSerialize["insider_interview"] = o.InsiderInterview.Get()
 	}
 	toSerialize["key_skills"] = o.KeySkills
-	if !IsNil(o.Languages) {
+	if o.Languages != nil {
 		toSerialize["languages"] = o.Languages
 	}
 	toSerialize["name"] = o.Name

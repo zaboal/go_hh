@@ -31,12 +31,12 @@ Name | Type | Description | Notes
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **TravelTime** | Pointer to [**IncludesId**](IncludesId.md) |  | [optional] 
 **WorkTicket** | Pointer to [**[]IncludesId**](IncludesId.md) | Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | [optional] 
-**Area** | Pointer to [**NullableId**](Id.md) |  | [optional] 
+**Area** | Pointer to **map[string]interface{}** |  | [optional] 
 **Citizenship** | Pointer to [**[]IncludesId**](IncludesId.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Contact** | Pointer to [**[]IncludesContact**](IncludesContact.md) | Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится * Обязательно указать либо телефон полностью в поле &#x60;formatted&#x60;, либо все три части телефона по отдельности в трёх полях: &#x60;country&#x60;, &#x60;city&#x60; и &#x60;number&#x60;. Если указано и то, и то, используются данные из трёх полей. В поле &#x60;formatted&#x60; допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры  | [optional] 
-**Education** | Pointer to [**NullableResumeObjectsEducation**](ResumeObjectsEducation.md) |  | [optional] 
+**Education** | Pointer to **map[string]interface{}** |  | [optional] 
 **Experience** | Pointer to [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | [optional] 
-**Gender** | Pointer to [**NullableId**](Id.md) |  | [optional] 
+**Gender** | Pointer to **map[string]interface{}** |  | [optional] 
 **Language** | Pointer to [**[]IncludesLanguageLevel**](IncludesLanguageLevel.md) | Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages) | [optional] 
 
 ## Methods
@@ -925,20 +925,20 @@ HasWorkTicket returns a boolean if a field has been set.
 UnsetWorkTicket ensures that no value is present for WorkTicket, not even an explicit nil
 ### GetArea
 
-`func (o *ResumeEditResumeRequest) GetArea() Id`
+`func (o *ResumeEditResumeRequest) GetArea() map[string]interface{}`
 
 GetArea returns the Area field if non-nil, zero value otherwise.
 
 ### GetAreaOk
 
-`func (o *ResumeEditResumeRequest) GetAreaOk() (*Id, bool)`
+`func (o *ResumeEditResumeRequest) GetAreaOk() (*map[string]interface{}, bool)`
 
 GetAreaOk returns a tuple with the Area field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArea
 
-`func (o *ResumeEditResumeRequest) SetArea(v Id)`
+`func (o *ResumeEditResumeRequest) SetArea(v map[string]interface{})`
 
 SetArea sets Area field to given value.
 
@@ -948,16 +948,6 @@ SetArea sets Area field to given value.
 
 HasArea returns a boolean if a field has been set.
 
-### SetAreaNil
-
-`func (o *ResumeEditResumeRequest) SetAreaNil(b bool)`
-
- SetAreaNil sets the value for Area to be an explicit nil
-
-### UnsetArea
-`func (o *ResumeEditResumeRequest) UnsetArea()`
-
-UnsetArea ensures that no value is present for Area, not even an explicit nil
 ### GetCitizenship
 
 `func (o *ResumeEditResumeRequest) GetCitizenship() []IncludesId`
@@ -1030,20 +1020,20 @@ HasContact returns a boolean if a field has been set.
 UnsetContact ensures that no value is present for Contact, not even an explicit nil
 ### GetEducation
 
-`func (o *ResumeEditResumeRequest) GetEducation() ResumeObjectsEducation`
+`func (o *ResumeEditResumeRequest) GetEducation() map[string]interface{}`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeEditResumeRequest) GetEducationOk() (*ResumeObjectsEducation, bool)`
+`func (o *ResumeEditResumeRequest) GetEducationOk() (*map[string]interface{}, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeEditResumeRequest) SetEducation(v ResumeObjectsEducation)`
+`func (o *ResumeEditResumeRequest) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
 
@@ -1053,16 +1043,6 @@ SetEducation sets Education field to given value.
 
 HasEducation returns a boolean if a field has been set.
 
-### SetEducationNil
-
-`func (o *ResumeEditResumeRequest) SetEducationNil(b bool)`
-
- SetEducationNil sets the value for Education to be an explicit nil
-
-### UnsetEducation
-`func (o *ResumeEditResumeRequest) UnsetEducation()`
-
-UnsetEducation ensures that no value is present for Education, not even an explicit nil
 ### GetExperience
 
 `func (o *ResumeEditResumeRequest) GetExperience() []ResumeObjectsExperience`
@@ -1100,20 +1080,20 @@ HasExperience returns a boolean if a field has been set.
 UnsetExperience ensures that no value is present for Experience, not even an explicit nil
 ### GetGender
 
-`func (o *ResumeEditResumeRequest) GetGender() Id`
+`func (o *ResumeEditResumeRequest) GetGender() map[string]interface{}`
 
 GetGender returns the Gender field if non-nil, zero value otherwise.
 
 ### GetGenderOk
 
-`func (o *ResumeEditResumeRequest) GetGenderOk() (*Id, bool)`
+`func (o *ResumeEditResumeRequest) GetGenderOk() (*map[string]interface{}, bool)`
 
 GetGenderOk returns a tuple with the Gender field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGender
 
-`func (o *ResumeEditResumeRequest) SetGender(v Id)`
+`func (o *ResumeEditResumeRequest) SetGender(v map[string]interface{})`
 
 SetGender sets Gender field to given value.
 
@@ -1123,16 +1103,6 @@ SetGender sets Gender field to given value.
 
 HasGender returns a boolean if a field has been set.
 
-### SetGenderNil
-
-`func (o *ResumeEditResumeRequest) SetGenderNil(b bool)`
-
- SetGenderNil sets the value for Gender to be an explicit nil
-
-### UnsetGender
-`func (o *ResumeEditResumeRequest) UnsetGender()`
-
-UnsetGender ensures that no value is present for Gender, not even an explicit nil
 ### GetLanguage
 
 `func (o *ResumeEditResumeRequest) GetLanguage() []IncludesLanguageLevel`

@@ -22,7 +22,6 @@ var _ MappedNullable = &NegotiationsMessagesGet{}
 
 // NegotiationsMessagesGet Сообщение в отклике
 type NegotiationsMessagesGet struct {
-	Address NullableVacancyAddressOutput `json:"address"`
 	Author NegotiationsAuthor `json:"author"`
 	// Дата и время создания сообщения
 	CreatedAt string `json:"created_at"`
@@ -40,6 +39,7 @@ type NegotiationsMessagesGet struct {
 	ViewedByMe bool `json:"viewed_by_me"`
 	// Прочитано ли сообщение работодателем (для сообщений работодателя - true)
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
+	Address NullableVacancyAddressRawOutput `json:"address"`
 	// Инструменты оценки, привязанные к сообщению
 	Assessments []NegotiationsAssessment `json:"assessments,omitempty"`
 }
@@ -50,9 +50,8 @@ type _NegotiationsMessagesGet NegotiationsMessagesGet
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNegotiationsMessagesGet(address NullableVacancyAddressOutput, author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessagesGet {
+func NewNegotiationsMessagesGet(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, address NullableVacancyAddressRawOutput) *NegotiationsMessagesGet {
 	this := NegotiationsMessagesGet{}
-	this.Address = address
 	this.Author = author
 	this.CreatedAt = createdAt
 	this.Editable = editable
@@ -61,6 +60,7 @@ func NewNegotiationsMessagesGet(address NullableVacancyAddressOutput, author Neg
 	this.Text = text
 	this.ViewedByMe = viewedByMe
 	this.ViewedByOpponent = viewedByOpponent
+	this.Address = address
 	return &this
 }
 
@@ -70,32 +70,6 @@ func NewNegotiationsMessagesGet(address NullableVacancyAddressOutput, author Neg
 func NewNegotiationsMessagesGetWithDefaults() *NegotiationsMessagesGet {
 	this := NegotiationsMessagesGet{}
 	return &this
-}
-
-// GetAddress returns the Address field value
-// If the value is explicit nil, the zero value for VacancyAddressOutput will be returned
-func (o *NegotiationsMessagesGet) GetAddress() VacancyAddressOutput {
-	if o == nil || o.Address.Get() == nil {
-		var ret VacancyAddressOutput
-		return ret
-	}
-
-	return *o.Address.Get()
-}
-
-// GetAddressOk returns a tuple with the Address field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NegotiationsMessagesGet) GetAddressOk() (*VacancyAddressOutput, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Address.Get(), o.Address.IsSet()
-}
-
-// SetAddress sets field value
-func (o *NegotiationsMessagesGet) SetAddress(v VacancyAddressOutput) {
-	o.Address.Set(&v)
 }
 
 // GetAuthor returns the Author field value
@@ -322,6 +296,32 @@ func (o *NegotiationsMessagesGet) SetViewedByOpponent(v bool) {
 	o.ViewedByOpponent = v
 }
 
+// GetAddress returns the Address field value
+// If the value is explicit nil, the zero value for VacancyAddressRawOutput will be returned
+func (o *NegotiationsMessagesGet) GetAddress() VacancyAddressRawOutput {
+	if o == nil || o.Address.Get() == nil {
+		var ret VacancyAddressRawOutput
+		return ret
+	}
+
+	return *o.Address.Get()
+}
+
+// GetAddressOk returns a tuple with the Address field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NegotiationsMessagesGet) GetAddressOk() (*VacancyAddressRawOutput, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Address.Get(), o.Address.IsSet()
+}
+
+// SetAddress sets field value
+func (o *NegotiationsMessagesGet) SetAddress(v VacancyAddressRawOutput) {
+	o.Address.Set(&v)
+}
+
 // GetAssessments returns the Assessments field value if set, zero value otherwise.
 func (o *NegotiationsMessagesGet) GetAssessments() []NegotiationsAssessment {
 	if o == nil || IsNil(o.Assessments) {
@@ -364,7 +364,6 @@ func (o NegotiationsMessagesGet) MarshalJSON() ([]byte, error) {
 
 func (o NegotiationsMessagesGet) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["address"] = o.Address.Get()
 	toSerialize["author"] = o.Author
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["editable"] = o.Editable
@@ -376,6 +375,7 @@ func (o NegotiationsMessagesGet) ToMap() (map[string]interface{}, error) {
 	toSerialize["text"] = o.Text
 	toSerialize["viewed_by_me"] = o.ViewedByMe
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
+	toSerialize["address"] = o.Address.Get()
 	if !IsNil(o.Assessments) {
 		toSerialize["assessments"] = o.Assessments
 	}
@@ -387,7 +387,6 @@ func (o *NegotiationsMessagesGet) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"address",
 		"author",
 		"created_at",
 		"editable",
@@ -396,6 +395,7 @@ func (o *NegotiationsMessagesGet) UnmarshalJSON(data []byte) (err error) {
 		"text",
 		"viewed_by_me",
 		"viewed_by_opponent",
+		"address",
 	}
 
 	allProperties := make(map[string]interface{})

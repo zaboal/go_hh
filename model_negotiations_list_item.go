@@ -29,7 +29,7 @@ type NegotiationsListItem struct {
 	HasUpdates bool `json:"has_updates"`
 	// Идентификатор отклика/приглашения
 	Id string `json:"id"`
-	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
+	// URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
 	// Deprecated
 	MessagesUrl *string `json:"messages_url,omitempty"`
 	// Текущий статус переписки.  Возможные значения приведены в поле `messaging_status` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
@@ -42,7 +42,6 @@ type NegotiationsListItem struct {
 	State IncludesIdName `json:"state"`
 	// Дата и время последнего обновления отклика/приглашения
 	UpdatedAt string `json:"updated_at"`
-	Vacancy *VacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
 	// Был ли отклик просмотрен работодателем
 	ViewedByOpponent bool `json:"viewed_by_opponent"`
 	// Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе
@@ -51,9 +50,10 @@ type NegotiationsListItem struct {
 	Hidden bool `json:"hidden"`
 	JobSearchStatus *IncludesIdName `json:"job_search_status,omitempty"`
 	PhoneCalls *NegotiationsPhoneCalls `json:"phone_calls,omitempty"`
+	Vacancy *VacanciesNegotiationsVacancyShort `json:"vacancy,omitempty"`
+	Resume NullableResumeResumeNanoWithUrl `json:"resume,omitempty"`
 	// Ссылка на полную версию отклика
 	Url string `json:"url"`
-	Resume NullableResumeResumeNanoWithUrl `json:"resume,omitempty"`
 }
 
 type _NegotiationsListItem NegotiationsListItem
@@ -360,38 +360,6 @@ func (o *NegotiationsListItem) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
-// GetVacancy returns the Vacancy field value if set, zero value otherwise.
-func (o *NegotiationsListItem) GetVacancy() VacanciesNegotiationsVacancyShort {
-	if o == nil || IsNil(o.Vacancy) {
-		var ret VacanciesNegotiationsVacancyShort
-		return ret
-	}
-	return *o.Vacancy
-}
-
-// GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NegotiationsListItem) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
-	if o == nil || IsNil(o.Vacancy) {
-		return nil, false
-	}
-	return o.Vacancy, true
-}
-
-// HasVacancy returns a boolean if a field has been set.
-func (o *NegotiationsListItem) HasVacancy() bool {
-	if o != nil && !IsNil(o.Vacancy) {
-		return true
-	}
-
-	return false
-}
-
-// SetVacancy gets a reference to the given VacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
-func (o *NegotiationsListItem) SetVacancy(v VacanciesNegotiationsVacancyShort) {
-	o.Vacancy = &v
-}
-
 // GetViewedByOpponent returns the ViewedByOpponent field value
 func (o *NegotiationsListItem) GetViewedByOpponent() bool {
 	if o == nil {
@@ -528,28 +496,36 @@ func (o *NegotiationsListItem) SetPhoneCalls(v NegotiationsPhoneCalls) {
 	o.PhoneCalls = &v
 }
 
-// GetUrl returns the Url field value
-func (o *NegotiationsListItem) GetUrl() string {
-	if o == nil {
-		var ret string
+// GetVacancy returns the Vacancy field value if set, zero value otherwise.
+func (o *NegotiationsListItem) GetVacancy() VacanciesNegotiationsVacancyShort {
+	if o == nil || IsNil(o.Vacancy) {
+		var ret VacanciesNegotiationsVacancyShort
 		return ret
 	}
-
-	return o.Url
+	return *o.Vacancy
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetVacancyOk returns a tuple with the Vacancy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NegotiationsListItem) GetUrlOk() (*string, bool) {
-	if o == nil {
+func (o *NegotiationsListItem) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool) {
+	if o == nil || IsNil(o.Vacancy) {
 		return nil, false
 	}
-	return &o.Url, true
+	return o.Vacancy, true
 }
 
-// SetUrl sets field value
-func (o *NegotiationsListItem) SetUrl(v string) {
-	o.Url = v
+// HasVacancy returns a boolean if a field has been set.
+func (o *NegotiationsListItem) HasVacancy() bool {
+	if o != nil && !IsNil(o.Vacancy) {
+		return true
+	}
+
+	return false
+}
+
+// SetVacancy gets a reference to the given VacanciesNegotiationsVacancyShort and assigns it to the Vacancy field.
+func (o *NegotiationsListItem) SetVacancy(v VacanciesNegotiationsVacancyShort) {
+	o.Vacancy = &v
 }
 
 // GetResume returns the Resume field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -594,6 +570,30 @@ func (o *NegotiationsListItem) UnsetResume() {
 	o.Resume.Unset()
 }
 
+// GetUrl returns the Url field value
+func (o *NegotiationsListItem) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *NegotiationsListItem) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *NegotiationsListItem) SetUrl(v string) {
+	o.Url = v
+}
+
 func (o NegotiationsListItem) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -622,9 +622,6 @@ func (o NegotiationsListItem) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["state"] = o.State
 	toSerialize["updated_at"] = o.UpdatedAt
-	if !IsNil(o.Vacancy) {
-		toSerialize["vacancy"] = o.Vacancy
-	}
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
 	toSerialize["decline_allowed"] = o.DeclineAllowed
 	toSerialize["hidden"] = o.Hidden
@@ -634,10 +631,13 @@ func (o NegotiationsListItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PhoneCalls) {
 		toSerialize["phone_calls"] = o.PhoneCalls
 	}
-	toSerialize["url"] = o.Url
+	if !IsNil(o.Vacancy) {
+		toSerialize["vacancy"] = o.Vacancy
+	}
 	if o.Resume.IsSet() {
 		toSerialize["resume"] = o.Resume.Get()
 	}
+	toSerialize["url"] = o.Url
 	return toSerialize, nil
 }
 

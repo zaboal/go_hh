@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **CanViewFullInfo** | Pointer to **NullableBool** | Наличие права просмотра контактной информации в резюме | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
-**Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
-**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
+**Download** | **map[string]interface{}** | Ссылки для скачивания резюме в разных форматах | 
+**Education** | **map[string]interface{}** | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
 **Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
 **Marked** | Pointer to **bool** | Выделено ли резюме в поиске | [optional] [default to false]
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
-**Platform** | Pointer to [**IncludesId**](IncludesId.md) | Ресурс, на котором было размещено резюме | [optional] 
+**Platform** | Pointer to **map[string]interface{}** | Ресурс, на котором было размещено резюме | [optional] 
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
@@ -39,8 +39,8 @@ Name | Type | Description | Notes
 **PaidServices** | [**[]ResumeObjectsEmployerPaidServicesInner**](ResumeObjectsEmployerPaidServicesInner.md) | Платные услуги по резюме для работодателя  Работодателю может быть предложен список платных услуг по резюме.  Например, если полные данные по резюме недоступны, то будет выдано предложение покупки рекомендованной услуги, чтобы такой доступ получить  | 
 **ProfessionalRoles** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Массив объектов профролей | [optional] 
 **Recommendation** | [**[]ResumeObjectsRecommendation**](ResumeObjectsRecommendation.md) | Список рекомендаций | 
-**Relocation** | [**ResumeObjectsRelocationPublic**](ResumeObjectsRelocationPublic.md) | Возможность переезда | 
-**ResumeLocale** | [**IncludesIdName**](IncludesIdName.md) | Язык, на котором составлено резюме (локаль). Элемент справочника [локали резюме](#tag/Obshie-spravochniki/operation/get-locales) | 
+**Relocation** | **map[string]interface{}** | Возможность переезда | 
+**ResumeLocale** | **map[string]interface{}** | Язык, на котором составлено резюме (локаль). Элемент справочника [локали резюме](#tag/Obshie-spravochniki/operation/get-locales) | 
 **Schedule** | [**IncludesIdName**](IncludesIdName.md) |  | 
 **Schedules** | [**[]IncludesIdName**](IncludesIdName.md) | Список подходящих соискателю графиков работы. Элементы справочника [schedule](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **Site** | [**[]ResumeObjectsSite**](ResumeObjectsSite.md) | Профили в соц. сетях и других сервисах | 
@@ -61,7 +61,7 @@ Name | Type | Description | Notes
 
 ### NewResumeResumeForEmployer
 
-`func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsEmployerPaidServicesInner, recommendation []ResumeObjectsRecommendation, relocation ResumeObjectsRelocationPublic, resumeLocale IncludesIdName, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer, owner ResumeObjectsOwner, portfolio []ResumeObjectsPortfolioNoId, ) *ResumeResumeForEmployer`
+`func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsEmployerPaidServicesInner, recommendation []ResumeObjectsRecommendation, relocation map[string]interface{}, resumeLocale map[string]interface{}, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer, owner ResumeObjectsOwner, portfolio []ResumeObjectsPortfolioNoId, ) *ResumeResumeForEmployer`
 
 NewResumeResumeForEmployer instantiates a new ResumeResumeForEmployer object
 This constructor will assign default values to properties that have it defined,
@@ -293,40 +293,40 @@ SetCreatedAt sets CreatedAt field to given value.
 
 ### GetDownload
 
-`func (o *ResumeResumeForEmployer) GetDownload() ResumeObjectsDownload`
+`func (o *ResumeResumeForEmployer) GetDownload() map[string]interface{}`
 
 GetDownload returns the Download field if non-nil, zero value otherwise.
 
 ### GetDownloadOk
 
-`func (o *ResumeResumeForEmployer) GetDownloadOk() (*ResumeObjectsDownload, bool)`
+`func (o *ResumeResumeForEmployer) GetDownloadOk() (*map[string]interface{}, bool)`
 
 GetDownloadOk returns a tuple with the Download field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownload
 
-`func (o *ResumeResumeForEmployer) SetDownload(v ResumeObjectsDownload)`
+`func (o *ResumeResumeForEmployer) SetDownload(v map[string]interface{})`
 
 SetDownload sets Download field to given value.
 
 
 ### GetEducation
 
-`func (o *ResumeResumeForEmployer) GetEducation() ResumeObjectsEducation`
+`func (o *ResumeResumeForEmployer) GetEducation() map[string]interface{}`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeResumeForEmployer) GetEducationOk() (*ResumeObjectsEducation, bool)`
+`func (o *ResumeResumeForEmployer) GetEducationOk() (*map[string]interface{}, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeResumeForEmployer) SetEducation(v ResumeObjectsEducation)`
+`func (o *ResumeResumeForEmployer) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
 
@@ -538,20 +538,20 @@ HasMiddleName returns a boolean if a field has been set.
 UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
 ### GetPlatform
 
-`func (o *ResumeResumeForEmployer) GetPlatform() IncludesId`
+`func (o *ResumeResumeForEmployer) GetPlatform() map[string]interface{}`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *ResumeResumeForEmployer) GetPlatformOk() (*IncludesId, bool)`
+`func (o *ResumeResumeForEmployer) GetPlatformOk() (*map[string]interface{}, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *ResumeResumeForEmployer) SetPlatform(v IncludesId)`
+`func (o *ResumeResumeForEmployer) SetPlatform(v map[string]interface{})`
 
 SetPlatform sets Platform field to given value.
 
@@ -1013,40 +1013,40 @@ SetRecommendation sets Recommendation field to given value.
 
 ### GetRelocation
 
-`func (o *ResumeResumeForEmployer) GetRelocation() ResumeObjectsRelocationPublic`
+`func (o *ResumeResumeForEmployer) GetRelocation() map[string]interface{}`
 
 GetRelocation returns the Relocation field if non-nil, zero value otherwise.
 
 ### GetRelocationOk
 
-`func (o *ResumeResumeForEmployer) GetRelocationOk() (*ResumeObjectsRelocationPublic, bool)`
+`func (o *ResumeResumeForEmployer) GetRelocationOk() (*map[string]interface{}, bool)`
 
 GetRelocationOk returns a tuple with the Relocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRelocation
 
-`func (o *ResumeResumeForEmployer) SetRelocation(v ResumeObjectsRelocationPublic)`
+`func (o *ResumeResumeForEmployer) SetRelocation(v map[string]interface{})`
 
 SetRelocation sets Relocation field to given value.
 
 
 ### GetResumeLocale
 
-`func (o *ResumeResumeForEmployer) GetResumeLocale() IncludesIdName`
+`func (o *ResumeResumeForEmployer) GetResumeLocale() map[string]interface{}`
 
 GetResumeLocale returns the ResumeLocale field if non-nil, zero value otherwise.
 
 ### GetResumeLocaleOk
 
-`func (o *ResumeResumeForEmployer) GetResumeLocaleOk() (*IncludesIdName, bool)`
+`func (o *ResumeResumeForEmployer) GetResumeLocaleOk() (*map[string]interface{}, bool)`
 
 GetResumeLocaleOk returns a tuple with the ResumeLocale field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResumeLocale
 
-`func (o *ResumeResumeForEmployer) SetResumeLocale(v IncludesIdName)`
+`func (o *ResumeResumeForEmployer) SetResumeLocale(v map[string]interface{})`
 
 SetResumeLocale sets ResumeLocale field to given value.
 

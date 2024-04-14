@@ -65,15 +65,15 @@ type ResumeEditResumeRequest struct {
 	TravelTime *IncludesId `json:"travel_time,omitempty"`
 	// Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) 
 	WorkTicket []IncludesId `json:"work_ticket,omitempty"`
-	Area NullableId `json:"area,omitempty"`
+	Area map[string]interface{} `json:"area,omitempty"`
 	// Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)
 	Citizenship []IncludesId `json:"citizenship,omitempty"`
 	// Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится * Обязательно указать либо телефон полностью в поле `formatted`, либо все три части телефона по отдельности в трёх полях: `country`, `city` и `number`. Если указано и то, и то, используются данные из трёх полей. В поле `formatted` допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры 
 	Contact []IncludesContact `json:"contact,omitempty"`
-	Education NullableResumeObjectsEducation `json:"education,omitempty"`
+	Education map[string]interface{} `json:"education,omitempty"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience,omitempty"`
-	Gender NullableId `json:"gender,omitempty"`
+	Gender map[string]interface{} `json:"gender,omitempty"`
 	// Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages)
 	Language []IncludesLanguageLevel `json:"language,omitempty"`
 }
@@ -1059,46 +1059,36 @@ func (o *ResumeEditResumeRequest) SetWorkTicket(v []IncludesId) {
 	o.WorkTicket = v
 }
 
-// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeEditResumeRequest) GetArea() Id {
-	if o == nil || IsNil(o.Area.Get()) {
-		var ret Id
+// GetArea returns the Area field value if set, zero value otherwise.
+func (o *ResumeEditResumeRequest) GetArea() map[string]interface{} {
+	if o == nil || IsNil(o.Area) {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Area.Get()
+	return o.Area
 }
 
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeEditResumeRequest) GetAreaOk() (*Id, bool) {
-	if o == nil {
-		return nil, false
+func (o *ResumeEditResumeRequest) GetAreaOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Area) {
+		return map[string]interface{}{}, false
 	}
-	return o.Area.Get(), o.Area.IsSet()
+	return o.Area, true
 }
 
 // HasArea returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasArea() bool {
-	if o != nil && o.Area.IsSet() {
+	if o != nil && !IsNil(o.Area) {
 		return true
 	}
 
 	return false
 }
 
-// SetArea gets a reference to the given NullableId and assigns it to the Area field.
-func (o *ResumeEditResumeRequest) SetArea(v Id) {
-	o.Area.Set(&v)
-}
-// SetAreaNil sets the value for Area to be an explicit nil
-func (o *ResumeEditResumeRequest) SetAreaNil() {
-	o.Area.Set(nil)
-}
-
-// UnsetArea ensures that no value is present for Area, not even an explicit nil
-func (o *ResumeEditResumeRequest) UnsetArea() {
-	o.Area.Unset()
+// SetArea gets a reference to the given map[string]interface{} and assigns it to the Area field.
+func (o *ResumeEditResumeRequest) SetArea(v map[string]interface{}) {
+	o.Area = v
 }
 
 // GetCitizenship returns the Citizenship field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1167,46 +1157,36 @@ func (o *ResumeEditResumeRequest) SetContact(v []IncludesContact) {
 	o.Contact = v
 }
 
-// GetEducation returns the Education field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeEditResumeRequest) GetEducation() ResumeObjectsEducation {
-	if o == nil || IsNil(o.Education.Get()) {
-		var ret ResumeObjectsEducation
+// GetEducation returns the Education field value if set, zero value otherwise.
+func (o *ResumeEditResumeRequest) GetEducation() map[string]interface{} {
+	if o == nil || IsNil(o.Education) {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Education.Get()
+	return o.Education
 }
 
 // GetEducationOk returns a tuple with the Education field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeEditResumeRequest) GetEducationOk() (*ResumeObjectsEducation, bool) {
-	if o == nil {
-		return nil, false
+func (o *ResumeEditResumeRequest) GetEducationOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Education) {
+		return map[string]interface{}{}, false
 	}
-	return o.Education.Get(), o.Education.IsSet()
+	return o.Education, true
 }
 
 // HasEducation returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasEducation() bool {
-	if o != nil && o.Education.IsSet() {
+	if o != nil && !IsNil(o.Education) {
 		return true
 	}
 
 	return false
 }
 
-// SetEducation gets a reference to the given NullableResumeObjectsEducation and assigns it to the Education field.
-func (o *ResumeEditResumeRequest) SetEducation(v ResumeObjectsEducation) {
-	o.Education.Set(&v)
-}
-// SetEducationNil sets the value for Education to be an explicit nil
-func (o *ResumeEditResumeRequest) SetEducationNil() {
-	o.Education.Set(nil)
-}
-
-// UnsetEducation ensures that no value is present for Education, not even an explicit nil
-func (o *ResumeEditResumeRequest) UnsetEducation() {
-	o.Education.Unset()
+// SetEducation gets a reference to the given map[string]interface{} and assigns it to the Education field.
+func (o *ResumeEditResumeRequest) SetEducation(v map[string]interface{}) {
+	o.Education = v
 }
 
 // GetExperience returns the Experience field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1242,46 +1222,36 @@ func (o *ResumeEditResumeRequest) SetExperience(v []ResumeObjectsExperience) {
 	o.Experience = v
 }
 
-// GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeEditResumeRequest) GetGender() Id {
-	if o == nil || IsNil(o.Gender.Get()) {
-		var ret Id
+// GetGender returns the Gender field value if set, zero value otherwise.
+func (o *ResumeEditResumeRequest) GetGender() map[string]interface{} {
+	if o == nil || IsNil(o.Gender) {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Gender.Get()
+	return o.Gender
 }
 
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeEditResumeRequest) GetGenderOk() (*Id, bool) {
-	if o == nil {
-		return nil, false
+func (o *ResumeEditResumeRequest) GetGenderOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Gender) {
+		return map[string]interface{}{}, false
 	}
-	return o.Gender.Get(), o.Gender.IsSet()
+	return o.Gender, true
 }
 
 // HasGender returns a boolean if a field has been set.
 func (o *ResumeEditResumeRequest) HasGender() bool {
-	if o != nil && o.Gender.IsSet() {
+	if o != nil && !IsNil(o.Gender) {
 		return true
 	}
 
 	return false
 }
 
-// SetGender gets a reference to the given NullableId and assigns it to the Gender field.
-func (o *ResumeEditResumeRequest) SetGender(v Id) {
-	o.Gender.Set(&v)
-}
-// SetGenderNil sets the value for Gender to be an explicit nil
-func (o *ResumeEditResumeRequest) SetGenderNil() {
-	o.Gender.Set(nil)
-}
-
-// UnsetGender ensures that no value is present for Gender, not even an explicit nil
-func (o *ResumeEditResumeRequest) UnsetGender() {
-	o.Gender.Unset()
+// SetGender gets a reference to the given map[string]interface{} and assigns it to the Gender field.
+func (o *ResumeEditResumeRequest) SetGender(v map[string]interface{}) {
+	o.Gender = v
 }
 
 // GetLanguage returns the Language field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1408,8 +1378,8 @@ func (o ResumeEditResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.WorkTicket != nil {
 		toSerialize["work_ticket"] = o.WorkTicket
 	}
-	if o.Area.IsSet() {
-		toSerialize["area"] = o.Area.Get()
+	if !IsNil(o.Area) {
+		toSerialize["area"] = o.Area
 	}
 	if o.Citizenship != nil {
 		toSerialize["citizenship"] = o.Citizenship
@@ -1417,14 +1387,14 @@ func (o ResumeEditResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.Contact != nil {
 		toSerialize["contact"] = o.Contact
 	}
-	if o.Education.IsSet() {
-		toSerialize["education"] = o.Education.Get()
+	if !IsNil(o.Education) {
+		toSerialize["education"] = o.Education
 	}
 	if o.Experience != nil {
 		toSerialize["experience"] = o.Experience
 	}
-	if o.Gender.IsSet() {
-		toSerialize["gender"] = o.Gender.Get()
+	if !IsNil(o.Gender) {
+		toSerialize["gender"] = o.Gender
 	}
 	if o.Language != nil {
 		toSerialize["language"] = o.Language

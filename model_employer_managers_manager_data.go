@@ -20,10 +20,10 @@ var _ MappedNullable = &EmployerManagersManagerData{}
 
 // EmployerManagersManagerData struct for EmployerManagersManagerData
 type EmployerManagersManagerData struct {
-	AdditionalPhone *EmployerManagersManagerDataAdditionalPhone `json:"additional_phone,omitempty"`
+	AdditionalPhone *EmployerManagersEmployerManagerItemAdditionalPhone `json:"additional_phone,omitempty"`
 	// Список прав, которые можно дать данному типу менеджера
 	Permissions []EmployerManagerTypesAvailablePermissions `json:"permissions,omitempty"`
-	Phone *EmployerManagersManagerDataPhone `json:"phone,omitempty"`
+	Phone *EmployerManagersEmployerManagerItemPhone `json:"phone,omitempty"`
 	Position *string `json:"position,omitempty"`
 }
 
@@ -45,9 +45,9 @@ func NewEmployerManagersManagerDataWithDefaults() *EmployerManagersManagerData {
 }
 
 // GetAdditionalPhone returns the AdditionalPhone field value if set, zero value otherwise.
-func (o *EmployerManagersManagerData) GetAdditionalPhone() EmployerManagersManagerDataAdditionalPhone {
+func (o *EmployerManagersManagerData) GetAdditionalPhone() EmployerManagersEmployerManagerItemAdditionalPhone {
 	if o == nil || IsNil(o.AdditionalPhone) {
-		var ret EmployerManagersManagerDataAdditionalPhone
+		var ret EmployerManagersEmployerManagerItemAdditionalPhone
 		return ret
 	}
 	return *o.AdditionalPhone
@@ -55,7 +55,7 @@ func (o *EmployerManagersManagerData) GetAdditionalPhone() EmployerManagersManag
 
 // GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersManagerData) GetAdditionalPhoneOk() (*EmployerManagersManagerDataAdditionalPhone, bool) {
+func (o *EmployerManagersManagerData) GetAdditionalPhoneOk() (*EmployerManagersEmployerManagerItemAdditionalPhone, bool) {
 	if o == nil || IsNil(o.AdditionalPhone) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *EmployerManagersManagerData) HasAdditionalPhone() bool {
 	return false
 }
 
-// SetAdditionalPhone gets a reference to the given EmployerManagersManagerDataAdditionalPhone and assigns it to the AdditionalPhone field.
-func (o *EmployerManagersManagerData) SetAdditionalPhone(v EmployerManagersManagerDataAdditionalPhone) {
+// SetAdditionalPhone gets a reference to the given EmployerManagersEmployerManagerItemAdditionalPhone and assigns it to the AdditionalPhone field.
+func (o *EmployerManagersManagerData) SetAdditionalPhone(v EmployerManagersEmployerManagerItemAdditionalPhone) {
 	o.AdditionalPhone = &v
 }
 
@@ -109,9 +109,9 @@ func (o *EmployerManagersManagerData) SetPermissions(v []EmployerManagerTypesAva
 }
 
 // GetPhone returns the Phone field value if set, zero value otherwise.
-func (o *EmployerManagersManagerData) GetPhone() EmployerManagersManagerDataPhone {
+func (o *EmployerManagersManagerData) GetPhone() EmployerManagersEmployerManagerItemPhone {
 	if o == nil || IsNil(o.Phone) {
-		var ret EmployerManagersManagerDataPhone
+		var ret EmployerManagersEmployerManagerItemPhone
 		return ret
 	}
 	return *o.Phone
@@ -119,7 +119,7 @@ func (o *EmployerManagersManagerData) GetPhone() EmployerManagersManagerDataPhon
 
 // GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersManagerDataPhone, bool) {
+func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool) {
 	if o == nil || IsNil(o.Phone) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *EmployerManagersManagerData) HasPhone() bool {
 	return false
 }
 
-// SetPhone gets a reference to the given EmployerManagersManagerDataPhone and assigns it to the Phone field.
-func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersManagerDataPhone) {
+// SetPhone gets a reference to the given EmployerManagersEmployerManagerItemPhone and assigns it to the Phone field.
+func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersEmployerManagerItemPhone) {
 	o.Phone = &v
 }
 

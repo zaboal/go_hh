@@ -8,13 +8,12 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания отклика/приглашения | 
 **HasUpdates** | **bool** | Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания | 
 **Id** | **string** | Идентификатор отклика/приглашения | 
-**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
+**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
 **MessagingStatus** | **string** | Текущий статус переписки.  Возможные значения приведены в поле &#x60;messaging_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **ProfessionalRoles** | Pointer to [**[]VacancyProfessionalRoleItem**](VacancyProfessionalRoleItem.md) | Список профессиональных ролей | [optional] 
 **Source** | Pointer to **string** | Источник отклика/приглашения | [optional] 
 **State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика/приглашения.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **UpdatedAt** | **string** | Дата и время последнего обновления отклика/приглашения | 
-**Vacancy** | Pointer to [**NullableVacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 
 ## Methods
@@ -256,41 +255,6 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
-### GetVacancy
-
-`func (o *NegotiationsObjectsTopicItemCommon) GetVacancy() VacanciesNegotiationsVacancyShort`
-
-GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
-
-### GetVacancyOk
-
-`func (o *NegotiationsObjectsTopicItemCommon) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
-
-GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVacancy
-
-`func (o *NegotiationsObjectsTopicItemCommon) SetVacancy(v VacanciesNegotiationsVacancyShort)`
-
-SetVacancy sets Vacancy field to given value.
-
-### HasVacancy
-
-`func (o *NegotiationsObjectsTopicItemCommon) HasVacancy() bool`
-
-HasVacancy returns a boolean if a field has been set.
-
-### SetVacancyNil
-
-`func (o *NegotiationsObjectsTopicItemCommon) SetVacancyNil(b bool)`
-
- SetVacancyNil sets the value for Vacancy to be an explicit nil
-
-### UnsetVacancy
-`func (o *NegotiationsObjectsTopicItemCommon) UnsetVacancy()`
-
-UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
 ### GetViewedByOpponent
 
 `func (o *NegotiationsObjectsTopicItemCommon) GetViewedByOpponent() bool`

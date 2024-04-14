@@ -38,9 +38,9 @@ type VacanciesVisitorsVisitorItemsItemsInner struct {
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
-	Download ResumeObjectsDownload `json:"download"`
+	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
-	Education ResumeObjectsEducation `json:"education"`
+	Education map[string]interface{} `json:"education"`
 	// Опыт работы
 	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
@@ -55,7 +55,7 @@ type VacanciesVisitorsVisitorItemsItemsInner struct {
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
 	// Ресурс, на котором было размещено резюме
-	Platform *IncludesId `json:"platform,omitempty"`
+	Platform map[string]interface{} `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
@@ -84,7 +84,7 @@ type _VacanciesVisitorsVisitorItemsItemsInner VacanciesVisitorsVisitorItemsItems
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, url string) *VacanciesVisitorsVisitorItemsItemsInner {
+func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, url string) *VacanciesVisitorsVisitorItemsItemsInner {
 	this := VacanciesVisitorsVisitorItemsItemsInner{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -362,9 +362,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) SetCreatedAt(v string) {
 }
 
 // GetDownload returns the Download field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeObjectsDownload {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsDownload
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -373,22 +373,22 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownload() ResumeObjectsDow
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (*ResumeObjectsDownload, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetDownloadOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Download, true
+	return o.Download, true
 }
 
 // SetDownload sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetDownload(v ResumeObjectsDownload) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetDownload(v map[string]interface{}) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeObjectsEducation {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() map[string]interface{} {
 	if o == nil {
-		var ret ResumeObjectsEducation
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -397,15 +397,15 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducation() ResumeObjectsEd
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (*ResumeObjectsEducation, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Education, true
+	return o.Education, true
 }
 
 // SetEducation sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v ResumeObjectsEducation) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v map[string]interface{}) {
 	o.Education = v
 }
 
@@ -658,19 +658,19 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) UnsetMiddleName() {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() IncludesId {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatform() map[string]interface{} {
 	if o == nil || IsNil(o.Platform) {
-		var ret IncludesId
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Platform
+	return o.Platform
 }
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatformOk() (*IncludesId, bool) {
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetPlatformOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Platform) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Platform, true
 }
@@ -684,9 +684,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPlatform(v IncludesId) {
-	o.Platform = &v
+// SetPlatform gets a reference to the given map[string]interface{} and assigns it to the Platform field.
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetPlatform(v map[string]interface{}) {
+	o.Platform = v
 }
 
 // GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).

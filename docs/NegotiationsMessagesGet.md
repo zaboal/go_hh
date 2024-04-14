@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | [**NullableVacancyAddressOutput**](VacancyAddressOutput.md) |  | 
 **Author** | [**NegotiationsAuthor**](NegotiationsAuthor.md) |  | 
 **CreatedAt** | **string** | Дата и время создания сообщения | 
 **Editable** | **bool** | Можно ли редактировать текст сообщения | 
@@ -14,13 +13,14 @@ Name | Type | Description | Notes
 **Text** | **string** | Текст сообщения | 
 **ViewedByMe** | **bool** | Прочитано ли сообщение смотрящим (для сообщений отправленных соискателем - всегда true) | 
 **ViewedByOpponent** | **bool** | Прочитано ли сообщение работодателем (для сообщений работодателя - true) | 
+**Address** | [**NullableVacancyAddressRawOutput**](VacancyAddressRawOutput.md) |  | 
 **Assessments** | Pointer to [**[]NegotiationsAssessment**](NegotiationsAssessment.md) | Инструменты оценки, привязанные к сообщению | [optional] 
 
 ## Methods
 
 ### NewNegotiationsMessagesGet
 
-`func NewNegotiationsMessagesGet(address NullableVacancyAddressOutput, author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessagesGet`
+`func NewNegotiationsMessagesGet(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, address NullableVacancyAddressRawOutput, ) *NegotiationsMessagesGet`
 
 NewNegotiationsMessagesGet instantiates a new NegotiationsMessagesGet object
 This constructor will assign default values to properties that have it defined,
@@ -35,36 +35,6 @@ NewNegotiationsMessagesGetWithDefaults instantiates a new NegotiationsMessagesGe
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAddress
-
-`func (o *NegotiationsMessagesGet) GetAddress() VacancyAddressOutput`
-
-GetAddress returns the Address field if non-nil, zero value otherwise.
-
-### GetAddressOk
-
-`func (o *NegotiationsMessagesGet) GetAddressOk() (*VacancyAddressOutput, bool)`
-
-GetAddressOk returns a tuple with the Address field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAddress
-
-`func (o *NegotiationsMessagesGet) SetAddress(v VacancyAddressOutput)`
-
-SetAddress sets Address field to given value.
-
-
-### SetAddressNil
-
-`func (o *NegotiationsMessagesGet) SetAddressNil(b bool)`
-
- SetAddressNil sets the value for Address to be an explicit nil
-
-### UnsetAddress
-`func (o *NegotiationsMessagesGet) UnsetAddress()`
-
-UnsetAddress ensures that no value is present for Address, not even an explicit nil
 ### GetAuthor
 
 `func (o *NegotiationsMessagesGet) GetAuthor() NegotiationsAuthor`
@@ -250,6 +220,36 @@ and a boolean to check if the value has been set.
 SetViewedByOpponent sets ViewedByOpponent field to given value.
 
 
+### GetAddress
+
+`func (o *NegotiationsMessagesGet) GetAddress() VacancyAddressRawOutput`
+
+GetAddress returns the Address field if non-nil, zero value otherwise.
+
+### GetAddressOk
+
+`func (o *NegotiationsMessagesGet) GetAddressOk() (*VacancyAddressRawOutput, bool)`
+
+GetAddressOk returns a tuple with the Address field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAddress
+
+`func (o *NegotiationsMessagesGet) SetAddress(v VacancyAddressRawOutput)`
+
+SetAddress sets Address field to given value.
+
+
+### SetAddressNil
+
+`func (o *NegotiationsMessagesGet) SetAddressNil(b bool)`
+
+ SetAddressNil sets the value for Address to be an explicit nil
+
+### UnsetAddress
+`func (o *NegotiationsMessagesGet) UnsetAddress()`
+
+UnsetAddress ensures that no value is present for Address, not even an explicit nil
 ### GetAssessments
 
 `func (o *NegotiationsMessagesGet) GetAssessments() []NegotiationsAssessment`

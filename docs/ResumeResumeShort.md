@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
 **CreatedAt** | **string** | Дата и время создания резюме | 
-**Download** | [**ResumeObjectsDownload**](ResumeObjectsDownload.md) | Ссылки для скачивания резюме в разных форматах | 
-**Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
+**Download** | **map[string]interface{}** | Ссылки для скачивания резюме в разных форматах | 
+**Education** | **map[string]interface{}** | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
 **Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
 **Marked** | Pointer to **bool** | Выделено ли резюме в поиске | [optional] 
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
-**Platform** | Pointer to [**IncludesId**](IncludesId.md) | Ресурс, на котором было размещено резюме | [optional] 
+**Platform** | Pointer to **map[string]interface{}** | Ресурс, на котором было размещено резюме | [optional] 
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 
 ### NewResumeResumeShort
 
-`func NewResumeResumeShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, ) *ResumeResumeShort`
+`func NewResumeResumeShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, ) *ResumeResumeShort`
 
 NewResumeResumeShort instantiates a new ResumeResumeShort object
 This constructor will assign default values to properties that have it defined,
@@ -269,40 +269,40 @@ SetCreatedAt sets CreatedAt field to given value.
 
 ### GetDownload
 
-`func (o *ResumeResumeShort) GetDownload() ResumeObjectsDownload`
+`func (o *ResumeResumeShort) GetDownload() map[string]interface{}`
 
 GetDownload returns the Download field if non-nil, zero value otherwise.
 
 ### GetDownloadOk
 
-`func (o *ResumeResumeShort) GetDownloadOk() (*ResumeObjectsDownload, bool)`
+`func (o *ResumeResumeShort) GetDownloadOk() (*map[string]interface{}, bool)`
 
 GetDownloadOk returns a tuple with the Download field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownload
 
-`func (o *ResumeResumeShort) SetDownload(v ResumeObjectsDownload)`
+`func (o *ResumeResumeShort) SetDownload(v map[string]interface{})`
 
 SetDownload sets Download field to given value.
 
 
 ### GetEducation
 
-`func (o *ResumeResumeShort) GetEducation() ResumeObjectsEducation`
+`func (o *ResumeResumeShort) GetEducation() map[string]interface{}`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeResumeShort) GetEducationOk() (*ResumeObjectsEducation, bool)`
+`func (o *ResumeResumeShort) GetEducationOk() (*map[string]interface{}, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeResumeShort) SetEducation(v ResumeObjectsEducation)`
+`func (o *ResumeResumeShort) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
 
@@ -514,20 +514,20 @@ HasMiddleName returns a boolean if a field has been set.
 UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
 ### GetPlatform
 
-`func (o *ResumeResumeShort) GetPlatform() IncludesId`
+`func (o *ResumeResumeShort) GetPlatform() map[string]interface{}`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *ResumeResumeShort) GetPlatformOk() (*IncludesId, bool)`
+`func (o *ResumeResumeShort) GetPlatformOk() (*map[string]interface{}, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *ResumeResumeShort) SetPlatform(v IncludesId)`
+`func (o *ResumeResumeShort) SetPlatform(v map[string]interface{})`
 
 SetPlatform sets Platform field to given value.
 

@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **Area** | Pointer to [**Id**](Id.md) | Город проживания. Элемент справочника [areas](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Citizenship** | Pointer to [**[]IncludesId**](IncludesId.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Contact** | Pointer to [**[]ResumeObjectsContact**](ResumeObjectsContact.md) | Список контактов соискателя.  При заполнении контактов в резюме необходимо учитывать следующие условия:  * В резюме обязательно должен быть указан e-mail. Он может быть только один. * В резюме должен быть указан хотя бы один телефон, причём можно указывать только один телефон каждого типа. * Комментарий можно указывать только для телефонов, для e-mail комментарий не сохранится. * Обязательно указать либо телефон полностью в поле &#x60;formatted&#x60;, либо все три части телефона по отдельности в трёх полях: &#x60;country&#x60;, &#x60;city&#x60; и &#x60;number&#x60;. Если указано и то, и то, используются данные из трёх полей. В поле &#x60;formatted&#x60; допустимо использовать пробелы, скобки и дефисы. В остальных полях допустимы только цифры  | [optional] 
-**Education** | Pointer to [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.  Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | [optional] 
+**Education** | Pointer to **map[string]interface{}** | Образование соискателя.  Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | [optional] 
 **Experience** | Pointer to [**[]ResumeObjectsExperienceCreateEditResume**](ResumeObjectsExperienceCreateEditResume.md) | Опыт работы | [optional] 
 **Gender** | Pointer to [**Id**](Id.md) | Пол. Элемент справочника [gender](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 **Language** | Pointer to [**[]ResumeObjectsLanguage**](ResumeObjectsLanguage.md) | Список языков, которыми владеет соискатель. Элементы справочника [languages](#tag/Obshie-spravochniki/operation/get-languages) | [optional] 
@@ -1000,20 +1000,20 @@ HasContact returns a boolean if a field has been set.
 
 ### GetEducation
 
-`func (o *ResumeAddResumeRequest) GetEducation() ResumeObjectsEducation`
+`func (o *ResumeAddResumeRequest) GetEducation() map[string]interface{}`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeAddResumeRequest) GetEducationOk() (*ResumeObjectsEducation, bool)`
+`func (o *ResumeAddResumeRequest) GetEducationOk() (*map[string]interface{}, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeAddResumeRequest) SetEducation(v ResumeObjectsEducation)`
+`func (o *ResumeAddResumeRequest) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
 

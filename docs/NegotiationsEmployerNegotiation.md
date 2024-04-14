@@ -8,20 +8,19 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания отклика/приглашения | 
 **HasUpdates** | **bool** | Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания | 
 **Id** | **string** | Идентификатор отклика/приглашения | 
-**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
+**MessagesUrl** | Pointer to **string** | URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | [optional] 
 **MessagingStatus** | **string** | Текущий статус переписки.  Возможные значения приведены в поле &#x60;messaging_status&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **ProfessionalRoles** | Pointer to [**[]VacancyProfessionalRoleItem**](VacancyProfessionalRoleItem.md) | Список профессиональных ролей | [optional] 
 **Source** | Pointer to **string** | Источник отклика/приглашения | [optional] 
 **State** | [**IncludesIdName**](IncludesIdName.md) | Текущее состояние отклика/приглашения.  Возможные значения приведены в поле &#x60;negotiations_state&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)  | 
 **UpdatedAt** | **string** | Дата и время последнего обновления отклика/приглашения | 
-**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 **Actions** | Pointer to [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info)  | [optional] 
 **EmployerState** | Pointer to [**EmployersEmployersState**](EmployersEmployersState.md) |  | [optional] 
-**Resume** | Pointer to [**NullableNegotiationsObjectsEmployerTopicResume**](NegotiationsObjectsEmployerTopicResume.md) |  | [optional] 
 **Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 
-**TestResult** | Pointer to [**NullableSkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
-**Url** | Pointer to **string** | Ссылка на полную версию отклика | [optional] 
+**TestResult** | Pointer to [**SkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
+**Resume** | Pointer to [**NullableNegotiationsObjectsEmployerTopicResume**](NegotiationsObjectsEmployerTopicResume.md) |  | [optional] 
+**Vacancy** | Pointer to [**NullableVacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 
 ## Methods
 
@@ -262,31 +261,6 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
-### GetVacancy
-
-`func (o *NegotiationsEmployerNegotiation) GetVacancy() VacanciesNegotiationsVacancyShort`
-
-GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
-
-### GetVacancyOk
-
-`func (o *NegotiationsEmployerNegotiation) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
-
-GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVacancy
-
-`func (o *NegotiationsEmployerNegotiation) SetVacancy(v VacanciesNegotiationsVacancyShort)`
-
-SetVacancy sets Vacancy field to given value.
-
-### HasVacancy
-
-`func (o *NegotiationsEmployerNegotiation) HasVacancy() bool`
-
-HasVacancy returns a boolean if a field has been set.
-
 ### GetViewedByOpponent
 
 `func (o *NegotiationsEmployerNegotiation) GetViewedByOpponent() bool`
@@ -357,41 +331,6 @@ SetEmployerState sets EmployerState field to given value.
 
 HasEmployerState returns a boolean if a field has been set.
 
-### GetResume
-
-`func (o *NegotiationsEmployerNegotiation) GetResume() NegotiationsObjectsEmployerTopicResume`
-
-GetResume returns the Resume field if non-nil, zero value otherwise.
-
-### GetResumeOk
-
-`func (o *NegotiationsEmployerNegotiation) GetResumeOk() (*NegotiationsObjectsEmployerTopicResume, bool)`
-
-GetResumeOk returns a tuple with the Resume field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResume
-
-`func (o *NegotiationsEmployerNegotiation) SetResume(v NegotiationsObjectsEmployerTopicResume)`
-
-SetResume sets Resume field to given value.
-
-### HasResume
-
-`func (o *NegotiationsEmployerNegotiation) HasResume() bool`
-
-HasResume returns a boolean if a field has been set.
-
-### SetResumeNil
-
-`func (o *NegotiationsEmployerNegotiation) SetResumeNil(b bool)`
-
- SetResumeNil sets the value for Resume to be an explicit nil
-
-### UnsetResume
-`func (o *NegotiationsEmployerNegotiation) UnsetResume()`
-
-UnsetResume ensures that no value is present for Resume, not even an explicit nil
 ### GetTemplates
 
 `func (o *NegotiationsEmployerNegotiation) GetTemplates() []VacancyTemplates`
@@ -442,41 +381,76 @@ SetTestResult sets TestResult field to given value.
 
 HasTestResult returns a boolean if a field has been set.
 
-### SetTestResultNil
+### GetResume
 
-`func (o *NegotiationsEmployerNegotiation) SetTestResultNil(b bool)`
+`func (o *NegotiationsEmployerNegotiation) GetResume() NegotiationsObjectsEmployerTopicResume`
 
- SetTestResultNil sets the value for TestResult to be an explicit nil
+GetResume returns the Resume field if non-nil, zero value otherwise.
 
-### UnsetTestResult
-`func (o *NegotiationsEmployerNegotiation) UnsetTestResult()`
+### GetResumeOk
 
-UnsetTestResult ensures that no value is present for TestResult, not even an explicit nil
-### GetUrl
+`func (o *NegotiationsEmployerNegotiation) GetResumeOk() (*NegotiationsObjectsEmployerTopicResume, bool)`
 
-`func (o *NegotiationsEmployerNegotiation) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *NegotiationsEmployerNegotiation) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+GetResumeOk returns a tuple with the Resume field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUrl
+### SetResume
 
-`func (o *NegotiationsEmployerNegotiation) SetUrl(v string)`
+`func (o *NegotiationsEmployerNegotiation) SetResume(v NegotiationsObjectsEmployerTopicResume)`
 
-SetUrl sets Url field to given value.
+SetResume sets Resume field to given value.
 
-### HasUrl
+### HasResume
 
-`func (o *NegotiationsEmployerNegotiation) HasUrl() bool`
+`func (o *NegotiationsEmployerNegotiation) HasResume() bool`
 
-HasUrl returns a boolean if a field has been set.
+HasResume returns a boolean if a field has been set.
 
+### SetResumeNil
+
+`func (o *NegotiationsEmployerNegotiation) SetResumeNil(b bool)`
+
+ SetResumeNil sets the value for Resume to be an explicit nil
+
+### UnsetResume
+`func (o *NegotiationsEmployerNegotiation) UnsetResume()`
+
+UnsetResume ensures that no value is present for Resume, not even an explicit nil
+### GetVacancy
+
+`func (o *NegotiationsEmployerNegotiation) GetVacancy() VacanciesNegotiationsVacancyShort`
+
+GetVacancy returns the Vacancy field if non-nil, zero value otherwise.
+
+### GetVacancyOk
+
+`func (o *NegotiationsEmployerNegotiation) GetVacancyOk() (*VacanciesNegotiationsVacancyShort, bool)`
+
+GetVacancyOk returns a tuple with the Vacancy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVacancy
+
+`func (o *NegotiationsEmployerNegotiation) SetVacancy(v VacanciesNegotiationsVacancyShort)`
+
+SetVacancy sets Vacancy field to given value.
+
+### HasVacancy
+
+`func (o *NegotiationsEmployerNegotiation) HasVacancy() bool`
+
+HasVacancy returns a boolean if a field has been set.
+
+### SetVacancyNil
+
+`func (o *NegotiationsEmployerNegotiation) SetVacancyNil(b bool)`
+
+ SetVacancyNil sets the value for Vacancy to be an explicit nil
+
+### UnsetVacancy
+`func (o *NegotiationsEmployerNegotiation) UnsetVacancy()`
+
+UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

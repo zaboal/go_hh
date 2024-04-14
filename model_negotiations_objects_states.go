@@ -28,7 +28,7 @@ type NegotiationsObjectsStates struct {
 	Id string `json:"id"`
 	// Название коллекции
 	Name string `json:"name"`
-	// URL, [GET-запрос на который](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#negotiations-list) возвращает список откликов/приглашений коллекции 
+	// URL, [GET-запрос на который](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations) возвращает список откликов/приглашений коллекции 
 	Url string `json:"url"`
 }
 
