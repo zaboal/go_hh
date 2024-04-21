@@ -22,6 +22,7 @@ var _ MappedNullable = &MeAnyProfile{}
 
 // MeAnyProfile Содержит флаги, актуальные для любого типа авторизации: соискатель, работодатель, приложение 
 type MeAnyProfile struct {
+	MeCommonProfile
 }
 
 type _MeAnyProfile MeAnyProfile

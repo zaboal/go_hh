@@ -68,7 +68,6 @@ type ResumeResumeShort struct {
 	NegotiationsHistory ResumeObjectsNegotiationsHistoryUrl `json:"negotiations_history"`
 	// Информация о владельце резюме
 	Owner ResumeObjectsOwner `json:"owner"`
-	// Фотография пользователя
 	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
 	// Теги к резюме
 	Tags []IncludesId `json:"tags,omitempty"`
