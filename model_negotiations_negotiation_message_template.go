@@ -17,195 +17,121 @@ import (
 	"fmt"
 )
 
-// checks if the ErrorsVacancyApplyBadRequestErrors type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ErrorsVacancyApplyBadRequestErrors{}
+// checks if the NegotiationsNegotiationMessageTemplate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NegotiationsNegotiationMessageTemplate{}
 
-// ErrorsVacancyApplyBadRequestErrors Информация о возникших ошибках
-type ErrorsVacancyApplyBadRequestErrors struct {
-	// Идентификатор запроса
-	RequestId string `json:"request_id"`
-	// Deprecated
-	BadArgument *string `json:"bad_argument,omitempty"`
-	// Deprecated
-	BadArguments []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments `json:"bad_arguments,omitempty"`
-	// Описание ошибки
-	Description *string `json:"description,omitempty"`
-	// Массив с данными ошибок
-	Errors []ErrorsVacancyApplyBadRequestError `json:"errors"`
+// NegotiationsNegotiationMessageTemplate struct for NegotiationsNegotiationMessageTemplate
+type NegotiationsNegotiationMessageTemplate struct {
+	// Работодательский статус, соответствующий данному шаблону; может отсутствовать если шаблон не связан с каким-либо статусом
+	EmployerState *string `json:"employer_state,omitempty"`
+	// Был ли изменен шаблон работодателем или же используется стандартный шаблон с текстом от Хэдхантер
+	TemplateModified bool `json:"template_modified"`
+	// Текст шаблона
+	Text string `json:"text"`
 }
 
-type _ErrorsVacancyApplyBadRequestErrors ErrorsVacancyApplyBadRequestErrors
+type _NegotiationsNegotiationMessageTemplate NegotiationsNegotiationMessageTemplate
 
-// NewErrorsVacancyApplyBadRequestErrors instantiates a new ErrorsVacancyApplyBadRequestErrors object
+// NewNegotiationsNegotiationMessageTemplate instantiates a new NegotiationsNegotiationMessageTemplate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorsVacancyApplyBadRequestErrors(requestId string, errors []ErrorsVacancyApplyBadRequestError) *ErrorsVacancyApplyBadRequestErrors {
-	this := ErrorsVacancyApplyBadRequestErrors{}
-	this.RequestId = requestId
-	this.Errors = errors
+func NewNegotiationsNegotiationMessageTemplate(templateModified bool, text string) *NegotiationsNegotiationMessageTemplate {
+	this := NegotiationsNegotiationMessageTemplate{}
+	this.TemplateModified = templateModified
+	this.Text = text
 	return &this
 }
 
-// NewErrorsVacancyApplyBadRequestErrorsWithDefaults instantiates a new ErrorsVacancyApplyBadRequestErrors object
+// NewNegotiationsNegotiationMessageTemplateWithDefaults instantiates a new NegotiationsNegotiationMessageTemplate object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewErrorsVacancyApplyBadRequestErrorsWithDefaults() *ErrorsVacancyApplyBadRequestErrors {
-	this := ErrorsVacancyApplyBadRequestErrors{}
+func NewNegotiationsNegotiationMessageTemplateWithDefaults() *NegotiationsNegotiationMessageTemplate {
+	this := NegotiationsNegotiationMessageTemplate{}
 	return &this
 }
 
-// GetRequestId returns the RequestId field value
-func (o *ErrorsVacancyApplyBadRequestErrors) GetRequestId() string {
-	if o == nil {
+// GetEmployerState returns the EmployerState field value if set, zero value otherwise.
+func (o *NegotiationsNegotiationMessageTemplate) GetEmployerState() string {
+	if o == nil || IsNil(o.EmployerState) {
 		var ret string
 		return ret
 	}
-
-	return o.RequestId
+	return *o.EmployerState
 }
 
-// GetRequestIdOk returns a tuple with the RequestId field value
+// GetEmployerStateOk returns a tuple with the EmployerState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyBadRequestErrors) GetRequestIdOk() (*string, bool) {
-	if o == nil {
+func (o *NegotiationsNegotiationMessageTemplate) GetEmployerStateOk() (*string, bool) {
+	if o == nil || IsNil(o.EmployerState) {
 		return nil, false
 	}
-	return &o.RequestId, true
+	return o.EmployerState, true
 }
 
-// SetRequestId sets field value
-func (o *ErrorsVacancyApplyBadRequestErrors) SetRequestId(v string) {
-	o.RequestId = v
-}
-
-// GetBadArgument returns the BadArgument field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArgument() string {
-	if o == nil || IsNil(o.BadArgument) {
-		var ret string
-		return ret
-	}
-	return *o.BadArgument
-}
-
-// GetBadArgumentOk returns a tuple with the BadArgument field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArgumentOk() (*string, bool) {
-	if o == nil || IsNil(o.BadArgument) {
-		return nil, false
-	}
-	return o.BadArgument, true
-}
-
-// HasBadArgument returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyBadRequestErrors) HasBadArgument() bool {
-	if o != nil && !IsNil(o.BadArgument) {
+// HasEmployerState returns a boolean if a field has been set.
+func (o *NegotiationsNegotiationMessageTemplate) HasEmployerState() bool {
+	if o != nil && !IsNil(o.EmployerState) {
 		return true
 	}
 
 	return false
 }
 
-// SetBadArgument gets a reference to the given string and assigns it to the BadArgument field.
-// Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) SetBadArgument(v string) {
-	o.BadArgument = &v
+// SetEmployerState gets a reference to the given string and assigns it to the EmployerState field.
+func (o *NegotiationsNegotiationMessageTemplate) SetEmployerState(v string) {
+	o.EmployerState = &v
 }
 
-// GetBadArguments returns the BadArguments field value if set, zero value otherwise.
-// Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments {
-	if o == nil || IsNil(o.BadArguments) {
-		var ret []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments
+// GetTemplateModified returns the TemplateModified field value
+func (o *NegotiationsNegotiationMessageTemplate) GetTemplateModified() bool {
+	if o == nil {
+		var ret bool
 		return ret
 	}
-	return o.BadArguments
+
+	return o.TemplateModified
 }
 
-// GetBadArgumentsOk returns a tuple with the BadArguments field value if set, nil otherwise
+// GetTemplateModifiedOk returns a tuple with the TemplateModified field value
 // and a boolean to check if the value has been set.
-// Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) GetBadArgumentsOk() ([]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool) {
-	if o == nil || IsNil(o.BadArguments) {
+func (o *NegotiationsNegotiationMessageTemplate) GetTemplateModifiedOk() (*bool, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BadArguments, true
+	return &o.TemplateModified, true
 }
 
-// HasBadArguments returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyBadRequestErrors) HasBadArguments() bool {
-	if o != nil && !IsNil(o.BadArguments) {
-		return true
-	}
-
-	return false
+// SetTemplateModified sets field value
+func (o *NegotiationsNegotiationMessageTemplate) SetTemplateModified(v bool) {
+	o.TemplateModified = v
 }
 
-// SetBadArguments gets a reference to the given []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments and assigns it to the BadArguments field.
-// Deprecated
-func (o *ErrorsVacancyApplyBadRequestErrors) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments) {
-	o.BadArguments = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ErrorsVacancyApplyBadRequestErrors) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+// GetText returns the Text field value
+func (o *NegotiationsNegotiationMessageTemplate) GetText() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Text
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetTextOk returns a tuple with the Text field value
 // and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyBadRequestErrors) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ErrorsVacancyApplyBadRequestErrors) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ErrorsVacancyApplyBadRequestErrors) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetErrors returns the Errors field value
-func (o *ErrorsVacancyApplyBadRequestErrors) GetErrors() []ErrorsVacancyApplyBadRequestError {
-	if o == nil {
-		var ret []ErrorsVacancyApplyBadRequestError
-		return ret
-	}
-
-	return o.Errors
-}
-
-// GetErrorsOk returns a tuple with the Errors field value
-// and a boolean to check if the value has been set.
-func (o *ErrorsVacancyApplyBadRequestErrors) GetErrorsOk() ([]ErrorsVacancyApplyBadRequestError, bool) {
+func (o *NegotiationsNegotiationMessageTemplate) GetTextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Errors, true
+	return &o.Text, true
 }
 
-// SetErrors sets field value
-func (o *ErrorsVacancyApplyBadRequestErrors) SetErrors(v []ErrorsVacancyApplyBadRequestError) {
-	o.Errors = v
+// SetText sets field value
+func (o *NegotiationsNegotiationMessageTemplate) SetText(v string) {
+	o.Text = v
 }
 
-func (o ErrorsVacancyApplyBadRequestErrors) MarshalJSON() ([]byte, error) {
+func (o NegotiationsNegotiationMessageTemplate) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -213,29 +139,23 @@ func (o ErrorsVacancyApplyBadRequestErrors) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ErrorsVacancyApplyBadRequestErrors) ToMap() (map[string]interface{}, error) {
+func (o NegotiationsNegotiationMessageTemplate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["request_id"] = o.RequestId
-	if !IsNil(o.BadArgument) {
-		toSerialize["bad_argument"] = o.BadArgument
+	if !IsNil(o.EmployerState) {
+		toSerialize["employer_state"] = o.EmployerState
 	}
-	if !IsNil(o.BadArguments) {
-		toSerialize["bad_arguments"] = o.BadArguments
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	toSerialize["errors"] = o.Errors
+	toSerialize["template_modified"] = o.TemplateModified
+	toSerialize["text"] = o.Text
 	return toSerialize, nil
 }
 
-func (o *ErrorsVacancyApplyBadRequestErrors) UnmarshalJSON(data []byte) (err error) {
+func (o *NegotiationsNegotiationMessageTemplate) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"request_id",
-		"errors",
+		"template_modified",
+		"text",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -252,53 +172,53 @@ func (o *ErrorsVacancyApplyBadRequestErrors) UnmarshalJSON(data []byte) (err err
 		}
 	}
 
-	varErrorsVacancyApplyBadRequestErrors := _ErrorsVacancyApplyBadRequestErrors{}
+	varNegotiationsNegotiationMessageTemplate := _NegotiationsNegotiationMessageTemplate{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varErrorsVacancyApplyBadRequestErrors)
+	err = decoder.Decode(&varNegotiationsNegotiationMessageTemplate)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ErrorsVacancyApplyBadRequestErrors(varErrorsVacancyApplyBadRequestErrors)
+	*o = NegotiationsNegotiationMessageTemplate(varNegotiationsNegotiationMessageTemplate)
 
 	return err
 }
 
-type NullableErrorsVacancyApplyBadRequestErrors struct {
-	value *ErrorsVacancyApplyBadRequestErrors
+type NullableNegotiationsNegotiationMessageTemplate struct {
+	value *NegotiationsNegotiationMessageTemplate
 	isSet bool
 }
 
-func (v NullableErrorsVacancyApplyBadRequestErrors) Get() *ErrorsVacancyApplyBadRequestErrors {
+func (v NullableNegotiationsNegotiationMessageTemplate) Get() *NegotiationsNegotiationMessageTemplate {
 	return v.value
 }
 
-func (v *NullableErrorsVacancyApplyBadRequestErrors) Set(val *ErrorsVacancyApplyBadRequestErrors) {
+func (v *NullableNegotiationsNegotiationMessageTemplate) Set(val *NegotiationsNegotiationMessageTemplate) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableErrorsVacancyApplyBadRequestErrors) IsSet() bool {
+func (v NullableNegotiationsNegotiationMessageTemplate) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableErrorsVacancyApplyBadRequestErrors) Unset() {
+func (v *NullableNegotiationsNegotiationMessageTemplate) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableErrorsVacancyApplyBadRequestErrors(val *ErrorsVacancyApplyBadRequestErrors) *NullableErrorsVacancyApplyBadRequestErrors {
-	return &NullableErrorsVacancyApplyBadRequestErrors{value: val, isSet: true}
+func NewNullableNegotiationsNegotiationMessageTemplate(val *NegotiationsNegotiationMessageTemplate) *NullableNegotiationsNegotiationMessageTemplate {
+	return &NullableNegotiationsNegotiationMessageTemplate{value: val, isSet: true}
 }
 
-func (v NullableErrorsVacancyApplyBadRequestErrors) MarshalJSON() ([]byte, error) {
+func (v NullableNegotiationsNegotiationMessageTemplate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableErrorsVacancyApplyBadRequestErrors) UnmarshalJSON(src []byte) error {
+func (v *NullableNegotiationsNegotiationMessageTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

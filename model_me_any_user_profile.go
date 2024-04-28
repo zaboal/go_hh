@@ -34,7 +34,7 @@ type MeAnyUserProfile struct {
 	// Фамилия текущего пользователя
 	LastName string `json:"last_name"`
 	// Deprecated
-	MidName *string `json:"mid_name,omitempty"`
+	MidName NullableString `json:"mid_name,omitempty"`
 	// Отчество текущего пользователя
 	MiddleName NullableString `json:"middle_name,omitempty"`
 	// Телефон текущего пользователя
@@ -218,39 +218,49 @@ func (o *MeAnyUserProfile) SetLastName(v string) {
 	o.LastName = v
 }
 
-// GetMidName returns the MidName field value if set, zero value otherwise.
+// GetMidName returns the MidName field value if set, zero value otherwise (both if not set or set to explicit null).
 // Deprecated
 func (o *MeAnyUserProfile) GetMidName() string {
-	if o == nil || IsNil(o.MidName) {
+	if o == nil || IsNil(o.MidName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.MidName
+	return *o.MidName.Get()
 }
 
 // GetMidNameOk returns a tuple with the MidName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 // Deprecated
 func (o *MeAnyUserProfile) GetMidNameOk() (*string, bool) {
-	if o == nil || IsNil(o.MidName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MidName, true
+	return o.MidName.Get(), o.MidName.IsSet()
 }
 
 // HasMidName returns a boolean if a field has been set.
 func (o *MeAnyUserProfile) HasMidName() bool {
-	if o != nil && !IsNil(o.MidName) {
+	if o != nil && o.MidName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMidName gets a reference to the given string and assigns it to the MidName field.
+// SetMidName gets a reference to the given NullableString and assigns it to the MidName field.
 // Deprecated
 func (o *MeAnyUserProfile) SetMidName(v string) {
-	o.MidName = &v
+	o.MidName.Set(&v)
+}
+// SetMidNameNil sets the value for MidName to be an explicit nil
+func (o *MeAnyUserProfile) SetMidNameNil() {
+	o.MidName.Set(nil)
+}
+
+// UnsetMidName ensures that no value is present for MidName, not even an explicit nil
+func (o *MeAnyUserProfile) UnsetMidName() {
+	o.MidName.Unset()
 }
 
 // GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -364,8 +374,8 @@ func (o MeAnyUserProfile) ToMap() (map[string]interface{}, error) {
 		toSerialize["is_anonymous"] = o.IsAnonymous
 	}
 	toSerialize["last_name"] = o.LastName
-	if !IsNil(o.MidName) {
-		toSerialize["mid_name"] = o.MidName
+	if o.MidName.IsSet() {
+		toSerialize["mid_name"] = o.MidName.Get()
 	}
 	if o.MiddleName.IsSet() {
 		toSerialize["middle_name"] = o.MiddleName.Get()

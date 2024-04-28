@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Идентификатор текущего пользователя | 
 **IsAnonymous** | Pointer to **bool** |  | [optional] 
 **LastName** | **string** | Фамилия текущего пользователя | 
-**MidName** | Pointer to **string** |  | [optional] 
+**MidName** | Pointer to **NullableString** |  | [optional] 
 **MiddleName** | Pointer to **NullableString** | Отчество текущего пользователя | [optional] 
 **Phone** | Pointer to **NullableString** | Телефон текущего пользователя | [optional] 
 
@@ -177,6 +177,16 @@ SetMidName sets MidName field to given value.
 
 HasMidName returns a boolean if a field has been set.
 
+### SetMidNameNil
+
+`func (o *MeAnyUserProfile) SetMidNameNil(b bool)`
+
+ SetMidNameNil sets the value for MidName to be an explicit nil
+
+### UnsetMidName
+`func (o *MeAnyUserProfile) UnsetMidName()`
+
+UnsetMidName ensures that no value is present for MidName, not even an explicit nil
 ### GetMiddleName
 
 `func (o *MeAnyUserProfile) GetMiddleName() string`

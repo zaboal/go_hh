@@ -22,8 +22,8 @@ var _ MappedNullable = &NegotiationsNegotiationMessageTemplates{}
 
 // NegotiationsNegotiationMessageTemplates struct for NegotiationsNegotiationMessageTemplates
 type NegotiationsNegotiationMessageTemplates struct {
-	Mail MailTemplatesMailTemplateInput `json:"mail"`
-	Sms MailTemplatesMailTemplateInput `json:"sms,omitempty"`
+	Mail NegotiationsNegotiationMessageTemplate `json:"mail"`
+	Sms NegotiationsNegotiationMessageTemplate `json:"sms,omitempty"`
 }
 
 type _NegotiationsNegotiationMessageTemplates NegotiationsNegotiationMessageTemplates
@@ -32,7 +32,7 @@ type _NegotiationsNegotiationMessageTemplates NegotiationsNegotiationMessageTemp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNegotiationsNegotiationMessageTemplates(mail MailTemplatesMailTemplateInput) *NegotiationsNegotiationMessageTemplates {
+func NewNegotiationsNegotiationMessageTemplates(mail NegotiationsNegotiationMessageTemplate) *NegotiationsNegotiationMessageTemplates {
 	this := NegotiationsNegotiationMessageTemplates{}
 	this.Mail = mail
 	return &this
@@ -47,9 +47,9 @@ func NewNegotiationsNegotiationMessageTemplatesWithDefaults() *NegotiationsNegot
 }
 
 // GetMail returns the Mail field value
-func (o *NegotiationsNegotiationMessageTemplates) GetMail() MailTemplatesMailTemplateInput {
+func (o *NegotiationsNegotiationMessageTemplates) GetMail() NegotiationsNegotiationMessageTemplate {
 	if o == nil {
-		var ret MailTemplatesMailTemplateInput
+		var ret NegotiationsNegotiationMessageTemplate
 		return ret
 	}
 
@@ -58,22 +58,22 @@ func (o *NegotiationsNegotiationMessageTemplates) GetMail() MailTemplatesMailTem
 
 // GetMailOk returns a tuple with the Mail field value
 // and a boolean to check if the value has been set.
-func (o *NegotiationsNegotiationMessageTemplates) GetMailOk() (MailTemplatesMailTemplateInput, bool) {
+func (o *NegotiationsNegotiationMessageTemplates) GetMailOk() (NegotiationsNegotiationMessageTemplate, bool) {
 	if o == nil {
-		return MailTemplatesMailTemplateInput{}, false
+		return NegotiationsNegotiationMessageTemplate{}, false
 	}
 	return o.Mail, true
 }
 
 // SetMail sets field value
-func (o *NegotiationsNegotiationMessageTemplates) SetMail(v MailTemplatesMailTemplateInput) {
+func (o *NegotiationsNegotiationMessageTemplates) SetMail(v NegotiationsNegotiationMessageTemplate) {
 	o.Mail = v
 }
 
 // GetSms returns the Sms field value if set, zero value otherwise.
-func (o *NegotiationsNegotiationMessageTemplates) GetSms() MailTemplatesMailTemplateInput {
+func (o *NegotiationsNegotiationMessageTemplates) GetSms() NegotiationsNegotiationMessageTemplate {
 	if o == nil || IsNil(o.Sms) {
-		var ret MailTemplatesMailTemplateInput
+		var ret NegotiationsNegotiationMessageTemplate
 		return ret
 	}
 	return o.Sms
@@ -81,9 +81,9 @@ func (o *NegotiationsNegotiationMessageTemplates) GetSms() MailTemplatesMailTemp
 
 // GetSmsOk returns a tuple with the Sms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NegotiationsNegotiationMessageTemplates) GetSmsOk() (MailTemplatesMailTemplateInput, bool) {
+func (o *NegotiationsNegotiationMessageTemplates) GetSmsOk() (NegotiationsNegotiationMessageTemplate, bool) {
 	if o == nil || IsNil(o.Sms) {
-		return MailTemplatesMailTemplateInput{}, false
+		return NegotiationsNegotiationMessageTemplate{}, false
 	}
 	return o.Sms, true
 }
@@ -97,8 +97,8 @@ func (o *NegotiationsNegotiationMessageTemplates) HasSms() bool {
 	return false
 }
 
-// SetSms gets a reference to the given MailTemplatesMailTemplateInput and assigns it to the Sms field.
-func (o *NegotiationsNegotiationMessageTemplates) SetSms(v MailTemplatesMailTemplateInput) {
+// SetSms gets a reference to the given NegotiationsNegotiationMessageTemplate and assigns it to the Sms field.
+func (o *NegotiationsNegotiationMessageTemplates) SetSms(v NegotiationsNegotiationMessageTemplate) {
 	o.Sms = v
 }
 

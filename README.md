@@ -385,6 +385,7 @@ All URIs are relative to *https://api.hh.ru*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**AddApplicantComment**](docs/DefaultApi.md#addapplicantcomment) | **Post** /applicant_comments/{applicant_id} | Добавление комментария
+*DefaultApi* | [**AddApplicantComment_0**](docs/DefaultApi.md#addapplicantcomment_0) | **Post** /applicant_comments/{applicant_id} | Добавление комментария
 *DefaultApi* | [**AddEmployerManager**](docs/DefaultApi.md#addemployermanager) | **Post** /employers/{employer_id}/managers | Добавление менеджера
 *DefaultApi* | [**AddEmployerToBlacklisted**](docs/DefaultApi.md#addemployertoblacklisted) | **Put** /employers/blacklisted/{employer_id} | Добавление работодателя в список скрытых
 *DefaultApi* | [**AddResumeVisibilityList**](docs/DefaultApi.md#addresumevisibilitylist) | **Post** /resumes/{resume_id}/{list_type} | Добавление работодателей в список видимости
@@ -404,6 +405,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**CreateSavedVacancySearch**](docs/DefaultApi.md#createsavedvacancysearch) | **Post** /saved_searches/vacancies | Создание нового сохраненного поиска вакансий
 *DefaultApi* | [**CreateVacancyDraft**](docs/DefaultApi.md#createvacancydraft) | **Post** /vacancies/drafts | Создание черновика вакансии
 *DefaultApi* | [**DeleteApplicantComment**](docs/DefaultApi.md#deleteapplicantcomment) | **Delete** /applicant_comments/{applicant_id}/{comment_id} | Удаление комментария
+*DefaultApi* | [**DeleteApplicantComment_0**](docs/DefaultApi.md#deleteapplicantcomment_0) | **Delete** /applicant_comments/{applicant_id}/{comment_id} | Удаление комментария
 *DefaultApi* | [**DeleteArtifact**](docs/DefaultApi.md#deleteartifact) | **Delete** /artifacts/{id} | Удаление артефакта
 *DefaultApi* | [**DeleteEmployerFromBlacklisted**](docs/DefaultApi.md#deleteemployerfromblacklisted) | **Delete** /employers/blacklisted/{employer_id} | Удаление работодателя из списка скрытых
 *DefaultApi* | [**DeleteEmployerFromResumeVisibilityList**](docs/DefaultApi.md#deleteemployerfromresumevisibilitylist) | **Delete** /resumes/{resume_id}/{list_type}/employer | Удаление работодателя из списка видимости
@@ -430,6 +432,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetAddress_0**](docs/DefaultApi.md#getaddress_0) | **Get** /employers/{employer_id}/addresses/{address_id} | Получение адреса
 *DefaultApi* | [**GetAllDistricts**](docs/DefaultApi.md#getalldistricts) | **Get** /districts | Список районов во всех городах
 *DefaultApi* | [**GetApplicantCommentsList**](docs/DefaultApi.md#getapplicantcommentslist) | **Get** /applicant_comments/{applicant_id} | Получение списка комментариев
+*DefaultApi* | [**GetApplicantCommentsList_0**](docs/DefaultApi.md#getapplicantcommentslist_0) | **Get** /applicant_comments/{applicant_id} | Получение списка комментариев
 *DefaultApi* | [**GetApplicantPhoneInfo**](docs/DefaultApi.md#getapplicantphoneinfo) | **Get** /resume_should_send_sms | Получить информацию о телефоне соискателя
 *DefaultApi* | [**GetArchivedVacancies**](docs/DefaultApi.md#getarchivedvacancies) | **Get** /employers/{employer_id}/vacancies/archived | Список архивных вакансий
 *DefaultApi* | [**GetArchivedVacancies_0**](docs/DefaultApi.md#getarchivedvacancies_0) | **Get** /employers/{employer_id}/vacancies/archived | Список архивных вакансий
@@ -579,6 +582,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**SendNegotiationMessage**](docs/DefaultApi.md#sendnegotiationmessage) | **Post** /negotiations/{nid}/messages | Отправка нового сообщения
 *DefaultApi* | [**SendNegotiationMessage_0**](docs/DefaultApi.md#sendnegotiationmessage_0) | **Post** /negotiations/{nid}/messages | Отправка нового сообщения
 *DefaultApi* | [**UpdateApplicantComment**](docs/DefaultApi.md#updateapplicantcomment) | **Put** /applicant_comments/{applicant_id}/{comment_id} | Обновление комментария
+*DefaultApi* | [**UpdateApplicantComment_0**](docs/DefaultApi.md#updateapplicantcomment_0) | **Put** /applicant_comments/{applicant_id}/{comment_id} | Обновление комментария
 *DefaultApi* | [**UpdateSavedResumeSearch**](docs/DefaultApi.md#updatesavedresumesearch) | **Put** /saved_searches/resumes/{id} | Обновление сохраненного поиска резюме
 *DefaultApi* | [**UpdateSavedVacancySearch**](docs/DefaultApi.md#updatesavedvacancysearch) | **Put** /saved_searches/vacancies/{id} | Обновление сохраненного поиска вакансий
 *DefaultApi* | [**VacancyProlongation**](docs/DefaultApi.md#vacancyprolongation) | **Post** /vacancies/{vacancy_id}/prolongate | Продление вакансии
@@ -771,9 +775,9 @@ Class | Method | HTTP request | Description
  - [ErrorsVacancyAddEditForbiddenErrors](docs/ErrorsVacancyAddEditForbiddenErrors.md)
  - [ErrorsVacancyApplyBadRequestError](docs/ErrorsVacancyApplyBadRequestError.md)
  - [ErrorsVacancyApplyBadRequestErrors](docs/ErrorsVacancyApplyBadRequestErrors.md)
- - [ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments](docs/ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md)
  - [ErrorsVacancyApplyForbiddenError](docs/ErrorsVacancyApplyForbiddenError.md)
  - [ErrorsVacancyApplyForbiddenErrors](docs/ErrorsVacancyApplyForbiddenErrors.md)
+ - [ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments](docs/ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md)
  - [ErrorsVacancyBlacklistedBadRequestError](docs/ErrorsVacancyBlacklistedBadRequestError.md)
  - [ErrorsVacancyBlacklistedBadRequestErrors](docs/ErrorsVacancyBlacklistedBadRequestErrors.md)
  - [ErrorsVacancyBlacklistedNotFoundError](docs/ErrorsVacancyBlacklistedNotFoundError.md)
@@ -869,6 +873,7 @@ Class | Method | HTTP request | Description
  - [NegotiationsMessagesGetResponse](docs/NegotiationsMessagesGetResponse.md)
  - [NegotiationsNegotiationCommonFields](docs/NegotiationsNegotiationCommonFields.md)
  - [NegotiationsNegotiationGetResponse](docs/NegotiationsNegotiationGetResponse.md)
+ - [NegotiationsNegotiationMessageTemplate](docs/NegotiationsNegotiationMessageTemplate.md)
  - [NegotiationsNegotiationMessageTemplates](docs/NegotiationsNegotiationMessageTemplates.md)
  - [NegotiationsNegotiationTestResultsResponse](docs/NegotiationsNegotiationTestResultsResponse.md)
  - [NegotiationsNegotiationTestResultsResponseTestResult](docs/NegotiationsNegotiationTestResultsResponseTestResult.md)

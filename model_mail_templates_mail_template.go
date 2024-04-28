@@ -22,10 +22,14 @@ var _ MappedNullable = &MailTemplatesMailTemplate{}
 
 // MailTemplatesMailTemplate struct for MailTemplatesMailTemplate
 type MailTemplatesMailTemplate struct {
+	// Работодательский статус, соответствующий данному шаблону; может отсутствовать если шаблон не связан с каким-либо статусом
+	EmployerState *string `json:"employer_state,omitempty"`
 	// Идентификатор шаблона
 	Id string `json:"id"`
 	// Имя шаблона
 	Name string `json:"name"`
+	// Был ли изменен шаблон работодателем или же используется стандартный шаблон с текстом от Хэдхантер
+	TemplateModified bool `json:"template_modified"`
 	// Текст шаблона
 	Text string `json:"text"`
 	// Способ доставки сообщения сформированного из шаблона
@@ -40,10 +44,11 @@ type _MailTemplatesMailTemplate MailTemplatesMailTemplate
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMailTemplatesMailTemplate(id string, name string, text string, type_ string, variables []IncludesIdName) *MailTemplatesMailTemplate {
+func NewMailTemplatesMailTemplate(id string, name string, templateModified bool, text string, type_ string, variables []IncludesIdName) *MailTemplatesMailTemplate {
 	this := MailTemplatesMailTemplate{}
 	this.Id = id
 	this.Name = name
+	this.TemplateModified = templateModified
 	this.Text = text
 	this.Type = type_
 	this.Variables = variables
@@ -56,6 +61,38 @@ func NewMailTemplatesMailTemplate(id string, name string, text string, type_ str
 func NewMailTemplatesMailTemplateWithDefaults() *MailTemplatesMailTemplate {
 	this := MailTemplatesMailTemplate{}
 	return &this
+}
+
+// GetEmployerState returns the EmployerState field value if set, zero value otherwise.
+func (o *MailTemplatesMailTemplate) GetEmployerState() string {
+	if o == nil || IsNil(o.EmployerState) {
+		var ret string
+		return ret
+	}
+	return *o.EmployerState
+}
+
+// GetEmployerStateOk returns a tuple with the EmployerState field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MailTemplatesMailTemplate) GetEmployerStateOk() (*string, bool) {
+	if o == nil || IsNil(o.EmployerState) {
+		return nil, false
+	}
+	return o.EmployerState, true
+}
+
+// HasEmployerState returns a boolean if a field has been set.
+func (o *MailTemplatesMailTemplate) HasEmployerState() bool {
+	if o != nil && !IsNil(o.EmployerState) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmployerState gets a reference to the given string and assigns it to the EmployerState field.
+func (o *MailTemplatesMailTemplate) SetEmployerState(v string) {
+	o.EmployerState = &v
 }
 
 // GetId returns the Id field value
@@ -104,6 +141,30 @@ func (o *MailTemplatesMailTemplate) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *MailTemplatesMailTemplate) SetName(v string) {
 	o.Name = v
+}
+
+// GetTemplateModified returns the TemplateModified field value
+func (o *MailTemplatesMailTemplate) GetTemplateModified() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.TemplateModified
+}
+
+// GetTemplateModifiedOk returns a tuple with the TemplateModified field value
+// and a boolean to check if the value has been set.
+func (o *MailTemplatesMailTemplate) GetTemplateModifiedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TemplateModified, true
+}
+
+// SetTemplateModified sets field value
+func (o *MailTemplatesMailTemplate) SetTemplateModified(v bool) {
+	o.TemplateModified = v
 }
 
 // GetText returns the Text field value
@@ -188,8 +249,12 @@ func (o MailTemplatesMailTemplate) MarshalJSON() ([]byte, error) {
 
 func (o MailTemplatesMailTemplate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EmployerState) {
+		toSerialize["employer_state"] = o.EmployerState
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	toSerialize["template_modified"] = o.TemplateModified
 	toSerialize["text"] = o.Text
 	toSerialize["type"] = o.Type
 	toSerialize["variables"] = o.Variables
@@ -203,6 +268,7 @@ func (o *MailTemplatesMailTemplate) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"name",
+		"template_modified",
 		"text",
 		"type",
 		"variables",

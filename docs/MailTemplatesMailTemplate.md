@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**EmployerState** | Pointer to **string** | Работодательский статус, соответствующий данному шаблону; может отсутствовать если шаблон не связан с каким-либо статусом | [optional] 
 **Id** | **string** | Идентификатор шаблона | 
 **Name** | **string** | Имя шаблона | 
+**TemplateModified** | **bool** | Был ли изменен шаблон работодателем или же используется стандартный шаблон с текстом от Хэдхантер | 
 **Text** | **string** | Текст шаблона | 
 **Type** | **string** | Способ доставки сообщения сформированного из шаблона | 
 **Variables** | [**[]IncludesIdName**](IncludesIdName.md) | Переменные доступные для вставки в шаблон | 
@@ -14,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewMailTemplatesMailTemplate
 
-`func NewMailTemplatesMailTemplate(id string, name string, text string, type_ string, variables []IncludesIdName, ) *MailTemplatesMailTemplate`
+`func NewMailTemplatesMailTemplate(id string, name string, templateModified bool, text string, type_ string, variables []IncludesIdName, ) *MailTemplatesMailTemplate`
 
 NewMailTemplatesMailTemplate instantiates a new MailTemplatesMailTemplate object
 This constructor will assign default values to properties that have it defined,
@@ -28,6 +30,31 @@ will change when the set of required properties is changed
 NewMailTemplatesMailTemplateWithDefaults instantiates a new MailTemplatesMailTemplate object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEmployerState
+
+`func (o *MailTemplatesMailTemplate) GetEmployerState() string`
+
+GetEmployerState returns the EmployerState field if non-nil, zero value otherwise.
+
+### GetEmployerStateOk
+
+`func (o *MailTemplatesMailTemplate) GetEmployerStateOk() (*string, bool)`
+
+GetEmployerStateOk returns a tuple with the EmployerState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmployerState
+
+`func (o *MailTemplatesMailTemplate) SetEmployerState(v string)`
+
+SetEmployerState sets EmployerState field to given value.
+
+### HasEmployerState
+
+`func (o *MailTemplatesMailTemplate) HasEmployerState() bool`
+
+HasEmployerState returns a boolean if a field has been set.
 
 ### GetId
 
@@ -67,6 +94,26 @@ and a boolean to check if the value has been set.
 `func (o *MailTemplatesMailTemplate) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetTemplateModified
+
+`func (o *MailTemplatesMailTemplate) GetTemplateModified() bool`
+
+GetTemplateModified returns the TemplateModified field if non-nil, zero value otherwise.
+
+### GetTemplateModifiedOk
+
+`func (o *MailTemplatesMailTemplate) GetTemplateModifiedOk() (*bool, bool)`
+
+GetTemplateModifiedOk returns a tuple with the TemplateModified field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTemplateModified
+
+`func (o *MailTemplatesMailTemplate) SetTemplateModified(v bool)`
+
+SetTemplateModified sets TemplateModified field to given value.
 
 
 ### GetText
