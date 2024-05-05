@@ -21608,12 +21608,12 @@ components:
       description: "Условия заполнения полей при [публикации вакансии](#tag/Upravlenie-vakansiyami/operation/publish-vacancy)"
       example:
         key_skills:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         professional_roles:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         code:
           min_length: 6.027456183070403
@@ -21639,12 +21639,12 @@ components:
         type:
           required: true
         working_time_modes:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         driver_license_types:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         billing_type:
           required: true
@@ -21664,8 +21664,8 @@ components:
               required: true
           required: true
         languages:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         manager:
           required: true
@@ -21675,12 +21675,12 @@ components:
               required: true
           required: true
         working_days:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         working_time_intervals:
-          max_count: 1.4658129805029452
-          min_count: 5.962133916683182
+          max_count: 1.2315135367772556
+          min_count: 1.0246457001441578
           required: true
         accept_handicapped:
           required: true
@@ -21713,19 +21713,34 @@ components:
               required: true
               max_length: 0.8008281904610115
             phones:
+              max_count: 1.4658129805029452
               fields:
                 country:
                   regexp: regexp
+                  min_length: 9.301444243932576
+                  required: true
+                  max_length: 7.061401241503109
                 number:
                   regexp: regexp
+                  min_length: 7.386281948385884
+                  required: true
+                  max_length: 4.145608029883936
                 city:
                   regexp: regexp
+                  min_length: 2.3021358869347655
+                  required: true
+                  max_length: 5.637376656633329
                 formatted:
                   regexp: regexp
+                  min_length: 2.027123023002322
+                  required: true
+                  max_length: 3.616076749251911
                 comment:
                   min_length: 6.027456183070403
                   required: true
                   max_length: 0.8008281904610115
+              min_count: 5.962133916683182
+              required: true
             email:
               min_length: 6.027456183070403
               required: true
@@ -21733,6 +21748,9 @@ components:
           required: true
         response_url:
           regexp: regexp
+          min_length: 6.84685269835264
+          required: true
+          max_length: 1.4894159098541704
       properties:
         accept_handicapped:
           $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRequiredWithTitle'
@@ -21923,6 +21941,9 @@ components:
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRegexp'
       example:
         regexp: regexp
+        min_length: 6.84685269835264
+        required: true
+        max_length: 1.4894159098541704
       title: Условия заполнения урла
       type: object
     VacanciesVacancyConditionFieldsRegexp:
@@ -21961,8 +21982,8 @@ components:
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsMaxMinCount'
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRequired'
       example:
-        max_count: 1.4658129805029452
-        min_count: 5.962133916683182
+        max_count: 1.2315135367772556
+        min_count: 1.0246457001441578
         required: true
       title: Условия для поля
       type: object
@@ -21994,19 +22015,34 @@ components:
             required: true
             max_length: 0.8008281904610115
           phones:
+            max_count: 1.4658129805029452
             fields:
               country:
                 regexp: regexp
+                min_length: 9.301444243932576
+                required: true
+                max_length: 7.061401241503109
               number:
                 regexp: regexp
+                min_length: 7.386281948385884
+                required: true
+                max_length: 4.145608029883936
               city:
                 regexp: regexp
+                min_length: 2.3021358869347655
+                required: true
+                max_length: 5.637376656633329
               formatted:
                 regexp: regexp
+                min_length: 2.027123023002322
+                required: true
+                max_length: 3.616076749251911
               comment:
                 min_length: 6.027456183070403
                 required: true
                 max_length: 0.8008281904610115
+            min_count: 5.962133916683182
+            required: true
           email:
             min_length: 6.027456183070403
             required: true
@@ -22021,19 +22057,34 @@ components:
           required: true
           max_length: 0.8008281904610115
         phones:
+          max_count: 1.4658129805029452
           fields:
             country:
               regexp: regexp
+              min_length: 9.301444243932576
+              required: true
+              max_length: 7.061401241503109
             number:
               regexp: regexp
+              min_length: 7.386281948385884
+              required: true
+              max_length: 4.145608029883936
             city:
               regexp: regexp
+              min_length: 2.3021358869347655
+              required: true
+              max_length: 5.637376656633329
             formatted:
               regexp: regexp
+              min_length: 2.027123023002322
+              required: true
+              max_length: 3.616076749251911
             comment:
               min_length: 6.027456183070403
               required: true
               max_length: 0.8008281904610115
+          min_count: 5.962133916683182
+          required: true
         email:
           min_length: 6.027456183070403
           required: true
@@ -22056,31 +22107,58 @@ components:
             $ref: '#/components/schemas/VacanciesVacancyConditionFieldsPhoneFields'
         type: object
       example:
+        max_count: 1.4658129805029452
         fields:
           country:
             regexp: regexp
+            min_length: 9.301444243932576
+            required: true
+            max_length: 7.061401241503109
           number:
             regexp: regexp
+            min_length: 7.386281948385884
+            required: true
+            max_length: 4.145608029883936
           city:
             regexp: regexp
+            min_length: 2.3021358869347655
+            required: true
+            max_length: 5.637376656633329
           formatted:
             regexp: regexp
+            min_length: 2.027123023002322
+            required: true
+            max_length: 3.616076749251911
           comment:
             min_length: 6.027456183070403
             required: true
             max_length: 0.8008281904610115
+        min_count: 5.962133916683182
+        required: true
       title: Условия заполнения телефона
       type: object
     VacanciesVacancyConditionFieldsPhoneFields:
       example:
         country:
           regexp: regexp
+          min_length: 9.301444243932576
+          required: true
+          max_length: 7.061401241503109
         number:
           regexp: regexp
+          min_length: 7.386281948385884
+          required: true
+          max_length: 4.145608029883936
         city:
           regexp: regexp
+          min_length: 2.3021358869347655
+          required: true
+          max_length: 5.637376656633329
         formatted:
           regexp: regexp
+          min_length: 2.027123023002322
+          required: true
+          max_length: 3.616076749251911
         comment:
           min_length: 6.027456183070403
           required: true
@@ -22105,6 +22183,9 @@ components:
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRegexp'
       example:
         regexp: regexp
+        min_length: 2.027123023002322
+        required: true
+        max_length: 3.616076749251911
       title: Условия заполнения форматированного телефона
       type: object
     VacanciesVacancyConditionFieldsNumberCondition:
@@ -22113,6 +22194,9 @@ components:
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRegexp'
       example:
         regexp: regexp
+        min_length: 7.386281948385884
+        required: true
+        max_length: 4.145608029883936
       title: Условия заполнения номера
       type: object
     VacanciesVacancyConditionFieldsCityCondition:
@@ -22121,6 +22205,9 @@ components:
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRegexp'
       example:
         regexp: regexp
+        min_length: 2.3021358869347655
+        required: true
+        max_length: 5.637376656633329
       title: Условия заполнения города
       type: object
     VacanciesVacancyConditionFieldsCountryCondition:
@@ -22129,6 +22216,9 @@ components:
       - $ref: '#/components/schemas/VacanciesVacancyConditionFieldsRegexp'
       example:
         regexp: regexp
+        min_length: 9.301444243932576
+        required: true
+        max_length: 7.061401241503109
       title: Условия заполнения страны
       type: object
     DictionariesCountriesResponse:
@@ -23505,7 +23595,12 @@ components:
 
         Поле, представленное объектом с полями (`fields`), само по себе может не являться необходимым, но если заполнено хотя бы одно поле объекта, необходимо заполнить и другие его поля. Пример — желаемая зарплата (`salary`) может быть не указана, но если указана сумма, то необходимо указать и валюту
       example:
-        skill_set: {}
+        skill_set:
+          max_count: 6.683562403749608
+          min_length: 6.438423552598547
+          min_count: 8.762042012749001
+          required: true
+          max_length: 9.018348186070783
         professional_roles:
           max_count: 0.8008281904610115
           min_count: 6.027456183070403
@@ -23514,74 +23609,88 @@ components:
           fields:
             type:
               required: true
+          required: true
         education:
           fields:
             attestation:
+              max_count: 7.061401241503109
               fields:
                 result:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
                 year:
-                  min_value: 2.3021358869347655
+                  min_value: 2.027123023002322
                   required: true
-                  max_value: 5.637376656633329
+                  max_value: 3.616076749251911
                 organization:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
                 name:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
+              min_count: 9.301444243932576
+              required: true
             level:
               required: true
             additional:
+              max_count: 7.061401241503109
               fields:
                 result:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
                 year:
-                  min_value: 2.3021358869347655
+                  min_value: 2.027123023002322
                   required: true
-                  max_value: 5.637376656633329
+                  max_value: 3.616076749251911
                 organization:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
                 name:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
+              min_count: 9.301444243932576
+              required: true
             elementary:
+              max_count: 4.145608029883936
               fields:
                 year:
-                  min_value: 2.3021358869347655
+                  min_value: 2.027123023002322
                   required: true
-                  max_value: 5.637376656633329
+                  max_value: 3.616076749251911
                 name:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
+              min_count: 7.386281948385884
+              required: true
             primary:
+              max_count: 7.061401241503109
               fields:
                 result:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
                 year:
-                  min_value: 2.3021358869347655
+                  min_value: 2.027123023002322
                   required: true
-                  max_value: 5.637376656633329
+                  max_value: 3.616076749251911
                 organization:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
                 name:
-                  min_length: 5.962133916683182
+                  min_length: 2.3021358869347655
                   required: true
-                  max_length: 1.4658129805029452
+                  max_length: 5.637376656633329
+              min_count: 9.301444243932576
+              required: true
+          required: true
         gender:
           required: true
         birth_date:
@@ -23591,26 +23700,33 @@ components:
         business_trip_readiness:
           required: true
         recommendation:
+          max_count: 4.965218492984954
           fields:
             organization:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             name:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             position:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 5.025004791520295
+          required: true
         language:
+          max_count: 7.457744773683766
           fields:
             level:
               required: true
             id:
               required: true
+          min_count: 1.1730742509559433
+          required: true
         experience:
+          max_count: 1.2315135367772556
           fields:
             area:
               required: true
@@ -23623,17 +23739,17 @@ components:
               min_date: min_date
               required: true
             description:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             company:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             company_url:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             end:
               max_date: max_date
               min_date: min_date
@@ -23641,47 +23757,56 @@ components:
             industry:
               required: true
             position:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 1.0246457001441578
+          required: true
         salary:
           fields:
             amount:
-              min_value: 2.3021358869347655
+              min_value: 2.027123023002322
               required: true
-              max_value: 5.637376656633329
+              max_value: 3.616076749251911
             currency:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          required: true
         title:
+          min_length: 6.965117697638846
           not_in:
           - not_in
           - not_in
+          required: true
+          max_length: 3.5571952270680973
         travel_time:
           required: true
         resume_locale:
           required: true
         skills:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         portfolio:
           max_count: 0.8008281904610115
           min_count: 6.027456183070403
           required: true
         contact:
+          max_count: 1.4658129805029452
           fields:
             comment:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             type:
               required: true
             value:
               required: true
             preferred:
               required: true
+          min_count: 5.962133916683182
+          required: true
         driver_license_types:
           max_count: 0.8008281904610115
           min_count: 6.027456183070403
@@ -23692,6 +23817,9 @@ components:
           required: true
         first_name:
           regexp: regexp
+          min_length: 6.84685269835264
+          required: true
+          max_length: 1.4894159098541704
         area:
           required: true
         citizenship:
@@ -23700,6 +23828,9 @@ components:
           required: true
         last_name:
           regexp: regexp
+          min_length: 6.84685269835264
+          required: true
+          max_length: 1.4894159098541704
         photo:
           required: true
         has_vehicle:
@@ -23722,10 +23853,14 @@ components:
               required: true
             type:
               required: true
+          required: true
         auto_hide_time:
           required: true
         middle_name:
           regexp: regexp
+          min_length: 6.84685269835264
+          required: true
+          max_length: 1.4894159098541704
         work_ticket:
           max_count: 0.8008281904610115
           min_count: 6.027456183070403
@@ -23733,13 +23868,16 @@ components:
         schedule:
           required: true
         site:
+          max_count: 9.965781217890562
           fields:
             type:
               required: true
             url:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 9.369310271410669
+          required: true
         metro:
           required: true
         district:
@@ -23837,17 +23975,20 @@ components:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsContactFields'
         type: object
       example:
+        max_count: 1.4658129805029452
         fields:
           comment:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           type:
             required: true
           value:
             required: true
           preferred:
             required: true
+        min_count: 5.962133916683182
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsRequiredCountWithTitle:
@@ -23886,9 +24027,9 @@ components:
     ResumesResumeConditionFieldsContactFields:
       example:
         comment:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         type:
           required: true
         value:
@@ -23920,9 +24061,9 @@ components:
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsMaxMinLength'
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsRequired'
       example:
-        min_length: 5.962133916683182
+        min_length: 2.3021358869347655
         required: true
-        max_length: 1.4658129805029452
+        max_length: 5.637376656633329
       title: Условия для поля
       type: object
     ResumesResumeConditionFieldsMaxMinLength:
@@ -23975,25 +24116,26 @@ components:
       example:
         fields:
           amount:
-            min_value: 2.3021358869347655
+            min_value: 2.027123023002322
             required: true
-            max_value: 5.637376656633329
+            max_value: 3.616076749251911
           currency:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsSalaryFields:
       example:
         amount:
-          min_value: 2.3021358869347655
+          min_value: 2.027123023002322
           required: true
-          max_value: 5.637376656633329
+          max_value: 3.616076749251911
         currency:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
       nullable: true
       properties:
         amount:
@@ -24007,9 +24149,9 @@ components:
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsMaxMinValue'
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsRequired'
       example:
-        min_value: 2.3021358869347655
+        min_value: 2.027123023002322
         required: true
-        max_value: 5.637376656633329
+        max_value: 3.616076749251911
       title: Условия для поля
       type: object
     ResumesResumeConditionFieldsMaxMinValue:
@@ -24030,7 +24172,12 @@ components:
       allOf:
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsRequiredCountWithTitle'
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsRequiredLengthWithTitle'
-      example: {}
+      example:
+        max_count: 6.683562403749608
+        min_length: 6.438423552598547
+        min_count: 8.762042012749001
+        required: true
+        max_length: 9.018348186070783
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsEducationCondition:
@@ -24043,141 +24190,166 @@ components:
       example:
         fields:
           attestation:
+            max_count: 7.061401241503109
             fields:
               result:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
               year:
-                min_value: 2.3021358869347655
+                min_value: 2.027123023002322
                 required: true
-                max_value: 5.637376656633329
+                max_value: 3.616076749251911
               organization:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
               name:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
+            min_count: 9.301444243932576
+            required: true
           level:
             required: true
           additional:
+            max_count: 7.061401241503109
             fields:
               result:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
               year:
-                min_value: 2.3021358869347655
+                min_value: 2.027123023002322
                 required: true
-                max_value: 5.637376656633329
+                max_value: 3.616076749251911
               organization:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
               name:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
+            min_count: 9.301444243932576
+            required: true
           elementary:
+            max_count: 4.145608029883936
             fields:
               year:
-                min_value: 2.3021358869347655
+                min_value: 2.027123023002322
                 required: true
-                max_value: 5.637376656633329
+                max_value: 3.616076749251911
               name:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
+            min_count: 7.386281948385884
+            required: true
           primary:
+            max_count: 7.061401241503109
             fields:
               result:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
               year:
-                min_value: 2.3021358869347655
+                min_value: 2.027123023002322
                 required: true
-                max_value: 5.637376656633329
+                max_value: 3.616076749251911
               organization:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
               name:
-                min_length: 5.962133916683182
+                min_length: 2.3021358869347655
                 required: true
-                max_length: 1.4658129805029452
+                max_length: 5.637376656633329
+            min_count: 9.301444243932576
+            required: true
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsEducationFields:
       example:
         attestation:
+          max_count: 7.061401241503109
           fields:
             result:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             year:
-              min_value: 2.3021358869347655
+              min_value: 2.027123023002322
               required: true
-              max_value: 5.637376656633329
+              max_value: 3.616076749251911
             organization:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             name:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 9.301444243932576
+          required: true
         level:
           required: true
         additional:
+          max_count: 7.061401241503109
           fields:
             result:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             year:
-              min_value: 2.3021358869347655
+              min_value: 2.027123023002322
               required: true
-              max_value: 5.637376656633329
+              max_value: 3.616076749251911
             organization:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             name:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 9.301444243932576
+          required: true
         elementary:
+          max_count: 4.145608029883936
           fields:
             year:
-              min_value: 2.3021358869347655
+              min_value: 2.027123023002322
               required: true
-              max_value: 5.637376656633329
+              max_value: 3.616076749251911
             name:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 7.386281948385884
+          required: true
         primary:
+          max_count: 7.061401241503109
           fields:
             result:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             year:
-              min_value: 2.3021358869347655
+              min_value: 2.027123023002322
               required: true
-              max_value: 5.637376656633329
+              max_value: 3.616076749251911
             organization:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
             name:
-              min_length: 5.962133916683182
+              min_length: 2.3021358869347655
               required: true
-              max_length: 1.4658129805029452
+              max_length: 5.637376656633329
+          min_count: 9.301444243932576
+          required: true
       nullable: true
       properties:
         additional:
@@ -24199,43 +24371,46 @@ components:
           fields:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsPrimaryEducationFields'
       example:
+        max_count: 7.061401241503109
         fields:
           result:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           year:
-            min_value: 2.3021358869347655
+            min_value: 2.027123023002322
             required: true
-            max_value: 5.637376656633329
+            max_value: 3.616076749251911
           organization:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           name:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
+        min_count: 9.301444243932576
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsPrimaryEducationFields:
       example:
         result:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         year:
-          min_value: 2.3021358869347655
+          min_value: 2.027123023002322
           required: true
-          max_value: 5.637376656633329
+          max_value: 3.616076749251911
         organization:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         name:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
       nullable: true
       properties:
         name:
@@ -24255,27 +24430,30 @@ components:
           fields:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsElementaryEducationFields'
       example:
+        max_count: 4.145608029883936
         fields:
           year:
-            min_value: 2.3021358869347655
+            min_value: 2.027123023002322
             required: true
-            max_value: 5.637376656633329
+            max_value: 3.616076749251911
           name:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
+        min_count: 7.386281948385884
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsElementaryEducationFields:
       example:
         year:
-          min_value: 2.3021358869347655
+          min_value: 2.027123023002322
           required: true
-          max_value: 5.637376656633329
+          max_value: 3.616076749251911
         name:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
       nullable: true
       properties:
         name:
@@ -24292,35 +24470,38 @@ components:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsRecommendationFields'
         type: object
       example:
+        max_count: 4.965218492984954
         fields:
           organization:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           name:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           position:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
+        min_count: 5.025004791520295
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsRecommendationFields:
       example:
         organization:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         name:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         position:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
       nullable: true
       properties:
         name:
@@ -24336,9 +24517,12 @@ components:
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsRequiredLengthWithTitle'
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsNotIn'
       example:
+        min_length: 6.965117697638846
         not_in:
         - not_in
         - not_in
+        required: true
+        max_length: 3.5571952270680973
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsNotIn:
@@ -24370,6 +24554,7 @@ components:
             required: true
           type:
             required: true
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsRelocationFields:
@@ -24402,13 +24587,16 @@ components:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsSiteFields'
         type: object
       example:
+        max_count: 9.965781217890562
         fields:
           type:
             required: true
           url:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
+        min_count: 9.369310271410669
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsSiteFields:
@@ -24416,9 +24604,9 @@ components:
         type:
           required: true
         url:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
       nullable: true
       properties:
         type:
@@ -24438,6 +24626,7 @@ components:
         fields:
           type:
             required: true
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsAccessFields:
@@ -24458,11 +24647,14 @@ components:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsLanguageFields'
         type: object
       example:
+        max_count: 7.457744773683766
         fields:
           level:
             required: true
           id:
             required: true
+        min_count: 1.1730742509559433
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsLanguageFields:
@@ -24487,6 +24679,7 @@ components:
             $ref: '#/components/schemas/ResumesResumeConditionFieldsExperienceFields'
         type: object
       example:
+        max_count: 1.2315135367772556
         fields:
           area:
             required: true
@@ -24499,17 +24692,17 @@ components:
             min_date: min_date
             required: true
           description:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           company:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           company_url:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
           end:
             max_date: max_date
             min_date: min_date
@@ -24517,9 +24710,11 @@ components:
           industry:
             required: true
           position:
-            min_length: 5.962133916683182
+            min_length: 2.3021358869347655
             required: true
-            max_length: 1.4658129805029452
+            max_length: 5.637376656633329
+        min_count: 1.0246457001441578
+        required: true
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsExperienceFields:
@@ -24535,17 +24730,17 @@ components:
           min_date: min_date
           required: true
         description:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         company:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         company_url:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
         end:
           max_date: max_date
           min_date: min_date
@@ -24553,9 +24748,9 @@ components:
         industry:
           required: true
         position:
-          min_length: 5.962133916683182
+          min_length: 2.3021358869347655
           required: true
-          max_length: 1.4658129805029452
+          max_length: 5.637376656633329
       nullable: true
       properties:
         area:
@@ -24584,6 +24779,9 @@ components:
       - $ref: '#/components/schemas/ResumesResumeConditionFieldsRegexp'
       example:
         regexp: regexp
+        min_length: 6.84685269835264
+        required: true
+        max_length: 1.4894159098541704
       title: Условия для полей
       type: object
     ResumesResumeConditionFieldsRegexp:
@@ -25427,42 +25625,42 @@ components:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           insufficient_quotas:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           required_publications:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
-          completed_fields_percentage: 0.8008281904610115
+          completed_fields_percentage: 1.4658129805029452
           scheduled_at: scheduled_at
           draft_id: draft_id
           publication_ready: true
@@ -25490,8 +25688,27 @@ components:
           name: Стандартный шаблон
           id: default
         address:
+          lng: 6.027456183070403
+          city: city
+          street: street
+          description: description
           id: id
+          metro_stations:
+          - station_name: station_name
+            lng: 7.386281948385884
+            station_id: station_id
+            line_name: line_name
+            line_id: line_id
+            lat: 4.145608029883936
+          - station_name: station_name
+            lng: 7.386281948385884
+            station_id: station_id
+            line_name: line_name
+            line_id: line_id
+            lat: 4.145608029883936
           show_metro_only: true
+          building: building
+          lat: 0.8008281904610115
         languages:
         - level:
             name: name
@@ -25552,42 +25769,42 @@ components:
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         insufficient_quotas:
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         required_publications:
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
-        completed_fields_percentage: 0.8008281904610115
+        completed_fields_percentage: 1.4658129805029452
         scheduled_at: scheduled_at
         draft_id: draft_id
         publication_ready: true
@@ -25653,7 +25870,7 @@ components:
         billing_type:
           name: name
           id: id
-        count: 6.027456183070403
+        count: 5.962133916683182
         vacancy_type: vacancy_type
         publication_type: publication_type
       properties:
@@ -25806,8 +26023,27 @@ components:
       - $ref: '#/components/schemas/VacancyAddressOutput'
       - $ref: '#/components/schemas/VacancyAddress'
       example:
+        lng: 6.027456183070403
+        city: city
+        street: street
+        description: description
         id: id
+        metro_stations:
+        - station_name: station_name
+          lng: 7.386281948385884
+          station_id: station_id
+          line_name: line_name
+          line_id: line_id
+          lat: 4.145608029883936
+        - station_name: station_name
+          lng: 7.386281948385884
+          station_id: station_id
+          line_name: line_name
+          line_id: line_id
+          lat: 4.145608029883936
         show_metro_only: true
+        building: building
+        lat: 0.8008281904610115
       title: Адрес
     VacancyAddressOutput:
       allOf:
@@ -27248,9 +27484,91 @@ components:
         page: 1
         items:
         - resume:
+            education: null
+            gender: null
+            certificate:
+            - owner: owner
+              achieved_at: achieved_at
+              title: title
+              type: type
+              url: url
+            - owner: owner
+              achieved_at: achieved_at
+              title: title
+              type: type
+              url: url
+            created_at: created_at
+            title: title
+            experience:
+            - area:
+                name: name
+                id: id
+                url: url
+              company_id: company_id
+              industries:
+              - name: name
+                id: id
+              - name: name
+                id: id
+              start: start
+              description: description
+              employer:
+                logo_urls:
+                  "90": "90"
+                name: name
+                id: id
+                alternate_url: alternate_url
+                url: url
+              company: company
+              company_url: company_url
+              end: end
+              industry:
+                name: name
+                id: id
+              position: position
+            - area:
+                name: name
+                id: id
+                url: url
+              company_id: company_id
+              industries:
+              - name: name
+                id: id
+              - name: name
+                id: id
+              start: start
+              description: description
+              employer:
+                logo_urls:
+                  "90": "90"
+                name: name
+                id: id
+                alternate_url: alternate_url
+                url: url
+              company: company
+              company_url: company_url
+              end: end
+              industry:
+                name: name
+                id: id
+              position: position
+            salary:
+              amount: 6.027456183070403
+              currency: currency
+            platform: null
+            download: null
+            total_experience:
+              months: 1.4658129805029452
+            updated_at: updated_at
+            can_view_full_info: true
+            viewed: true
+            id: id
+            first_name: first_name
+            favorited: true
+            area: null
             marked: true
             owner: "{}"
-            viewed: true
+            last_name: last_name
             photo:
               small: small
               "100": "100"
@@ -27258,13 +27576,21 @@ components:
               medium: medium
               id: id
               "40": "40"
-            job_search_status: ""
-            negotiations_history: "{}"
-            actions: "{}"
-            favorited: true
+            middle_name: middle_name
+            url: url
             tags:
             - id: id
             - id: id
+            job_search_status: ""
+            hidden_fields:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            negotiations_history: "{}"
+            alternate_url: alternate_url
+            actions: "{}"
+            age: 6.027456183070403
           professional_roles:
           - id: id
           - id: id
@@ -27285,7 +27611,7 @@ components:
           messages_url: messages_url
           updated_at: updated_at
           test_result:
-            score: 1
+            score: 0
             alternate_url: alternate_url
             mark: UNFAIR
             url: url
@@ -27350,9 +27676,91 @@ components:
             name: name
             id: id
         - resume:
+            education: null
+            gender: null
+            certificate:
+            - owner: owner
+              achieved_at: achieved_at
+              title: title
+              type: type
+              url: url
+            - owner: owner
+              achieved_at: achieved_at
+              title: title
+              type: type
+              url: url
+            created_at: created_at
+            title: title
+            experience:
+            - area:
+                name: name
+                id: id
+                url: url
+              company_id: company_id
+              industries:
+              - name: name
+                id: id
+              - name: name
+                id: id
+              start: start
+              description: description
+              employer:
+                logo_urls:
+                  "90": "90"
+                name: name
+                id: id
+                alternate_url: alternate_url
+                url: url
+              company: company
+              company_url: company_url
+              end: end
+              industry:
+                name: name
+                id: id
+              position: position
+            - area:
+                name: name
+                id: id
+                url: url
+              company_id: company_id
+              industries:
+              - name: name
+                id: id
+              - name: name
+                id: id
+              start: start
+              description: description
+              employer:
+                logo_urls:
+                  "90": "90"
+                name: name
+                id: id
+                alternate_url: alternate_url
+                url: url
+              company: company
+              company_url: company_url
+              end: end
+              industry:
+                name: name
+                id: id
+              position: position
+            salary:
+              amount: 6.027456183070403
+              currency: currency
+            platform: null
+            download: null
+            total_experience:
+              months: 1.4658129805029452
+            updated_at: updated_at
+            can_view_full_info: true
+            viewed: true
+            id: id
+            first_name: first_name
+            favorited: true
+            area: null
             marked: true
             owner: "{}"
-            viewed: true
+            last_name: last_name
             photo:
               small: small
               "100": "100"
@@ -27360,13 +27768,21 @@ components:
               medium: medium
               id: id
               "40": "40"
-            job_search_status: ""
-            negotiations_history: "{}"
-            actions: "{}"
-            favorited: true
+            middle_name: middle_name
+            url: url
             tags:
             - id: id
             - id: id
+            job_search_status: ""
+            hidden_fields:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            negotiations_history: "{}"
+            alternate_url: alternate_url
+            actions: "{}"
+            age: 6.027456183070403
           professional_roles:
           - id: id
           - id: id
@@ -27387,7 +27803,7 @@ components:
           messages_url: messages_url
           updated_at: updated_at
           test_result:
-            score: 1
+            score: 0
             alternate_url: alternate_url
             mark: UNFAIR
             url: url
@@ -27571,9 +27987,91 @@ components:
               \ в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)\n"
         type: object
       example:
+        education: null
+        gender: null
+        certificate:
+        - owner: owner
+          achieved_at: achieved_at
+          title: title
+          type: type
+          url: url
+        - owner: owner
+          achieved_at: achieved_at
+          title: title
+          type: type
+          url: url
+        created_at: created_at
+        title: title
+        experience:
+        - area:
+            name: name
+            id: id
+            url: url
+          company_id: company_id
+          industries:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          start: start
+          description: description
+          employer:
+            logo_urls:
+              "90": "90"
+            name: name
+            id: id
+            alternate_url: alternate_url
+            url: url
+          company: company
+          company_url: company_url
+          end: end
+          industry:
+            name: name
+            id: id
+          position: position
+        - area:
+            name: name
+            id: id
+            url: url
+          company_id: company_id
+          industries:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          start: start
+          description: description
+          employer:
+            logo_urls:
+              "90": "90"
+            name: name
+            id: id
+            alternate_url: alternate_url
+            url: url
+          company: company
+          company_url: company_url
+          end: end
+          industry:
+            name: name
+            id: id
+          position: position
+        salary:
+          amount: 6.027456183070403
+          currency: currency
+        platform: null
+        download: null
+        total_experience:
+          months: 1.4658129805029452
+        updated_at: updated_at
+        can_view_full_info: true
+        viewed: true
+        id: id
+        first_name: first_name
+        favorited: true
+        area: null
         marked: true
         owner: "{}"
-        viewed: true
+        last_name: last_name
         photo:
           small: small
           "100": "100"
@@ -27581,13 +28079,21 @@ components:
           medium: medium
           id: id
           "40": "40"
-        job_search_status: ""
-        negotiations_history: "{}"
-        actions: "{}"
-        favorited: true
+        middle_name: middle_name
+        url: url
         tags:
         - id: id
         - id: id
+        job_search_status: ""
+        hidden_fields:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        negotiations_history: "{}"
+        alternate_url: alternate_url
+        actions: "{}"
+        age: 6.027456183070403
       title: Сокращенное представление резюме
       type: object
     ResumeResumeProfileLogoUrl90:
@@ -27752,12 +28258,41 @@ components:
         - url
         type: object
       example:
+        name: name
+        id: id
         url: url
       title: "Объект с идентификатором, названием и ссылкой"
       type: object
     ResumeObjectsExperienceLogoUrl90:
       allOf:
       - $ref: '#/components/schemas/ResumeObjectsExperiencePropertiesLogoUrl90'
+      example:
+        area:
+          name: name
+          id: id
+          url: url
+        company_id: company_id
+        industries:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        start: start
+        description: description
+        employer:
+          logo_urls:
+            "90": "90"
+          name: name
+          id: id
+          alternate_url: alternate_url
+          url: url
+        company: company
+        company_url: company_url
+        end: end
+        industry:
+          name: name
+          id: id
+        position: position
       required:
       - industries
       - position
@@ -27823,6 +28358,13 @@ components:
       title: Отрасль
       type: object
     EmployersEmployerInfoShortLogoUrl90:
+      example:
+        logo_urls:
+          "90": "90"
+        name: name
+        id: id
+        alternate_url: alternate_url
+        url: url
       properties:
         alternate_url:
           description: Ссылка на описание работодателя на сайте
@@ -28343,7 +28885,7 @@ components:
         - url
         type: object
       example:
-        score: 1
+        score: 0
         alternate_url: alternate_url
         mark: UNFAIR
         url: url
@@ -29111,14 +29653,20 @@ components:
           name: name
           position: position
         language:
-        - {}
-        - {}
+        - level: ""
+          name: name
+          id: id
+        - level: ""
+          name: name
+          id: id
         salary:
           amount: 0.8008281904610115
           currency: currency
         title: title
         experience:
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -29145,6 +29693,8 @@ components:
             id: id
           position: position
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -29534,6 +30084,8 @@ components:
       - $ref: '#/components/schemas/ResumeObjectsExperienceProperties'
       example:
         area:
+          name: name
+          id: id
           url: url
         company_id: company_id
         industries:
@@ -29642,7 +30194,10 @@ components:
     ResumeObjectsLanguage:
       allOf:
       - $ref: '#/components/schemas/_IncludesLanguageProperties'
-      example: {}
+      example:
+        level: ""
+        name: name
+        id: id
       required:
       - id
       - level
@@ -30934,6 +31489,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -30959,6 +31516,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -30996,6 +31555,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -31042,6 +31603,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -31067,6 +31630,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -31104,6 +31669,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -31193,6 +31760,8 @@ components:
         created_at: created_at
         experience:
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -31218,6 +31787,8 @@ components:
             id: id
           position: position
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -31255,6 +31826,8 @@ components:
         id: id
         first_name: first_name
         area:
+          name: name
+          id: id
           url: url
         marked: true
         last_name: last_name
@@ -31404,6 +31977,8 @@ components:
     ResumeObjectsExperienceForOwner:
       example:
         area:
+          name: name
+          id: id
           url: url
         company_id: company_id
         industries:
@@ -33133,10 +33708,126 @@ components:
         - url
         type: object
       example:
+        phone_calls:
+          picked_up_phone_by_opponent: true
+          items:
+          - creation_time: creation_time
+            duration_seconds: 1.4658129805029452
+            id: 5.962133916683182
+            last_change_time: last_change_time
+            status: status
+          - creation_time: creation_time
+            duration_seconds: 1.4658129805029452
+            id: 5.962133916683182
+            last_change_time: last_change_time
+            status: status
         resume:
           updated_at: updated_at
           created_at: created_at
+          id: id
+          title: title
+          alternate_url: alternate_url
+          url: url
+        professional_roles:
+        - id: id
+        - id: id
+        counters:
+          messages: 0.8008281904610115
+          unread_messages: 6.027456183070403
+        hidden: true
+        created_at: created_at
+        viewed_by_opponent: true
+        source: NEGOTIATION
         url: url
+        decline_allowed: true
+        messages_url: messages_url
+        updated_at: updated_at
+        has_updates: true
+        messaging_status: messaging_status
+        job_search_status:
+          name: name
+          id: id
+        id: id
+        state: "{}"
+        vacancy:
+          area:
+            name: name
+            id: id
+            url: url
+          professional_roles:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          show_logo_in_search: true
+          address:
+            lng: 6.027456183070403
+            city: city
+            metro:
+              station_name: station_name
+              lng: 7.386281948385884
+              station_id: station_id
+              line_name: line_name
+              line_id: line_id
+              lat: 4.145608029883936
+            street: street
+            description: description
+            raw: raw
+            id: id
+            metro_stations:
+            - station_name: station_name
+              lng: 7.386281948385884
+              station_id: station_id
+              line_name: line_name
+              line_id: line_id
+              lat: 4.145608029883936
+            - station_name: station_name
+              lng: 7.386281948385884
+              station_id: station_id
+              line_name: line_name
+              line_id: line_id
+              lat: 4.145608029883936
+            building: building
+            lat: 0.8008281904610115
+          insider_interview:
+            id: id
+            url: url
+          created_at: created_at
+          sort_point_distance: 5.637376656633329
+          salary:
+            gross: true
+            currency: currency
+            from: 6
+            to: 1
+          type:
+            name: name
+            id: id
+          apply_alternate_url: apply_alternate_url
+          url: url
+          archived: true
+          has_test: true
+          premium: true
+          name: name
+          employer:
+            accredited_it_employer: true
+            trusted: true
+            logo_urls:
+              original: original
+              "90": "90"
+              "240": "240"
+            vacancies_url: https://api.hh.ru/vacancies?employer_id=1455
+            name: HeadHunter
+            id: "1455"
+            alternate_url: https://hh.ru/employer/1455
+            url: https://api.hh.ru/employers/1455
+          id: id
+          department:
+            name: name
+            id: id
+          published_at: published_at
+          response_letter_required: true
+          alternate_url: alternate_url
+          response_url: response_url
       title: Информация об отклике/приглашении (соискатель)
       type: object
     NegotiationsObjectsTopicItem:
@@ -33163,6 +33854,19 @@ components:
       title: Отклик
       type: object
     NegotiationsPhoneCalls:
+      example:
+        picked_up_phone_by_opponent: true
+        items:
+        - creation_time: creation_time
+          duration_seconds: 1.4658129805029452
+          id: 5.962133916683182
+          last_change_time: last_change_time
+          status: status
+        - creation_time: creation_time
+          duration_seconds: 1.4658129805029452
+          id: 5.962133916683182
+          last_change_time: last_change_time
+          status: status
       properties:
         items:
           description: Список звонков
@@ -33178,6 +33882,12 @@ components:
       title: История звонков
       type: object
     NegotiationsPhoneCallItem:
+      example:
+        creation_time: creation_time
+        duration_seconds: 1.4658129805029452
+        id: 5.962133916683182
+        last_change_time: last_change_time
+        status: status
       properties:
         creation_time:
           description: Дата и время создания звонка
@@ -33206,6 +33916,85 @@ components:
       title: Звонок
       type: object
     VacanciesNegotiationsVacancyShort:
+      example:
+        area:
+          name: name
+          id: id
+          url: url
+        professional_roles:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        show_logo_in_search: true
+        address:
+          lng: 6.027456183070403
+          city: city
+          metro:
+            station_name: station_name
+            lng: 7.386281948385884
+            station_id: station_id
+            line_name: line_name
+            line_id: line_id
+            lat: 4.145608029883936
+          street: street
+          description: description
+          raw: raw
+          id: id
+          metro_stations:
+          - station_name: station_name
+            lng: 7.386281948385884
+            station_id: station_id
+            line_name: line_name
+            line_id: line_id
+            lat: 4.145608029883936
+          - station_name: station_name
+            lng: 7.386281948385884
+            station_id: station_id
+            line_name: line_name
+            line_id: line_id
+            lat: 4.145608029883936
+          building: building
+          lat: 0.8008281904610115
+        insider_interview:
+          id: id
+          url: url
+        created_at: created_at
+        sort_point_distance: 5.637376656633329
+        salary:
+          gross: true
+          currency: currency
+          from: 6
+          to: 1
+        type:
+          name: name
+          id: id
+        apply_alternate_url: apply_alternate_url
+        url: url
+        archived: true
+        has_test: true
+        premium: true
+        name: name
+        employer:
+          accredited_it_employer: true
+          trusted: true
+          logo_urls:
+            original: original
+            "90": "90"
+            "240": "240"
+          vacancies_url: https://api.hh.ru/vacancies?employer_id=1455
+          name: HeadHunter
+          id: "1455"
+          alternate_url: https://hh.ru/employer/1455
+          url: https://api.hh.ru/employers/1455
+        id: id
+        department:
+          name: name
+          id: id
+        published_at: published_at
+        response_letter_required: true
+        alternate_url: alternate_url
+        response_url: response_url
       properties:
         address:
           $ref: '#/components/schemas/VacancyAddressRawOutput'
@@ -33309,6 +34098,10 @@ components:
       example:
         updated_at: updated_at
         created_at: created_at
+        id: id
+        title: title
+        alternate_url: alternate_url
+        url: url
       title: Сокращенное представление резюме
       type: object
     NegotiationsEmployerNegotiation:
@@ -33427,6 +34220,8 @@ components:
       - $ref: '#/components/schemas/ResumeObjectsExperienceProperties'
       example:
         area:
+          name: name
+          id: id
           url: url
         company_id: company_id
         industries:
@@ -34298,14 +35093,20 @@ components:
           name: name
           position: position
         language:
-        - {}
-        - {}
+        - level: ""
+          name: name
+          id: id
+        - level: ""
+          name: name
+          id: id
         salary:
           amount: 0.8008281904610115
           currency: currency
         title: title
         experience:
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -34332,6 +35133,8 @@ components:
             id: id
           position: position
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -34449,7 +35252,10 @@ components:
     _IncludesLanguageLevel:
       allOf:
       - $ref: '#/components/schemas/_IncludesLanguageProperties'
-      example: {}
+      example:
+        level: ""
+        name: name
+        id: id
       required:
       - level
       title: Язык и уровень владения
@@ -34487,18 +35293,242 @@ components:
         pages: 2
         page: 1
         items:
-        - resume:
+        - phone_calls:
+            picked_up_phone_by_opponent: true
+            items:
+            - creation_time: creation_time
+              duration_seconds: 1.4658129805029452
+              id: 5.962133916683182
+              last_change_time: last_change_time
+              status: status
+            - creation_time: creation_time
+              duration_seconds: 1.4658129805029452
+              id: 5.962133916683182
+              last_change_time: last_change_time
+              status: status
+          resume:
             id: id
             title: title
             alternate_url: alternate_url
             url: url
+          professional_roles:
+          - id: id
+          - id: id
+          counters:
+            messages: 0.8008281904610115
+            unread_messages: 6.027456183070403
+          hidden: true
+          created_at: created_at
+          viewed_by_opponent: true
+          source: NEGOTIATION
           url: url
-        - resume:
+          decline_allowed: true
+          messages_url: messages_url
+          updated_at: updated_at
+          has_updates: true
+          messaging_status: messaging_status
+          job_search_status:
+            name: name
+            id: id
+          id: id
+          state: "{}"
+          vacancy:
+            area:
+              name: name
+              id: id
+              url: url
+            professional_roles:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            show_logo_in_search: true
+            address:
+              lng: 6.027456183070403
+              city: city
+              metro:
+                station_name: station_name
+                lng: 7.386281948385884
+                station_id: station_id
+                line_name: line_name
+                line_id: line_id
+                lat: 4.145608029883936
+              street: street
+              description: description
+              raw: raw
+              id: id
+              metro_stations:
+              - station_name: station_name
+                lng: 7.386281948385884
+                station_id: station_id
+                line_name: line_name
+                line_id: line_id
+                lat: 4.145608029883936
+              - station_name: station_name
+                lng: 7.386281948385884
+                station_id: station_id
+                line_name: line_name
+                line_id: line_id
+                lat: 4.145608029883936
+              building: building
+              lat: 0.8008281904610115
+            insider_interview:
+              id: id
+              url: url
+            created_at: created_at
+            sort_point_distance: 5.637376656633329
+            salary:
+              gross: true
+              currency: currency
+              from: 6
+              to: 1
+            type:
+              name: name
+              id: id
+            apply_alternate_url: apply_alternate_url
+            url: url
+            archived: true
+            has_test: true
+            premium: true
+            name: name
+            employer:
+              accredited_it_employer: true
+              trusted: true
+              logo_urls:
+                original: original
+                "90": "90"
+                "240": "240"
+              vacancies_url: https://api.hh.ru/vacancies?employer_id=1455
+              name: HeadHunter
+              id: "1455"
+              alternate_url: https://hh.ru/employer/1455
+              url: https://api.hh.ru/employers/1455
+            id: id
+            department:
+              name: name
+              id: id
+            published_at: published_at
+            response_letter_required: true
+            alternate_url: alternate_url
+            response_url: response_url
+        - phone_calls:
+            picked_up_phone_by_opponent: true
+            items:
+            - creation_time: creation_time
+              duration_seconds: 1.4658129805029452
+              id: 5.962133916683182
+              last_change_time: last_change_time
+              status: status
+            - creation_time: creation_time
+              duration_seconds: 1.4658129805029452
+              id: 5.962133916683182
+              last_change_time: last_change_time
+              status: status
+          resume:
             id: id
             title: title
             alternate_url: alternate_url
             url: url
+          professional_roles:
+          - id: id
+          - id: id
+          counters:
+            messages: 0.8008281904610115
+            unread_messages: 6.027456183070403
+          hidden: true
+          created_at: created_at
+          viewed_by_opponent: true
+          source: NEGOTIATION
           url: url
+          decline_allowed: true
+          messages_url: messages_url
+          updated_at: updated_at
+          has_updates: true
+          messaging_status: messaging_status
+          job_search_status:
+            name: name
+            id: id
+          id: id
+          state: "{}"
+          vacancy:
+            area:
+              name: name
+              id: id
+              url: url
+            professional_roles:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            show_logo_in_search: true
+            address:
+              lng: 6.027456183070403
+              city: city
+              metro:
+                station_name: station_name
+                lng: 7.386281948385884
+                station_id: station_id
+                line_name: line_name
+                line_id: line_id
+                lat: 4.145608029883936
+              street: street
+              description: description
+              raw: raw
+              id: id
+              metro_stations:
+              - station_name: station_name
+                lng: 7.386281948385884
+                station_id: station_id
+                line_name: line_name
+                line_id: line_id
+                lat: 4.145608029883936
+              - station_name: station_name
+                lng: 7.386281948385884
+                station_id: station_id
+                line_name: line_name
+                line_id: line_id
+                lat: 4.145608029883936
+              building: building
+              lat: 0.8008281904610115
+            insider_interview:
+              id: id
+              url: url
+            created_at: created_at
+            sort_point_distance: 5.637376656633329
+            salary:
+              gross: true
+              currency: currency
+              from: 6
+              to: 1
+            type:
+              name: name
+              id: id
+            apply_alternate_url: apply_alternate_url
+            url: url
+            archived: true
+            has_test: true
+            premium: true
+            name: name
+            employer:
+              accredited_it_employer: true
+              trusted: true
+              logo_urls:
+                original: original
+                "90": "90"
+                "240": "240"
+              vacancies_url: https://api.hh.ru/vacancies?employer_id=1455
+              name: HeadHunter
+              id: "1455"
+              alternate_url: https://hh.ru/employer/1455
+              url: https://api.hh.ru/employers/1455
+            id: id
+            department:
+              name: name
+              id: id
+            published_at: published_at
+            response_letter_required: true
+            alternate_url: alternate_url
+            response_url: response_url
       title: Успешный ответ
     NegotiationsListItems:
       properties:
@@ -34525,12 +35555,124 @@ components:
         - url
         type: object
       example:
+        phone_calls:
+          picked_up_phone_by_opponent: true
+          items:
+          - creation_time: creation_time
+            duration_seconds: 1.4658129805029452
+            id: 5.962133916683182
+            last_change_time: last_change_time
+            status: status
+          - creation_time: creation_time
+            duration_seconds: 1.4658129805029452
+            id: 5.962133916683182
+            last_change_time: last_change_time
+            status: status
         resume:
           id: id
           title: title
           alternate_url: alternate_url
           url: url
+        professional_roles:
+        - id: id
+        - id: id
+        counters:
+          messages: 0.8008281904610115
+          unread_messages: 6.027456183070403
+        hidden: true
+        created_at: created_at
+        viewed_by_opponent: true
+        source: NEGOTIATION
         url: url
+        decline_allowed: true
+        messages_url: messages_url
+        updated_at: updated_at
+        has_updates: true
+        messaging_status: messaging_status
+        job_search_status:
+          name: name
+          id: id
+        id: id
+        state: "{}"
+        vacancy:
+          area:
+            name: name
+            id: id
+            url: url
+          professional_roles:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          show_logo_in_search: true
+          address:
+            lng: 6.027456183070403
+            city: city
+            metro:
+              station_name: station_name
+              lng: 7.386281948385884
+              station_id: station_id
+              line_name: line_name
+              line_id: line_id
+              lat: 4.145608029883936
+            street: street
+            description: description
+            raw: raw
+            id: id
+            metro_stations:
+            - station_name: station_name
+              lng: 7.386281948385884
+              station_id: station_id
+              line_name: line_name
+              line_id: line_id
+              lat: 4.145608029883936
+            - station_name: station_name
+              lng: 7.386281948385884
+              station_id: station_id
+              line_name: line_name
+              line_id: line_id
+              lat: 4.145608029883936
+            building: building
+            lat: 0.8008281904610115
+          insider_interview:
+            id: id
+            url: url
+          created_at: created_at
+          sort_point_distance: 5.637376656633329
+          salary:
+            gross: true
+            currency: currency
+            from: 6
+            to: 1
+          type:
+            name: name
+            id: id
+          apply_alternate_url: apply_alternate_url
+          url: url
+          archived: true
+          has_test: true
+          premium: true
+          name: name
+          employer:
+            accredited_it_employer: true
+            trusted: true
+            logo_urls:
+              original: original
+              "90": "90"
+              "240": "240"
+            vacancies_url: https://api.hh.ru/vacancies?employer_id=1455
+            name: HeadHunter
+            id: "1455"
+            alternate_url: https://hh.ru/employer/1455
+            url: https://api.hh.ru/employers/1455
+          id: id
+          department:
+            name: name
+            id: id
+          published_at: published_at
+          response_letter_required: true
+          alternate_url: alternate_url
+          response_url: response_url
       title: Отклик
       type: object
     NegotiationsNegotiationsCollections:
@@ -35674,7 +36816,9 @@ components:
         page: 1
         items:
         - assessments:
-          - actions:
+          - name: name
+            id: id
+            actions:
             - disable_reason: disable_reason
               name: name
               id: id
@@ -35685,7 +36829,9 @@ components:
               id: id
               alternate_url: alternate_url
               enabled: true
-          - actions:
+          - name: name
+            id: id
+            actions:
             - disable_reason: disable_reason
               name: name
               id: id
@@ -35736,7 +36882,9 @@ components:
           text: text
           viewed_by_me: true
         - assessments:
-          - actions:
+          - name: name
+            id: id
+            actions:
             - disable_reason: disable_reason
               name: name
               id: id
@@ -35747,7 +36895,9 @@ components:
               id: id
               alternate_url: alternate_url
               enabled: true
-          - actions:
+          - name: name
+            id: id
+            actions:
             - disable_reason: disable_reason
               name: name
               id: id
@@ -35813,7 +36963,9 @@ components:
       description: Сообщение в отклике
       example:
         assessments:
-        - actions:
+        - name: name
+          id: id
+          actions:
           - disable_reason: disable_reason
             name: name
             id: id
@@ -35824,7 +36976,9 @@ components:
             id: id
             alternate_url: alternate_url
             enabled: true
-        - actions:
+        - name: name
+          id: id
+          actions:
           - disable_reason: disable_reason
             name: name
             id: id
@@ -35948,6 +37102,8 @@ components:
       description: "Тесты или опросники, предназначенные для прохождения соискател\
         ями"
       example:
+        name: name
+        id: id
         actions:
         - disable_reason: disable_reason
           name: name
@@ -36097,7 +37253,9 @@ components:
       example:
         items:
         - vacancy_billing_type:
+            name: name
             description: description
+            id: id
           without_action:
           - reason: reason
           - reason: reason
@@ -36115,7 +37273,9 @@ components:
             type: type
             url: url
         - vacancy_billing_type:
+            name: name
             description: description
+            id: id
           without_action:
           - reason: reason
           - reason: reason
@@ -36145,7 +37305,9 @@ components:
     VacanciesVacancyUpgradeListItem:
       example:
         vacancy_billing_type:
+          name: name
           description: description
+          id: id
         without_action:
         - reason: reason
         - reason: reason
@@ -36203,7 +37365,9 @@ components:
             type: string
         type: object
       example:
+        name: name
         description: description
+        id: id
       title: Биллинговый тип вакансии
     VacanciesUpgradeFieldsAction:
       description: Возможное действие
@@ -36584,6 +37748,8 @@ components:
             id: id
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -36609,6 +37775,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -36667,6 +37835,8 @@ components:
           first_name: first_name
           new_views: 6.027456183070403
           area:
+            name: name
+            id: id
             url: url
           marked: true
           visible: true
@@ -36731,6 +37901,8 @@ components:
             id: id
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -36756,6 +37928,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -36814,6 +37988,8 @@ components:
           first_name: first_name
           new_views: 6.027456183070403
           area:
+            name: name
+            id: id
             url: url
           marked: true
           visible: true
@@ -36930,6 +38106,8 @@ components:
           id: id
         experience:
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -36955,6 +38133,8 @@ components:
             id: id
           position: position
         - area:
+            name: name
+            id: id
             url: url
           company_id: company_id
           industries:
@@ -37013,6 +38193,8 @@ components:
         first_name: first_name
         new_views: 6.027456183070403
         area:
+          name: name
+          id: id
           url: url
         marked: true
         visible: true
@@ -37208,10 +38390,14 @@ components:
           items:
           - created_at: created_at
             with_message: true
-            employer_state: {}
+            employer_state:
+              name: name
+              id: id
           - created_at: created_at
             with_message: true
-            employer_state: {}
+            employer_state:
+              name: name
+              id: id
           url: url
         - negotiations_url: negotiations_url
           archived: true
@@ -37222,10 +38408,14 @@ components:
           items:
           - created_at: created_at
             with_message: true
-            employer_state: {}
+            employer_state:
+              name: name
+              id: id
           - created_at: created_at
             with_message: true
-            employer_state: {}
+            employer_state:
+              name: name
+              id: id
           url: url
       properties:
         vacancies:
@@ -37248,10 +38438,14 @@ components:
         items:
         - created_at: created_at
           with_message: true
-          employer_state: {}
+          employer_state:
+            name: name
+            id: id
         - created_at: created_at
           with_message: true
-          employer_state: {}
+          employer_state:
+            name: name
+            id: id
         url: url
       properties:
         archived:
@@ -37313,7 +38507,9 @@ components:
       example:
         created_at: created_at
         with_message: true
-        employer_state: {}
+        employer_state:
+          name: name
+          id: id
       title: Изменение состояния откликов/приглашений
       type: object
     ResumesNegotiationNano:
@@ -39186,13 +40382,13 @@ components:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           completed_fields_percentage: 6.027456183070403
@@ -39212,26 +40408,26 @@ components:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           insufficient_quotas:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           billing_type:
@@ -39248,13 +40444,13 @@ components:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           completed_fields_percentage: 6.027456183070403
@@ -39274,26 +40470,26 @@ components:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           insufficient_quotas:
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           - billing_type:
               name: name
               id: id
-            count: 6.027456183070403
+            count: 5.962133916683182
             vacancy_type: vacancy_type
             publication_type: publication_type
           billing_type:
@@ -39372,13 +40568,13 @@ components:
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         completed_fields_percentage: 6.027456183070403
@@ -39398,26 +40594,26 @@ components:
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         insufficient_quotas:
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         - billing_type:
             name: name
             id: id
-          count: 6.027456183070403
+          count: 5.962133916683182
           vacancy_type: vacancy_type
           publication_type: publication_type
         billing_type:
@@ -39709,7 +40905,11 @@ components:
           id: id
         schedule:
         - uid: uid
+          name: name
+          id: id
         - uid: uid
+          name: name
+          id: id
         vacancy_search_order:
         - name: name
           id: id
@@ -40083,6 +41283,8 @@ components:
         type: object
       example:
         uid: uid
+        name: name
+        id: id
       title: "Объект с идентификатором, названием и универсальным идентификатором"
       type: object
     DictionariesCurrencyItem:
@@ -40206,14 +41408,232 @@ components:
       - $ref: '#/components/schemas/_IncludesPagination'
       - $ref: '#/components/schemas/VacanciesVisitorsHiddenOnPage'
       example:
-        hidden_on_page: 0.8008281904610115
+        hidden_on_page: 5.962133916683182
         per_page: 5
         found: 6
         pages: 2
         page: 1
         items:
-        - url: url
-        - url: url
+        - education: null
+          gender: null
+          certificate:
+          - owner: owner
+            achieved_at: achieved_at
+            title: title
+            type: type
+            url: url
+          - owner: owner
+            achieved_at: achieved_at
+            title: title
+            type: type
+            url: url
+          created_at: created_at
+          title: title
+          experience:
+          - area:
+              name: name
+              id: id
+              url: url
+            company_id: company_id
+            industries:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            start: start
+            description: description
+            employer:
+              logo_urls:
+                original: original
+                "90": "90"
+                "240": "240"
+              name: name
+              id: id
+              alternate_url: alternate_url
+              url: url
+            company: company
+            company_url: company_url
+            end: end
+            industry:
+              name: name
+              id: id
+            position: position
+          - area:
+              name: name
+              id: id
+              url: url
+            company_id: company_id
+            industries:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            start: start
+            description: description
+            employer:
+              logo_urls:
+                original: original
+                "90": "90"
+                "240": "240"
+              name: name
+              id: id
+              alternate_url: alternate_url
+              url: url
+            company: company
+            company_url: company_url
+            end: end
+            industry:
+              name: name
+              id: id
+            position: position
+          salary:
+            amount: 6.027456183070403
+            currency: currency
+          platform: null
+          download: null
+          total_experience:
+            months: 1.4658129805029452
+          updated_at: updated_at
+          can_view_full_info: true
+          viewed: true
+          id: id
+          first_name: first_name
+          favorited: true
+          area: null
+          marked: true
+          owner: "{}"
+          last_name: last_name
+          photo:
+            small: small
+            "100": "100"
+            "500": "500"
+            medium: medium
+            id: id
+            "40": "40"
+          middle_name: middle_name
+          url: url
+          tags:
+          - id: id
+          - id: id
+          hidden_fields:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          negotiations_history: "{}"
+          alternate_url: alternate_url
+          actions: "{}"
+          age: 0.8008281904610115
+        - education: null
+          gender: null
+          certificate:
+          - owner: owner
+            achieved_at: achieved_at
+            title: title
+            type: type
+            url: url
+          - owner: owner
+            achieved_at: achieved_at
+            title: title
+            type: type
+            url: url
+          created_at: created_at
+          title: title
+          experience:
+          - area:
+              name: name
+              id: id
+              url: url
+            company_id: company_id
+            industries:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            start: start
+            description: description
+            employer:
+              logo_urls:
+                original: original
+                "90": "90"
+                "240": "240"
+              name: name
+              id: id
+              alternate_url: alternate_url
+              url: url
+            company: company
+            company_url: company_url
+            end: end
+            industry:
+              name: name
+              id: id
+            position: position
+          - area:
+              name: name
+              id: id
+              url: url
+            company_id: company_id
+            industries:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            start: start
+            description: description
+            employer:
+              logo_urls:
+                original: original
+                "90": "90"
+                "240": "240"
+              name: name
+              id: id
+              alternate_url: alternate_url
+              url: url
+            company: company
+            company_url: company_url
+            end: end
+            industry:
+              name: name
+              id: id
+            position: position
+          salary:
+            amount: 6.027456183070403
+            currency: currency
+          platform: null
+          download: null
+          total_experience:
+            months: 1.4658129805029452
+          updated_at: updated_at
+          can_view_full_info: true
+          viewed: true
+          id: id
+          first_name: first_name
+          favorited: true
+          area: null
+          marked: true
+          owner: "{}"
+          last_name: last_name
+          photo:
+            small: small
+            "100": "100"
+            "500": "500"
+            medium: medium
+            id: id
+            "40": "40"
+          middle_name: middle_name
+          url: url
+          tags:
+          - id: id
+          - id: id
+          hidden_fields:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          negotiations_history: "{}"
+          alternate_url: alternate_url
+          actions: "{}"
+          age: 0.8008281904610115
       title: Успешный ответ
     VacanciesVisitorsHiddenOnPage:
       properties:
@@ -40460,10 +41880,10 @@ components:
     ResumesByStatusResponse:
       example:
         counters:
-          unavailable: 7.061401241503109
-          not_published: 5.637376656633329
-          suitable: 2.3021358869347655
-          already_applied: 5.962133916683182
+          unavailable: 5.637376656633329
+          not_published: 1.4658129805029452
+          suitable: 5.962133916683182
+          already_applied: 6.027456183070403
         unavailable:
         - education: "{}"
           access:
@@ -40485,6 +41905,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40510,6 +41932,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40547,6 +41971,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -40593,6 +42019,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40618,6 +42046,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40655,6 +42085,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -40702,6 +42134,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40727,6 +42161,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40764,6 +42200,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -40810,6 +42248,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40835,6 +42275,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40872,6 +42314,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -40919,6 +42363,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40944,6 +42390,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -40981,6 +42429,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -41027,6 +42477,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -41052,6 +42504,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -41089,6 +42543,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -41136,6 +42592,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -41161,6 +42619,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -41198,6 +42658,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -41244,6 +42706,8 @@ components:
           created_at: created_at
           experience:
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -41269,6 +42733,8 @@ components:
               id: id
             position: position
           - area:
+              name: name
+              id: id
               url: url
             company_id: company_id
             industries:
@@ -41306,6 +42772,8 @@ components:
           id: id
           first_name: first_name
           area:
+            name: name
+            id: id
             url: url
           marked: true
           last_name: last_name
@@ -41373,10 +42841,10 @@ components:
     ResumesByStatusCounters:
       description: Количество резюме в списках
       example:
-        unavailable: 7.061401241503109
-        not_published: 5.637376656633329
-        suitable: 2.3021358869347655
-        already_applied: 5.962133916683182
+        unavailable: 5.637376656633329
+        not_published: 1.4658129805029452
+        suitable: 5.962133916683182
+        already_applied: 6.027456183070403
       properties:
         already_applied:
           description: "Количество резюме, уже использованных для отклика на данну\
@@ -41906,7 +43374,87 @@ components:
       - $ref: '#/components/schemas/ResumeResumeFull'
       - $ref: '#/components/schemas/ResumeEmployerFields'
       example:
-        owner: "{}"
+        education: null
+        birth_date: birth_date
+        recommendation:
+        - contact: contact
+          organization: organization
+          name: name
+          position: position
+        - contact: contact
+          organization: organization
+          name: name
+          position: position
+        language:
+        - level: ""
+          name: name
+          id: id
+        - level: ""
+          name: name
+          id: id
+        experience:
+        - area:
+            name: name
+            id: id
+            url: url
+          company_id: company_id
+          industries:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          start: start
+          description: description
+          employer:
+            logo_urls:
+              original: original
+              "90": "90"
+              "240": "240"
+            name: name
+            id: id
+            alternate_url: alternate_url
+            url: url
+          company: company
+          company_url: company_url
+          end: end
+          industry:
+            name: name
+            id: id
+          position: position
+        - area:
+            name: name
+            id: id
+            url: url
+          company_id: company_id
+          industries:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          start: start
+          description: description
+          employer:
+            logo_urls:
+              original: original
+              "90": "90"
+              "240": "240"
+            name: name
+            id: id
+            alternate_url: alternate_url
+            url: url
+          company: company
+          company_url: company_url
+          end: end
+          industry:
+            name: name
+            id: id
+          position: position
+        salary:
+          amount: 6.027456183070403
+          currency: currency
+        resume_locale: null
+        skills: skills
+        download: null
         can_view_full_info: true
         portfolio:
         - small: small
@@ -41915,43 +43463,139 @@ components:
         - small: small
           description: description
           medium: medium
+        contact:
+        - need_verification: true
+          verified: true
+          comment: comment
+          type: ""
+          value: null
+          preferred: true
+        - need_verification: true
+          verified: true
+          comment: comment
+          type: ""
+          value: null
+          preferred: true
+        id: id
+        area: null
+        marked: false
+        tags:
+        - id: id
+        - id: id
+        metro: null
         job_search_status: ""
+        hidden_fields:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        negotiations_history: "{}"
+        actions: "{}"
+        skill_set:
+        - skill_set
+        - skill_set
+        professional_roles:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        gender: null
+        business_trip_readiness: ""
+        certificate:
+        - owner: owner
+          achieved_at: achieved_at
+          title: title
+          type: type
+          url: url
+        - owner: owner
+          achieved_at: achieved_at
+          title: title
+          type: type
+          url: url
+        created_at: created_at
+        paid_services:
+        - price_list:
+            alternate_url: alternate_url
+          quick_purchase:
+            price: 6.027456183070403
+            name: name
+            currency:
+              code: code
+              name: name
+              abbr: abbr
+            alternate_url: alternate_url
+          name: name
+          description: description
+          id: id
+        - price_list:
+            alternate_url: alternate_url
+          quick_purchase:
+            price: 6.027456183070403
+            name: name
+            currency:
+              code: code
+              name: name
+              abbr: abbr
+            alternate_url: alternate_url
+          name: name
+          description: description
+          id: id
+        title: title
+        creds: null
+        travel_time: ""
+        platform: null
+        total_experience:
+          months: 1.4658129805029452
+        updated_at: updated_at
+        driver_license_types:
+        - id: id
+        - id: id
+        schedules:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        first_name: first_name
+        favorited: true
+        owner: "{}"
+        citizenship:
+        - name: name
+          id: id
+          url: url
+        - name: name
+          id: id
+          url: url
+        last_name: last_name
         photo:
           small: small
           "100": "100"
           "500": "500"
           medium: medium
           "40": "40"
-        negotiations_history: "{}"
-        paid_services:
-        - price_list:
-            alternate_url: alternate_url
-          quick_purchase:
-            price: 0.8008281904610115
-            name: name
-            currency:
-              code: code
-              name: name
-              abbr: abbr
-            alternate_url: alternate_url
-          name: name
-          description: description
+        has_vehicle: true
+        employment: ""
+        employments:
+        - name: name
           id: id
-        - price_list:
-            alternate_url: alternate_url
-          quick_purchase:
-            price: 0.8008281904610115
-            name: name
-            currency:
-              code: code
-              name: name
-              abbr: abbr
-            alternate_url: alternate_url
-          name: name
-          description: description
+        - name: name
           id: id
-        actions: "{}"
-        favorited: true
+        relocation: null
+        middle_name: middle_name
+        work_ticket:
+        - name: name
+          id: id
+          url: url
+        - name: name
+          id: id
+          url: url
+        schedule: ""
+        site:
+        - type: ""
+          url: url
+        - type: ""
+          url: url
+        alternate_url: alternate_url
+        age: 0.8008281904610115
       title: Информация о резюме для работодателя
       type: object
     ResumeEmployerFields:
@@ -44256,9 +45900,91 @@ components:
         type: object
       example:
         resume:
+          education: null
+          gender: null
+          certificate:
+          - owner: owner
+            achieved_at: achieved_at
+            title: title
+            type: type
+            url: url
+          - owner: owner
+            achieved_at: achieved_at
+            title: title
+            type: type
+            url: url
+          created_at: created_at
+          title: title
+          experience:
+          - area:
+              name: name
+              id: id
+              url: url
+            company_id: company_id
+            industries:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            start: start
+            description: description
+            employer:
+              logo_urls:
+                "90": "90"
+              name: name
+              id: id
+              alternate_url: alternate_url
+              url: url
+            company: company
+            company_url: company_url
+            end: end
+            industry:
+              name: name
+              id: id
+            position: position
+          - area:
+              name: name
+              id: id
+              url: url
+            company_id: company_id
+            industries:
+            - name: name
+              id: id
+            - name: name
+              id: id
+            start: start
+            description: description
+            employer:
+              logo_urls:
+                "90": "90"
+              name: name
+              id: id
+              alternate_url: alternate_url
+              url: url
+            company: company
+            company_url: company_url
+            end: end
+            industry:
+              name: name
+              id: id
+            position: position
+          salary:
+            amount: 6.027456183070403
+            currency: currency
+          platform: null
+          download: null
+          total_experience:
+            months: 1.4658129805029452
+          updated_at: updated_at
+          can_view_full_info: true
+          viewed: true
+          id: id
+          first_name: first_name
+          favorited: true
+          area: null
           marked: true
           owner: "{}"
-          viewed: true
+          last_name: last_name
           photo:
             small: small
             "100": "100"
@@ -44266,13 +45992,21 @@ components:
             medium: medium
             id: id
             "40": "40"
-          job_search_status: ""
-          negotiations_history: "{}"
-          actions: "{}"
-          favorited: true
+          middle_name: middle_name
+          url: url
           tags:
           - id: id
           - id: id
+          job_search_status: ""
+          hidden_fields:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          negotiations_history: "{}"
+          alternate_url: alternate_url
+          actions: "{}"
+          age: 6.027456183070403
         professional_roles:
         - id: id
         - id: id
@@ -44293,7 +46027,7 @@ components:
         messages_url: messages_url
         updated_at: updated_at
         test_result:
-          score: 1
+          score: 0
           alternate_url: alternate_url
           mark: UNFAIR
           url: url
@@ -44434,6 +46168,8 @@ components:
         - name: name
           description: description
           id: id
+        name: name
+        id: id
       type: object
     ResumesResumeVisibilityListSearchProperties_items_inner:
       allOf:
@@ -44548,7 +46284,9 @@ components:
       - description: Отклик/приглашение
         type: object
       - $ref: '#/components/schemas/_IncludesIdName'
-      example: {}
+      example:
+        name: name
+        id: id
     _IncludesClusterMetroLine_area:
       allOf:
       - description: "Регион (город), в котором находится линия"
@@ -44580,7 +46318,116 @@ components:
       - $ref: '#/components/schemas/ResumeResumeShort'
       - $ref: '#/components/schemas/_IncludesUrl'
       example:
+        education: null
+        gender: null
+        certificate:
+        - owner: owner
+          achieved_at: achieved_at
+          title: title
+          type: type
+          url: url
+        - owner: owner
+          achieved_at: achieved_at
+          title: title
+          type: type
+          url: url
+        created_at: created_at
+        title: title
+        experience:
+        - area:
+            name: name
+            id: id
+            url: url
+          company_id: company_id
+          industries:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          start: start
+          description: description
+          employer:
+            logo_urls:
+              original: original
+              "90": "90"
+              "240": "240"
+            name: name
+            id: id
+            alternate_url: alternate_url
+            url: url
+          company: company
+          company_url: company_url
+          end: end
+          industry:
+            name: name
+            id: id
+          position: position
+        - area:
+            name: name
+            id: id
+            url: url
+          company_id: company_id
+          industries:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          start: start
+          description: description
+          employer:
+            logo_urls:
+              original: original
+              "90": "90"
+              "240": "240"
+            name: name
+            id: id
+            alternate_url: alternate_url
+            url: url
+          company: company
+          company_url: company_url
+          end: end
+          industry:
+            name: name
+            id: id
+          position: position
+        salary:
+          amount: 6.027456183070403
+          currency: currency
+        platform: null
+        download: null
+        total_experience:
+          months: 1.4658129805029452
+        updated_at: updated_at
+        can_view_full_info: true
+        viewed: true
+        id: id
+        first_name: first_name
+        favorited: true
+        area: null
+        marked: true
+        owner: "{}"
+        last_name: last_name
+        photo:
+          small: small
+          "100": "100"
+          "500": "500"
+          medium: medium
+          id: id
+          "40": "40"
+        middle_name: middle_name
         url: url
+        tags:
+        - id: id
+        - id: id
+        hidden_fields:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        negotiations_history: "{}"
+        alternate_url: alternate_url
+        actions: "{}"
+        age: 0.8008281904610115
     VacanciesVacancyProlongate_actions_inner:
       oneOf:
       - $ref: '#/components/schemas/VacanciesVacancyProlongateAvailableActions'
@@ -44679,7 +46526,7 @@ components:
     ResumeObjectsEmployerPaidServices_inner_quick_purchase:
       description: "Описание быстрой покупки услуги, если доступно"
       example:
-        price: 0.8008281904610115
+        price: 6.027456183070403
         name: name
         currency:
           code: code
@@ -44709,7 +46556,7 @@ components:
         price_list:
           alternate_url: alternate_url
         quick_purchase:
-          price: 0.8008281904610115
+          price: 6.027456183070403
           name: name
           currency:
             code: code
