@@ -22,7 +22,7 @@ var _ MappedNullable = &EmployerManagersEmployerManagerItem{}
 
 // EmployerManagersEmployerManagerItem struct for EmployerManagersEmployerManagerItem
 type EmployerManagersEmployerManagerItem struct {
-	AdditionalPhone *EmployerManagersAddEmployerManagerAdditionalPhone `json:"additional_phone,omitempty"`
+	AdditionalPhone NullableEmployerManagersEmployerManagerItemAdditionalPhone `json:"additional_phone,omitempty"`
 	Area EmployerManagersArea `json:"area"`
 	// Адрес электронной почты менеджера
 	Email string `json:"email"`
@@ -37,7 +37,7 @@ type EmployerManagersEmployerManagerItem struct {
 	// Фамилия менеджера
 	LastName *string `json:"last_name,omitempty"`
 	// Отчество менеджера
-	MiddleName *string `json:"middle_name,omitempty"`
+	MiddleName NullableString `json:"middle_name,omitempty"`
 	// Полное имя менеджера
 	// Deprecated
 	Name *string `json:"name,omitempty"`
@@ -71,36 +71,46 @@ func NewEmployerManagersEmployerManagerItemWithDefaults() *EmployerManagersEmplo
 	return &this
 }
 
-// GetAdditionalPhone returns the AdditionalPhone field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhone() EmployerManagersAddEmployerManagerAdditionalPhone {
-	if o == nil || IsNil(o.AdditionalPhone) {
-		var ret EmployerManagersAddEmployerManagerAdditionalPhone
+// GetAdditionalPhone returns the AdditionalPhone field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhone() EmployerManagersEmployerManagerItemAdditionalPhone {
+	if o == nil || IsNil(o.AdditionalPhone.Get()) {
+		var ret EmployerManagersEmployerManagerItemAdditionalPhone
 		return ret
 	}
-	return *o.AdditionalPhone
+	return *o.AdditionalPhone.Get()
 }
 
 // GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhoneOk() (*EmployerManagersAddEmployerManagerAdditionalPhone, bool) {
-	if o == nil || IsNil(o.AdditionalPhone) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhoneOk() (*EmployerManagersEmployerManagerItemAdditionalPhone, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AdditionalPhone, true
+	return o.AdditionalPhone.Get(), o.AdditionalPhone.IsSet()
 }
 
 // HasAdditionalPhone returns a boolean if a field has been set.
 func (o *EmployerManagersEmployerManagerItem) HasAdditionalPhone() bool {
-	if o != nil && !IsNil(o.AdditionalPhone) {
+	if o != nil && o.AdditionalPhone.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAdditionalPhone gets a reference to the given EmployerManagersAddEmployerManagerAdditionalPhone and assigns it to the AdditionalPhone field.
-func (o *EmployerManagersEmployerManagerItem) SetAdditionalPhone(v EmployerManagersAddEmployerManagerAdditionalPhone) {
-	o.AdditionalPhone = &v
+// SetAdditionalPhone gets a reference to the given NullableEmployerManagersEmployerManagerItemAdditionalPhone and assigns it to the AdditionalPhone field.
+func (o *EmployerManagersEmployerManagerItem) SetAdditionalPhone(v EmployerManagersEmployerManagerItemAdditionalPhone) {
+	o.AdditionalPhone.Set(&v)
+}
+// SetAdditionalPhoneNil sets the value for AdditionalPhone to be an explicit nil
+func (o *EmployerManagersEmployerManagerItem) SetAdditionalPhoneNil() {
+	o.AdditionalPhone.Set(nil)
+}
+
+// UnsetAdditionalPhone ensures that no value is present for AdditionalPhone, not even an explicit nil
+func (o *EmployerManagersEmployerManagerItem) UnsetAdditionalPhone() {
+	o.AdditionalPhone.Unset()
 }
 
 // GetArea returns the Area field value
@@ -303,36 +313,46 @@ func (o *EmployerManagersEmployerManagerItem) SetLastName(v string) {
 	o.LastName = &v
 }
 
-// GetMiddleName returns the MiddleName field value if set, zero value otherwise.
+// GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EmployerManagersEmployerManagerItem) GetMiddleName() string {
-	if o == nil || IsNil(o.MiddleName) {
+	if o == nil || IsNil(o.MiddleName.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.MiddleName
+	return *o.MiddleName.Get()
 }
 
 // GetMiddleNameOk returns a tuple with the MiddleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *EmployerManagersEmployerManagerItem) GetMiddleNameOk() (*string, bool) {
-	if o == nil || IsNil(o.MiddleName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MiddleName, true
+	return o.MiddleName.Get(), o.MiddleName.IsSet()
 }
 
 // HasMiddleName returns a boolean if a field has been set.
 func (o *EmployerManagersEmployerManagerItem) HasMiddleName() bool {
-	if o != nil && !IsNil(o.MiddleName) {
+	if o != nil && o.MiddleName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMiddleName gets a reference to the given string and assigns it to the MiddleName field.
+// SetMiddleName gets a reference to the given NullableString and assigns it to the MiddleName field.
 func (o *EmployerManagersEmployerManagerItem) SetMiddleName(v string) {
-	o.MiddleName = &v
+	o.MiddleName.Set(&v)
+}
+// SetMiddleNameNil sets the value for MiddleName to be an explicit nil
+func (o *EmployerManagersEmployerManagerItem) SetMiddleNameNil() {
+	o.MiddleName.Set(nil)
+}
+
+// UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
+func (o *EmployerManagersEmployerManagerItem) UnsetMiddleName() {
+	o.MiddleName.Unset()
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -478,8 +498,8 @@ func (o EmployerManagersEmployerManagerItem) MarshalJSON() ([]byte, error) {
 
 func (o EmployerManagersEmployerManagerItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AdditionalPhone) {
-		toSerialize["additional_phone"] = o.AdditionalPhone
+	if o.AdditionalPhone.IsSet() {
+		toSerialize["additional_phone"] = o.AdditionalPhone.Get()
 	}
 	toSerialize["area"] = o.Area
 	toSerialize["email"] = o.Email
@@ -496,8 +516,8 @@ func (o EmployerManagersEmployerManagerItem) ToMap() (map[string]interface{}, er
 	if !IsNil(o.LastName) {
 		toSerialize["last_name"] = o.LastName
 	}
-	if !IsNil(o.MiddleName) {
-		toSerialize["middle_name"] = o.MiddleName
+	if o.MiddleName.IsSet() {
+		toSerialize["middle_name"] = o.MiddleName.Get()
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name

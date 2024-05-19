@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **City** | **string** | Код города | 
-**Comment** | Pointer to **string** | Комментарий | [optional] 
+**Comment** | Pointer to **NullableString** | Комментарий | [optional] 
 **Country** | **string** | Код страны | 
 **Formatted** | Pointer to **string** | Номер телефона отформатированный | [optional] 
 **Number** | **string** | Номер | 
@@ -74,6 +74,16 @@ SetComment sets Comment field to given value.
 
 HasComment returns a boolean if a field has been set.
 
+### SetCommentNil
+
+`func (o *EmployerManagersPhone) SetCommentNil(b bool)`
+
+ SetCommentNil sets the value for Comment to be an explicit nil
+
+### UnsetComment
+`func (o *EmployerManagersPhone) UnsetComment()`
+
+UnsetComment ensures that no value is present for Comment, not even an explicit nil
 ### GetCountry
 
 `func (o *EmployerManagersPhone) GetCountry() string`

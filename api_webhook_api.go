@@ -545,6 +545,8 @@ PostWebhookSubscription Подписаться на уведомления
 
 Вебхуки не являются средствами гарантированной доставки. Мы отправляем все сообщения, но не гарантируем, что адресат их получит
 
+Структура и содержимое колбэков описаны в разделе [callbacks](#callbacks)
+
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostWebhookSubscriptionRequest

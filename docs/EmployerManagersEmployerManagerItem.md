@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AdditionalPhone** | Pointer to [**EmployerManagersAddEmployerManagerAdditionalPhone**](EmployerManagersAddEmployerManagerAdditionalPhone.md) |  | [optional] 
+**AdditionalPhone** | Pointer to [**NullableEmployerManagersEmployerManagerItemAdditionalPhone**](EmployerManagersEmployerManagerItemAdditionalPhone.md) |  | [optional] 
 **Area** | [**EmployerManagersArea**](EmployerManagersArea.md) |  | 
 **Email** | **string** | Адрес электронной почты менеджера | 
 **FirstName** | Pointer to **string** | Имя менеджера | [optional] 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Идентификатор менеджера | 
 **IsMainContactPerson** | Pointer to **bool** | Является ли менеджер основным контактным лицом | [optional] 
 **LastName** | Pointer to **string** | Фамилия менеджера | [optional] 
-**MiddleName** | Pointer to **string** | Отчество менеджера | [optional] 
+**MiddleName** | Pointer to **NullableString** | Отчество менеджера | [optional] 
 **Name** | Pointer to **string** | Полное имя менеджера | [optional] 
 **Phone** | Pointer to [**EmployerManagersAddEmployerManagerPhone**](EmployerManagersAddEmployerManagerPhone.md) |  | [optional] 
 **Position** | **string** | Должность менеджера | 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAdditionalPhone
 
-`func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhone() EmployerManagersAddEmployerManagerAdditionalPhone`
+`func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhone() EmployerManagersEmployerManagerItemAdditionalPhone`
 
 GetAdditionalPhone returns the AdditionalPhone field if non-nil, zero value otherwise.
 
 ### GetAdditionalPhoneOk
 
-`func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhoneOk() (*EmployerManagersAddEmployerManagerAdditionalPhone, bool)`
+`func (o *EmployerManagersEmployerManagerItem) GetAdditionalPhoneOk() (*EmployerManagersEmployerManagerItemAdditionalPhone, bool)`
 
 GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalPhone
 
-`func (o *EmployerManagersEmployerManagerItem) SetAdditionalPhone(v EmployerManagersAddEmployerManagerAdditionalPhone)`
+`func (o *EmployerManagersEmployerManagerItem) SetAdditionalPhone(v EmployerManagersEmployerManagerItemAdditionalPhone)`
 
 SetAdditionalPhone sets AdditionalPhone field to given value.
 
@@ -62,6 +62,16 @@ SetAdditionalPhone sets AdditionalPhone field to given value.
 
 HasAdditionalPhone returns a boolean if a field has been set.
 
+### SetAdditionalPhoneNil
+
+`func (o *EmployerManagersEmployerManagerItem) SetAdditionalPhoneNil(b bool)`
+
+ SetAdditionalPhoneNil sets the value for AdditionalPhone to be an explicit nil
+
+### UnsetAdditionalPhone
+`func (o *EmployerManagersEmployerManagerItem) UnsetAdditionalPhone()`
+
+UnsetAdditionalPhone ensures that no value is present for AdditionalPhone, not even an explicit nil
 ### GetArea
 
 `func (o *EmployerManagersEmployerManagerItem) GetArea() EmployerManagersArea`
@@ -247,6 +257,16 @@ SetMiddleName sets MiddleName field to given value.
 
 HasMiddleName returns a boolean if a field has been set.
 
+### SetMiddleNameNil
+
+`func (o *EmployerManagersEmployerManagerItem) SetMiddleNameNil(b bool)`
+
+ SetMiddleNameNil sets the value for MiddleName to be an explicit nil
+
+### UnsetMiddleName
+`func (o *EmployerManagersEmployerManagerItem) UnsetMiddleName()`
+
+UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
 ### GetName
 
 `func (o *EmployerManagersEmployerManagerItem) GetName() string`

@@ -34,7 +34,7 @@ type NegotiationsMessage struct {
 	// Состояние сообщения
 	State IncludesIdName `json:"state"`
 	// Текст сообщения
-	Text string `json:"text"`
+	Text NullableString `json:"text"`
 	// Прочитано ли сообщение смотрящим (для сообщений отправленных соискателем - всегда true)
 	ViewedByMe bool `json:"viewed_by_me"`
 	// Прочитано ли сообщение работодателем (для сообщений работодателя - true)
@@ -47,7 +47,7 @@ type _NegotiationsMessage NegotiationsMessage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNegotiationsMessage(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessage {
+func NewNegotiationsMessage(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text NullableString, viewedByMe bool, viewedByOpponent bool) *NegotiationsMessage {
 	this := NegotiationsMessage{}
 	this.Author = author
 	this.CreatedAt = createdAt
@@ -221,27 +221,29 @@ func (o *NegotiationsMessage) SetState(v IncludesIdName) {
 }
 
 // GetText returns the Text field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *NegotiationsMessage) GetText() string {
-	if o == nil {
+	if o == nil || o.Text.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Text
+	return *o.Text.Get()
 }
 
 // GetTextOk returns a tuple with the Text field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsMessage) GetTextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Text, true
+	return o.Text.Get(), o.Text.IsSet()
 }
 
 // SetText sets field value
 func (o *NegotiationsMessage) SetText(v string) {
-	o.Text = v
+	o.Text.Set(&v)
 }
 
 // GetViewedByMe returns the ViewedByMe field value
@@ -310,7 +312,7 @@ func (o NegotiationsMessage) ToMap() (map[string]interface{}, error) {
 		toSerialize["read"] = o.Read
 	}
 	toSerialize["state"] = o.State
-	toSerialize["text"] = o.Text
+	toSerialize["text"] = o.Text.Get()
 	toSerialize["viewed_by_me"] = o.ViewedByMe
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
 	return toSerialize, nil

@@ -67,6 +67,7 @@ docs/EmployerManagersAreaId.md
 docs/EmployerManagersEmployerManagerId.md
 docs/EmployerManagersEmployerManagerInfo.md
 docs/EmployerManagersEmployerManagerItem.md
+docs/EmployerManagersEmployerManagerItemAdditionalPhone.md
 docs/EmployerManagersEmployerManagerLimits.md
 docs/EmployerManagersManagerData.md
 docs/EmployerManagersManagerType.md
@@ -806,6 +807,7 @@ model_employer_managers_area_id.go
 model_employer_managers_employer_manager_id.go
 model_employer_managers_employer_manager_info.go
 model_employer_managers_employer_manager_item.go
+model_employer_managers_employer_manager_item_additional_phone.go
 model_employer_managers_employer_manager_limits.go
 model_employer_managers_manager_data.go
 model_employer_managers_manager_type.go

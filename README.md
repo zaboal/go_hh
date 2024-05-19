@@ -398,6 +398,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**Authorize**](docs/DefaultApi.md#authorize) | **Post** /oauth/token | Получение access-токена
 *DefaultApi* | [**Authorize_0**](docs/DefaultApi.md#authorize_0) | **Post** /oauth/token | Получение access-токена
 *DefaultApi* | [**Authorize_1**](docs/DefaultApi.md#authorize_1) | **Post** /oauth/token | Получение access-токена
+*DefaultApi* | [**ChangeNegotiationAction**](docs/DefaultApi.md#changenegotiationaction) | **Put** /negotiations/{collection_name}/{nid} | Действия по отклику/приглашению коллекции
+*DefaultApi* | [**ChangeNegotiationAction_0**](docs/DefaultApi.md#changenegotiationaction_0) | **Put** /negotiations/{collection_name}/{nid} | Действия по отклику/приглашению коллекции
 *DefaultApi* | [**ChangeVacancyDraft**](docs/DefaultApi.md#changevacancydraft) | **Put** /vacancies/drafts/{draft_id} | Изменение черновика вакансии
 *DefaultApi* | [**ConfirmPhoneInResume**](docs/DefaultApi.md#confirmphoneinresume) | **Post** /resume_phone_confirm | Подтвердить телефон кодом
 *DefaultApi* | [**CreateResume**](docs/DefaultApi.md#createresume) | **Post** /resumes | Создание резюме
@@ -577,6 +579,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**RestoreVacancyFromHidden**](docs/DefaultApi.md#restorevacancyfromhidden) | **Delete** /employers/{employer_id}/vacancies/hidden/{vacancy_id} | Восстановление вакансии из удаленных
 *DefaultApi* | [**SearchEmployer**](docs/DefaultApi.md#searchemployer) | **Get** /employers | Поиск работодателя
 *DefaultApi* | [**SearchForResumes**](docs/DefaultApi.md#searchforresumes) | **Get** /resumes | Поиск резюме
+*DefaultApi* | [**SearchForResumes_0**](docs/DefaultApi.md#searchforresumes_0) | **Get** /resumes | Поиск резюме
 *DefaultApi* | [**SearchForVacancyDraftDuplicates**](docs/DefaultApi.md#searchforvacancydraftduplicates) | **Get** /vacancies/drafts/{draft_id}/duplicates | Проверка наличия дубликатов вакансии
 *DefaultApi* | [**SendCodeForVerifyPhoneInResume**](docs/DefaultApi.md#sendcodeforverifyphoneinresume) | **Post** /resume_phone_generate_code | Отправить код подтверждения для телефона резюме
 *DefaultApi* | [**SendNegotiationMessage**](docs/DefaultApi.md#sendnegotiationmessage) | **Post** /negotiations/{nid}/messages | Отправка нового сообщения
@@ -656,6 +659,7 @@ Class | Method | HTTP request | Description
  - [EmployerManagersEmployerManagerId](docs/EmployerManagersEmployerManagerId.md)
  - [EmployerManagersEmployerManagerInfo](docs/EmployerManagersEmployerManagerInfo.md)
  - [EmployerManagersEmployerManagerItem](docs/EmployerManagersEmployerManagerItem.md)
+ - [EmployerManagersEmployerManagerItemAdditionalPhone](docs/EmployerManagersEmployerManagerItemAdditionalPhone.md)
  - [EmployerManagersEmployerManagerLimits](docs/EmployerManagersEmployerManagerLimits.md)
  - [EmployerManagersManagerData](docs/EmployerManagersManagerData.md)
  - [EmployerManagersManagerType](docs/EmployerManagersManagerType.md)

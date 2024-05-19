@@ -2448,6 +2448,386 @@ func (a *DefaultApiService) Authorize_4Execute(r ApiAuthorize_1Request) (*AuthUs
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiChangeNegotiationActionRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	collectionName string
+	nid string
+	hHUserAgent *string
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiChangeNegotiationActionRequest) HHUserAgent(hHUserAgent string) ApiChangeNegotiationActionRequest {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiChangeNegotiationActionRequest) Locale(locale string) ApiChangeNegotiationActionRequest {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiChangeNegotiationActionRequest) Host(host string) ApiChangeNegotiationActionRequest {
+	r.host = &host
+	return r
+}
+
+func (r ApiChangeNegotiationActionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ChangeNegotiationActionExecute(r)
+}
+
+/*
+ChangeNegotiationAction Действия по отклику/приглашению коллекции
+
+Запрос изменяет состояние работодательского (`employer_state`) или соискательского (`state`) состояния отклика/приглашения.
+
+#### Смена работодательского состояния отклика/приглашения
+
+> Доступные действия для каждого отклика/приглашения перечислены в массиве `employer_states` [списка откликов/приглашений](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations). 
+
+Чтобы изменить состояние отклика, выполните запрос из параметра `actions[].url` [списка откликов/приглашений](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-collection-negotiations-list) для выбранного действия над откликом.
+В запросе необходимо передать аргументы массива `actions[].arguments` в формате `application/x-www-form-urlencoded`.
+
+Примеры действий:
+
+* отложить отклик;
+* пригласить соискателя на интервью в ответ на отклик;
+* отказать соискателю.
+
+#### Смена соискательского состояния отклика/приглашения
+
+Изменение соискательского состояния отклика/приглашения влияет на [статистику по работе с откликами](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations-statistics-employer).
+
+Условие смены соискательского состояния отклика/приглашения — отправка сообщения соискателю любым из способов:
+
+- Совершить действие с откликом/приглашением, используя метод `/negotiations/{collection_name}/{nid}`, с сопроводительным сообщением.
+- [Отправить сообщение](#tag/Otklikipriglasheniya-rabotodatelya/operation/send-negotiation-message) в отклике. Статус изменится, если перед отправкой использовался метод изменения работодательского статуса без сопроводительного сообщения.
+
+Соискательский статус в обоих случаях изменится или на приглашение (`invitation`), или на отказ (`discard`)
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param collectionName Название коллекции. Возможные значения указаны в поле `generated_collections.name` [списка коллекций](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations) 
+ @param nid Идентификатор отклика
+ @return ApiChangeNegotiationActionRequest
+*/
+func (a *DefaultApiService) ChangeNegotiationAction(ctx context.Context, collectionName string, nid string) ApiChangeNegotiationActionRequest {
+	return ApiChangeNegotiationActionRequest{
+		ApiService: a,
+		ctx: ctx,
+		collectionName: collectionName,
+		nid: nid,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultApiService) ChangeNegotiationActionExecute(r ApiChangeNegotiationActionRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ChangeNegotiationAction")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/negotiations/{collection_name}/{nid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"collection_name"+"}", url.PathEscape(parameterValueToString(r.collectionName, "collectionName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nid"+"}", url.PathEscape(parameterValueToString(r.nid, "nid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonBadRequestBadArgumentBadRequestAndBadArgumentErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsVacancyApplyForbiddenErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorsNegotiationNegotiationsNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiChangeNegotiationAction_0Request struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	collectionName string
+	nid string
+	hHUserAgent *string
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiChangeNegotiationAction_0Request) HHUserAgent(hHUserAgent string) ApiChangeNegotiationAction_0Request {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiChangeNegotiationAction_0Request) Locale(locale string) ApiChangeNegotiationAction_0Request {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiChangeNegotiationAction_0Request) Host(host string) ApiChangeNegotiationAction_0Request {
+	r.host = &host
+	return r
+}
+
+func (r ApiChangeNegotiationAction_0Request) Execute() (*http.Response, error) {
+	return r.ApiService.ChangeNegotiationAction_5Execute(r)
+}
+
+/*
+ChangeNegotiationAction_0 Действия по отклику/приглашению коллекции
+
+Запрос изменяет состояние работодательского (`employer_state`) или соискательского (`state`) состояния отклика/приглашения.
+
+#### Смена работодательского состояния отклика/приглашения
+
+> Доступные действия для каждого отклика/приглашения перечислены в массиве `employer_states` [списка откликов/приглашений](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations). 
+
+Чтобы изменить состояние отклика, выполните запрос из параметра `actions[].url` [списка откликов/приглашений](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-collection-negotiations-list) для выбранного действия над откликом.
+В запросе необходимо передать аргументы массива `actions[].arguments` в формате `application/x-www-form-urlencoded`.
+
+Примеры действий:
+
+* отложить отклик;
+* пригласить соискателя на интервью в ответ на отклик;
+* отказать соискателю.
+
+#### Смена соискательского состояния отклика/приглашения
+
+Изменение соискательского состояния отклика/приглашения влияет на [статистику по работе с откликами](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations-statistics-employer).
+
+Условие смены соискательского состояния отклика/приглашения — отправка сообщения соискателю любым из способов:
+
+- Совершить действие с откликом/приглашением, используя метод `/negotiations/{collection_name}/{nid}`, с сопроводительным сообщением.
+- [Отправить сообщение](#tag/Otklikipriglasheniya-rabotodatelya/operation/send-negotiation-message) в отклике. Статус изменится, если перед отправкой использовался метод изменения работодательского статуса без сопроводительного сообщения.
+
+Соискательский статус в обоих случаях изменится или на приглашение (`invitation`), или на отказ (`discard`)
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param collectionName Название коллекции. Возможные значения указаны в поле `generated_collections.name` [списка коллекций](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations) 
+ @param nid Идентификатор отклика
+ @return ApiChangeNegotiationAction_0Request
+*/
+func (a *DefaultApiService) ChangeNegotiationAction_5(ctx context.Context, collectionName string, nid string) ApiChangeNegotiationAction_0Request {
+	return ApiChangeNegotiationAction_0Request{
+		ApiService: a,
+		ctx: ctx,
+		collectionName: collectionName,
+		nid: nid,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultApiService) ChangeNegotiationAction_5Execute(r ApiChangeNegotiationAction_0Request) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ChangeNegotiationAction_5")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/negotiations/{collection_name}/{nid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"collection_name"+"}", url.PathEscape(parameterValueToString(r.collectionName, "collectionName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"nid"+"}", url.PathEscape(parameterValueToString(r.nid, "nid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonBadRequestBadArgumentBadRequestAndBadArgumentErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsVacancyApplyForbiddenErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorsNegotiationNegotiationsNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiChangeVacancyDraftRequest struct {
 	ctx context.Context
 	ApiService *DefaultApiService
@@ -4337,7 +4717,7 @@ func (r ApiDeleteApplicantComment_0Request) Host(host string) ApiDeleteApplicant
 }
 
 func (r ApiDeleteApplicantComment_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteApplicantComment_5Execute(r)
+	return r.ApiService.DeleteApplicantComment_6Execute(r)
 }
 
 /*
@@ -4353,7 +4733,7 @@ DeleteApplicantComment_0 Удаление комментария
  @param commentId Идентификатор комментария, который будет удален. Его можно узнать в [списке комментариев](#tag/Kommentarii-k-soiskatelyu/operation/get-applicant-comments-list)
  @return ApiDeleteApplicantComment_0Request
 */
-func (a *DefaultApiService) DeleteApplicantComment_5(ctx context.Context, applicantId string, commentId string) ApiDeleteApplicantComment_0Request {
+func (a *DefaultApiService) DeleteApplicantComment_6(ctx context.Context, applicantId string, commentId string) ApiDeleteApplicantComment_0Request {
 	return ApiDeleteApplicantComment_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -4363,14 +4743,14 @@ func (a *DefaultApiService) DeleteApplicantComment_5(ctx context.Context, applic
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteApplicantComment_5Execute(r ApiDeleteApplicantComment_0Request) (*http.Response, error) {
+func (a *DefaultApiService) DeleteApplicantComment_6Execute(r ApiDeleteApplicantComment_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteApplicantComment_5")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteApplicantComment_6")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -7436,7 +7816,7 @@ func (r ApiEditVacancy_0Request) Host(host string) ApiEditVacancy_0Request {
 }
 
 func (r ApiEditVacancy_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.EditVacancy_6Execute(r)
+	return r.ApiService.EditVacancy_7Execute(r)
 }
 
 /*
@@ -7453,7 +7833,7 @@ EditVacancy_0 Редактирование вакансий
  @param vacancyId Идентификатор вакансии
  @return ApiEditVacancy_0Request
 */
-func (a *DefaultApiService) EditVacancy_6(ctx context.Context, vacancyId string) ApiEditVacancy_0Request {
+func (a *DefaultApiService) EditVacancy_7(ctx context.Context, vacancyId string) ApiEditVacancy_0Request {
 	return ApiEditVacancy_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -7462,14 +7842,14 @@ func (a *DefaultApiService) EditVacancy_6(ctx context.Context, vacancyId string)
 }
 
 // Execute executes the request
-func (a *DefaultApiService) EditVacancy_6Execute(r ApiEditVacancy_0Request) (*http.Response, error) {
+func (a *DefaultApiService) EditVacancy_7Execute(r ApiEditVacancy_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.EditVacancy_6")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.EditVacancy_7")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -8149,7 +8529,7 @@ func (r ApiGetActiveVacancyList_0Request) Host(host string) ApiGetActiveVacancyL
 }
 
 func (r ApiGetActiveVacancyList_0Request) Execute() (*VacanciesVacancyListResponse, *http.Response, error) {
-	return r.ApiService.GetActiveVacancyList_7Execute(r)
+	return r.ApiService.GetActiveVacancyList_8Execute(r)
 }
 
 /*
@@ -8164,7 +8544,7 @@ GetActiveVacancyList_0 Просмотр списка опубликованны�
  @param employerId Идентификатор работодателя
  @return ApiGetActiveVacancyList_0Request
 */
-func (a *DefaultApiService) GetActiveVacancyList_7(ctx context.Context, employerId string) ApiGetActiveVacancyList_0Request {
+func (a *DefaultApiService) GetActiveVacancyList_8(ctx context.Context, employerId string) ApiGetActiveVacancyList_0Request {
 	return ApiGetActiveVacancyList_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -8174,7 +8554,7 @@ func (a *DefaultApiService) GetActiveVacancyList_7(ctx context.Context, employer
 
 // Execute executes the request
 //  @return VacanciesVacancyListResponse
-func (a *DefaultApiService) GetActiveVacancyList_7Execute(r ApiGetActiveVacancyList_0Request) (*VacanciesVacancyListResponse, *http.Response, error) {
+func (a *DefaultApiService) GetActiveVacancyList_8Execute(r ApiGetActiveVacancyList_0Request) (*VacanciesVacancyListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -8182,7 +8562,7 @@ func (a *DefaultApiService) GetActiveVacancyList_7Execute(r ApiGetActiveVacancyL
 		localVarReturnValue  *VacanciesVacancyListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetActiveVacancyList_7")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetActiveVacancyList_8")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -8532,7 +8912,7 @@ func (r ApiGetAddress_0Request) Host(host string) ApiGetAddress_0Request {
 }
 
 func (r ApiGetAddress_0Request) Execute() (*EmployerAddressesEmployerAddressItemResponse, *http.Response, error) {
-	return r.ApiService.GetAddress_8Execute(r)
+	return r.ApiService.GetAddress_9Execute(r)
 }
 
 /*
@@ -8543,7 +8923,7 @@ GetAddress_0 Получение адреса
  @param addressId Идентификатор адреса работодателя
  @return ApiGetAddress_0Request
 */
-func (a *DefaultApiService) GetAddress_8(ctx context.Context, employerId string, addressId string) ApiGetAddress_0Request {
+func (a *DefaultApiService) GetAddress_9(ctx context.Context, employerId string, addressId string) ApiGetAddress_0Request {
 	return ApiGetAddress_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -8554,7 +8934,7 @@ func (a *DefaultApiService) GetAddress_8(ctx context.Context, employerId string,
 
 // Execute executes the request
 //  @return EmployerAddressesEmployerAddressItemResponse
-func (a *DefaultApiService) GetAddress_8Execute(r ApiGetAddress_0Request) (*EmployerAddressesEmployerAddressItemResponse, *http.Response, error) {
+func (a *DefaultApiService) GetAddress_9Execute(r ApiGetAddress_0Request) (*EmployerAddressesEmployerAddressItemResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -8562,7 +8942,7 @@ func (a *DefaultApiService) GetAddress_8Execute(r ApiGetAddress_0Request) (*Empl
 		localVarReturnValue  *EmployerAddressesEmployerAddressItemResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetAddress_8")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetAddress_9")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -9046,7 +9426,7 @@ func (r ApiGetApplicantCommentsList_0Request) Host(host string) ApiGetApplicantC
 }
 
 func (r ApiGetApplicantCommentsList_0Request) Execute() (*ApplicantCommentsApplicantCommentsList, *http.Response, error) {
-	return r.ApiService.GetApplicantCommentsList_9Execute(r)
+	return r.ApiService.GetApplicantCommentsList_10Execute(r)
 }
 
 /*
@@ -9061,7 +9441,7 @@ GetApplicantCommentsList_0 Получение списка комментари�
  @param applicantId Идентификатор соискателя, который можно узнать из поля `owner` [в резюме](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#owner-field)
  @return ApiGetApplicantCommentsList_0Request
 */
-func (a *DefaultApiService) GetApplicantCommentsList_9(ctx context.Context, applicantId string) ApiGetApplicantCommentsList_0Request {
+func (a *DefaultApiService) GetApplicantCommentsList_10(ctx context.Context, applicantId string) ApiGetApplicantCommentsList_0Request {
 	return ApiGetApplicantCommentsList_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -9071,7 +9451,7 @@ func (a *DefaultApiService) GetApplicantCommentsList_9(ctx context.Context, appl
 
 // Execute executes the request
 //  @return ApplicantCommentsApplicantCommentsList
-func (a *DefaultApiService) GetApplicantCommentsList_9Execute(r ApiGetApplicantCommentsList_0Request) (*ApplicantCommentsApplicantCommentsList, *http.Response, error) {
+func (a *DefaultApiService) GetApplicantCommentsList_10Execute(r ApiGetApplicantCommentsList_0Request) (*ApplicantCommentsApplicantCommentsList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -9079,7 +9459,7 @@ func (a *DefaultApiService) GetApplicantCommentsList_9Execute(r ApiGetApplicantC
 		localVarReturnValue  *ApplicantCommentsApplicantCommentsList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetApplicantCommentsList_9")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetApplicantCommentsList_10")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -9623,7 +10003,7 @@ func (r ApiGetArchivedVacancies_0Request) Host(host string) ApiGetArchivedVacanc
 }
 
 func (r ApiGetArchivedVacancies_0Request) Execute() (*VacanciesArchivedVacancyListResponse, *http.Response, error) {
-	return r.ApiService.GetArchivedVacancies_10Execute(r)
+	return r.ApiService.GetArchivedVacancies_11Execute(r)
 }
 
 /*
@@ -9633,7 +10013,7 @@ GetArchivedVacancies_0 Список архивных вакансий
  @param employerId Идентификатор работодателя
  @return ApiGetArchivedVacancies_0Request
 */
-func (a *DefaultApiService) GetArchivedVacancies_10(ctx context.Context, employerId string) ApiGetArchivedVacancies_0Request {
+func (a *DefaultApiService) GetArchivedVacancies_11(ctx context.Context, employerId string) ApiGetArchivedVacancies_0Request {
 	return ApiGetArchivedVacancies_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -9643,7 +10023,7 @@ func (a *DefaultApiService) GetArchivedVacancies_10(ctx context.Context, employe
 
 // Execute executes the request
 //  @return VacanciesArchivedVacancyListResponse
-func (a *DefaultApiService) GetArchivedVacancies_10Execute(r ApiGetArchivedVacancies_0Request) (*VacanciesArchivedVacancyListResponse, *http.Response, error) {
+func (a *DefaultApiService) GetArchivedVacancies_11Execute(r ApiGetArchivedVacancies_0Request) (*VacanciesArchivedVacancyListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -9651,7 +10031,7 @@ func (a *DefaultApiService) GetArchivedVacancies_10Execute(r ApiGetArchivedVacan
 		localVarReturnValue  *VacanciesArchivedVacancyListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetArchivedVacancies_10")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetArchivedVacancies_11")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -12085,7 +12465,7 @@ func (r ApiGetCollectionNegotiationsList_0Request) Host(host string) ApiGetColle
 }
 
 func (r ApiGetCollectionNegotiationsList_0Request) Execute() (*NegotiationsCollectionNegotiationsResponse, *http.Response, error) {
-	return r.ApiService.GetCollectionNegotiationsList_11Execute(r)
+	return r.ApiService.GetCollectionNegotiationsList_12Execute(r)
 }
 
 /*
@@ -12105,7 +12485,7 @@ GetCollectionNegotiationsList_0 Список откликов/приглашен
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCollectionNegotiationsList_0Request
 */
-func (a *DefaultApiService) GetCollectionNegotiationsList_11(ctx context.Context) ApiGetCollectionNegotiationsList_0Request {
+func (a *DefaultApiService) GetCollectionNegotiationsList_12(ctx context.Context) ApiGetCollectionNegotiationsList_0Request {
 	return ApiGetCollectionNegotiationsList_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -12114,7 +12494,7 @@ func (a *DefaultApiService) GetCollectionNegotiationsList_11(ctx context.Context
 
 // Execute executes the request
 //  @return NegotiationsCollectionNegotiationsResponse
-func (a *DefaultApiService) GetCollectionNegotiationsList_11Execute(r ApiGetCollectionNegotiationsList_0Request) (*NegotiationsCollectionNegotiationsResponse, *http.Response, error) {
+func (a *DefaultApiService) GetCollectionNegotiationsList_12Execute(r ApiGetCollectionNegotiationsList_0Request) (*NegotiationsCollectionNegotiationsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -12122,7 +12502,7 @@ func (a *DefaultApiService) GetCollectionNegotiationsList_11Execute(r ApiGetColl
 		localVarReturnValue  *NegotiationsCollectionNegotiationsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCollectionNegotiationsList_11")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCollectionNegotiationsList_12")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -12618,7 +12998,7 @@ func (r ApiGetCurrentUserInfo_0Request) Host(host string) ApiGetCurrentUserInfo_
 }
 
 func (r ApiGetCurrentUserInfo_0Request) Execute() (*MeProfile, *http.Response, error) {
-	return r.ApiService.GetCurrentUserInfo_12Execute(r)
+	return r.ApiService.GetCurrentUserInfo_13Execute(r)
 }
 
 /*
@@ -12627,7 +13007,7 @@ GetCurrentUserInfo_0 Информация о текущем пользовате
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCurrentUserInfo_0Request
 */
-func (a *DefaultApiService) GetCurrentUserInfo_12(ctx context.Context) ApiGetCurrentUserInfo_0Request {
+func (a *DefaultApiService) GetCurrentUserInfo_13(ctx context.Context) ApiGetCurrentUserInfo_0Request {
 	return ApiGetCurrentUserInfo_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -12636,7 +13016,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_12(ctx context.Context) ApiGetCur
 
 // Execute executes the request
 //  @return MeProfile
-func (a *DefaultApiService) GetCurrentUserInfo_12Execute(r ApiGetCurrentUserInfo_0Request) (*MeProfile, *http.Response, error) {
+func (a *DefaultApiService) GetCurrentUserInfo_13Execute(r ApiGetCurrentUserInfo_0Request) (*MeProfile, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -12644,7 +13024,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_12Execute(r ApiGetCurrentUserInfo
 		localVarReturnValue  *MeProfile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_12")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_13")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -12762,7 +13142,7 @@ func (r ApiGetCurrentUserInfo_1Request) Host(host string) ApiGetCurrentUserInfo_
 }
 
 func (r ApiGetCurrentUserInfo_1Request) Execute() (*MeProfile, *http.Response, error) {
-	return r.ApiService.GetCurrentUserInfo_13Execute(r)
+	return r.ApiService.GetCurrentUserInfo_14Execute(r)
 }
 
 /*
@@ -12771,7 +13151,7 @@ GetCurrentUserInfo_1 Информация о текущем пользовате
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCurrentUserInfo_1Request
 */
-func (a *DefaultApiService) GetCurrentUserInfo_13(ctx context.Context) ApiGetCurrentUserInfo_1Request {
+func (a *DefaultApiService) GetCurrentUserInfo_14(ctx context.Context) ApiGetCurrentUserInfo_1Request {
 	return ApiGetCurrentUserInfo_1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -12780,7 +13160,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_13(ctx context.Context) ApiGetCur
 
 // Execute executes the request
 //  @return MeProfile
-func (a *DefaultApiService) GetCurrentUserInfo_13Execute(r ApiGetCurrentUserInfo_1Request) (*MeProfile, *http.Response, error) {
+func (a *DefaultApiService) GetCurrentUserInfo_14Execute(r ApiGetCurrentUserInfo_1Request) (*MeProfile, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -12788,7 +13168,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_13Execute(r ApiGetCurrentUserInfo
 		localVarReturnValue  *MeProfile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_13")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_14")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -12906,7 +13286,7 @@ func (r ApiGetCurrentUserInfo_2Request) Host(host string) ApiGetCurrentUserInfo_
 }
 
 func (r ApiGetCurrentUserInfo_2Request) Execute() (*MeProfile, *http.Response, error) {
-	return r.ApiService.GetCurrentUserInfo_14Execute(r)
+	return r.ApiService.GetCurrentUserInfo_15Execute(r)
 }
 
 /*
@@ -12915,7 +13295,7 @@ GetCurrentUserInfo_2 Информация о текущем пользовате
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCurrentUserInfo_2Request
 */
-func (a *DefaultApiService) GetCurrentUserInfo_14(ctx context.Context) ApiGetCurrentUserInfo_2Request {
+func (a *DefaultApiService) GetCurrentUserInfo_15(ctx context.Context) ApiGetCurrentUserInfo_2Request {
 	return ApiGetCurrentUserInfo_2Request{
 		ApiService: a,
 		ctx: ctx,
@@ -12924,7 +13304,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_14(ctx context.Context) ApiGetCur
 
 // Execute executes the request
 //  @return MeProfile
-func (a *DefaultApiService) GetCurrentUserInfo_14Execute(r ApiGetCurrentUserInfo_2Request) (*MeProfile, *http.Response, error) {
+func (a *DefaultApiService) GetCurrentUserInfo_15Execute(r ApiGetCurrentUserInfo_2Request) (*MeProfile, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -12932,7 +13312,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_14Execute(r ApiGetCurrentUserInfo
 		localVarReturnValue  *MeProfile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_14")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_15")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -13050,7 +13430,7 @@ func (r ApiGetCurrentUserInfo_3Request) Host(host string) ApiGetCurrentUserInfo_
 }
 
 func (r ApiGetCurrentUserInfo_3Request) Execute() (*MeProfile, *http.Response, error) {
-	return r.ApiService.GetCurrentUserInfo_15Execute(r)
+	return r.ApiService.GetCurrentUserInfo_16Execute(r)
 }
 
 /*
@@ -13059,7 +13439,7 @@ GetCurrentUserInfo_3 Информация о текущем пользовате
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCurrentUserInfo_3Request
 */
-func (a *DefaultApiService) GetCurrentUserInfo_15(ctx context.Context) ApiGetCurrentUserInfo_3Request {
+func (a *DefaultApiService) GetCurrentUserInfo_16(ctx context.Context) ApiGetCurrentUserInfo_3Request {
 	return ApiGetCurrentUserInfo_3Request{
 		ApiService: a,
 		ctx: ctx,
@@ -13068,7 +13448,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_15(ctx context.Context) ApiGetCur
 
 // Execute executes the request
 //  @return MeProfile
-func (a *DefaultApiService) GetCurrentUserInfo_15Execute(r ApiGetCurrentUserInfo_3Request) (*MeProfile, *http.Response, error) {
+func (a *DefaultApiService) GetCurrentUserInfo_16Execute(r ApiGetCurrentUserInfo_3Request) (*MeProfile, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -13076,7 +13456,7 @@ func (a *DefaultApiService) GetCurrentUserInfo_15Execute(r ApiGetCurrentUserInfo
 		localVarReturnValue  *MeProfile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_15")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetCurrentUserInfo_16")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -13900,7 +14280,7 @@ func (r ApiGetEmployerAddresses_0Request) Host(host string) ApiGetEmployerAddres
 }
 
 func (r ApiGetEmployerAddresses_0Request) Execute() (*EmployerAddressesEmployerAddressesResponse, *http.Response, error) {
-	return r.ApiService.GetEmployerAddresses_16Execute(r)
+	return r.ApiService.GetEmployerAddresses_17Execute(r)
 }
 
 /*
@@ -13912,7 +14292,7 @@ GetEmployerAddresses_0 Список адресов работодателя
  @param employerId Идентификатор работодателя
  @return ApiGetEmployerAddresses_0Request
 */
-func (a *DefaultApiService) GetEmployerAddresses_16(ctx context.Context, employerId string) ApiGetEmployerAddresses_0Request {
+func (a *DefaultApiService) GetEmployerAddresses_17(ctx context.Context, employerId string) ApiGetEmployerAddresses_0Request {
 	return ApiGetEmployerAddresses_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -13922,7 +14302,7 @@ func (a *DefaultApiService) GetEmployerAddresses_16(ctx context.Context, employe
 
 // Execute executes the request
 //  @return EmployerAddressesEmployerAddressesResponse
-func (a *DefaultApiService) GetEmployerAddresses_16Execute(r ApiGetEmployerAddresses_0Request) (*EmployerAddressesEmployerAddressesResponse, *http.Response, error) {
+func (a *DefaultApiService) GetEmployerAddresses_17Execute(r ApiGetEmployerAddresses_0Request) (*EmployerAddressesEmployerAddressesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -13930,7 +14310,7 @@ func (a *DefaultApiService) GetEmployerAddresses_16Execute(r ApiGetEmployerAddre
 		localVarReturnValue  *EmployerAddressesEmployerAddressesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerAddresses_16")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerAddresses_17")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -14251,7 +14631,7 @@ func (r ApiGetEmployerDepartments_0Request) Host(host string) ApiGetEmployerDepa
 }
 
 func (r ApiGetEmployerDepartments_0Request) Execute() (*EmployersEmployerDepartmentsResponse, *http.Response, error) {
-	return r.ApiService.GetEmployerDepartments_17Execute(r)
+	return r.ApiService.GetEmployerDepartments_18Execute(r)
 }
 
 /*
@@ -14266,7 +14646,7 @@ GetEmployerDepartments_0 Справочник департаментов раб�
  @param employerId Идентификатор работодателя, который можно получить в [списке работодателей](#tag/Rabotodatel/operation/search-employer)
  @return ApiGetEmployerDepartments_0Request
 */
-func (a *DefaultApiService) GetEmployerDepartments_17(ctx context.Context, employerId string) ApiGetEmployerDepartments_0Request {
+func (a *DefaultApiService) GetEmployerDepartments_18(ctx context.Context, employerId string) ApiGetEmployerDepartments_0Request {
 	return ApiGetEmployerDepartments_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -14276,7 +14656,7 @@ func (a *DefaultApiService) GetEmployerDepartments_17(ctx context.Context, emplo
 
 // Execute executes the request
 //  @return EmployersEmployerDepartmentsResponse
-func (a *DefaultApiService) GetEmployerDepartments_17Execute(r ApiGetEmployerDepartments_0Request) (*EmployersEmployerDepartmentsResponse, *http.Response, error) {
+func (a *DefaultApiService) GetEmployerDepartments_18Execute(r ApiGetEmployerDepartments_0Request) (*EmployersEmployerDepartmentsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -14284,7 +14664,7 @@ func (a *DefaultApiService) GetEmployerDepartments_17Execute(r ApiGetEmployerDep
 		localVarReturnValue  *EmployersEmployerDepartmentsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerDepartments_17")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerDepartments_18")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -15041,7 +15421,7 @@ func (r ApiGetEmployerManagerTypes_0Request) Host(host string) ApiGetEmployerMan
 }
 
 func (r ApiGetEmployerManagerTypes_0Request) Execute() (*EmployerManagerTypesResponse, *http.Response, error) {
-	return r.ApiService.GetEmployerManagerTypes_18Execute(r)
+	return r.ApiService.GetEmployerManagerTypes_19Execute(r)
 }
 
 /*
@@ -15051,7 +15431,7 @@ GetEmployerManagerTypes_0 Справочник типов и прав менед
  @param employerId Идентификатор работодателя
  @return ApiGetEmployerManagerTypes_0Request
 */
-func (a *DefaultApiService) GetEmployerManagerTypes_18(ctx context.Context, employerId string) ApiGetEmployerManagerTypes_0Request {
+func (a *DefaultApiService) GetEmployerManagerTypes_19(ctx context.Context, employerId string) ApiGetEmployerManagerTypes_0Request {
 	return ApiGetEmployerManagerTypes_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -15061,7 +15441,7 @@ func (a *DefaultApiService) GetEmployerManagerTypes_18(ctx context.Context, empl
 
 // Execute executes the request
 //  @return EmployerManagerTypesResponse
-func (a *DefaultApiService) GetEmployerManagerTypes_18Execute(r ApiGetEmployerManagerTypes_0Request) (*EmployerManagerTypesResponse, *http.Response, error) {
+func (a *DefaultApiService) GetEmployerManagerTypes_19Execute(r ApiGetEmployerManagerTypes_0Request) (*EmployerManagerTypesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -15069,7 +15449,7 @@ func (a *DefaultApiService) GetEmployerManagerTypes_18Execute(r ApiGetEmployerMa
 		localVarReturnValue  *EmployerManagerTypesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerManagerTypes_18")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerManagerTypes_19")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -15201,7 +15581,7 @@ func (r ApiGetEmployerManager_0Request) Host(host string) ApiGetEmployerManager_
 }
 
 func (r ApiGetEmployerManager_0Request) Execute() (*EmployerManagersEmployerManagerInfo, *http.Response, error) {
-	return r.ApiService.GetEmployerManager_19Execute(r)
+	return r.ApiService.GetEmployerManager_20Execute(r)
 }
 
 /*
@@ -15212,7 +15592,7 @@ GetEmployerManager_0 Получение информации о менеджер
  @param managerId Идентификатор менеджера
  @return ApiGetEmployerManager_0Request
 */
-func (a *DefaultApiService) GetEmployerManager_19(ctx context.Context, employerId string, managerId string) ApiGetEmployerManager_0Request {
+func (a *DefaultApiService) GetEmployerManager_20(ctx context.Context, employerId string, managerId string) ApiGetEmployerManager_0Request {
 	return ApiGetEmployerManager_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -15223,7 +15603,7 @@ func (a *DefaultApiService) GetEmployerManager_19(ctx context.Context, employerI
 
 // Execute executes the request
 //  @return EmployerManagersEmployerManagerInfo
-func (a *DefaultApiService) GetEmployerManager_19Execute(r ApiGetEmployerManager_0Request) (*EmployerManagersEmployerManagerInfo, *http.Response, error) {
+func (a *DefaultApiService) GetEmployerManager_20Execute(r ApiGetEmployerManager_0Request) (*EmployerManagersEmployerManagerInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -15231,7 +15611,7 @@ func (a *DefaultApiService) GetEmployerManager_19Execute(r ApiGetEmployerManager
 		localVarReturnValue  *EmployerManagersEmployerManagerInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerManager_19")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerManager_20")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -15551,7 +15931,7 @@ func (r ApiGetEmployerManagers_0Request) Host(host string) ApiGetEmployerManager
 }
 
 func (r ApiGetEmployerManagers_0Request) Execute() (*EmployerManagersResponse, *http.Response, error) {
-	return r.ApiService.GetEmployerManagers_20Execute(r)
+	return r.ApiService.GetEmployerManagers_21Execute(r)
 }
 
 /*
@@ -15561,7 +15941,7 @@ GetEmployerManagers_0 Список менеджеров работодателя
  @param employerId Идентификатор работодателя, который можно узнать [в информации о текущем пользователе](#tag/Informaciya-o-menedzhere/operation/get-current-user-info)
  @return ApiGetEmployerManagers_0Request
 */
-func (a *DefaultApiService) GetEmployerManagers_20(ctx context.Context, employerId string) ApiGetEmployerManagers_0Request {
+func (a *DefaultApiService) GetEmployerManagers_21(ctx context.Context, employerId string) ApiGetEmployerManagers_0Request {
 	return ApiGetEmployerManagers_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -15571,7 +15951,7 @@ func (a *DefaultApiService) GetEmployerManagers_20(ctx context.Context, employer
 
 // Execute executes the request
 //  @return EmployerManagersResponse
-func (a *DefaultApiService) GetEmployerManagers_20Execute(r ApiGetEmployerManagers_0Request) (*EmployerManagersResponse, *http.Response, error) {
+func (a *DefaultApiService) GetEmployerManagers_21Execute(r ApiGetEmployerManagers_0Request) (*EmployerManagersResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -15579,7 +15959,7 @@ func (a *DefaultApiService) GetEmployerManagers_20Execute(r ApiGetEmployerManage
 		localVarReturnValue  *EmployerManagersResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerManagers_20")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetEmployerManagers_21")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -16606,7 +16986,7 @@ func (r ApiGetHiddenVacancies_0Request) Host(host string) ApiGetHiddenVacancies_
 }
 
 func (r ApiGetHiddenVacancies_0Request) Execute() (*VacanciesDeletedVacancyListResponse, *http.Response, error) {
-	return r.ApiService.GetHiddenVacancies_21Execute(r)
+	return r.ApiService.GetHiddenVacancies_22Execute(r)
 }
 
 /*
@@ -16616,7 +16996,7 @@ GetHiddenVacancies_0 Список удаленных вакансий
  @param employerId Идентификатор работодателя
  @return ApiGetHiddenVacancies_0Request
 */
-func (a *DefaultApiService) GetHiddenVacancies_21(ctx context.Context, employerId string) ApiGetHiddenVacancies_0Request {
+func (a *DefaultApiService) GetHiddenVacancies_22(ctx context.Context, employerId string) ApiGetHiddenVacancies_0Request {
 	return ApiGetHiddenVacancies_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -16626,7 +17006,7 @@ func (a *DefaultApiService) GetHiddenVacancies_21(ctx context.Context, employerI
 
 // Execute executes the request
 //  @return VacanciesDeletedVacancyListResponse
-func (a *DefaultApiService) GetHiddenVacancies_21Execute(r ApiGetHiddenVacancies_0Request) (*VacanciesDeletedVacancyListResponse, *http.Response, error) {
+func (a *DefaultApiService) GetHiddenVacancies_22Execute(r ApiGetHiddenVacancies_0Request) (*VacanciesDeletedVacancyListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -16634,7 +17014,7 @@ func (a *DefaultApiService) GetHiddenVacancies_21Execute(r ApiGetHiddenVacancies
 		localVarReturnValue  *VacanciesDeletedVacancyListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetHiddenVacancies_21")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetHiddenVacancies_22")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -17496,7 +17876,7 @@ func (r ApiGetMailTemplates_0Request) Host(host string) ApiGetMailTemplates_0Req
 }
 
 func (r ApiGetMailTemplates_0Request) Execute() ([]MailTemplatesMailTemplate, *http.Response, error) {
-	return r.ApiService.GetMailTemplates_22Execute(r)
+	return r.ApiService.GetMailTemplates_23Execute(r)
 }
 
 /*
@@ -17509,7 +17889,7 @@ GetMailTemplates_0 Список доступных шаблонов ответо
  @param employerId Идентификатор работодателя, который можно узнать [в информации о текущем пользователе](#tag/Informaciya-o-menedzhere/operation/get-current-user-info)
  @return ApiGetMailTemplates_0Request
 */
-func (a *DefaultApiService) GetMailTemplates_22(ctx context.Context, employerId string) ApiGetMailTemplates_0Request {
+func (a *DefaultApiService) GetMailTemplates_23(ctx context.Context, employerId string) ApiGetMailTemplates_0Request {
 	return ApiGetMailTemplates_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -17519,7 +17899,7 @@ func (a *DefaultApiService) GetMailTemplates_22(ctx context.Context, employerId 
 
 // Execute executes the request
 //  @return []MailTemplatesMailTemplate
-func (a *DefaultApiService) GetMailTemplates_22Execute(r ApiGetMailTemplates_0Request) ([]MailTemplatesMailTemplate, *http.Response, error) {
+func (a *DefaultApiService) GetMailTemplates_23Execute(r ApiGetMailTemplates_0Request) ([]MailTemplatesMailTemplate, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -17527,7 +17907,7 @@ func (a *DefaultApiService) GetMailTemplates_22Execute(r ApiGetMailTemplates_0Re
 		localVarReturnValue  []MailTemplatesMailTemplate
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetMailTemplates_22")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetMailTemplates_23")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -18578,7 +18958,7 @@ func (r ApiGetNegotiationItem_0Request) Host(host string) ApiGetNegotiationItem_
 }
 
 func (r ApiGetNegotiationItem_0Request) Execute() (*NegotiationsNegotiationGetResponse, *http.Response, error) {
-	return r.ApiService.GetNegotiationItem_23Execute(r)
+	return r.ApiService.GetNegotiationItem_24Execute(r)
 }
 
 /*
@@ -18595,7 +18975,7 @@ GetNegotiationItem_0 Просмотр отклика/приглашения
  @param nid Идентификатор отклика
  @return ApiGetNegotiationItem_0Request
 */
-func (a *DefaultApiService) GetNegotiationItem_23(ctx context.Context, nid string) ApiGetNegotiationItem_0Request {
+func (a *DefaultApiService) GetNegotiationItem_24(ctx context.Context, nid string) ApiGetNegotiationItem_0Request {
 	return ApiGetNegotiationItem_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -18605,7 +18985,7 @@ func (a *DefaultApiService) GetNegotiationItem_23(ctx context.Context, nid strin
 
 // Execute executes the request
 //  @return NegotiationsNegotiationGetResponse
-func (a *DefaultApiService) GetNegotiationItem_23Execute(r ApiGetNegotiationItem_0Request) (*NegotiationsNegotiationGetResponse, *http.Response, error) {
+func (a *DefaultApiService) GetNegotiationItem_24Execute(r ApiGetNegotiationItem_0Request) (*NegotiationsNegotiationGetResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -18613,7 +18993,7 @@ func (a *DefaultApiService) GetNegotiationItem_23Execute(r ApiGetNegotiationItem
 		localVarReturnValue  *NegotiationsNegotiationGetResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationItem_23")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationItem_24")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -19257,7 +19637,7 @@ func (r ApiGetNegotiationTestResults_0Request) Host(host string) ApiGetNegotiati
 }
 
 func (r ApiGetNegotiationTestResults_0Request) Execute() (*NegotiationsNegotiationTestResultsResponse, *http.Response, error) {
-	return r.ApiService.GetNegotiationTestResults_24Execute(r)
+	return r.ApiService.GetNegotiationTestResults_25Execute(r)
 }
 
 /*
@@ -19269,7 +19649,7 @@ GetNegotiationTestResults_0 Получить результаты тестов, 
  @param nid Идентификатор отклика
  @return ApiGetNegotiationTestResults_0Request
 */
-func (a *DefaultApiService) GetNegotiationTestResults_24(ctx context.Context, nid string) ApiGetNegotiationTestResults_0Request {
+func (a *DefaultApiService) GetNegotiationTestResults_25(ctx context.Context, nid string) ApiGetNegotiationTestResults_0Request {
 	return ApiGetNegotiationTestResults_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -19279,7 +19659,7 @@ func (a *DefaultApiService) GetNegotiationTestResults_24(ctx context.Context, ni
 
 // Execute executes the request
 //  @return NegotiationsNegotiationTestResultsResponse
-func (a *DefaultApiService) GetNegotiationTestResults_24Execute(r ApiGetNegotiationTestResults_0Request) (*NegotiationsNegotiationTestResultsResponse, *http.Response, error) {
+func (a *DefaultApiService) GetNegotiationTestResults_25Execute(r ApiGetNegotiationTestResults_0Request) (*NegotiationsNegotiationTestResultsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -19287,7 +19667,7 @@ func (a *DefaultApiService) GetNegotiationTestResults_24Execute(r ApiGetNegotiat
 		localVarReturnValue  *NegotiationsNegotiationTestResultsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationTestResults_24")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationTestResults_25")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -19854,7 +20234,7 @@ func (r ApiGetNegotiationsStatisticsEmployer_0Request) Host(host string) ApiGetN
 }
 
 func (r ApiGetNegotiationsStatisticsEmployer_0Request) Execute() (*NegotiationsNegotiationsStatisticsEmployerResponse, *http.Response, error) {
-	return r.ApiService.GetNegotiationsStatisticsEmployer_25Execute(r)
+	return r.ApiService.GetNegotiationsStatisticsEmployer_26Execute(r)
 }
 
 /*
@@ -19869,7 +20249,7 @@ GetNegotiationsStatisticsEmployer_0 Статистика откликов для
  @param employerId Идентификатор работодателя
  @return ApiGetNegotiationsStatisticsEmployer_0Request
 */
-func (a *DefaultApiService) GetNegotiationsStatisticsEmployer_25(ctx context.Context, employerId string) ApiGetNegotiationsStatisticsEmployer_0Request {
+func (a *DefaultApiService) GetNegotiationsStatisticsEmployer_26(ctx context.Context, employerId string) ApiGetNegotiationsStatisticsEmployer_0Request {
 	return ApiGetNegotiationsStatisticsEmployer_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -19879,7 +20259,7 @@ func (a *DefaultApiService) GetNegotiationsStatisticsEmployer_25(ctx context.Con
 
 // Execute executes the request
 //  @return NegotiationsNegotiationsStatisticsEmployerResponse
-func (a *DefaultApiService) GetNegotiationsStatisticsEmployer_25Execute(r ApiGetNegotiationsStatisticsEmployer_0Request) (*NegotiationsNegotiationsStatisticsEmployerResponse, *http.Response, error) {
+func (a *DefaultApiService) GetNegotiationsStatisticsEmployer_26Execute(r ApiGetNegotiationsStatisticsEmployer_0Request) (*NegotiationsNegotiationsStatisticsEmployerResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -19887,7 +20267,7 @@ func (a *DefaultApiService) GetNegotiationsStatisticsEmployer_25Execute(r ApiGet
 		localVarReturnValue  *NegotiationsNegotiationsStatisticsEmployerResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationsStatisticsEmployer_25")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationsStatisticsEmployer_26")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -20187,7 +20567,7 @@ func (r ApiGetNegotiationsStatisticsManager_0Request) Host(host string) ApiGetNe
 }
 
 func (r ApiGetNegotiationsStatisticsManager_0Request) Execute() (*NegotiationsNegotiationsStatisticsManagerResponse, *http.Response, error) {
-	return r.ApiService.GetNegotiationsStatisticsManager_26Execute(r)
+	return r.ApiService.GetNegotiationsStatisticsManager_27Execute(r)
 }
 
 /*
@@ -20203,7 +20583,7 @@ GetNegotiationsStatisticsManager_0 Статистика откликов для 
  @param managerId Идентификатор менеджера
  @return ApiGetNegotiationsStatisticsManager_0Request
 */
-func (a *DefaultApiService) GetNegotiationsStatisticsManager_26(ctx context.Context, employerId string, managerId string) ApiGetNegotiationsStatisticsManager_0Request {
+func (a *DefaultApiService) GetNegotiationsStatisticsManager_27(ctx context.Context, employerId string, managerId string) ApiGetNegotiationsStatisticsManager_0Request {
 	return ApiGetNegotiationsStatisticsManager_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -20214,7 +20594,7 @@ func (a *DefaultApiService) GetNegotiationsStatisticsManager_26(ctx context.Cont
 
 // Execute executes the request
 //  @return NegotiationsNegotiationsStatisticsManagerResponse
-func (a *DefaultApiService) GetNegotiationsStatisticsManager_26Execute(r ApiGetNegotiationsStatisticsManager_0Request) (*NegotiationsNegotiationsStatisticsManagerResponse, *http.Response, error) {
+func (a *DefaultApiService) GetNegotiationsStatisticsManager_27Execute(r ApiGetNegotiationsStatisticsManager_0Request) (*NegotiationsNegotiationsStatisticsManagerResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -20222,7 +20602,7 @@ func (a *DefaultApiService) GetNegotiationsStatisticsManager_26Execute(r ApiGetN
 		localVarReturnValue  *NegotiationsNegotiationsStatisticsManagerResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationsStatisticsManager_26")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiationsStatisticsManager_27")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -20416,7 +20796,7 @@ func (r ApiGetNegotiations_0Request) Host(host string) ApiGetNegotiations_0Reque
 }
 
 func (r ApiGetNegotiations_0Request) Execute() (*NegotiationsListResponse, *http.Response, error) {
-	return r.ApiService.GetNegotiations_27Execute(r)
+	return r.ApiService.GetNegotiations_28Execute(r)
 }
 
 /*
@@ -20432,7 +20812,7 @@ GetNegotiations_0 Список откликов/приглашений
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetNegotiations_0Request
 */
-func (a *DefaultApiService) GetNegotiations_27(ctx context.Context) ApiGetNegotiations_0Request {
+func (a *DefaultApiService) GetNegotiations_28(ctx context.Context) ApiGetNegotiations_0Request {
 	return ApiGetNegotiations_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -20441,7 +20821,7 @@ func (a *DefaultApiService) GetNegotiations_27(ctx context.Context) ApiGetNegoti
 
 // Execute executes the request
 //  @return NegotiationsListResponse
-func (a *DefaultApiService) GetNegotiations_27Execute(r ApiGetNegotiations_0Request) (*NegotiationsListResponse, *http.Response, error) {
+func (a *DefaultApiService) GetNegotiations_28Execute(r ApiGetNegotiations_0Request) (*NegotiationsListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -20449,7 +20829,7 @@ func (a *DefaultApiService) GetNegotiations_27Execute(r ApiGetNegotiations_0Requ
 		localVarReturnValue  *NegotiationsListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiations_27")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiations_28")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -20688,7 +21068,7 @@ func (r ApiGetNegotiations_1Request) Host(host string) ApiGetNegotiations_1Reque
 }
 
 func (r ApiGetNegotiations_1Request) Execute() (*NegotiationsListResponse, *http.Response, error) {
-	return r.ApiService.GetNegotiations_28Execute(r)
+	return r.ApiService.GetNegotiations_29Execute(r)
 }
 
 /*
@@ -20704,7 +21084,7 @@ GetNegotiations_1 Список откликов/приглашений
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetNegotiations_1Request
 */
-func (a *DefaultApiService) GetNegotiations_28(ctx context.Context) ApiGetNegotiations_1Request {
+func (a *DefaultApiService) GetNegotiations_29(ctx context.Context) ApiGetNegotiations_1Request {
 	return ApiGetNegotiations_1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -20713,7 +21093,7 @@ func (a *DefaultApiService) GetNegotiations_28(ctx context.Context) ApiGetNegoti
 
 // Execute executes the request
 //  @return NegotiationsListResponse
-func (a *DefaultApiService) GetNegotiations_28Execute(r ApiGetNegotiations_1Request) (*NegotiationsListResponse, *http.Response, error) {
+func (a *DefaultApiService) GetNegotiations_29Execute(r ApiGetNegotiations_1Request) (*NegotiationsListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -20721,7 +21101,7 @@ func (a *DefaultApiService) GetNegotiations_28Execute(r ApiGetNegotiations_1Requ
 		localVarReturnValue  *NegotiationsListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiations_28")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetNegotiations_29")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -21696,7 +22076,7 @@ func (r ApiGetPrefNegotiationsOrder_0Request) Host(host string) ApiGetPrefNegoti
 }
 
 func (r ApiGetPrefNegotiationsOrder_0Request) Execute() (*VacanciesPreferredNegotiationsOrder, *http.Response, error) {
-	return r.ApiService.GetPrefNegotiationsOrder_29Execute(r)
+	return r.ApiService.GetPrefNegotiationsOrder_30Execute(r)
 }
 
 /*
@@ -21706,7 +22086,7 @@ GetPrefNegotiationsOrder_0 Просмотр предпочитаемой сор�
  @param id Идентификатор вакансии
  @return ApiGetPrefNegotiationsOrder_0Request
 */
-func (a *DefaultApiService) GetPrefNegotiationsOrder_29(ctx context.Context, id string) ApiGetPrefNegotiationsOrder_0Request {
+func (a *DefaultApiService) GetPrefNegotiationsOrder_30(ctx context.Context, id string) ApiGetPrefNegotiationsOrder_0Request {
 	return ApiGetPrefNegotiationsOrder_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -21716,7 +22096,7 @@ func (a *DefaultApiService) GetPrefNegotiationsOrder_29(ctx context.Context, id 
 
 // Execute executes the request
 //  @return VacanciesPreferredNegotiationsOrder
-func (a *DefaultApiService) GetPrefNegotiationsOrder_29Execute(r ApiGetPrefNegotiationsOrder_0Request) (*VacanciesPreferredNegotiationsOrder, *http.Response, error) {
+func (a *DefaultApiService) GetPrefNegotiationsOrder_30Execute(r ApiGetPrefNegotiationsOrder_0Request) (*VacanciesPreferredNegotiationsOrder, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -21724,7 +22104,7 @@ func (a *DefaultApiService) GetPrefNegotiationsOrder_29Execute(r ApiGetPrefNegot
 		localVarReturnValue  *VacanciesPreferredNegotiationsOrder
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPrefNegotiationsOrder_29")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPrefNegotiationsOrder_30")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -22312,7 +22692,7 @@ func (r ApiGetProlongationVacancyInfo_0Request) Host(host string) ApiGetProlonga
 }
 
 func (r ApiGetProlongationVacancyInfo_0Request) Execute() (*VacanciesVacancyProlongate, *http.Response, error) {
-	return r.ApiService.GetProlongationVacancyInfo_30Execute(r)
+	return r.ApiService.GetProlongationVacancyInfo_31Execute(r)
 }
 
 /*
@@ -22329,7 +22709,7 @@ GetProlongationVacancyInfo_0 Информация о возможности пр
  @param vacancyId Идентификатор вакансии
  @return ApiGetProlongationVacancyInfo_0Request
 */
-func (a *DefaultApiService) GetProlongationVacancyInfo_30(ctx context.Context, vacancyId string) ApiGetProlongationVacancyInfo_0Request {
+func (a *DefaultApiService) GetProlongationVacancyInfo_31(ctx context.Context, vacancyId string) ApiGetProlongationVacancyInfo_0Request {
 	return ApiGetProlongationVacancyInfo_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -22339,7 +22719,7 @@ func (a *DefaultApiService) GetProlongationVacancyInfo_30(ctx context.Context, v
 
 // Execute executes the request
 //  @return VacanciesVacancyProlongate
-func (a *DefaultApiService) GetProlongationVacancyInfo_30Execute(r ApiGetProlongationVacancyInfo_0Request) (*VacanciesVacancyProlongate, *http.Response, error) {
+func (a *DefaultApiService) GetProlongationVacancyInfo_31Execute(r ApiGetProlongationVacancyInfo_0Request) (*VacanciesVacancyProlongate, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -22347,7 +22727,7 @@ func (a *DefaultApiService) GetProlongationVacancyInfo_30Execute(r ApiGetProlong
 		localVarReturnValue  *VacanciesVacancyProlongate
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetProlongationVacancyInfo_30")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetProlongationVacancyInfo_31")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -23475,7 +23855,7 @@ func (r ApiGetResumeNegotiationsHistory_0Request) Host(host string) ApiGetResume
 }
 
 func (r ApiGetResumeNegotiationsHistory_0Request) Execute() (*ResumesResumeNegotiationsHistoryResponse, *http.Response, error) {
-	return r.ApiService.GetResumeNegotiationsHistory_31Execute(r)
+	return r.ApiService.GetResumeNegotiationsHistory_32Execute(r)
 }
 
 /*
@@ -23490,7 +23870,7 @@ GetResumeNegotiationsHistory_0 История откликов/приглаше�
  @param resumeId Идентификатор резюме
  @return ApiGetResumeNegotiationsHistory_0Request
 */
-func (a *DefaultApiService) GetResumeNegotiationsHistory_31(ctx context.Context, resumeId string) ApiGetResumeNegotiationsHistory_0Request {
+func (a *DefaultApiService) GetResumeNegotiationsHistory_32(ctx context.Context, resumeId string) ApiGetResumeNegotiationsHistory_0Request {
 	return ApiGetResumeNegotiationsHistory_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -23500,7 +23880,7 @@ func (a *DefaultApiService) GetResumeNegotiationsHistory_31(ctx context.Context,
 
 // Execute executes the request
 //  @return ResumesResumeNegotiationsHistoryResponse
-func (a *DefaultApiService) GetResumeNegotiationsHistory_31Execute(r ApiGetResumeNegotiationsHistory_0Request) (*ResumesResumeNegotiationsHistoryResponse, *http.Response, error) {
+func (a *DefaultApiService) GetResumeNegotiationsHistory_32Execute(r ApiGetResumeNegotiationsHistory_0Request) (*ResumesResumeNegotiationsHistoryResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -23508,7 +23888,7 @@ func (a *DefaultApiService) GetResumeNegotiationsHistory_31Execute(r ApiGetResum
 		localVarReturnValue  *ResumesResumeNegotiationsHistoryResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResumeNegotiationsHistory_31")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResumeNegotiationsHistory_32")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -24527,7 +24907,7 @@ func (r ApiGetResume_0Request) Host(host string) ApiGetResume_0Request {
 }
 
 func (r ApiGetResume_0Request) Execute() (*ResumeResumeViewResponse, *http.Response, error) {
-	return r.ApiService.GetResume_32Execute(r)
+	return r.ApiService.GetResume_33Execute(r)
 }
 
 /*
@@ -24547,7 +24927,7 @@ GetResume_0 Просмотр резюме
  @param resumeId Идентификатор резюме
  @return ApiGetResume_0Request
 */
-func (a *DefaultApiService) GetResume_32(ctx context.Context, resumeId string) ApiGetResume_0Request {
+func (a *DefaultApiService) GetResume_33(ctx context.Context, resumeId string) ApiGetResume_0Request {
 	return ApiGetResume_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -24557,7 +24937,7 @@ func (a *DefaultApiService) GetResume_32(ctx context.Context, resumeId string) A
 
 // Execute executes the request
 //  @return ResumeResumeViewResponse
-func (a *DefaultApiService) GetResume_32Execute(r ApiGetResume_0Request) (*ResumeResumeViewResponse, *http.Response, error) {
+func (a *DefaultApiService) GetResume_33Execute(r ApiGetResume_0Request) (*ResumeResumeViewResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -24565,7 +24945,7 @@ func (a *DefaultApiService) GetResume_32Execute(r ApiGetResume_0Request) (*Resum
 		localVarReturnValue  *ResumeResumeViewResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_32")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_33")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -24737,7 +25117,7 @@ func (r ApiGetResume_1Request) Host(host string) ApiGetResume_1Request {
 }
 
 func (r ApiGetResume_1Request) Execute() (*ResumeResumeViewResponse, *http.Response, error) {
-	return r.ApiService.GetResume_33Execute(r)
+	return r.ApiService.GetResume_34Execute(r)
 }
 
 /*
@@ -24757,7 +25137,7 @@ GetResume_1 Просмотр резюме
  @param resumeId Идентификатор резюме
  @return ApiGetResume_1Request
 */
-func (a *DefaultApiService) GetResume_33(ctx context.Context, resumeId string) ApiGetResume_1Request {
+func (a *DefaultApiService) GetResume_34(ctx context.Context, resumeId string) ApiGetResume_1Request {
 	return ApiGetResume_1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -24767,7 +25147,7 @@ func (a *DefaultApiService) GetResume_33(ctx context.Context, resumeId string) A
 
 // Execute executes the request
 //  @return ResumeResumeViewResponse
-func (a *DefaultApiService) GetResume_33Execute(r ApiGetResume_1Request) (*ResumeResumeViewResponse, *http.Response, error) {
+func (a *DefaultApiService) GetResume_34Execute(r ApiGetResume_1Request) (*ResumeResumeViewResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -24775,7 +25155,7 @@ func (a *DefaultApiService) GetResume_33Execute(r ApiGetResume_1Request) (*Resum
 		localVarReturnValue  *ResumeResumeViewResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_33")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_34")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -24947,7 +25327,7 @@ func (r ApiGetResume_2Request) Host(host string) ApiGetResume_2Request {
 }
 
 func (r ApiGetResume_2Request) Execute() (*ResumeResumeViewResponse, *http.Response, error) {
-	return r.ApiService.GetResume_34Execute(r)
+	return r.ApiService.GetResume_35Execute(r)
 }
 
 /*
@@ -24967,7 +25347,7 @@ GetResume_2 Просмотр резюме
  @param resumeId Идентификатор резюме
  @return ApiGetResume_2Request
 */
-func (a *DefaultApiService) GetResume_34(ctx context.Context, resumeId string) ApiGetResume_2Request {
+func (a *DefaultApiService) GetResume_35(ctx context.Context, resumeId string) ApiGetResume_2Request {
 	return ApiGetResume_2Request{
 		ApiService: a,
 		ctx: ctx,
@@ -24977,7 +25357,7 @@ func (a *DefaultApiService) GetResume_34(ctx context.Context, resumeId string) A
 
 // Execute executes the request
 //  @return ResumeResumeViewResponse
-func (a *DefaultApiService) GetResume_34Execute(r ApiGetResume_2Request) (*ResumeResumeViewResponse, *http.Response, error) {
+func (a *DefaultApiService) GetResume_35Execute(r ApiGetResume_2Request) (*ResumeResumeViewResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -24985,7 +25365,7 @@ func (a *DefaultApiService) GetResume_34Execute(r ApiGetResume_2Request) (*Resum
 		localVarReturnValue  *ResumeResumeViewResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_34")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetResume_35")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -25710,7 +26090,7 @@ func (r ApiGetSalaryEvaluation_0Request) Host(host string) ApiGetSalaryEvaluatio
 }
 
 func (r ApiGetSalaryEvaluation_0Request) Execute() (*SalaryStatisticsEvaluationResponse, *http.Response, error) {
-	return r.ApiService.GetSalaryEvaluation_35Execute(r)
+	return r.ApiService.GetSalaryEvaluation_36Execute(r)
 }
 
 /*
@@ -25736,7 +26116,7 @@ GetSalaryEvaluation_0 Оценка заработной платы без про
  @param areaId Код [региона](#tag/Spravochniki-Banka-dannyh-zarabotnyh-plat/operation/get-salary-salary-areas), по которому будет построена выборка для формирования отчета 
  @return ApiGetSalaryEvaluation_0Request
 */
-func (a *DefaultApiService) GetSalaryEvaluation_35(ctx context.Context, areaId string) ApiGetSalaryEvaluation_0Request {
+func (a *DefaultApiService) GetSalaryEvaluation_36(ctx context.Context, areaId string) ApiGetSalaryEvaluation_0Request {
 	return ApiGetSalaryEvaluation_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -25746,7 +26126,7 @@ func (a *DefaultApiService) GetSalaryEvaluation_35(ctx context.Context, areaId s
 
 // Execute executes the request
 //  @return SalaryStatisticsEvaluationResponse
-func (a *DefaultApiService) GetSalaryEvaluation_35Execute(r ApiGetSalaryEvaluation_0Request) (*SalaryStatisticsEvaluationResponse, *http.Response, error) {
+func (a *DefaultApiService) GetSalaryEvaluation_36Execute(r ApiGetSalaryEvaluation_0Request) (*SalaryStatisticsEvaluationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -25754,7 +26134,7 @@ func (a *DefaultApiService) GetSalaryEvaluation_35Execute(r ApiGetSalaryEvaluati
 		localVarReturnValue  *SalaryStatisticsEvaluationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSalaryEvaluation_35")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSalaryEvaluation_36")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -27612,7 +27992,7 @@ func (r ApiGetTestsDictionary_0Request) Host(host string) ApiGetTestsDictionary_
 }
 
 func (r ApiGetTestsDictionary_0Request) Execute() (*EmployerDictionariesTestsResponse, *http.Response, error) {
-	return r.ApiService.GetTestsDictionary_36Execute(r)
+	return r.ApiService.GetTestsDictionary_37Execute(r)
 }
 
 /*
@@ -27624,7 +28004,7 @@ GetTestsDictionary_0 Справочник тестов работодателя
  @param employerId Идентификатор работодателя
  @return ApiGetTestsDictionary_0Request
 */
-func (a *DefaultApiService) GetTestsDictionary_36(ctx context.Context, employerId string) ApiGetTestsDictionary_0Request {
+func (a *DefaultApiService) GetTestsDictionary_37(ctx context.Context, employerId string) ApiGetTestsDictionary_0Request {
 	return ApiGetTestsDictionary_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -27634,7 +28014,7 @@ func (a *DefaultApiService) GetTestsDictionary_36(ctx context.Context, employerI
 
 // Execute executes the request
 //  @return EmployerDictionariesTestsResponse
-func (a *DefaultApiService) GetTestsDictionary_36Execute(r ApiGetTestsDictionary_0Request) (*EmployerDictionariesTestsResponse, *http.Response, error) {
+func (a *DefaultApiService) GetTestsDictionary_37Execute(r ApiGetTestsDictionary_0Request) (*EmployerDictionariesTestsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -27642,7 +28022,7 @@ func (a *DefaultApiService) GetTestsDictionary_36Execute(r ApiGetTestsDictionary
 		localVarReturnValue  *EmployerDictionariesTestsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTestsDictionary_36")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTestsDictionary_37")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -29597,7 +29977,7 @@ func (r ApiGetVacancyBrandedTemplatesList_0Request) Host(host string) ApiGetVaca
 }
 
 func (r ApiGetVacancyBrandedTemplatesList_0Request) Execute() (*EmployersVacancyBrandedTemplatesList, *http.Response, error) {
-	return r.ApiService.GetVacancyBrandedTemplatesList_37Execute(r)
+	return r.ApiService.GetVacancyBrandedTemplatesList_38Execute(r)
 }
 
 /*
@@ -29613,7 +29993,7 @@ GetVacancyBrandedTemplatesList_0 Список доступных бренд ша
  @param employerId Идентификатор работодателя
  @return ApiGetVacancyBrandedTemplatesList_0Request
 */
-func (a *DefaultApiService) GetVacancyBrandedTemplatesList_37(ctx context.Context, employerId string) ApiGetVacancyBrandedTemplatesList_0Request {
+func (a *DefaultApiService) GetVacancyBrandedTemplatesList_38(ctx context.Context, employerId string) ApiGetVacancyBrandedTemplatesList_0Request {
 	return ApiGetVacancyBrandedTemplatesList_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -29623,7 +30003,7 @@ func (a *DefaultApiService) GetVacancyBrandedTemplatesList_37(ctx context.Contex
 
 // Execute executes the request
 //  @return EmployersVacancyBrandedTemplatesList
-func (a *DefaultApiService) GetVacancyBrandedTemplatesList_37Execute(r ApiGetVacancyBrandedTemplatesList_0Request) (*EmployersVacancyBrandedTemplatesList, *http.Response, error) {
+func (a *DefaultApiService) GetVacancyBrandedTemplatesList_38Execute(r ApiGetVacancyBrandedTemplatesList_0Request) (*EmployersVacancyBrandedTemplatesList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -29631,7 +30011,7 @@ func (a *DefaultApiService) GetVacancyBrandedTemplatesList_37Execute(r ApiGetVac
 		localVarReturnValue  *EmployersVacancyBrandedTemplatesList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancyBrandedTemplatesList_37")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancyBrandedTemplatesList_38")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -31051,7 +31431,7 @@ func (r ApiGetVacancy_0Request) Host(host string) ApiGetVacancy_0Request {
 }
 
 func (r ApiGetVacancy_0Request) Execute() (*VacanciesVacancy, *http.Response, error) {
-	return r.ApiService.GetVacancy_38Execute(r)
+	return r.ApiService.GetVacancy_39Execute(r)
 }
 
 /*
@@ -31063,7 +31443,7 @@ GetVacancy_0 Просмотр вакансии
  @param vacancyId Идентификатор вакансии
  @return ApiGetVacancy_0Request
 */
-func (a *DefaultApiService) GetVacancy_38(ctx context.Context, vacancyId string) ApiGetVacancy_0Request {
+func (a *DefaultApiService) GetVacancy_39(ctx context.Context, vacancyId string) ApiGetVacancy_0Request {
 	return ApiGetVacancy_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -31073,7 +31453,7 @@ func (a *DefaultApiService) GetVacancy_38(ctx context.Context, vacancyId string)
 
 // Execute executes the request
 //  @return VacanciesVacancy
-func (a *DefaultApiService) GetVacancy_38Execute(r ApiGetVacancy_0Request) (*VacanciesVacancy, *http.Response, error) {
+func (a *DefaultApiService) GetVacancy_39Execute(r ApiGetVacancy_0Request) (*VacanciesVacancy, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -31081,7 +31461,7 @@ func (a *DefaultApiService) GetVacancy_38Execute(r ApiGetVacancy_0Request) (*Vac
 		localVarReturnValue  *VacanciesVacancy
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancy_38")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacancy_39")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -31461,7 +31841,7 @@ type ApiInvalidateToken_0Request struct {
 }
 
 func (r ApiInvalidateToken_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.InvalidateToken_39Execute(r)
+	return r.ApiService.InvalidateToken_40Execute(r)
 }
 
 /*
@@ -31476,7 +31856,7 @@ InvalidateToken_0 Инвалидация токена
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiInvalidateToken_0Request
 */
-func (a *DefaultApiService) InvalidateToken_39(ctx context.Context) ApiInvalidateToken_0Request {
+func (a *DefaultApiService) InvalidateToken_40(ctx context.Context) ApiInvalidateToken_0Request {
 	return ApiInvalidateToken_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -31484,14 +31864,14 @@ func (a *DefaultApiService) InvalidateToken_39(ctx context.Context) ApiInvalidat
 }
 
 // Execute executes the request
-func (a *DefaultApiService) InvalidateToken_39Execute(r ApiInvalidateToken_0Request) (*http.Response, error) {
+func (a *DefaultApiService) InvalidateToken_40Execute(r ApiInvalidateToken_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_39")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_40")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -31563,7 +31943,7 @@ type ApiInvalidateToken_1Request struct {
 }
 
 func (r ApiInvalidateToken_1Request) Execute() (*http.Response, error) {
-	return r.ApiService.InvalidateToken_40Execute(r)
+	return r.ApiService.InvalidateToken_41Execute(r)
 }
 
 /*
@@ -31578,7 +31958,7 @@ InvalidateToken_1 Инвалидация токена
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiInvalidateToken_1Request
 */
-func (a *DefaultApiService) InvalidateToken_40(ctx context.Context) ApiInvalidateToken_1Request {
+func (a *DefaultApiService) InvalidateToken_41(ctx context.Context) ApiInvalidateToken_1Request {
 	return ApiInvalidateToken_1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -31586,14 +31966,14 @@ func (a *DefaultApiService) InvalidateToken_40(ctx context.Context) ApiInvalidat
 }
 
 // Execute executes the request
-func (a *DefaultApiService) InvalidateToken_40Execute(r ApiInvalidateToken_1Request) (*http.Response, error) {
+func (a *DefaultApiService) InvalidateToken_41Execute(r ApiInvalidateToken_1Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_40")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.InvalidateToken_41")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -32230,7 +32610,7 @@ func (r ApiPostNegotiationsTopicsRead_0Request) Host(host string) ApiPostNegotia
 }
 
 func (r ApiPostNegotiationsTopicsRead_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.PostNegotiationsTopicsRead_41Execute(r)
+	return r.ApiService.PostNegotiationsTopicsRead_42Execute(r)
 }
 
 /*
@@ -32239,7 +32619,7 @@ PostNegotiationsTopicsRead_0 Отметить отклики прочитанн�
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostNegotiationsTopicsRead_0Request
 */
-func (a *DefaultApiService) PostNegotiationsTopicsRead_41(ctx context.Context) ApiPostNegotiationsTopicsRead_0Request {
+func (a *DefaultApiService) PostNegotiationsTopicsRead_42(ctx context.Context) ApiPostNegotiationsTopicsRead_0Request {
 	return ApiPostNegotiationsTopicsRead_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -32247,14 +32627,14 @@ func (a *DefaultApiService) PostNegotiationsTopicsRead_41(ctx context.Context) A
 }
 
 // Execute executes the request
-func (a *DefaultApiService) PostNegotiationsTopicsRead_41Execute(r ApiPostNegotiationsTopicsRead_0Request) (*http.Response, error) {
+func (a *DefaultApiService) PostNegotiationsTopicsRead_42Execute(r ApiPostNegotiationsTopicsRead_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PostNegotiationsTopicsRead_41")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PostNegotiationsTopicsRead_42")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -32939,7 +33319,7 @@ func (r ApiPublishVacancy_0Request) Host(host string) ApiPublishVacancy_0Request
 }
 
 func (r ApiPublishVacancy_0Request) Execute() (*IncludesId, *http.Response, error) {
-	return r.ApiService.PublishVacancy_42Execute(r)
+	return r.ApiService.PublishVacancy_43Execute(r)
 }
 
 /*
@@ -32964,7 +33344,7 @@ PublishVacancy_0 Публикация вакансии
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPublishVacancy_0Request
 */
-func (a *DefaultApiService) PublishVacancy_42(ctx context.Context) ApiPublishVacancy_0Request {
+func (a *DefaultApiService) PublishVacancy_43(ctx context.Context) ApiPublishVacancy_0Request {
 	return ApiPublishVacancy_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -32973,7 +33353,7 @@ func (a *DefaultApiService) PublishVacancy_42(ctx context.Context) ApiPublishVac
 
 // Execute executes the request
 //  @return IncludesId
-func (a *DefaultApiService) PublishVacancy_42Execute(r ApiPublishVacancy_0Request) (*IncludesId, *http.Response, error) {
+func (a *DefaultApiService) PublishVacancy_43Execute(r ApiPublishVacancy_0Request) (*IncludesId, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -32981,7 +33361,7 @@ func (a *DefaultApiService) PublishVacancy_42Execute(r ApiPublishVacancy_0Reques
 		localVarReturnValue  *IncludesId
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PublishVacancy_42")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PublishVacancy_43")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -33303,7 +33683,7 @@ func (r ApiPutMailTemplatesItem_0Request) Host(host string) ApiPutMailTemplatesI
 }
 
 func (r ApiPutMailTemplatesItem_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.PutMailTemplatesItem_43Execute(r)
+	return r.ApiService.PutMailTemplatesItem_44Execute(r)
 }
 
 /*
@@ -33317,7 +33697,7 @@ PutMailTemplatesItem_0 Изменение шаблона ответа соиск
  @param templateId Идентификатор шаблона для изменения из [списка доступных шаблонов ответов соискателю](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-mail-templates)
  @return ApiPutMailTemplatesItem_0Request
 */
-func (a *DefaultApiService) PutMailTemplatesItem_43(ctx context.Context, employerId string, templateId string) ApiPutMailTemplatesItem_0Request {
+func (a *DefaultApiService) PutMailTemplatesItem_44(ctx context.Context, employerId string, templateId string) ApiPutMailTemplatesItem_0Request {
 	return ApiPutMailTemplatesItem_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -33327,14 +33707,14 @@ func (a *DefaultApiService) PutMailTemplatesItem_43(ctx context.Context, employe
 }
 
 // Execute executes the request
-func (a *DefaultApiService) PutMailTemplatesItem_43Execute(r ApiPutMailTemplatesItem_0Request) (*http.Response, error) {
+func (a *DefaultApiService) PutMailTemplatesItem_44Execute(r ApiPutMailTemplatesItem_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PutMailTemplatesItem_43")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PutMailTemplatesItem_44")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -33708,7 +34088,7 @@ func (r ApiPutNegotiationsCollectionToNextState_0Request) SendSms(sendSms bool) 
 }
 
 func (r ApiPutNegotiationsCollectionToNextState_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.PutNegotiationsCollectionToNextState_44Execute(r)
+	return r.ApiService.PutNegotiationsCollectionToNextState_45Execute(r)
 }
 
 /*
@@ -33725,7 +34105,7 @@ PutNegotiationsCollectionToNextState_0 Действия по откликам/п
  @param nid Идентификатор [коллекции](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiations) топиков, в которую будет перенесено состояние отклика
  @return ApiPutNegotiationsCollectionToNextState_0Request
 */
-func (a *DefaultApiService) PutNegotiationsCollectionToNextState_44(ctx context.Context, nid string) ApiPutNegotiationsCollectionToNextState_0Request {
+func (a *DefaultApiService) PutNegotiationsCollectionToNextState_45(ctx context.Context, nid string) ApiPutNegotiationsCollectionToNextState_0Request {
 	return ApiPutNegotiationsCollectionToNextState_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -33734,14 +34114,14 @@ func (a *DefaultApiService) PutNegotiationsCollectionToNextState_44(ctx context.
 }
 
 // Execute executes the request
-func (a *DefaultApiService) PutNegotiationsCollectionToNextState_44Execute(r ApiPutNegotiationsCollectionToNextState_0Request) (*http.Response, error) {
+func (a *DefaultApiService) PutNegotiationsCollectionToNextState_45Execute(r ApiPutNegotiationsCollectionToNextState_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PutNegotiationsCollectionToNextState_44")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PutNegotiationsCollectionToNextState_45")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -34053,7 +34433,7 @@ func (r ApiPutPrefNegotiationsOrder_0Request) Host(host string) ApiPutPrefNegoti
 }
 
 func (r ApiPutPrefNegotiationsOrder_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.PutPrefNegotiationsOrder_45Execute(r)
+	return r.ApiService.PutPrefNegotiationsOrder_46Execute(r)
 }
 
 /*
@@ -34063,7 +34443,7 @@ PutPrefNegotiationsOrder_0 Изменение предпочитаемой со�
  @param id Идентификатор вакансии
  @return ApiPutPrefNegotiationsOrder_0Request
 */
-func (a *DefaultApiService) PutPrefNegotiationsOrder_45(ctx context.Context, id string) ApiPutPrefNegotiationsOrder_0Request {
+func (a *DefaultApiService) PutPrefNegotiationsOrder_46(ctx context.Context, id string) ApiPutPrefNegotiationsOrder_0Request {
 	return ApiPutPrefNegotiationsOrder_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -34072,14 +34452,14 @@ func (a *DefaultApiService) PutPrefNegotiationsOrder_45(ctx context.Context, id 
 }
 
 // Execute executes the request
-func (a *DefaultApiService) PutPrefNegotiationsOrder_45Execute(r ApiPutPrefNegotiationsOrder_0Request) (*http.Response, error) {
+func (a *DefaultApiService) PutPrefNegotiationsOrder_46Execute(r ApiPutPrefNegotiationsOrder_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PutPrefNegotiationsOrder_45")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.PutPrefNegotiationsOrder_46")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -34603,7 +34983,7 @@ func (r ApiSearchForResumesRequest) HHUserAgent(hHUserAgent string) ApiSearchFor
 	return r
 }
 
-// Поисковая фраза. Метод найдет резюме, в которых встречаются все слова заданной фразы.  Особенности:  * Можно указать несколько значений. Каждое дополнительное значение уточняет поиск. * В качестве поисковой фразы можно использовать [язык поисковых запросов](http://hh.ru/article.xml?articleId&#x3D;1175). * Специально для этого поля предусмотрено [автодополнение по подсказкам](#tag/Podskazki/operation/get-resume-search-keywords-suggests). * Для тонкой настройки по фразе можно использовать параметры &#x60;text.logic&#x60;, &#x60;text.field&#x60;, &#x60;text.period&#x60;. При использовании дополнительных &#x60;text.*&#x60; полей, необходимо указывать весь набор (триаду) параметров 
+// Поисковая фраза. Метод найдет резюме, в которых встречаются все слова заданной фразы.  Особенности:  * Можно указать несколько значений. Каждое дополнительное значение уточняет поиск. * В качестве поисковой фразы можно использовать [язык поисковых запросов](http://hh.ru/article.xml?articleId&#x3D;1175). * Специально для этого поля предусмотрено [автодополнение по подсказкам](#tag/Podskazki/operation/get-resume-search-keywords-suggests). * Для тонкой настройки по фразе можно использовать параметры &#x60;text.logic&#x60;, &#x60;text.field&#x60;, &#x60;text.period&#x60;. При использовании дополнительных &#x60;text.*&#x60; полей, необходимо указывать весь набор (триаду) параметров ([пример использования](#tag/Poisk-rezyume/Primery-poiskovyh-zaprosov)) 
 func (r ApiSearchForResumesRequest) Text(text string) ApiSearchForResumesRequest {
 	r.text = &text
 	return r
@@ -34904,6 +35284,590 @@ func (a *DefaultApiService) SearchForResumesExecute(r ApiSearchForResumesRequest
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SearchForResumes")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/resumes"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.text != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "text", r.text, "")
+	}
+	if r.textLogic != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "text.logic", r.textLogic, "")
+	}
+	if r.textField != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "text.field", r.textField, "")
+	}
+	if r.textPeriod != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "text.period", r.textPeriod, "")
+	}
+	if r.ageFrom != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "age_from", r.ageFrom, "")
+	}
+	if r.ageTo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "age_to", r.ageTo, "")
+	}
+	if r.area != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "area", r.area, "")
+	}
+	if r.relocation != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "relocation", r.relocation, "")
+	}
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "")
+	}
+	if r.dateFrom != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "")
+	}
+	if r.dateTo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "")
+	}
+	if r.educationLevel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "education_level", r.educationLevel, "")
+	}
+	if r.employment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "employment", r.employment, "")
+	}
+	if r.experience != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "experience", r.experience, "")
+	}
+	if r.skill != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skill", r.skill, "")
+	}
+	if r.gender != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "gender", r.gender, "")
+	}
+	if r.label != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "label", r.label, "")
+	}
+	if r.language != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "language", r.language, "")
+	}
+	if r.languageLevel != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "language.level", r.languageLevel, "")
+	}
+	if r.metro != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "metro", r.metro, "")
+	}
+	if r.currency != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "")
+	}
+	if r.salaryFrom != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "salary_from", r.salaryFrom, "")
+	}
+	if r.salaryTo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "salary_to", r.salaryTo, "")
+	}
+	if r.schedule != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "schedule", r.schedule, "")
+	}
+	if r.orderBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order_by", r.orderBy, "")
+	}
+	if r.citizenship != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "citizenship", r.citizenship, "")
+	}
+	if r.workTicket != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "work_ticket", r.workTicket, "")
+	}
+	if r.educationalInstitution != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "educational_institution", r.educationalInstitution, "")
+	}
+	if r.searchInResponses != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search_in_responses", r.searchInResponses, "")
+	}
+	if r.byTextPrefix != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "by_text_prefix", r.byTextPrefix, "")
+	}
+	if r.driverLicenseTypes != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "driver_license_types", r.driverLicenseTypes, "")
+	}
+	if r.vacancyId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vacancy_id", r.vacancyId, "")
+	}
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
+	}
+	if r.perPage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "per_page", r.perPage, "")
+	}
+	if r.professionalRole != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "professional_role", r.professionalRole, "")
+	}
+	if r.folder != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "folder", r.folder, "")
+	}
+	if r.includeAllFolders != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_all_folders", r.includeAllFolders, "")
+	}
+	if r.jobSearchStatus != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_search_status", r.jobSearchStatus, "")
+	}
+	if r.resume != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resume", r.resume, "")
+	}
+	if r.filterExpIndustry != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter_exp_industry", r.filterExpIndustry, "")
+	}
+	if r.filterExpPeriod != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter_exp_period", r.filterExpPeriod, "")
+	}
+	if r.withJobSearchStatus != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "with_job_search_status", r.withJobSearchStatus, "")
+	}
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonBadRequestBadArgumentBadRequestAndBadArgumentErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsCommonBadAuthorizationCommonAndPaymentMethodError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSearchForResumes_0Request struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	hHUserAgent *string
+	text *string
+	textLogic *string
+	textField *string
+	textPeriod *string
+	ageFrom *string
+	ageTo *string
+	area *string
+	relocation *string
+	period *float32
+	dateFrom *string
+	dateTo *string
+	educationLevel *string
+	employment *string
+	experience *string
+	skill *string
+	gender *string
+	label *string
+	language *string
+	languageLevel *string
+	metro *string
+	currency *string
+	salaryFrom *float32
+	salaryTo *float32
+	schedule *string
+	orderBy *string
+	citizenship *string
+	workTicket *string
+	educationalInstitution *string
+	searchInResponses *bool
+	byTextPrefix *bool
+	driverLicenseTypes *string
+	vacancyId *string
+	page *float32
+	perPage *float32
+	professionalRole *string
+	folder *string
+	includeAllFolders *bool
+	jobSearchStatus *string
+	resume *string
+	filterExpIndustry *string
+	filterExpPeriod *string
+	withJobSearchStatus *bool
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiSearchForResumes_0Request) HHUserAgent(hHUserAgent string) ApiSearchForResumes_0Request {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Поисковая фраза. Метод найдет резюме, в которых встречаются все слова заданной фразы.  Особенности:  * Можно указать несколько значений. Каждое дополнительное значение уточняет поиск. * В качестве поисковой фразы можно использовать [язык поисковых запросов](http://hh.ru/article.xml?articleId&#x3D;1175). * Специально для этого поля предусмотрено [автодополнение по подсказкам](#tag/Podskazki/operation/get-resume-search-keywords-suggests). * Для тонкой настройки по фразе можно использовать параметры &#x60;text.logic&#x60;, &#x60;text.field&#x60;, &#x60;text.period&#x60;. При использовании дополнительных &#x60;text.*&#x60; полей, необходимо указывать весь набор (триаду) параметров ([пример использования](#tag/Poisk-rezyume/Primery-poiskovyh-zaprosov)) 
+func (r ApiSearchForResumes_0Request) Text(text string) ApiSearchForResumes_0Request {
+	r.text = &text
+	return r
+}
+
+// Описывает, как производится поиск. Возможные значения перечислены в поле &#x60;resume_search_logic&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+func (r ApiSearchForResumes_0Request) TextLogic(textLogic string) ApiSearchForResumes_0Request {
+	r.textLogic = &textLogic
+	return r
+}
+
+// Описывает, где должны встречаться слова из поисковой фразы &#x60;text&#x60;. Можно указать несколько значений через запятую, например &#x60;?text.field&#x3D;education,keywords&#x60;. Возможные значения перечислены в поле &#x60;resume_search_fields&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+func (r ApiSearchForResumes_0Request) TextField(textField string) ApiSearchForResumes_0Request {
+	r.textField = &textField
+	return r
+}
+
+// Период опыта работы.  Параметр имеет смысл только при &#x60;text.field&#x60; равным одному из значений: &#x60;experience&#x60;, &#x60;experience_company&#x60;, &#x60;experience_position&#x60;, &#x60;experience_description&#x60;, но указывать его необходимо всегда при указании других &#x60;text.*&#x60;. Если параметр не имеет смысла, то его значение можно оставить пустым 
+func (r ApiSearchForResumes_0Request) TextPeriod(textPeriod string) ApiSearchForResumes_0Request {
+	r.textPeriod = &textPeriod
+	return r
+}
+
+// Нижняя граница возраста соискателя в годах.  По умолчанию в выдачу добавляются также резюме с неуказанным возрастом. Для выдачи резюме только с указанным возрастом передайте значение &#x60;only_with_age&#x60; в параметре &#x60;label&#x60; 
+func (r ApiSearchForResumes_0Request) AgeFrom(ageFrom string) ApiSearchForResumes_0Request {
+	r.ageFrom = &ageFrom
+	return r
+}
+
+// Верхняя граница возраста соискателя в годах.  По умолчанию в выдачу добавляются также резюме с неуказанным возрастом. Для выдачи резюме только с указанным возрастом передайте значение &#x60;only_with_age&#x60; в параметре &#x60;label&#x60; 
+func (r ApiSearchForResumes_0Request) AgeTo(ageTo string) ApiSearchForResumes_0Request {
+	r.ageTo = &ageTo
+	return r
+}
+
+// Регион. Возможные значения указаны в [справочнике регионов](https://github.com/hhru/api/blob/master/docs/areas.md). Можно указать несколько значений.  По умолчанию выбираются резюме, в которых соискатели живут в указанных регионах или готовы в них переехать. Поменять это поведение поиска можно, указав параметр &#x60;relocation&#x60; 
+func (r ApiSearchForResumes_0Request) Area(area string) ApiSearchForResumes_0Request {
+	r.area = &area
+	return r
+}
+
+// Готовность к переезду. Возможные значения указаны в поле &#x60;resume_search_relocation&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries). Необходимо указывать вместе с параметром &#x60;area&#x60; 
+func (r ApiSearchForResumes_0Request) Relocation(relocation string) ApiSearchForResumes_0Request {
+	r.relocation = &relocation
+	return r
+}
+
+// Поиск ведется по резюме, опубликованным за указанный период в днях. Если период не указан, поиск ведется без ограничений по дате публикации 
+func (r ApiSearchForResumes_0Request) Period(period float32) ApiSearchForResumes_0Request {
+	r.period = &period
+	return r
+}
+
+// Дата, от которой нужно начать поиск. Значение указывается в формате [ISO 8601](#date-format) — &#x60;YYYY-MM-DD&#x60; или с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
+func (r ApiSearchForResumes_0Request) DateFrom(dateFrom string) ApiSearchForResumes_0Request {
+	r.dateFrom = &dateFrom
+	return r
+}
+
+// Дата, до которой нужно искать. Значение указывается в формате [ISO 8601](#date-format) — &#x60;YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Можно передавать только в паре с параметром &#x60;date_from&#x60;. Нельзя передавать вместе с параметром &#x60;period&#x60; 
+func (r ApiSearchForResumes_0Request) DateTo(dateTo string) ApiSearchForResumes_0Request {
+	r.dateTo = &dateTo
+	return r
+}
+
+// Уровень образования. Возможные значения перечислены в поле &#x60;education_level&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries). Если параметр не указан, поиск ведется без ограничений на уровень образования 
+func (r ApiSearchForResumes_0Request) EducationLevel(educationLevel string) ApiSearchForResumes_0Request {
+	r.educationLevel = &educationLevel
+	return r
+}
+
+// Тип занятости. Возможные значения перечислены в поле &#x60;employment&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) Employment(employment string) ApiSearchForResumes_0Request {
+	r.employment = &employment
+	return r
+}
+
+// Опыт работы. Возможные значения перечислены в поле &#x60;experience&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+func (r ApiSearchForResumes_0Request) Experience(experience string) ApiSearchForResumes_0Request {
+	r.experience = &experience
+	return r
+}
+
+// Ключевые навыки. Указывается один или несколько идентификаторов ключевых навыков. Значения можно получить из поля &#x60;id&#x60; в [подсказке по ключевым навыкам](#tag/Podskazki/operation/get-skill-set-suggests) 
+func (r ApiSearchForResumes_0Request) Skill(skill string) ApiSearchForResumes_0Request {
+	r.skill = &skill
+	return r
+}
+
+// Пол соискателя. Возможные значения перечислены в поле &#x60;gender&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries).  По умолчанию вне зависимости от значения параметра будут найдены резюме, в которых пол не указан, исключить из поисковой выдачи такие резюме можно с помощью параметра &#x60;label&#x3D;only_with_gender&#x60; 
+func (r ApiSearchForResumes_0Request) Gender(gender string) ApiSearchForResumes_0Request {
+	r.gender = &gender
+	return r
+}
+
+// Дополнительный фильтр. Возможные значения перечислены в поле &#x60;resume_search_label&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) Label(label string) ApiSearchForResumes_0Request {
+	r.label = &label
+	return r
+}
+
+// Знание языка. Можно указать несколько значений.  Возможные значения перечислены в [справочнике языков](#tag/Obshie-spravochniki/operation/get-languages) 
+func (r ApiSearchForResumes_0Request) Language(language string) ApiSearchForResumes_0Request {
+	r.language = &language
+	return r
+}
+
+// Уровень знания языка. Можно указать несколько значений.  Возможные значения перечислены в поле &#x60;language_level&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+func (r ApiSearchForResumes_0Request) LanguageLevel(languageLevel string) ApiSearchForResumes_0Request {
+	r.languageLevel = &languageLevel
+	return r
+}
+
+// Линия, либо станция метро. Можно указать несколько значений.  Возможные значения перечислены в [справочнике метро](#tag/Obshie-spravochniki/operation/get-metro-stations) 
+func (r ApiSearchForResumes_0Request) Metro(metro string) ApiSearchForResumes_0Request {
+	r.metro = &metro
+	return r
+}
+
+// Код валюты. Возможные значения перечислены в поле &#x60;currency.code&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+func (r ApiSearchForResumes_0Request) Currency(currency string) ApiSearchForResumes_0Request {
+	r.currency = &currency
+	return r
+}
+
+// Нижняя граница желаемой заработной платы (ЗП).  По умолчанию в выдачу добавляются также резюме с неуказанной ЗП. Для выдачи резюме только с указанной ЗП передайте параметр &#x60;label&#x3D;only_with_salary&#x60; 
+func (r ApiSearchForResumes_0Request) SalaryFrom(salaryFrom float32) ApiSearchForResumes_0Request {
+	r.salaryFrom = &salaryFrom
+	return r
+}
+
+// Верхняя граница желаемой заработной платы (ЗП).  По умолчанию в выдачу добавляются также резюме с неуказанной ЗП. Для выдачи резюме только с указанной ЗП передайте параметр &#x60;label&#x3D;only_with_salary&#x60; 
+func (r ApiSearchForResumes_0Request) SalaryTo(salaryTo float32) ApiSearchForResumes_0Request {
+	r.salaryTo = &salaryTo
+	return r
+}
+
+// График работы. Возможные значения перечислены в поле &#x60;schedule&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) Schedule(schedule string) ApiSearchForResumes_0Request {
+	r.schedule = &schedule
+	return r
+}
+
+// Сортировка списка резюме. Возможные значения перечислены в поле &#x60;resume_search_order&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+func (r ApiSearchForResumes_0Request) OrderBy(orderBy string) ApiSearchForResumes_0Request {
+	r.orderBy = &orderBy
+	return r
+}
+
+// Страна гражданства соискателя. Возможные значения перечислены в [справочнике стран](https://github.com/hhru/api/blob/master/docs/areas.md#countries). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) Citizenship(citizenship string) ApiSearchForResumes_0Request {
+	r.citizenship = &citizenship
+	return r
+}
+
+// Страна, в которой у соискателя есть разрешение на работу. Возможные значения перечислены в [справочнике стран](https://github.com/hhru/api/blob/master/docs/areas.md#countries). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) WorkTicket(workTicket string) ApiSearchForResumes_0Request {
+	r.workTicket = &workTicket
+	return r
+}
+
+// Учебные заведения соискателя. В качестве параметров используются [подсказки по названиям университетов](#tag/Podskazki/operation/get-educational-institutions-suggests). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) EducationalInstitution(educationalInstitution string) ApiSearchForResumes_0Request {
+	r.educationalInstitution = &educationalInstitution
+	return r
+}
+
+// Если &#x60;true&#x60;, то поиск осуществляется только по резюме, которыми соискатели откликались на вакансии компании текущего пользователя, если &#x60;false&#x60; — поиск осуществляется по всем резюме. По умолчанию — &#x60;false&#x60; 
+func (r ApiSearchForResumes_0Request) SearchInResponses(searchInResponses bool) ApiSearchForResumes_0Request {
+	r.searchInResponses = &searchInResponses
+	return r
+}
+
+// Если &#x60;true&#x60;, включается поиск по префиксу. Для каждого параметра &#x60;text&#x60; будут находиться не только полные совпадения слов, но еще и слова, начинающиеся с &#x60;text&#x60;. По умолчанию — &#x60;false&#x60; 
+func (r ApiSearchForResumes_0Request) ByTextPrefix(byTextPrefix bool) ApiSearchForResumes_0Request {
+	r.byTextPrefix = &byTextPrefix
+	return r
+}
+
+// Категории водительских прав соискателя. Возможные значения перечислены в поле &#x60;driver_license_types&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries) 
+func (r ApiSearchForResumes_0Request) DriverLicenseTypes(driverLicenseTypes string) ApiSearchForResumes_0Request {
+	r.driverLicenseTypes = &driverLicenseTypes
+	return r
+}
+
+// Идентификатор вакансии для поиска похожих резюме. Необходимо передавать идентификатор активной вакансии работодателя или вакансии работодателя в архиве 
+func (r ApiSearchForResumes_0Request) VacancyId(vacancyId string) ApiSearchForResumes_0Request {
+	r.vacancyId = &vacancyId
+	return r
+}
+
+// Номер страницы (считается от 0, по умолчанию — 0)
+func (r ApiSearchForResumes_0Request) Page(page float32) ApiSearchForResumes_0Request {
+	r.page = &page
+	return r
+}
+
+// Количество элементов (по умолчанию — 20, максимальное значение — 100)
+func (r ApiSearchForResumes_0Request) PerPage(perPage float32) ApiSearchForResumes_0Request {
+	r.perPage = &perPage
+	return r
+}
+
+// Профессиональная роль. Элемент справочника [профессиональных ролей](#tag/Obshie-spravochniki/operation/get-professional-roles-dictionary). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) ProfessionalRole(professionalRole string) ApiSearchForResumes_0Request {
+	r.professionalRole = &professionalRole
+	return r
+}
+
+// Один или несколько идентификаторов папок с отобранными резюме. Если данный параметр передан, поиск будет ограничен содержимым указанных папок. Можно передавать идентификаторы нескольких папок, например: &#x60;folder&#x3D;111&amp;folder&#x3D;222&amp;folder&#x3D;333&#x60; 
+func (r ApiSearchForResumes_0Request) Folder(folder string) ApiSearchForResumes_0Request {
+	r.folder = &folder
+	return r
+}
+
+// Признак, указывающий, нужно ли вести поиск по всем папкам с отобранными резюме.  Если у менеджера есть доступ к избранным папкам, то поиск проходит по умолчанию в избранных папках. Если передать параметр &#x60;false&#x60;, то поиск не будет ограничен папками. Если в одном запросе будут переданы параметры &#x60;folder&#x60; и &#x60;include_all_folders&#x60;, вернется ошибка &#x60;400 Bad Request&#x60; 
+func (r ApiSearchForResumes_0Request) IncludeAllFolders(includeAllFolders bool) ApiSearchForResumes_0Request {
+	r.includeAllFolders = &includeAllFolders
+	return r
+}
+
+// Статус поиска работы.  Возможные значения перечислены в поле &#x60;job_search_statuses_employer&#x60; в [справочнике полей](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) JobSearchStatus(jobSearchStatus string) ApiSearchForResumes_0Request {
+	r.jobSearchStatus = &jobSearchStatus
+	return r
+}
+
+// Идентификатор резюме для поиска похожих резюме 
+func (r ApiSearchForResumes_0Request) Resume(resume string) ApiSearchForResumes_0Request {
+	r.resume = &resume
+	return r
+}
+
+// Обрабатывается совместно с параметром &#x60;filter_exp_period&#x60;. Идентификатор отрасли, в которой у соискателя должен присутствовать опыт работы. Возможные значения перечислены в [справочнике отраслей](#tag/Obshie-spravochniki/operation/get-industries) (поле id). Можно указать несколько значений 
+func (r ApiSearchForResumes_0Request) FilterExpIndustry(filterExpIndustry string) ApiSearchForResumes_0Request {
+	r.filterExpIndustry = &filterExpIndustry
+	return r
+}
+
+// Период, за который у соискателя должен присутствовать опыт работы в отрасли, указанной в параметре &#x60;filter_exp_industry&#x60;.  Возможные значения:   * &#x60;all_time&#x60; - за все время * &#x60;last_year&#x60; - за последний год * &#x60;last_three_years&#x60; - за последние 3 года * &#x60;last_six_years&#x60; - за последние 6 лет.  По умолчанию равен &#x60;all_time&#x60; 
+func (r ApiSearchForResumes_0Request) FilterExpPeriod(filterExpPeriod string) ApiSearchForResumes_0Request {
+	r.filterExpPeriod = &filterExpPeriod
+	return r
+}
+
+// Параметр для просмотра в резюме статуса поиска кандидата 
+func (r ApiSearchForResumes_0Request) WithJobSearchStatus(withJobSearchStatus bool) ApiSearchForResumes_0Request {
+	r.withJobSearchStatus = &withJobSearchStatus
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiSearchForResumes_0Request) Locale(locale string) ApiSearchForResumes_0Request {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiSearchForResumes_0Request) Host(host string) ApiSearchForResumes_0Request {
+	r.host = &host
+	return r
+}
+
+func (r ApiSearchForResumes_0Request) Execute() (*ResumesSearchForResumesResponse, *http.Response, error) {
+	return r.ApiService.SearchForResumes_47Execute(r)
+}
+
+/*
+SearchForResumes_0 Поиск резюме
+
+Возвращает результаты поиска резюме.
+
+Требуется наличие [платного доступа](#tag/Uslugi-rabotodatelya/operation/get-payable-api-method-access).
+
+Некоторые параметры запроса могут принимать множественные значения: `key=value&key=value`. Если параметр может принимать несколько значений, об этом явно указано в его описании. Неизвестные параметры и параметры с ошибкой в названии игнорируются.
+
+При указании параметров пагинации (`page`, `per_page`) работает ограничение: глубина возвращаемых результатов не может быть больше 2000. Например, возможен запрос `per_page=10&page=199` (выдача с 1991 по 2000 резюме), но запрос с `per_page=10&page=200` вернёт ошибку (выдача с 2001 до 2010 резюме)
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSearchForResumes_0Request
+*/
+func (a *DefaultApiService) SearchForResumes_47(ctx context.Context) ApiSearchForResumes_0Request {
+	return ApiSearchForResumes_0Request{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ResumesSearchForResumesResponse
+func (a *DefaultApiService) SearchForResumes_47Execute(r ApiSearchForResumes_0Request) (*ResumesSearchForResumesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResumesSearchForResumesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SearchForResumes_47")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -35685,7 +36649,7 @@ func (r ApiSendNegotiationMessage_0Request) Message(message string) ApiSendNegot
 }
 
 func (r ApiSendNegotiationMessage_0Request) Execute() (*NegotiationsMessageSent, *http.Response, error) {
-	return r.ApiService.SendNegotiationMessage_46Execute(r)
+	return r.ApiService.SendNegotiationMessage_48Execute(r)
 }
 
 /*
@@ -35709,7 +36673,7 @@ SendNegotiationMessage_0 Отправка нового сообщения
  @param nid Идентификатор отклика/приглашения
  @return ApiSendNegotiationMessage_0Request
 */
-func (a *DefaultApiService) SendNegotiationMessage_46(ctx context.Context, nid string) ApiSendNegotiationMessage_0Request {
+func (a *DefaultApiService) SendNegotiationMessage_48(ctx context.Context, nid string) ApiSendNegotiationMessage_0Request {
 	return ApiSendNegotiationMessage_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -35719,7 +36683,7 @@ func (a *DefaultApiService) SendNegotiationMessage_46(ctx context.Context, nid s
 
 // Execute executes the request
 //  @return NegotiationsMessageSent
-func (a *DefaultApiService) SendNegotiationMessage_46Execute(r ApiSendNegotiationMessage_0Request) (*NegotiationsMessageSent, *http.Response, error) {
+func (a *DefaultApiService) SendNegotiationMessage_48Execute(r ApiSendNegotiationMessage_0Request) (*NegotiationsMessageSent, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -35727,7 +36691,7 @@ func (a *DefaultApiService) SendNegotiationMessage_46Execute(r ApiSendNegotiatio
 		localVarReturnValue  *NegotiationsMessageSent
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SendNegotiationMessage_46")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SendNegotiationMessage_48")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -36075,7 +37039,7 @@ func (r ApiUpdateApplicantComment_0Request) AccessType(accessType string) ApiUpd
 }
 
 func (r ApiUpdateApplicantComment_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateApplicantComment_47Execute(r)
+	return r.ApiService.UpdateApplicantComment_49Execute(r)
 }
 
 /*
@@ -36091,7 +37055,7 @@ UpdateApplicantComment_0 Обновление комментария
  @param commentId Идентификатор комментария, который можно узнать в [списке комментариев](#tag/Kommentarii-k-soiskatelyu/operation/get-applicant-comments-list)
  @return ApiUpdateApplicantComment_0Request
 */
-func (a *DefaultApiService) UpdateApplicantComment_47(ctx context.Context, applicantId string, commentId string) ApiUpdateApplicantComment_0Request {
+func (a *DefaultApiService) UpdateApplicantComment_49(ctx context.Context, applicantId string, commentId string) ApiUpdateApplicantComment_0Request {
 	return ApiUpdateApplicantComment_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -36101,14 +37065,14 @@ func (a *DefaultApiService) UpdateApplicantComment_47(ctx context.Context, appli
 }
 
 // Execute executes the request
-func (a *DefaultApiService) UpdateApplicantComment_47Execute(r ApiUpdateApplicantComment_0Request) (*http.Response, error) {
+func (a *DefaultApiService) UpdateApplicantComment_49Execute(r ApiUpdateApplicantComment_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateApplicantComment_47")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateApplicantComment_49")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -36789,7 +37753,7 @@ func (r ApiVacancyProlongation_0Request) Host(host string) ApiVacancyProlongatio
 }
 
 func (r ApiVacancyProlongation_0Request) Execute() (*http.Response, error) {
-	return r.ApiService.VacancyProlongation_48Execute(r)
+	return r.ApiService.VacancyProlongation_50Execute(r)
 }
 
 /*
@@ -36808,7 +37772,7 @@ VacancyProlongation_0 Продление вакансии
  @param vacancyId Идентификатор вакансии
  @return ApiVacancyProlongation_0Request
 */
-func (a *DefaultApiService) VacancyProlongation_48(ctx context.Context, vacancyId string) ApiVacancyProlongation_0Request {
+func (a *DefaultApiService) VacancyProlongation_50(ctx context.Context, vacancyId string) ApiVacancyProlongation_0Request {
 	return ApiVacancyProlongation_0Request{
 		ApiService: a,
 		ctx: ctx,
@@ -36817,14 +37781,14 @@ func (a *DefaultApiService) VacancyProlongation_48(ctx context.Context, vacancyI
 }
 
 // Execute executes the request
-func (a *DefaultApiService) VacancyProlongation_48Execute(r ApiVacancyProlongation_0Request) (*http.Response, error) {
+func (a *DefaultApiService) VacancyProlongation_50Execute(r ApiVacancyProlongation_0Request) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.VacancyProlongation_48")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.VacancyProlongation_50")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

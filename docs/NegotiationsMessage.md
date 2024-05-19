@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Идентификатор сообщения | 
 **Read** | Pointer to **bool** | Можно ли прочитать сообщение | [optional] 
 **State** | [**IncludesIdName**](IncludesIdName.md) | Состояние сообщения | 
-**Text** | **string** | Текст сообщения | 
+**Text** | **NullableString** | Текст сообщения | 
 **ViewedByMe** | **bool** | Прочитано ли сообщение смотрящим (для сообщений отправленных соискателем - всегда true) | 
 **ViewedByOpponent** | **bool** | Прочитано ли сообщение работодателем (для сообщений работодателя - true) | 
 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewNegotiationsMessage
 
-`func NewNegotiationsMessage(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text string, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessage`
+`func NewNegotiationsMessage(author NegotiationsAuthor, createdAt string, editable bool, id string, state IncludesIdName, text NullableString, viewedByMe bool, viewedByOpponent bool, ) *NegotiationsMessage`
 
 NewNegotiationsMessage instantiates a new NegotiationsMessage object
 This constructor will assign default values to properties that have it defined,
@@ -178,6 +178,16 @@ and a boolean to check if the value has been set.
 SetText sets Text field to given value.
 
 
+### SetTextNil
+
+`func (o *NegotiationsMessage) SetTextNil(b bool)`
+
+ SetTextNil sets the value for Text to be an explicit nil
+
+### UnsetText
+`func (o *NegotiationsMessage) UnsetText()`
+
+UnsetText ensures that no value is present for Text, not even an explicit nil
 ### GetViewedByMe
 
 `func (o *NegotiationsMessage) GetViewedByMe() bool`
