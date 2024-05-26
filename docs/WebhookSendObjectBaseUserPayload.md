@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EmployerId** | **string** | Идентификатор работодателя | 
-**NegotiationDate** | **map[string]interface{}** | Дата отклика в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | 
+**NegotiationDate** | **interface{}** | Дата отклика в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | 
 **ResumeId** | **string** | Идентификатор резюме | 
 **TopicId** | **string** | Идентификатор топика | 
 **VacancyId** | **string** | Идентификатор вакансии | 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewWebhookSendObjectBaseUserPayload
 
-`func NewWebhookSendObjectBaseUserPayload(employerId string, negotiationDate map[string]interface{}, resumeId string, topicId string, vacancyId string, responseDate string, archivationDate string, creationDate string, employerManagerId string, prolongationDate string, changeDate string, fromState string, toState string, transferredAt string, ) *WebhookSendObjectBaseUserPayload`
+`func NewWebhookSendObjectBaseUserPayload(employerId string, negotiationDate interface{}, resumeId string, topicId string, vacancyId string, responseDate string, archivationDate string, creationDate string, employerManagerId string, prolongationDate string, changeDate string, fromState string, toState string, transferredAt string, ) *WebhookSendObjectBaseUserPayload`
 
 NewWebhookSendObjectBaseUserPayload instantiates a new WebhookSendObjectBaseUserPayload object
 This constructor will assign default values to properties that have it defined,
@@ -60,24 +60,34 @@ SetEmployerId sets EmployerId field to given value.
 
 ### GetNegotiationDate
 
-`func (o *WebhookSendObjectBaseUserPayload) GetNegotiationDate() map[string]interface{}`
+`func (o *WebhookSendObjectBaseUserPayload) GetNegotiationDate() interface{}`
 
 GetNegotiationDate returns the NegotiationDate field if non-nil, zero value otherwise.
 
 ### GetNegotiationDateOk
 
-`func (o *WebhookSendObjectBaseUserPayload) GetNegotiationDateOk() (*map[string]interface{}, bool)`
+`func (o *WebhookSendObjectBaseUserPayload) GetNegotiationDateOk() (*interface{}, bool)`
 
 GetNegotiationDateOk returns a tuple with the NegotiationDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNegotiationDate
 
-`func (o *WebhookSendObjectBaseUserPayload) SetNegotiationDate(v map[string]interface{})`
+`func (o *WebhookSendObjectBaseUserPayload) SetNegotiationDate(v interface{})`
 
 SetNegotiationDate sets NegotiationDate field to given value.
 
 
+### SetNegotiationDateNil
+
+`func (o *WebhookSendObjectBaseUserPayload) SetNegotiationDateNil(b bool)`
+
+ SetNegotiationDateNil sets the value for NegotiationDate to be an explicit nil
+
+### UnsetNegotiationDate
+`func (o *WebhookSendObjectBaseUserPayload) UnsetNegotiationDate()`
+
+UnsetNegotiationDate ensures that no value is present for NegotiationDate, not even an explicit nil
 ### GetResumeId
 
 `func (o *WebhookSendObjectBaseUserPayload) GetResumeId() string`

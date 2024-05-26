@@ -23,6 +23,7 @@ type NegotiationsNegotiationCommonFields struct {
 	// Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info) 
 	Actions []VacancyNegotiationActions `json:"actions,omitempty"`
 	EmployerState *EmployersEmployersState `json:"employer_state,omitempty"`
+	FunnelStage NullableEmployersFunnelStage `json:"funnel_stage,omitempty"`
 	// Шаблоны писем
 	Templates []VacancyTemplates `json:"templates,omitempty"`
 	TestResult NullableSkillVerificationsTestResultWithUrl `json:"test_result,omitempty"`
@@ -107,6 +108,48 @@ func (o *NegotiationsNegotiationCommonFields) HasEmployerState() bool {
 // SetEmployerState gets a reference to the given EmployersEmployersState and assigns it to the EmployerState field.
 func (o *NegotiationsNegotiationCommonFields) SetEmployerState(v EmployersEmployersState) {
 	o.EmployerState = &v
+}
+
+// GetFunnelStage returns the FunnelStage field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NegotiationsNegotiationCommonFields) GetFunnelStage() EmployersFunnelStage {
+	if o == nil || IsNil(o.FunnelStage.Get()) {
+		var ret EmployersFunnelStage
+		return ret
+	}
+	return *o.FunnelStage.Get()
+}
+
+// GetFunnelStageOk returns a tuple with the FunnelStage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NegotiationsNegotiationCommonFields) GetFunnelStageOk() (*EmployersFunnelStage, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FunnelStage.Get(), o.FunnelStage.IsSet()
+}
+
+// HasFunnelStage returns a boolean if a field has been set.
+func (o *NegotiationsNegotiationCommonFields) HasFunnelStage() bool {
+	if o != nil && o.FunnelStage.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFunnelStage gets a reference to the given NullableEmployersFunnelStage and assigns it to the FunnelStage field.
+func (o *NegotiationsNegotiationCommonFields) SetFunnelStage(v EmployersFunnelStage) {
+	o.FunnelStage.Set(&v)
+}
+// SetFunnelStageNil sets the value for FunnelStage to be an explicit nil
+func (o *NegotiationsNegotiationCommonFields) SetFunnelStageNil() {
+	o.FunnelStage.Set(nil)
+}
+
+// UnsetFunnelStage ensures that no value is present for FunnelStage, not even an explicit nil
+func (o *NegotiationsNegotiationCommonFields) UnsetFunnelStage() {
+	o.FunnelStage.Unset()
 }
 
 // GetTemplates returns the Templates field value if set, zero value otherwise.
@@ -198,6 +241,9 @@ func (o NegotiationsNegotiationCommonFields) ToMap() (map[string]interface{}, er
 	}
 	if !IsNil(o.EmployerState) {
 		toSerialize["employer_state"] = o.EmployerState
+	}
+	if o.FunnelStage.IsSet() {
+		toSerialize["funnel_stage"] = o.FunnelStage.Get()
 	}
 	if !IsNil(o.Templates) {
 		toSerialize["templates"] = o.Templates

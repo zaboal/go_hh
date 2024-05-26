@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **Area** | [**VacancyArea**](VacancyArea.md) |  | 
 **BillingType** | [**VacancyBillingType**](VacancyBillingType.md) |  | 
 **Description** | **string** | Описание в html, не менее 200 символов | 
-**Manager** | Pointer to [**VacancyManager**](VacancyManager.md) |  | [optional] 
+**Manager** | Pointer to [**NullableVacancyManager**](VacancyManager.md) |  | [optional] 
 **Name** | **string** | Название | 
 **PreviousId** | Pointer to **NullableString** | Если этот параметр передан, то у новой вакансии дополнительно будет создана связь с предыдущей вакансией (поле previous_id). Этот параметр не влияет на другие и не связан с ними, их всё равно необходимо передавать.  Должен быть равен только ID архивной вакансии. ID архивной вакансии можно получить, запросив [список архивных вакансий](#tag/Upravlenie-vakansiyami/operation/get-archived-vacancies) &lt;a name&#x3D;&#39;previous_id&#39;&gt;&lt;/a&gt;  | [optional] 
 **Type** | [**VacancyType**](VacancyType.md) |  | 
@@ -977,6 +977,16 @@ SetManager sets Manager field to given value.
 
 HasManager returns a boolean if a field has been set.
 
+### SetManagerNil
+
+`func (o *VacancyCreate) SetManagerNil(b bool)`
+
+ SetManagerNil sets the value for Manager to be an explicit nil
+
+### UnsetManager
+`func (o *VacancyCreate) UnsetManager()`
+
+UnsetManager ensures that no value is present for Manager, not even an explicit nil
 ### GetName
 
 `func (o *VacancyCreate) GetName() string`

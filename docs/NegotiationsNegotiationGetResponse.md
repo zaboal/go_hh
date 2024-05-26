@@ -17,15 +17,16 @@ Name | Type | Description | Notes
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 **DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
 **Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
-**JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
-**PhoneCalls** | Pointer to [**NegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
-**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
-**Resume** | Pointer to [**NegotiationsObjectsEmployerTopicResume**](NegotiationsObjectsEmployerTopicResume.md) |  | [optional] 
+**JobSearchStatus** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**PhoneCalls** | Pointer to [**NullableNegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
+**Vacancy** | Pointer to [**NullableVacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
+**Resume** | Pointer to [**NullableNegotiationsObjectsEmployerTopicResume**](NegotiationsObjectsEmployerTopicResume.md) |  | [optional] 
 **Url** | **string** | Ссылка на полную версию отклика | 
 **Actions** | Pointer to [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info)  | [optional] 
 **EmployerState** | Pointer to [**EmployersEmployersState**](EmployersEmployersState.md) |  | [optional] 
+**FunnelStage** | Pointer to [**NullableEmployersFunnelStage**](EmployersFunnelStage.md) |  | [optional] 
 **Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 
-**TestResult** | Pointer to [**SkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
+**TestResult** | Pointer to [**NullableSkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
 
 ## Methods
 
@@ -351,6 +352,16 @@ SetJobSearchStatus sets JobSearchStatus field to given value.
 
 HasJobSearchStatus returns a boolean if a field has been set.
 
+### SetJobSearchStatusNil
+
+`func (o *NegotiationsNegotiationGetResponse) SetJobSearchStatusNil(b bool)`
+
+ SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
+
+### UnsetJobSearchStatus
+`func (o *NegotiationsNegotiationGetResponse) UnsetJobSearchStatus()`
+
+UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
 ### GetPhoneCalls
 
 `func (o *NegotiationsNegotiationGetResponse) GetPhoneCalls() NegotiationsPhoneCalls`
@@ -376,6 +387,16 @@ SetPhoneCalls sets PhoneCalls field to given value.
 
 HasPhoneCalls returns a boolean if a field has been set.
 
+### SetPhoneCallsNil
+
+`func (o *NegotiationsNegotiationGetResponse) SetPhoneCallsNil(b bool)`
+
+ SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
+
+### UnsetPhoneCalls
+`func (o *NegotiationsNegotiationGetResponse) UnsetPhoneCalls()`
+
+UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
 ### GetVacancy
 
 `func (o *NegotiationsNegotiationGetResponse) GetVacancy() VacanciesNegotiationsVacancyShort`
@@ -401,6 +422,16 @@ SetVacancy sets Vacancy field to given value.
 
 HasVacancy returns a boolean if a field has been set.
 
+### SetVacancyNil
+
+`func (o *NegotiationsNegotiationGetResponse) SetVacancyNil(b bool)`
+
+ SetVacancyNil sets the value for Vacancy to be an explicit nil
+
+### UnsetVacancy
+`func (o *NegotiationsNegotiationGetResponse) UnsetVacancy()`
+
+UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
 ### GetResume
 
 `func (o *NegotiationsNegotiationGetResponse) GetResume() NegotiationsObjectsEmployerTopicResume`
@@ -426,6 +457,16 @@ SetResume sets Resume field to given value.
 
 HasResume returns a boolean if a field has been set.
 
+### SetResumeNil
+
+`func (o *NegotiationsNegotiationGetResponse) SetResumeNil(b bool)`
+
+ SetResumeNil sets the value for Resume to be an explicit nil
+
+### UnsetResume
+`func (o *NegotiationsNegotiationGetResponse) UnsetResume()`
+
+UnsetResume ensures that no value is present for Resume, not even an explicit nil
 ### GetUrl
 
 `func (o *NegotiationsNegotiationGetResponse) GetUrl() string`
@@ -496,6 +537,41 @@ SetEmployerState sets EmployerState field to given value.
 
 HasEmployerState returns a boolean if a field has been set.
 
+### GetFunnelStage
+
+`func (o *NegotiationsNegotiationGetResponse) GetFunnelStage() EmployersFunnelStage`
+
+GetFunnelStage returns the FunnelStage field if non-nil, zero value otherwise.
+
+### GetFunnelStageOk
+
+`func (o *NegotiationsNegotiationGetResponse) GetFunnelStageOk() (*EmployersFunnelStage, bool)`
+
+GetFunnelStageOk returns a tuple with the FunnelStage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFunnelStage
+
+`func (o *NegotiationsNegotiationGetResponse) SetFunnelStage(v EmployersFunnelStage)`
+
+SetFunnelStage sets FunnelStage field to given value.
+
+### HasFunnelStage
+
+`func (o *NegotiationsNegotiationGetResponse) HasFunnelStage() bool`
+
+HasFunnelStage returns a boolean if a field has been set.
+
+### SetFunnelStageNil
+
+`func (o *NegotiationsNegotiationGetResponse) SetFunnelStageNil(b bool)`
+
+ SetFunnelStageNil sets the value for FunnelStage to be an explicit nil
+
+### UnsetFunnelStage
+`func (o *NegotiationsNegotiationGetResponse) UnsetFunnelStage()`
+
+UnsetFunnelStage ensures that no value is present for FunnelStage, not even an explicit nil
 ### GetTemplates
 
 `func (o *NegotiationsNegotiationGetResponse) GetTemplates() []VacancyTemplates`
@@ -546,6 +622,16 @@ SetTestResult sets TestResult field to given value.
 
 HasTestResult returns a boolean if a field has been set.
 
+### SetTestResultNil
+
+`func (o *NegotiationsNegotiationGetResponse) SetTestResultNil(b bool)`
+
+ SetTestResultNil sets the value for TestResult to be an explicit nil
+
+### UnsetTestResult
+`func (o *NegotiationsNegotiationGetResponse) UnsetTestResult()`
+
+UnsetTestResult ensures that no value is present for TestResult, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

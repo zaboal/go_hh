@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время публикации вакансии | 
 **EmployerNegotiationsState** | [**NullableIncludesIdName**](IncludesIdName.md) |  | 
 **Manager** | [**VacancyManagerOutput**](VacancyManagerOutput.md) |  | 
-**NegotiationsActions** | [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Действия для [создания отклика](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#add-invite). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив | 
+**NegotiationsActions** | [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Действия для [создания отклика](#tag/Otklikipriglasheniya-rabotodatelya/operation/invite-applicant-to-vacancy). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив | 
 **NegotiationsState** | [**NullableIncludesIdName**](IncludesIdName.md) |  | 
 **SortPointDistance** | Pointer to **NullableFloat32** | Расстояние в метрах между центром сортировки (заданной параметрами &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60;) и указанным в вакансии адресом. В случае, если в адресе указаны только станции метро, выдается расстояние между центром сортировки и средней геометрической точкой указанных станций. Значение &#x60;sort_point_distance&#x60; выдается только в случае, если заданы параметры &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60;, &#x60;order_by&#x3D;distance&#x60;  | [optional] 
 **Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info)  | [optional] 
 **EmployerState** | Pointer to [**EmployersEmployersState**](EmployersEmployersState.md) |  | [optional] 
+**FunnelStage** | Pointer to [**NullableEmployersFunnelStage**](EmployersFunnelStage.md) |  | [optional] 
 **Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 
 **TestResult** | Pointer to [**NullableSkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
 
@@ -78,6 +79,41 @@ SetEmployerState sets EmployerState field to given value.
 
 HasEmployerState returns a boolean if a field has been set.
 
+### GetFunnelStage
+
+`func (o *NegotiationsNegotiationCommonFields) GetFunnelStage() EmployersFunnelStage`
+
+GetFunnelStage returns the FunnelStage field if non-nil, zero value otherwise.
+
+### GetFunnelStageOk
+
+`func (o *NegotiationsNegotiationCommonFields) GetFunnelStageOk() (*EmployersFunnelStage, bool)`
+
+GetFunnelStageOk returns a tuple with the FunnelStage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFunnelStage
+
+`func (o *NegotiationsNegotiationCommonFields) SetFunnelStage(v EmployersFunnelStage)`
+
+SetFunnelStage sets FunnelStage field to given value.
+
+### HasFunnelStage
+
+`func (o *NegotiationsNegotiationCommonFields) HasFunnelStage() bool`
+
+HasFunnelStage returns a boolean if a field has been set.
+
+### SetFunnelStageNil
+
+`func (o *NegotiationsNegotiationCommonFields) SetFunnelStageNil(b bool)`
+
+ SetFunnelStageNil sets the value for FunnelStage to be an explicit nil
+
+### UnsetFunnelStage
+`func (o *NegotiationsNegotiationCommonFields) UnsetFunnelStage()`
+
+UnsetFunnelStage ensures that no value is present for FunnelStage, not even an explicit nil
 ### GetTemplates
 
 `func (o *NegotiationsNegotiationCommonFields) GetTemplates() []VacancyTemplates`

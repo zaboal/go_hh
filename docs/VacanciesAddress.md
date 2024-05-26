@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **NullableString** | Адрес из [списка доступных адресов работодателя](https://api.hh.ru/openapi/redoc#tag/Adresa-rabotodatelya/operation/get-employer-addresses) | [optional] 
 **Lat** | Pointer to **NullableFloat32** | Широта | [optional] 
 **Lng** | Pointer to **NullableFloat32** | Долгота | [optional] 
-**Metro** | Pointer to [**IncludesMetroStation**](IncludesMetroStation.md) |  | [optional] 
+**Metro** | Pointer to [**NullableIncludesMetroStation**](IncludesMetroStation.md) |  | [optional] 
 **MetroStations** | Pointer to [**[]IncludesMetroStation**](IncludesMetroStation.md) |  | [optional] 
 **Raw** | Pointer to **NullableString** | Полный адрес | [optional] 
 **Street** | Pointer to **NullableString** | Улица | [optional] 
@@ -270,6 +270,16 @@ SetMetro sets Metro field to given value.
 
 HasMetro returns a boolean if a field has been set.
 
+### SetMetroNil
+
+`func (o *VacanciesAddress) SetMetroNil(b bool)`
+
+ SetMetroNil sets the value for Metro to be an explicit nil
+
+### UnsetMetro
+`func (o *VacanciesAddress) UnsetMetro()`
+
+UnsetMetro ensures that no value is present for Metro, not even an explicit nil
 ### GetMetroStations
 
 `func (o *VacanciesAddress) GetMetroStations() []IncludesMetroStation`

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlternateUrl** | **string** | Ссылка на описание работодателя на сайте | 
 **Id** | **string** | Идентификатор работодателя | 
-**LogoUrls** | Pointer to [**IncludesLogoUrls**](IncludesLogoUrls.md) |  | [optional] 
+**LogoUrls** | Pointer to [**NullableIncludesLogoUrls**](IncludesLogoUrls.md) |  | [optional] 
 **Name** | **string** | Название | 
 **Url** | **string** | URL для получения полного описания работодателя | 
 **VacanciesUrl** | **string** | URL для получения поисковой выдачи с вакансиями данного работодателя | 
@@ -95,6 +95,16 @@ SetLogoUrls sets LogoUrls field to given value.
 
 HasLogoUrls returns a boolean if a field has been set.
 
+### SetLogoUrlsNil
+
+`func (o *ResumesResumeViewHistoryItemEmployer) SetLogoUrlsNil(b bool)`
+
+ SetLogoUrlsNil sets the value for LogoUrls to be an explicit nil
+
+### UnsetLogoUrls
+`func (o *ResumesResumeViewHistoryItemEmployer) UnsetLogoUrls()`
+
+UnsetLogoUrls ensures that no value is present for LogoUrls, not even an explicit nil
 ### GetName
 
 `func (o *ResumesResumeViewHistoryItemEmployer) GetName() string`

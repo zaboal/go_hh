@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Settings** | Pointer to [**WebhookActionVacancyOnlyMineSettings**](WebhookActionVacancyOnlyMineSettings.md) |  | [optional] 
+**Settings** | Pointer to [**NullableWebhookActionVacancyOnlyMineSettings**](WebhookActionVacancyOnlyMineSettings.md) |  | [optional] 
 **Type** | **string** | Новый отклик на вакансию. Данное событие будет вызываться только на отклик со стороны соискателя | 
 
 ## Methods
@@ -51,6 +51,16 @@ SetSettings sets Settings field to given value.
 
 HasSettings returns a boolean if a field has been set.
 
+### SetSettingsNil
+
+`func (o *WebhookSubscriptionCommonItemActionsInner) SetSettingsNil(b bool)`
+
+ SetSettingsNil sets the value for Settings to be an explicit nil
+
+### UnsetSettings
+`func (o *WebhookSubscriptionCommonItemActionsInner) UnsetSettings()`
+
+UnsetSettings ensures that no value is present for Settings, not even an explicit nil
 ### GetType
 
 `func (o *WebhookSubscriptionCommonItemActionsInner) GetType() string`

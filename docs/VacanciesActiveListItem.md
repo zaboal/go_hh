@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | Pointer to [**VacanciesAddress**](VacanciesAddress.md) |  | [optional] 
+**Address** | Pointer to [**NullableVacanciesAddress**](VacanciesAddress.md) |  | [optional] 
 **AlternateUrl** | **string** | Ссылка на представление вакансии на сайте | 
 **ApplyAlternateUrl** | **string** | Ссылка на отклик на вакансию на сайте | 
 **Archived** | **bool** | Находится ли данная вакансия в архиве | 
 **Area** | [**IncludesArea**](IncludesArea.md) |  | 
 **Department** | [**NullableVacancyDepartmentOutput**](VacancyDepartmentOutput.md) |  | 
-**Employer** | [**VacanciesEmployerPublic**](VacanciesEmployerPublic.md) |  | 
+**Employer** | [**NullableVacanciesEmployerPublic**](VacanciesEmployerPublic.md) |  | 
 **HasTest** | **bool** | Информация о наличии прикрепленного тестового задании к вакансии | 
 **Id** | **string** | Идентификатор вакансии | 
 **Name** | **string** | Название вакансии | 
@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 
 ### NewVacanciesActiveListItem
 
-`func NewVacanciesActiveListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer VacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canUpgradeBillingType bool, counters VacancyCountersForActive, createdAt string, expiresAt string, hasUpdates bool, manager VacancyManagerOutput, ) *VacanciesActiveListItem`
+`func NewVacanciesActiveListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer NullableVacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canUpgradeBillingType bool, counters VacancyCountersForActive, createdAt string, expiresAt string, hasUpdates bool, manager VacancyManagerOutput, ) *VacanciesActiveListItem`
 
 NewVacanciesActiveListItem instantiates a new VacanciesActiveListItem object
 This constructor will assign default values to properties that have it defined,
@@ -76,6 +76,16 @@ SetAddress sets Address field to given value.
 
 HasAddress returns a boolean if a field has been set.
 
+### SetAddressNil
+
+`func (o *VacanciesActiveListItem) SetAddressNil(b bool)`
+
+ SetAddressNil sets the value for Address to be an explicit nil
+
+### UnsetAddress
+`func (o *VacanciesActiveListItem) UnsetAddress()`
+
+UnsetAddress ensures that no value is present for Address, not even an explicit nil
 ### GetAlternateUrl
 
 `func (o *VacanciesActiveListItem) GetAlternateUrl() string`
@@ -206,6 +216,16 @@ and a boolean to check if the value has been set.
 SetEmployer sets Employer field to given value.
 
 
+### SetEmployerNil
+
+`func (o *VacanciesActiveListItem) SetEmployerNil(b bool)`
+
+ SetEmployerNil sets the value for Employer to be an explicit nil
+
+### UnsetEmployer
+`func (o *VacanciesActiveListItem) UnsetEmployer()`
+
+UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
 ### GetHasTest
 
 `func (o *VacanciesActiveListItem) GetHasTest() bool`

@@ -32,7 +32,7 @@ type VacanciesAddress struct {
 	Lat NullableFloat32 `json:"lat,omitempty"`
 	// Долгота
 	Lng NullableFloat32 `json:"lng,omitempty"`
-	Metro *IncludesMetroStation `json:"metro,omitempty"`
+	Metro NullableIncludesMetroStation `json:"metro,omitempty"`
 	MetroStations []IncludesMetroStation `json:"metro_stations,omitempty"`
 	// Полный адрес
 	Raw NullableString `json:"raw,omitempty"`
@@ -311,36 +311,46 @@ func (o *VacanciesAddress) UnsetLng() {
 	o.Lng.Unset()
 }
 
-// GetMetro returns the Metro field value if set, zero value otherwise.
+// GetMetro returns the Metro field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VacanciesAddress) GetMetro() IncludesMetroStation {
-	if o == nil || IsNil(o.Metro) {
+	if o == nil || IsNil(o.Metro.Get()) {
 		var ret IncludesMetroStation
 		return ret
 	}
-	return *o.Metro
+	return *o.Metro.Get()
 }
 
 // GetMetroOk returns a tuple with the Metro field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesAddress) GetMetroOk() (*IncludesMetroStation, bool) {
-	if o == nil || IsNil(o.Metro) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Metro, true
+	return o.Metro.Get(), o.Metro.IsSet()
 }
 
 // HasMetro returns a boolean if a field has been set.
 func (o *VacanciesAddress) HasMetro() bool {
-	if o != nil && !IsNil(o.Metro) {
+	if o != nil && o.Metro.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMetro gets a reference to the given IncludesMetroStation and assigns it to the Metro field.
+// SetMetro gets a reference to the given NullableIncludesMetroStation and assigns it to the Metro field.
 func (o *VacanciesAddress) SetMetro(v IncludesMetroStation) {
-	o.Metro = &v
+	o.Metro.Set(&v)
+}
+// SetMetroNil sets the value for Metro to be an explicit nil
+func (o *VacanciesAddress) SetMetroNil() {
+	o.Metro.Set(nil)
+}
+
+// UnsetMetro ensures that no value is present for Metro, not even an explicit nil
+func (o *VacanciesAddress) UnsetMetro() {
+	o.Metro.Unset()
 }
 
 // GetMetroStations returns the MetroStations field value if set, zero value otherwise.
@@ -529,8 +539,8 @@ func (o VacanciesAddress) ToMap() (map[string]interface{}, error) {
 	if o.Lng.IsSet() {
 		toSerialize["lng"] = o.Lng.Get()
 	}
-	if !IsNil(o.Metro) {
-		toSerialize["metro"] = o.Metro
+	if o.Metro.IsSet() {
+		toSerialize["metro"] = o.Metro.Get()
 	}
 	if !IsNil(o.MetroStations) {
 		toSerialize["metro_stations"] = o.MetroStations

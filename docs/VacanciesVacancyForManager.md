@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **Department** | Pointer to [**NullableVacancyDepartmentOutput**](VacancyDepartmentOutput.md) |  | [optional] 
 **Description** | **string** | Описание в html, не менее 200 символов | 
 **DriverLicenseTypes** | [**[]VacancyDriverLicenceTypeItem**](VacancyDriverLicenceTypeItem.md) | Список требуемых категорий водительских прав | 
-**Employer** | Pointer to [**VacanciesVacancyEmployer**](VacanciesVacancyEmployer.md) |  | [optional] 
+**Employer** | Pointer to [**NullableVacanciesVacancyEmployer**](VacanciesVacancyEmployer.md) |  | [optional] 
 **Employment** | Pointer to [**NullableVacancyEmploymentOutput**](VacancyEmploymentOutput.md) |  | [optional] 
 **Experience** | [**NullableVacancyExperienceOutput**](VacancyExperienceOutput.md) |  | 
 **HasTest** | **bool** | Информация о наличии прикрепленного тестового задании к вакансии | 
@@ -44,8 +44,8 @@ Name | Type | Description | Notes
 **SuitableResumesUrl** | Pointer to **NullableString** | Подходящие резюме на вакансию | [optional] 
 **Test** | Pointer to [**NullableVacancyDraftTest**](VacancyDraftTest.md) |  | [optional] 
 **Type** | [**IncludesIdName**](IncludesIdName.md) | Идентификатор типа вакансии из справочника [&#x60;vacancy_type&#x60;](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-dictionaries) | 
-**VacancyConstructorTemplate** | Pointer to [**VacancyVacancyConstructorTemplate**](VacancyVacancyConstructorTemplate.md) |  | [optional] 
-**VideoVacancy** | Pointer to [**VacancyVideoVacancy**](VacancyVideoVacancy.md) |  | [optional] 
+**VacancyConstructorTemplate** | Pointer to [**NullableVacancyVacancyConstructorTemplate**](VacancyVacancyConstructorTemplate.md) |  | [optional] 
+**VideoVacancy** | Pointer to [**NullableVacancyVideoVacancy**](VacancyVideoVacancy.md) |  | [optional] 
 **WorkingDays** | Pointer to [**[]VacancyWorkingDayItemOutput**](VacancyWorkingDayItemOutput.md) | Список рабочих дней | [optional] 
 **WorkingTimeIntervals** | Pointer to [**[]VacancyWorkingTimeIntervalItemOutput**](VacancyWorkingTimeIntervalItemOutput.md) | Список с временными интервалами работы | [optional] 
 **WorkingTimeModes** | Pointer to [**[]VacancyWorkingTimeModeItemOutput**](VacancyWorkingTimeModeItemOutput.md) | Список режимов времени работы | [optional] 
@@ -539,6 +539,16 @@ SetEmployer sets Employer field to given value.
 
 HasEmployer returns a boolean if a field has been set.
 
+### SetEmployerNil
+
+`func (o *VacanciesVacancyForManager) SetEmployerNil(b bool)`
+
+ SetEmployerNil sets the value for Employer to be an explicit nil
+
+### UnsetEmployer
+`func (o *VacanciesVacancyForManager) UnsetEmployer()`
+
+UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
 ### GetEmployment
 
 `func (o *VacanciesVacancyForManager) GetEmployment() VacancyEmploymentOutput`
@@ -1119,6 +1129,16 @@ SetVacancyConstructorTemplate sets VacancyConstructorTemplate field to given val
 
 HasVacancyConstructorTemplate returns a boolean if a field has been set.
 
+### SetVacancyConstructorTemplateNil
+
+`func (o *VacanciesVacancyForManager) SetVacancyConstructorTemplateNil(b bool)`
+
+ SetVacancyConstructorTemplateNil sets the value for VacancyConstructorTemplate to be an explicit nil
+
+### UnsetVacancyConstructorTemplate
+`func (o *VacanciesVacancyForManager) UnsetVacancyConstructorTemplate()`
+
+UnsetVacancyConstructorTemplate ensures that no value is present for VacancyConstructorTemplate, not even an explicit nil
 ### GetVideoVacancy
 
 `func (o *VacanciesVacancyForManager) GetVideoVacancy() VacancyVideoVacancy`
@@ -1144,6 +1164,16 @@ SetVideoVacancy sets VideoVacancy field to given value.
 
 HasVideoVacancy returns a boolean if a field has been set.
 
+### SetVideoVacancyNil
+
+`func (o *VacanciesVacancyForManager) SetVideoVacancyNil(b bool)`
+
+ SetVideoVacancyNil sets the value for VideoVacancy to be an explicit nil
+
+### UnsetVideoVacancy
+`func (o *VacanciesVacancyForManager) UnsetVideoVacancy()`
+
+UnsetVideoVacancy ensures that no value is present for VideoVacancy, not even an explicit nil
 ### GetWorkingDays
 
 `func (o *VacanciesVacancyForManager) GetWorkingDays() []VacancyWorkingDayItemOutput`

@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"time"
 	"bytes"
 	"fmt"
 )
@@ -32,8 +33,12 @@ type ProfessionalRolesRole struct {
 	Name string `json:"name"`
 	// Наличие запрета на использование в поиске при составлении поискового запроса
 	SearchDeprecated *bool `json:"search_deprecated,omitempty"`
+	// Время, с которого действует запрет на использование роли в поиске при составлении поискового запроса,  в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm` 
+	SearchDeprecatedDatetime NullableTime `json:"search_deprecated_datetime,omitempty"`
 	// Наличие запрета на использование при создании новых сущностей (резюме или вакансии)
 	SelectDeprecated *bool `json:"select_deprecated,omitempty"`
+	// Время, с которого действует запрет на использование роли при создании новых сущностей,  в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm` 
+	SelectDeprecatedDatetime NullableTime `json:"select_deprecated_datetime,omitempty"`
 }
 
 type _ProfessionalRolesRole ProfessionalRolesRole
@@ -187,6 +192,48 @@ func (o *ProfessionalRolesRole) SetSearchDeprecated(v bool) {
 	o.SearchDeprecated = &v
 }
 
+// GetSearchDeprecatedDatetime returns the SearchDeprecatedDatetime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ProfessionalRolesRole) GetSearchDeprecatedDatetime() time.Time {
+	if o == nil || IsNil(o.SearchDeprecatedDatetime.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SearchDeprecatedDatetime.Get()
+}
+
+// GetSearchDeprecatedDatetimeOk returns a tuple with the SearchDeprecatedDatetime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ProfessionalRolesRole) GetSearchDeprecatedDatetimeOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SearchDeprecatedDatetime.Get(), o.SearchDeprecatedDatetime.IsSet()
+}
+
+// HasSearchDeprecatedDatetime returns a boolean if a field has been set.
+func (o *ProfessionalRolesRole) HasSearchDeprecatedDatetime() bool {
+	if o != nil && o.SearchDeprecatedDatetime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSearchDeprecatedDatetime gets a reference to the given NullableTime and assigns it to the SearchDeprecatedDatetime field.
+func (o *ProfessionalRolesRole) SetSearchDeprecatedDatetime(v time.Time) {
+	o.SearchDeprecatedDatetime.Set(&v)
+}
+// SetSearchDeprecatedDatetimeNil sets the value for SearchDeprecatedDatetime to be an explicit nil
+func (o *ProfessionalRolesRole) SetSearchDeprecatedDatetimeNil() {
+	o.SearchDeprecatedDatetime.Set(nil)
+}
+
+// UnsetSearchDeprecatedDatetime ensures that no value is present for SearchDeprecatedDatetime, not even an explicit nil
+func (o *ProfessionalRolesRole) UnsetSearchDeprecatedDatetime() {
+	o.SearchDeprecatedDatetime.Unset()
+}
+
 // GetSelectDeprecated returns the SelectDeprecated field value if set, zero value otherwise.
 func (o *ProfessionalRolesRole) GetSelectDeprecated() bool {
 	if o == nil || IsNil(o.SelectDeprecated) {
@@ -219,6 +266,48 @@ func (o *ProfessionalRolesRole) SetSelectDeprecated(v bool) {
 	o.SelectDeprecated = &v
 }
 
+// GetSelectDeprecatedDatetime returns the SelectDeprecatedDatetime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ProfessionalRolesRole) GetSelectDeprecatedDatetime() time.Time {
+	if o == nil || IsNil(o.SelectDeprecatedDatetime.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SelectDeprecatedDatetime.Get()
+}
+
+// GetSelectDeprecatedDatetimeOk returns a tuple with the SelectDeprecatedDatetime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ProfessionalRolesRole) GetSelectDeprecatedDatetimeOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SelectDeprecatedDatetime.Get(), o.SelectDeprecatedDatetime.IsSet()
+}
+
+// HasSelectDeprecatedDatetime returns a boolean if a field has been set.
+func (o *ProfessionalRolesRole) HasSelectDeprecatedDatetime() bool {
+	if o != nil && o.SelectDeprecatedDatetime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSelectDeprecatedDatetime gets a reference to the given NullableTime and assigns it to the SelectDeprecatedDatetime field.
+func (o *ProfessionalRolesRole) SetSelectDeprecatedDatetime(v time.Time) {
+	o.SelectDeprecatedDatetime.Set(&v)
+}
+// SetSelectDeprecatedDatetimeNil sets the value for SelectDeprecatedDatetime to be an explicit nil
+func (o *ProfessionalRolesRole) SetSelectDeprecatedDatetimeNil() {
+	o.SelectDeprecatedDatetime.Set(nil)
+}
+
+// UnsetSelectDeprecatedDatetime ensures that no value is present for SelectDeprecatedDatetime, not even an explicit nil
+func (o *ProfessionalRolesRole) UnsetSelectDeprecatedDatetime() {
+	o.SelectDeprecatedDatetime.Unset()
+}
+
 func (o ProfessionalRolesRole) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -236,8 +325,14 @@ func (o ProfessionalRolesRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SearchDeprecated) {
 		toSerialize["search_deprecated"] = o.SearchDeprecated
 	}
+	if o.SearchDeprecatedDatetime.IsSet() {
+		toSerialize["search_deprecated_datetime"] = o.SearchDeprecatedDatetime.Get()
+	}
 	if !IsNil(o.SelectDeprecated) {
 		toSerialize["select_deprecated"] = o.SelectDeprecated
+	}
+	if o.SelectDeprecatedDatetime.IsSet() {
+		toSerialize["select_deprecated_datetime"] = o.SelectDeprecatedDatetime.Get()
 	}
 	return toSerialize, nil
 }

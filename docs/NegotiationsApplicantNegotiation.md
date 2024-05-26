@@ -17,9 +17,9 @@ Name | Type | Description | Notes
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 **DeclineAllowed** | **bool** | Можно ли [скрыть отклик](#tag/Perepiska-(otklikipriglasheniya)-dlya-soiskatelya/operation/hide-active-response) вместе с сообщением работодателю об отказе | 
 **Hidden** | **bool** | Скрыт ли текущий отклик от соискателя | 
-**JobSearchStatus** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
-**PhoneCalls** | Pointer to [**NegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
-**Vacancy** | Pointer to [**VacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
+**JobSearchStatus** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**PhoneCalls** | Pointer to [**NullableNegotiationsPhoneCalls**](NegotiationsPhoneCalls.md) |  | [optional] 
+**Vacancy** | Pointer to [**NullableVacanciesNegotiationsVacancyShort**](VacanciesNegotiationsVacancyShort.md) |  | [optional] 
 **Resume** | Pointer to [**NullableNegotiationsObjectsTopicResume**](NegotiationsObjectsTopicResume.md) |  | [optional] 
 **Url** | **string** | Ссылка на полную версию отклика | 
 
@@ -347,6 +347,16 @@ SetJobSearchStatus sets JobSearchStatus field to given value.
 
 HasJobSearchStatus returns a boolean if a field has been set.
 
+### SetJobSearchStatusNil
+
+`func (o *NegotiationsApplicantNegotiation) SetJobSearchStatusNil(b bool)`
+
+ SetJobSearchStatusNil sets the value for JobSearchStatus to be an explicit nil
+
+### UnsetJobSearchStatus
+`func (o *NegotiationsApplicantNegotiation) UnsetJobSearchStatus()`
+
+UnsetJobSearchStatus ensures that no value is present for JobSearchStatus, not even an explicit nil
 ### GetPhoneCalls
 
 `func (o *NegotiationsApplicantNegotiation) GetPhoneCalls() NegotiationsPhoneCalls`
@@ -372,6 +382,16 @@ SetPhoneCalls sets PhoneCalls field to given value.
 
 HasPhoneCalls returns a boolean if a field has been set.
 
+### SetPhoneCallsNil
+
+`func (o *NegotiationsApplicantNegotiation) SetPhoneCallsNil(b bool)`
+
+ SetPhoneCallsNil sets the value for PhoneCalls to be an explicit nil
+
+### UnsetPhoneCalls
+`func (o *NegotiationsApplicantNegotiation) UnsetPhoneCalls()`
+
+UnsetPhoneCalls ensures that no value is present for PhoneCalls, not even an explicit nil
 ### GetVacancy
 
 `func (o *NegotiationsApplicantNegotiation) GetVacancy() VacanciesNegotiationsVacancyShort`
@@ -397,6 +417,16 @@ SetVacancy sets Vacancy field to given value.
 
 HasVacancy returns a boolean if a field has been set.
 
+### SetVacancyNil
+
+`func (o *NegotiationsApplicantNegotiation) SetVacancyNil(b bool)`
+
+ SetVacancyNil sets the value for Vacancy to be an explicit nil
+
+### UnsetVacancy
+`func (o *NegotiationsApplicantNegotiation) UnsetVacancy()`
+
+UnsetVacancy ensures that no value is present for Vacancy, not even an explicit nil
 ### GetResume
 
 `func (o *NegotiationsApplicantNegotiation) GetResume() NegotiationsObjectsTopicResume`

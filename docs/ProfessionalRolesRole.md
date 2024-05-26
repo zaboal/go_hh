@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **IsDefault** | **bool** | Дефолтная роль | 
 **Name** | **string** | Имя профессиональной роли | 
 **SearchDeprecated** | Pointer to **bool** | Наличие запрета на использование в поиске при составлении поискового запроса | [optional] 
+**SearchDeprecatedDatetime** | Pointer to **NullableTime** | Время, с которого действует запрет на использование роли в поиске при составлении поискового запроса,  в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;  | [optional] 
 **SelectDeprecated** | Pointer to **bool** | Наличие запрета на использование при создании новых сущностей (резюме или вакансии) | [optional] 
+**SelectDeprecatedDatetime** | Pointer to **NullableTime** | Время, с которого действует запрет на использование роли при создании новых сущностей,  в формате [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;  | [optional] 
 
 ## Methods
 
@@ -135,6 +137,41 @@ SetSearchDeprecated sets SearchDeprecated field to given value.
 
 HasSearchDeprecated returns a boolean if a field has been set.
 
+### GetSearchDeprecatedDatetime
+
+`func (o *ProfessionalRolesRole) GetSearchDeprecatedDatetime() time.Time`
+
+GetSearchDeprecatedDatetime returns the SearchDeprecatedDatetime field if non-nil, zero value otherwise.
+
+### GetSearchDeprecatedDatetimeOk
+
+`func (o *ProfessionalRolesRole) GetSearchDeprecatedDatetimeOk() (*time.Time, bool)`
+
+GetSearchDeprecatedDatetimeOk returns a tuple with the SearchDeprecatedDatetime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSearchDeprecatedDatetime
+
+`func (o *ProfessionalRolesRole) SetSearchDeprecatedDatetime(v time.Time)`
+
+SetSearchDeprecatedDatetime sets SearchDeprecatedDatetime field to given value.
+
+### HasSearchDeprecatedDatetime
+
+`func (o *ProfessionalRolesRole) HasSearchDeprecatedDatetime() bool`
+
+HasSearchDeprecatedDatetime returns a boolean if a field has been set.
+
+### SetSearchDeprecatedDatetimeNil
+
+`func (o *ProfessionalRolesRole) SetSearchDeprecatedDatetimeNil(b bool)`
+
+ SetSearchDeprecatedDatetimeNil sets the value for SearchDeprecatedDatetime to be an explicit nil
+
+### UnsetSearchDeprecatedDatetime
+`func (o *ProfessionalRolesRole) UnsetSearchDeprecatedDatetime()`
+
+UnsetSearchDeprecatedDatetime ensures that no value is present for SearchDeprecatedDatetime, not even an explicit nil
 ### GetSelectDeprecated
 
 `func (o *ProfessionalRolesRole) GetSelectDeprecated() bool`
@@ -160,6 +197,41 @@ SetSelectDeprecated sets SelectDeprecated field to given value.
 
 HasSelectDeprecated returns a boolean if a field has been set.
 
+### GetSelectDeprecatedDatetime
+
+`func (o *ProfessionalRolesRole) GetSelectDeprecatedDatetime() time.Time`
+
+GetSelectDeprecatedDatetime returns the SelectDeprecatedDatetime field if non-nil, zero value otherwise.
+
+### GetSelectDeprecatedDatetimeOk
+
+`func (o *ProfessionalRolesRole) GetSelectDeprecatedDatetimeOk() (*time.Time, bool)`
+
+GetSelectDeprecatedDatetimeOk returns a tuple with the SelectDeprecatedDatetime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelectDeprecatedDatetime
+
+`func (o *ProfessionalRolesRole) SetSelectDeprecatedDatetime(v time.Time)`
+
+SetSelectDeprecatedDatetime sets SelectDeprecatedDatetime field to given value.
+
+### HasSelectDeprecatedDatetime
+
+`func (o *ProfessionalRolesRole) HasSelectDeprecatedDatetime() bool`
+
+HasSelectDeprecatedDatetime returns a boolean if a field has been set.
+
+### SetSelectDeprecatedDatetimeNil
+
+`func (o *ProfessionalRolesRole) SetSelectDeprecatedDatetimeNil(b bool)`
+
+ SetSelectDeprecatedDatetimeNil sets the value for SelectDeprecatedDatetime to be an explicit nil
+
+### UnsetSelectDeprecatedDatetime
+`func (o *ProfessionalRolesRole) UnsetSelectDeprecatedDatetime()`
+
+UnsetSelectDeprecatedDatetime ensures that no value is present for SelectDeprecatedDatetime, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -66,7 +66,7 @@ type VacancyCreate struct {
 	BillingType VacancyBillingType `json:"billing_type"`
 	// Описание в html, не менее 200 символов
 	Description string `json:"description"`
-	Manager *VacancyManager `json:"manager,omitempty"`
+	Manager NullableVacancyManager `json:"manager,omitempty"`
 	// Название
 	Name string `json:"name"`
 	// Если этот параметр передан, то у новой вакансии дополнительно будет создана связь с предыдущей вакансией (поле previous_id). Этот параметр не влияет на другие и не связан с ними, их всё равно необходимо передавать.  Должен быть равен только ID архивной вакансии. ID архивной вакансии можно получить, запросив [список архивных вакансий](#tag/Upravlenie-vakansiyami/operation/get-archived-vacancies) <a name='previous_id'></a> 
@@ -1131,36 +1131,46 @@ func (o *VacancyCreate) SetDescription(v string) {
 	o.Description = v
 }
 
-// GetManager returns the Manager field value if set, zero value otherwise.
+// GetManager returns the Manager field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VacancyCreate) GetManager() VacancyManager {
-	if o == nil || IsNil(o.Manager) {
+	if o == nil || IsNil(o.Manager.Get()) {
 		var ret VacancyManager
 		return ret
 	}
-	return *o.Manager
+	return *o.Manager.Get()
 }
 
 // GetManagerOk returns a tuple with the Manager field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacancyCreate) GetManagerOk() (*VacancyManager, bool) {
-	if o == nil || IsNil(o.Manager) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Manager, true
+	return o.Manager.Get(), o.Manager.IsSet()
 }
 
 // HasManager returns a boolean if a field has been set.
 func (o *VacancyCreate) HasManager() bool {
-	if o != nil && !IsNil(o.Manager) {
+	if o != nil && o.Manager.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetManager gets a reference to the given VacancyManager and assigns it to the Manager field.
+// SetManager gets a reference to the given NullableVacancyManager and assigns it to the Manager field.
 func (o *VacancyCreate) SetManager(v VacancyManager) {
-	o.Manager = &v
+	o.Manager.Set(&v)
+}
+// SetManagerNil sets the value for Manager to be an explicit nil
+func (o *VacancyCreate) SetManagerNil() {
+	o.Manager.Set(nil)
+}
+
+// UnsetManager ensures that no value is present for Manager, not even an explicit nil
+func (o *VacancyCreate) UnsetManager() {
+	o.Manager.Unset()
 }
 
 // GetName returns the Name field value
@@ -1342,8 +1352,8 @@ func (o VacancyCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize["area"] = o.Area
 	toSerialize["billing_type"] = o.BillingType
 	toSerialize["description"] = o.Description
-	if !IsNil(o.Manager) {
-		toSerialize["manager"] = o.Manager
+	if o.Manager.IsSet() {
+		toSerialize["manager"] = o.Manager.Get()
 	}
 	toSerialize["name"] = o.Name
 	if o.PreviousId.IsSet() {

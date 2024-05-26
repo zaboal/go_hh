@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestId** | **string** | Идентификатор запроса | 
 **BadArgument** | Pointer to **string** |  | [optional] 
-**BadArguments** | Pointer to [**[]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments**](ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments.md) |  | [optional] 
+**BadArguments** | Pointer to [**[]ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments**](ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments.md) |  | [optional] 
 **Description** | Pointer to **string** | Описание ошибки | [optional] 
-**Errors** | [**[]ErrorsVacancyApplyBadRequestError**](ErrorsVacancyApplyBadRequestError.md) | Массив с данными ошибок | 
+**Errors** | [**[]ErrorsCommonBadArgumentError**](ErrorsCommonBadArgumentError.md) | Массив с данными ошибок | 
 
 ## Methods
 
 ### NewApplyToVacancy400Response
 
-`func NewApplyToVacancy400Response(requestId string, errors []ErrorsVacancyApplyBadRequestError, ) *ApplyToVacancy400Response`
+`func NewApplyToVacancy400Response(requestId string, errors []ErrorsCommonBadArgumentError, ) *ApplyToVacancy400Response`
 
 NewApplyToVacancy400Response instantiates a new ApplyToVacancy400Response object
 This constructor will assign default values to properties that have it defined,
@@ -76,20 +76,20 @@ HasBadArgument returns a boolean if a field has been set.
 
 ### GetBadArguments
 
-`func (o *ApplyToVacancy400Response) GetBadArguments() []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments`
+`func (o *ApplyToVacancy400Response) GetBadArguments() []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments`
 
 GetBadArguments returns the BadArguments field if non-nil, zero value otherwise.
 
 ### GetBadArgumentsOk
 
-`func (o *ApplyToVacancy400Response) GetBadArgumentsOk() (*[]ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments, bool)`
+`func (o *ApplyToVacancy400Response) GetBadArgumentsOk() (*[]ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments, bool)`
 
 GetBadArgumentsOk returns a tuple with the BadArguments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBadArguments
 
-`func (o *ApplyToVacancy400Response) SetBadArguments(v []ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments)`
+`func (o *ApplyToVacancy400Response) SetBadArguments(v []ErrorsVacancyApplyBadRequestErrorsAllOfBadArguments)`
 
 SetBadArguments sets BadArguments field to given value.
 
@@ -126,20 +126,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetErrors
 
-`func (o *ApplyToVacancy400Response) GetErrors() []ErrorsVacancyApplyBadRequestError`
+`func (o *ApplyToVacancy400Response) GetErrors() []ErrorsCommonBadArgumentError`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *ApplyToVacancy400Response) GetErrorsOk() (*[]ErrorsVacancyApplyBadRequestError, bool)`
+`func (o *ApplyToVacancy400Response) GetErrorsOk() (*[]ErrorsCommonBadArgumentError, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *ApplyToVacancy400Response) SetErrors(v []ErrorsVacancyApplyBadRequestError)`
+`func (o *ApplyToVacancy400Response) SetErrors(v []ErrorsCommonBadArgumentError)`
 
 SetErrors sets Errors field to given value.
 

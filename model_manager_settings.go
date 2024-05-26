@@ -24,7 +24,7 @@ var _ MappedNullable = &ManagerSettings{}
 type ManagerSettings struct {
 	DefaultCurrency ManagerSettingsCurrency `json:"default_currency"`
 	DefaultVacancyBrandedTemplate NullableVacancyBrandedTemplate `json:"default_vacancy_branded_template,omitempty"`
-	// Предпочтение по использованию флага `send_sms` при [приглашении соискателя](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#add-invite) 
+	// Предпочтение по использованию флага `send_sms` при [приглашении соискателя](#tag/Otklikipriglasheniya-rabotodatelya/operation/invite-applicant-to-vacancy) 
 	UseSmsNotification bool `json:"use_sms_notification"`
 }
 

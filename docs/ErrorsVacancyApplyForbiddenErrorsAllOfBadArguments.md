@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** | Поле, в котором допущена ошибка.  Возможные значения: * &#x60;vacancy_id&#x60; - указан не валидный идентификатор * &#x60;resume_id&#x60; - указан не валидный идентификатор  | [optional] 
+**Name** | Pointer to **string** | Поле, в котором допущена ошибка.  Возможные значения: * &#x60;vacancy_id&#x60; — указан невалидный идентификатор * &#x60;resume_id&#x60; — указан невалидный идентификатор  | [optional] 
 
 ## Methods
 

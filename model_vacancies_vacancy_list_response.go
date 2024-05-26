@@ -16,72 +16,46 @@ import (
 	"fmt"
 )
 
-// VacanciesVacancyListResponse - struct for VacanciesVacancyListResponse
+// VacanciesVacancyListResponse struct for VacanciesVacancyListResponse
 type VacanciesVacancyListResponse struct {
 	VacanciesActiveListItems *VacanciesActiveListItems
 	VacanciesMatchListItems *VacanciesMatchListItems
 }
 
-// VacanciesActiveListItemsAsVacanciesVacancyListResponse is a convenience function that returns VacanciesActiveListItems wrapped in VacanciesVacancyListResponse
-func VacanciesActiveListItemsAsVacanciesVacancyListResponse(v *VacanciesActiveListItems) VacanciesVacancyListResponse {
-	return VacanciesVacancyListResponse{
-		VacanciesActiveListItems: v,
-	}
-}
-
-// VacanciesMatchListItemsAsVacanciesVacancyListResponse is a convenience function that returns VacanciesMatchListItems wrapped in VacanciesVacancyListResponse
-func VacanciesMatchListItemsAsVacanciesVacancyListResponse(v *VacanciesMatchListItems) VacanciesVacancyListResponse {
-	return VacanciesVacancyListResponse{
-		VacanciesMatchListItems: v,
-	}
-}
-
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *VacanciesVacancyListResponse) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into VacanciesActiveListItems
-	err = newStrictDecoder(data).Decode(&dst.VacanciesActiveListItems)
+	// try to unmarshal JSON data into VacanciesActiveListItems
+	err = json.Unmarshal(data, &dst.VacanciesActiveListItems);
 	if err == nil {
 		jsonVacanciesActiveListItems, _ := json.Marshal(dst.VacanciesActiveListItems)
 		if string(jsonVacanciesActiveListItems) == "{}" { // empty struct
 			dst.VacanciesActiveListItems = nil
 		} else {
-			match++
+			return nil // data stored in dst.VacanciesActiveListItems, return on the first match
 		}
 	} else {
 		dst.VacanciesActiveListItems = nil
 	}
 
-	// try to unmarshal data into VacanciesMatchListItems
-	err = newStrictDecoder(data).Decode(&dst.VacanciesMatchListItems)
+	// try to unmarshal JSON data into VacanciesMatchListItems
+	err = json.Unmarshal(data, &dst.VacanciesMatchListItems);
 	if err == nil {
 		jsonVacanciesMatchListItems, _ := json.Marshal(dst.VacanciesMatchListItems)
 		if string(jsonVacanciesMatchListItems) == "{}" { // empty struct
 			dst.VacanciesMatchListItems = nil
 		} else {
-			match++
+			return nil // data stored in dst.VacanciesMatchListItems, return on the first match
 		}
 	} else {
 		dst.VacanciesMatchListItems = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.VacanciesActiveListItems = nil
-		dst.VacanciesMatchListItems = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(VacanciesVacancyListResponse)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(VacanciesVacancyListResponse)")
-	}
+	return fmt.Errorf("data failed to match schemas in anyOf(VacanciesVacancyListResponse)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src VacanciesVacancyListResponse) MarshalJSON() ([]byte, error) {
+func (src *VacanciesVacancyListResponse) MarshalJSON() ([]byte, error) {
 	if src.VacanciesActiveListItems != nil {
 		return json.Marshal(&src.VacanciesActiveListItems)
 	}
@@ -90,24 +64,7 @@ func (src VacanciesVacancyListResponse) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.VacanciesMatchListItems)
 	}
 
-	return nil, nil // no data in oneOf schemas
-}
-
-// Get the actual instance
-func (obj *VacanciesVacancyListResponse) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
-	if obj.VacanciesActiveListItems != nil {
-		return obj.VacanciesActiveListItems
-	}
-
-	if obj.VacanciesMatchListItems != nil {
-		return obj.VacanciesMatchListItems
-	}
-
-	// all schemas are nil
-	return nil
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableVacanciesVacancyListResponse struct {

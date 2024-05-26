@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AutoPublication** | Pointer to [**VacancyDraftAutoPublicationState**](VacancyDraftAutoPublicationState.md) |  | [optional] 
+**AutoPublication** | Pointer to [**NullableVacancyDraftAutoPublicationState**](VacancyDraftAutoPublicationState.md) |  | [optional] 
 **CompletedFieldsPercentage** | **float32** | Процент заполнения черновика | 
 **DraftId** | **string** | Идентификатор черновика | 
 **InsufficientPublications** | Pointer to [**[]VacancyDraftPublications**](VacancyDraftPublications.md) | Массив объектов с информацией о том, каких публикаций не хватает на счету для публикации вакансии из данного черновика | [optional] 
@@ -65,6 +65,16 @@ SetAutoPublication sets AutoPublication field to given value.
 
 HasAutoPublication returns a boolean if a field has been set.
 
+### SetAutoPublicationNil
+
+`func (o *VacancyDraftVacancyDraftItem) SetAutoPublicationNil(b bool)`
+
+ SetAutoPublicationNil sets the value for AutoPublication to be an explicit nil
+
+### UnsetAutoPublication
+`func (o *VacancyDraftVacancyDraftItem) UnsetAutoPublication()`
+
+UnsetAutoPublication ensures that no value is present for AutoPublication, not even an explicit nil
 ### GetCompletedFieldsPercentage
 
 `func (o *VacancyDraftVacancyDraftItem) GetCompletedFieldsPercentage() float32`

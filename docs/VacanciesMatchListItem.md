@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | Pointer to [**VacanciesAddress**](VacanciesAddress.md) |  | [optional] 
+**Address** | Pointer to [**NullableVacanciesAddress**](VacanciesAddress.md) |  | [optional] 
 **AlternateUrl** | **string** | Ссылка на представление вакансии на сайте | 
 **ApplyAlternateUrl** | **string** | Ссылка на отклик на вакансию на сайте | 
 **Archived** | **bool** | Находится ли данная вакансия в архиве | 
 **Area** | [**IncludesArea**](IncludesArea.md) |  | 
 **Department** | [**NullableVacancyDepartmentOutput**](VacancyDepartmentOutput.md) |  | 
-**Employer** | [**VacanciesEmployerPublic**](VacanciesEmployerPublic.md) |  | 
+**Employer** | [**NullableVacanciesEmployerPublic**](VacanciesEmployerPublic.md) |  | 
 **HasTest** | **bool** | Информация о наличии прикрепленного тестового задании к вакансии | 
 **Id** | **string** | Идентификатор вакансии | 
 **Name** | **string** | Название вакансии | 
@@ -25,10 +25,10 @@ Name | Type | Description | Notes
 **Url** | **string** | URL вакансии | 
 **CanInvite** | **bool** | Можно ли пригласить соискателя на данную вакансию | 
 **CreatedAt** | **string** | Дата и время публикации вакансии | 
-**EmployerNegotiationsState** | [**IncludesIdName**](IncludesIdName.md) |  | 
+**EmployerNegotiationsState** | [**NullableIncludesIdName**](IncludesIdName.md) |  | 
 **Manager** | [**VacancyManagerOutput**](VacancyManagerOutput.md) |  | 
-**NegotiationsActions** | [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Действия для [создания отклика](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#add-invite). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив | 
-**NegotiationsState** | [**IncludesIdName**](IncludesIdName.md) |  | 
+**NegotiationsActions** | [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Действия для [создания отклика](#tag/Otklikipriglasheniya-rabotodatelya/operation/invite-applicant-to-vacancy). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив | 
+**NegotiationsState** | [**NullableIncludesIdName**](IncludesIdName.md) |  | 
 **SortPointDistance** | Pointer to **NullableFloat32** | Расстояние в метрах между центром сортировки (заданной параметрами &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60;) и указанным в вакансии адресом. В случае, если в адресе указаны только станции метро, выдается расстояние между центром сортировки и средней геометрической точкой указанных станций. Значение &#x60;sort_point_distance&#x60; выдается только в случае, если заданы параметры &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60;, &#x60;order_by&#x3D;distance&#x60;  | [optional] 
 **Templates** | Pointer to [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | [optional] 
 
@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 
 ### NewVacanciesMatchListItem
 
-`func NewVacanciesMatchListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer VacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canInvite bool, createdAt string, employerNegotiationsState IncludesIdName, manager VacancyManagerOutput, negotiationsActions []VacancyNegotiationActions, negotiationsState IncludesIdName, ) *VacanciesMatchListItem`
+`func NewVacanciesMatchListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer NullableVacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canInvite bool, createdAt string, employerNegotiationsState NullableIncludesIdName, manager VacancyManagerOutput, negotiationsActions []VacancyNegotiationActions, negotiationsState NullableIncludesIdName, ) *VacanciesMatchListItem`
 
 NewVacanciesMatchListItem instantiates a new VacanciesMatchListItem object
 This constructor will assign default values to properties that have it defined,
@@ -76,6 +76,16 @@ SetAddress sets Address field to given value.
 
 HasAddress returns a boolean if a field has been set.
 
+### SetAddressNil
+
+`func (o *VacanciesMatchListItem) SetAddressNil(b bool)`
+
+ SetAddressNil sets the value for Address to be an explicit nil
+
+### UnsetAddress
+`func (o *VacanciesMatchListItem) UnsetAddress()`
+
+UnsetAddress ensures that no value is present for Address, not even an explicit nil
 ### GetAlternateUrl
 
 `func (o *VacanciesMatchListItem) GetAlternateUrl() string`
@@ -206,6 +216,16 @@ and a boolean to check if the value has been set.
 SetEmployer sets Employer field to given value.
 
 
+### SetEmployerNil
+
+`func (o *VacanciesMatchListItem) SetEmployerNil(b bool)`
+
+ SetEmployerNil sets the value for Employer to be an explicit nil
+
+### UnsetEmployer
+`func (o *VacanciesMatchListItem) UnsetEmployer()`
+
+UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
 ### GetHasTest
 
 `func (o *VacanciesMatchListItem) GetHasTest() bool`
@@ -546,6 +566,16 @@ and a boolean to check if the value has been set.
 SetEmployerNegotiationsState sets EmployerNegotiationsState field to given value.
 
 
+### SetEmployerNegotiationsStateNil
+
+`func (o *VacanciesMatchListItem) SetEmployerNegotiationsStateNil(b bool)`
+
+ SetEmployerNegotiationsStateNil sets the value for EmployerNegotiationsState to be an explicit nil
+
+### UnsetEmployerNegotiationsState
+`func (o *VacanciesMatchListItem) UnsetEmployerNegotiationsState()`
+
+UnsetEmployerNegotiationsState ensures that no value is present for EmployerNegotiationsState, not even an explicit nil
 ### GetManager
 
 `func (o *VacanciesMatchListItem) GetManager() VacancyManagerOutput`
@@ -606,6 +636,16 @@ and a boolean to check if the value has been set.
 SetNegotiationsState sets NegotiationsState field to given value.
 
 
+### SetNegotiationsStateNil
+
+`func (o *VacanciesMatchListItem) SetNegotiationsStateNil(b bool)`
+
+ SetNegotiationsStateNil sets the value for NegotiationsState to be an explicit nil
+
+### UnsetNegotiationsState
+`func (o *VacanciesMatchListItem) UnsetNegotiationsState()`
+
+UnsetNegotiationsState ensures that no value is present for NegotiationsState, not even an explicit nil
 ### GetSortPointDistance
 
 `func (o *VacanciesMatchListItem) GetSortPointDistance() float32`

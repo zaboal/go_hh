@@ -17,8 +17,9 @@ Name | Type | Description | Notes
 **ViewedByOpponent** | **bool** | Был ли отклик просмотрен работодателем | 
 **Actions** | [**[]VacancyNegotiationActions**](VacancyNegotiationActions.md) | Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info)  | 
 **EmployerState** | [**EmployersEmployersState**](EmployersEmployersState.md) |  | 
+**FunnelStage** | Pointer to [**NullableEmployersFunnelStage**](EmployersFunnelStage.md) |  | [optional] 
 **Templates** | [**[]VacancyTemplates**](VacancyTemplates.md) | Шаблоны писем | 
-**TestResult** | Pointer to [**SkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
+**TestResult** | Pointer to [**NullableSkillVerificationsTestResultWithUrl**](SkillVerificationsTestResultWithUrl.md) |  | [optional] 
 **Resume** | Pointer to [**NullableResumeResumeShortLogoUrl90**](ResumeResumeShortLogoUrl90.md) |  | [optional] 
 **Url** | **string** | Ссылка на полную версию отклика | 
 
@@ -321,6 +322,41 @@ and a boolean to check if the value has been set.
 SetEmployerState sets EmployerState field to given value.
 
 
+### GetFunnelStage
+
+`func (o *NegotiationsCollectionNegotiationsItemsInner) GetFunnelStage() EmployersFunnelStage`
+
+GetFunnelStage returns the FunnelStage field if non-nil, zero value otherwise.
+
+### GetFunnelStageOk
+
+`func (o *NegotiationsCollectionNegotiationsItemsInner) GetFunnelStageOk() (*EmployersFunnelStage, bool)`
+
+GetFunnelStageOk returns a tuple with the FunnelStage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFunnelStage
+
+`func (o *NegotiationsCollectionNegotiationsItemsInner) SetFunnelStage(v EmployersFunnelStage)`
+
+SetFunnelStage sets FunnelStage field to given value.
+
+### HasFunnelStage
+
+`func (o *NegotiationsCollectionNegotiationsItemsInner) HasFunnelStage() bool`
+
+HasFunnelStage returns a boolean if a field has been set.
+
+### SetFunnelStageNil
+
+`func (o *NegotiationsCollectionNegotiationsItemsInner) SetFunnelStageNil(b bool)`
+
+ SetFunnelStageNil sets the value for FunnelStage to be an explicit nil
+
+### UnsetFunnelStage
+`func (o *NegotiationsCollectionNegotiationsItemsInner) UnsetFunnelStage()`
+
+UnsetFunnelStage ensures that no value is present for FunnelStage, not even an explicit nil
 ### GetTemplates
 
 `func (o *NegotiationsCollectionNegotiationsItemsInner) GetTemplates() []VacancyTemplates`
@@ -366,6 +402,16 @@ SetTestResult sets TestResult field to given value.
 
 HasTestResult returns a boolean if a field has been set.
 
+### SetTestResultNil
+
+`func (o *NegotiationsCollectionNegotiationsItemsInner) SetTestResultNil(b bool)`
+
+ SetTestResultNil sets the value for TestResult to be an explicit nil
+
+### UnsetTestResult
+`func (o *NegotiationsCollectionNegotiationsItemsInner) UnsetTestResult()`
+
+UnsetTestResult ensures that no value is present for TestResult, not even an explicit nil
 ### GetResume
 
 `func (o *NegotiationsCollectionNegotiationsItemsInner) GetResume() ResumeResumeShortLogoUrl90`

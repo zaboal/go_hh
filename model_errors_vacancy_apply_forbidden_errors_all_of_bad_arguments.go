@@ -21,7 +21,7 @@ var _ MappedNullable = &ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments{}
 // ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments struct for ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments
 type ErrorsVacancyApplyForbiddenErrorsAllOfBadArguments struct {
 	Description *string `json:"description,omitempty"`
-	// Поле, в котором допущена ошибка.  Возможные значения: * `vacancy_id` - указан не валидный идентификатор * `resume_id` - указан не валидный идентификатор 
+	// Поле, в котором допущена ошибка.  Возможные значения: * `vacancy_id` — указан невалидный идентификатор * `resume_id` — указан невалидный идентификатор 
 	Name *string `json:"name,omitempty"`
 }
 

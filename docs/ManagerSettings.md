@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DefaultCurrency** | [**ManagerSettingsCurrency**](ManagerSettingsCurrency.md) |  | 
 **DefaultVacancyBrandedTemplate** | Pointer to [**NullableVacancyBrandedTemplate**](VacancyBrandedTemplate.md) |  | [optional] 
-**UseSmsNotification** | **bool** | Предпочтение по использованию флага &#x60;send_sms&#x60; при [приглашении соискателя](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#add-invite)  | 
+**UseSmsNotification** | **bool** | Предпочтение по использованию флага &#x60;send_sms&#x60; при [приглашении соискателя](#tag/Otklikipriglasheniya-rabotodatelya/operation/invite-applicant-to-vacancy)  | 
 
 ## Methods
 

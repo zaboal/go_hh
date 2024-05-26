@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CanEdit** | **bool** | Признак того, что менеджер может редактировать данные вакансии, а также работать с информацией об откликах/приглашениях по этой вакансии | 
 **Id** | **string** | Уникальный идентификатор вакансии | 
 **Items** | [**[]ResumesResumeNegotiationsHistoryVacancyItem**](ResumesResumeNegotiationsHistoryVacancyItem.md) | Список последних изменений состояний откликов/приглашений по указанному резюме и данной вакансии | 
-**MessagesUrl** | **string** | URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | 
+**MessagesUrl** | **string** | URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiation-messages). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | 
 **Name** | **string** | Название вакансии | 
 **NegotiationsUrl** | **string** | URL, на который необходимо делать GET-запрос для получения [данных об отклике/приглашении](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiation-item). Если &#x60;can_edit&#x60; равно &#x60;false&#x60;, значение поля должно игнорироваться | 
 **Url** | **string** | URL, на который необходимо делать GET-запрос для [получения данных о вакансии](#tag/Vakansii/operation/get-vacancy) | 

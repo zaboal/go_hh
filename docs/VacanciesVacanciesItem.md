@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **ResponseLetterRequired** | **bool** | Обязательно ли заполнять сообщение при отклике на вакансию | 
 **ResponseUrl** | Pointer to **NullableString** | URL отклика для прямых вакансий (&#x60;type.id&#x3D;direct&#x60;) | [optional] 
 **Salary** | [**NullableVacancySalary**](VacancySalary.md) |  | 
-**Schedule** | Pointer to [**VacancyScheduleOutput**](VacancyScheduleOutput.md) |  | [optional] 
+**Schedule** | Pointer to [**NullableVacancyScheduleOutput**](VacancyScheduleOutput.md) |  | [optional] 
 **SortPointDistance** | Pointer to **NullableFloat32** | Расстояние в метрах между центром сортировки (заданной параметрами &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60;) и указанным в вакансии адресом. В случае, если в адресе указаны только станции метро, выдается расстояние между центром сортировки и средней геометрической точкой указанных станций.  Значение &#x60;sort_point_distance&#x60; выдается только в случае, если заданы параметры &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60;, &#x60;order_by&#x3D;distance&#x60; | [optional] 
 **Type** | [**VacancyTypeOutput**](VacancyTypeOutput.md) |  | 
 **Url** | **string** | URL вакансии | 
@@ -715,6 +715,16 @@ SetSchedule sets Schedule field to given value.
 
 HasSchedule returns a boolean if a field has been set.
 
+### SetScheduleNil
+
+`func (o *VacanciesVacanciesItem) SetScheduleNil(b bool)`
+
+ SetScheduleNil sets the value for Schedule to be an explicit nil
+
+### UnsetSchedule
+`func (o *VacanciesVacanciesItem) UnsetSchedule()`
+
+UnsetSchedule ensures that no value is present for Schedule, not even an explicit nil
 ### GetSortPointDistance
 
 `func (o *VacanciesVacanciesItem) GetSortPointDistance() float32`

@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) |  | [optional] 
 **Tags** | Pointer to [**[]IncludesId**](IncludesId.md) | Теги к резюме | [optional] 
 **Viewed** | **bool** | Было ли резюме уже просмотрено работодателем | 
-**LastNegotiation** | Pointer to [**ResumesNegotiationNano**](ResumesNegotiationNano.md) |  | [optional] 
+**LastNegotiation** | Pointer to [**NullableResumesNegotiationNano**](ResumesNegotiationNano.md) |  | [optional] 
 **JobSearchStatus** | Pointer to [**IncludesIdNameLastChangeTime**](IncludesIdNameLastChangeTime.md) | Для получения данных нужно передать параметр &#x60;with_job_search_status&#x3D;true&#x60;  | [optional] 
 **Url** | Pointer to **string** | Ссылка на резюме | [optional] 
 
@@ -815,6 +815,16 @@ SetLastNegotiation sets LastNegotiation field to given value.
 
 HasLastNegotiation returns a boolean if a field has been set.
 
+### SetLastNegotiationNil
+
+`func (o *ResumesSearchForEmployerAndApplicant) SetLastNegotiationNil(b bool)`
+
+ SetLastNegotiationNil sets the value for LastNegotiation to be an explicit nil
+
+### UnsetLastNegotiation
+`func (o *ResumesSearchForEmployerAndApplicant) UnsetLastNegotiation()`
+
+UnsetLastNegotiation ensures that no value is present for LastNegotiation, not even an explicit nil
 ### GetJobSearchStatus
 
 `func (o *ResumesSearchForEmployerAndApplicant) GetJobSearchStatus() IncludesIdNameLastChangeTime`

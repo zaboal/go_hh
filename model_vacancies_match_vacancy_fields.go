@@ -29,7 +29,7 @@ type VacanciesMatchVacancyFields struct {
 	CreatedAt string `json:"created_at"`
 	EmployerNegotiationsState NullableIncludesIdName `json:"employer_negotiations_state"`
 	Manager VacancyManagerOutput `json:"manager"`
-	// Действия для [создания отклика](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#add-invite). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив
+	// Действия для [создания отклика](#tag/Otklikipriglasheniya-rabotodatelya/operation/invite-applicant-to-vacancy). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив
 	NegotiationsActions []VacancyNegotiationActions `json:"negotiations_actions"`
 	NegotiationsState NullableIncludesIdName `json:"negotiations_state"`
 	// Расстояние в метрах между центром сортировки (заданной параметрами `sort_point_lat`, `sort_point_lng`) и указанным в вакансии адресом. В случае, если в адресе указаны только станции метро, выдается расстояние между центром сортировки и средней геометрической точкой указанных станций. Значение `sort_point_distance` выдается только в случае, если заданы параметры `sort_point_lat`, `sort_point_lng`, `order_by=distance` 

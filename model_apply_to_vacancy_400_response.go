@@ -16,68 +16,55 @@ import (
 	"fmt"
 )
 
-// ApplyToVacancy400Response - struct for ApplyToVacancy400Response
+// ApplyToVacancy400Response struct for ApplyToVacancy400Response
 type ApplyToVacancy400Response struct {
+	ErrorsCommonBadArgumentErrors *ErrorsCommonBadArgumentErrors
 	ErrorsVacancyApplyBadRequestErrors *ErrorsVacancyApplyBadRequestErrors
 }
 
-// ErrorsVacancyApplyBadRequestErrorsAsApplyToVacancy400Response is a convenience function that returns ErrorsVacancyApplyBadRequestErrors wrapped in ApplyToVacancy400Response
-func ErrorsVacancyApplyBadRequestErrorsAsApplyToVacancy400Response(v *ErrorsVacancyApplyBadRequestErrors) ApplyToVacancy400Response {
-	return ApplyToVacancy400Response{
-		ErrorsVacancyApplyBadRequestErrors: v,
-	}
-}
-
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *ApplyToVacancy400Response) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into ErrorsVacancyApplyBadRequestErrors
-	err = newStrictDecoder(data).Decode(&dst.ErrorsVacancyApplyBadRequestErrors)
+	// try to unmarshal JSON data into ErrorsCommonBadArgumentErrors
+	err = json.Unmarshal(data, &dst.ErrorsCommonBadArgumentErrors);
+	if err == nil {
+		jsonErrorsCommonBadArgumentErrors, _ := json.Marshal(dst.ErrorsCommonBadArgumentErrors)
+		if string(jsonErrorsCommonBadArgumentErrors) == "{}" { // empty struct
+			dst.ErrorsCommonBadArgumentErrors = nil
+		} else {
+			return nil // data stored in dst.ErrorsCommonBadArgumentErrors, return on the first match
+		}
+	} else {
+		dst.ErrorsCommonBadArgumentErrors = nil
+	}
+
+	// try to unmarshal JSON data into ErrorsVacancyApplyBadRequestErrors
+	err = json.Unmarshal(data, &dst.ErrorsVacancyApplyBadRequestErrors);
 	if err == nil {
 		jsonErrorsVacancyApplyBadRequestErrors, _ := json.Marshal(dst.ErrorsVacancyApplyBadRequestErrors)
 		if string(jsonErrorsVacancyApplyBadRequestErrors) == "{}" { // empty struct
 			dst.ErrorsVacancyApplyBadRequestErrors = nil
 		} else {
-			match++
+			return nil // data stored in dst.ErrorsVacancyApplyBadRequestErrors, return on the first match
 		}
 	} else {
 		dst.ErrorsVacancyApplyBadRequestErrors = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.ErrorsVacancyApplyBadRequestErrors = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(ApplyToVacancy400Response)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(ApplyToVacancy400Response)")
-	}
+	return fmt.Errorf("data failed to match schemas in anyOf(ApplyToVacancy400Response)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src ApplyToVacancy400Response) MarshalJSON() ([]byte, error) {
+func (src *ApplyToVacancy400Response) MarshalJSON() ([]byte, error) {
+	if src.ErrorsCommonBadArgumentErrors != nil {
+		return json.Marshal(&src.ErrorsCommonBadArgumentErrors)
+	}
+
 	if src.ErrorsVacancyApplyBadRequestErrors != nil {
 		return json.Marshal(&src.ErrorsVacancyApplyBadRequestErrors)
 	}
 
-	return nil, nil // no data in oneOf schemas
-}
-
-// Get the actual instance
-func (obj *ApplyToVacancy400Response) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
-	if obj.ErrorsVacancyApplyBadRequestErrors != nil {
-		return obj.ErrorsVacancyApplyBadRequestErrors
-	}
-
-	// all schemas are nil
-	return nil
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableApplyToVacancy400Response struct {

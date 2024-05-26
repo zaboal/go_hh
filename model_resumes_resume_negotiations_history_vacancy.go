@@ -30,7 +30,7 @@ type ResumesResumeNegotiationsHistoryVacancy struct {
 	Id string `json:"id"`
 	// Список последних изменений состояний откликов/приглашений по указанному резюме и данной вакансии
 	Items []ResumesResumeNegotiationsHistoryVacancyItem `json:"items"`
-	// URL, на который необходимо делать GET запрос для получения [списка сообщений в отклике/приглашении](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#get-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
+	// URL, на который необходимо делать GET-запрос для получения [списка сообщений в отклике/приглашении](#tag/Otklikipriglasheniya-rabotodatelya/operation/get-negotiation-messages). Если `can_edit` равно `false`, значение поля должно игнорироваться
 	MessagesUrl string `json:"messages_url"`
 	// Название вакансии
 	Name string `json:"name"`

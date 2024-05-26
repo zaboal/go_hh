@@ -22,7 +22,7 @@ var _ MappedNullable = &VacancyDraftVacancyDraftItem{}
 
 // VacancyDraftVacancyDraftItem struct for VacancyDraftVacancyDraftItem
 type VacancyDraftVacancyDraftItem struct {
-	AutoPublication *VacancyDraftAutoPublicationState `json:"auto_publication,omitempty"`
+	AutoPublication NullableVacancyDraftAutoPublicationState `json:"auto_publication,omitempty"`
 	// Процент заполнения черновика
 	CompletedFieldsPercentage float32 `json:"completed_fields_percentage"`
 	// Идентификатор черновика
@@ -82,36 +82,46 @@ func NewVacancyDraftVacancyDraftItemWithDefaults() *VacancyDraftVacancyDraftItem
 	return &this
 }
 
-// GetAutoPublication returns the AutoPublication field value if set, zero value otherwise.
+// GetAutoPublication returns the AutoPublication field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VacancyDraftVacancyDraftItem) GetAutoPublication() VacancyDraftAutoPublicationState {
-	if o == nil || IsNil(o.AutoPublication) {
+	if o == nil || IsNil(o.AutoPublication.Get()) {
 		var ret VacancyDraftAutoPublicationState
 		return ret
 	}
-	return *o.AutoPublication
+	return *o.AutoPublication.Get()
 }
 
 // GetAutoPublicationOk returns a tuple with the AutoPublication field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacancyDraftVacancyDraftItem) GetAutoPublicationOk() (*VacancyDraftAutoPublicationState, bool) {
-	if o == nil || IsNil(o.AutoPublication) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AutoPublication, true
+	return o.AutoPublication.Get(), o.AutoPublication.IsSet()
 }
 
 // HasAutoPublication returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftItem) HasAutoPublication() bool {
-	if o != nil && !IsNil(o.AutoPublication) {
+	if o != nil && o.AutoPublication.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAutoPublication gets a reference to the given VacancyDraftAutoPublicationState and assigns it to the AutoPublication field.
+// SetAutoPublication gets a reference to the given NullableVacancyDraftAutoPublicationState and assigns it to the AutoPublication field.
 func (o *VacancyDraftVacancyDraftItem) SetAutoPublication(v VacancyDraftAutoPublicationState) {
-	o.AutoPublication = &v
+	o.AutoPublication.Set(&v)
+}
+// SetAutoPublicationNil sets the value for AutoPublication to be an explicit nil
+func (o *VacancyDraftVacancyDraftItem) SetAutoPublicationNil() {
+	o.AutoPublication.Set(nil)
+}
+
+// UnsetAutoPublication ensures that no value is present for AutoPublication, not even an explicit nil
+func (o *VacancyDraftVacancyDraftItem) UnsetAutoPublication() {
+	o.AutoPublication.Unset()
 }
 
 // GetCompletedFieldsPercentage returns the CompletedFieldsPercentage field value
@@ -564,8 +574,8 @@ func (o VacancyDraftVacancyDraftItem) MarshalJSON() ([]byte, error) {
 
 func (o VacancyDraftVacancyDraftItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AutoPublication) {
-		toSerialize["auto_publication"] = o.AutoPublication
+	if o.AutoPublication.IsSet() {
+		toSerialize["auto_publication"] = o.AutoPublication.Get()
 	}
 	toSerialize["completed_fields_percentage"] = o.CompletedFieldsPercentage
 	toSerialize["draft_id"] = o.DraftId
