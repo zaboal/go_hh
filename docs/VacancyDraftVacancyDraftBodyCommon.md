@@ -32,6 +32,7 @@ Name | Type | Description | Notes
 **ResponseUrl** | Pointer to **NullableString** | URL отклика для прямых вакансий (&#x60;type.id&#x3D;direct&#x60;) | [optional] 
 **Salary** | Pointer to [**NullableVacancySalary**](VacancySalary.md) |  | [optional] 
 **Schedule** | Pointer to [**NullableVacancySchedule**](VacancySchedule.md) |  | [optional] 
+**ScheduledAt** | Pointer to **string** | Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | [optional] 
 **Test** | Pointer to [**NullableVacancyDraftTest**](VacancyDraftTest.md) |  | [optional] 
 **Type** | Pointer to [**NullableVacancyDraftType**](VacancyDraftType.md) |  | [optional] 
 **WithZp** | Pointer to **bool** | Вашу вакансию увидят больше людей. Мы разместим ее дополнительно на сервисе Зарплата.ру | [optional] 
@@ -958,6 +959,31 @@ HasSchedule returns a boolean if a field has been set.
 `func (o *VacancyDraftVacancyDraftBodyCommon) UnsetSchedule()`
 
 UnsetSchedule ensures that no value is present for Schedule, not even an explicit nil
+### GetScheduledAt
+
+`func (o *VacancyDraftVacancyDraftBodyCommon) GetScheduledAt() string`
+
+GetScheduledAt returns the ScheduledAt field if non-nil, zero value otherwise.
+
+### GetScheduledAtOk
+
+`func (o *VacancyDraftVacancyDraftBodyCommon) GetScheduledAtOk() (*string, bool)`
+
+GetScheduledAtOk returns a tuple with the ScheduledAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScheduledAt
+
+`func (o *VacancyDraftVacancyDraftBodyCommon) SetScheduledAt(v string)`
+
+SetScheduledAt sets ScheduledAt field to given value.
+
+### HasScheduledAt
+
+`func (o *VacancyDraftVacancyDraftBodyCommon) HasScheduledAt() bool`
+
+HasScheduledAt returns a boolean if a field has been set.
+
 ### GetTest
 
 `func (o *VacancyDraftVacancyDraftBodyCommon) GetTest() VacancyDraftTest`

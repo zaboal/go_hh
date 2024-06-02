@@ -12,13 +12,13 @@ Name | Type | Description | Notes
 **LastChangeTime** | Pointer to **NullableString** | Время изменения черновика (в формате [ISO 8601](https://ru.wikipedia.org/wiki/ISO_8601) с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;) | [optional] 
 **PublicationReady** | **bool** | Готовность черновика к публикации | 
 **RequiredPublications** | Pointer to [**[]VacancyDraftPublications**](VacancyDraftPublications.md) | Массив объектов с информацией о необходимых публикациях на счету | [optional] 
-**ScheduledAt** | **NullableString** | Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | 
+**ScheduledAt** | **string** | Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | 
 
 ## Methods
 
 ### NewVacancyDraftVacancyDraftBase
 
-`func NewVacancyDraftVacancyDraftBase(completedFieldsPercentage float32, draftId string, publicationReady bool, scheduledAt NullableString, ) *VacancyDraftVacancyDraftBase`
+`func NewVacancyDraftVacancyDraftBase(completedFieldsPercentage float32, draftId string, publicationReady bool, scheduledAt string, ) *VacancyDraftVacancyDraftBase`
 
 NewVacancyDraftVacancyDraftBase instantiates a new VacancyDraftVacancyDraftBase object
 This constructor will assign default values to properties that have it defined,
@@ -288,16 +288,6 @@ and a boolean to check if the value has been set.
 SetScheduledAt sets ScheduledAt field to given value.
 
 
-### SetScheduledAtNil
-
-`func (o *VacancyDraftVacancyDraftBase) SetScheduledAtNil(b bool)`
-
- SetScheduledAtNil sets the value for ScheduledAt to be an explicit nil
-
-### UnsetScheduledAt
-`func (o *VacancyDraftVacancyDraftBase) UnsetScheduledAt()`
-
-UnsetScheduledAt ensures that no value is present for ScheduledAt, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

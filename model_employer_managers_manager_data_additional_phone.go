@@ -25,7 +25,7 @@ type EmployerManagersManagerDataAdditionalPhone struct {
 	// Код города
 	City string `json:"city"`
 	// Комментарий
-	Comment *string `json:"comment,omitempty"`
+	Comment NullableString `json:"comment,omitempty"`
 	// Код страны
 	Country string `json:"country"`
 	// Номер телефона отформатированный
@@ -80,36 +80,46 @@ func (o *EmployerManagersManagerDataAdditionalPhone) SetCity(v string) {
 	o.City = v
 }
 
-// GetComment returns the Comment field value if set, zero value otherwise.
+// GetComment returns the Comment field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EmployerManagersManagerDataAdditionalPhone) GetComment() string {
-	if o == nil || IsNil(o.Comment) {
+	if o == nil || IsNil(o.Comment.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Comment
+	return *o.Comment.Get()
 }
 
 // GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *EmployerManagersManagerDataAdditionalPhone) GetCommentOk() (*string, bool) {
-	if o == nil || IsNil(o.Comment) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Comment, true
+	return o.Comment.Get(), o.Comment.IsSet()
 }
 
 // HasComment returns a boolean if a field has been set.
 func (o *EmployerManagersManagerDataAdditionalPhone) HasComment() bool {
-	if o != nil && !IsNil(o.Comment) {
+	if o != nil && o.Comment.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetComment gets a reference to the given string and assigns it to the Comment field.
+// SetComment gets a reference to the given NullableString and assigns it to the Comment field.
 func (o *EmployerManagersManagerDataAdditionalPhone) SetComment(v string) {
-	o.Comment = &v
+	o.Comment.Set(&v)
+}
+// SetCommentNil sets the value for Comment to be an explicit nil
+func (o *EmployerManagersManagerDataAdditionalPhone) SetCommentNil() {
+	o.Comment.Set(nil)
+}
+
+// UnsetComment ensures that no value is present for Comment, not even an explicit nil
+func (o *EmployerManagersManagerDataAdditionalPhone) UnsetComment() {
+	o.Comment.Unset()
 }
 
 // GetCountry returns the Country field value
@@ -203,8 +213,8 @@ func (o EmployerManagersManagerDataAdditionalPhone) MarshalJSON() ([]byte, error
 func (o EmployerManagersManagerDataAdditionalPhone) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["city"] = o.City
-	if !IsNil(o.Comment) {
-		toSerialize["comment"] = o.Comment
+	if o.Comment.IsSet() {
+		toSerialize["comment"] = o.Comment.Get()
 	}
 	toSerialize["country"] = o.Country
 	if !IsNil(o.Formatted) {

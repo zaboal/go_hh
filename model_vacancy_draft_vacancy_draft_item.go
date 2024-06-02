@@ -38,7 +38,7 @@ type VacancyDraftVacancyDraftItem struct {
 	// Массив объектов с информацией о необходимых публикациях на счету
 	RequiredPublications []VacancyDraftPublications `json:"required_publications,omitempty"`
 	// Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm`
-	ScheduledAt NullableString `json:"scheduled_at"`
+	ScheduledAt string `json:"scheduled_at"`
 	// Коды и названия регионов (фед. округа, субъекты федерации, города)
 	Areas []VacancyAreaOutput `json:"areas"`
 	AssignedManager NullableVacancyDraftAssignedManager `json:"assigned_manager,omitempty"`
@@ -60,7 +60,7 @@ type _VacancyDraftVacancyDraftItem VacancyDraftVacancyDraftItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacancyDraftVacancyDraftItem(completedFieldsPercentage float32, draftId string, publicationReady bool, scheduledAt NullableString, areas []VacancyAreaOutput, billingType NullableVacancyBillingTypeOutput, publicationType string, url string, vacancyType NullableString) *VacancyDraftVacancyDraftItem {
+func NewVacancyDraftVacancyDraftItem(completedFieldsPercentage float32, draftId string, publicationReady bool, scheduledAt string, areas []VacancyAreaOutput, billingType NullableVacancyBillingTypeOutput, publicationType string, url string, vacancyType NullableString) *VacancyDraftVacancyDraftItem {
 	this := VacancyDraftVacancyDraftItem{}
 	this.CompletedFieldsPercentage = completedFieldsPercentage
 	this.DraftId = draftId
@@ -338,29 +338,27 @@ func (o *VacancyDraftVacancyDraftItem) SetRequiredPublications(v []VacancyDraftP
 }
 
 // GetScheduledAt returns the ScheduledAt field value
-// If the value is explicit nil, the zero value for string will be returned
 func (o *VacancyDraftVacancyDraftItem) GetScheduledAt() string {
-	if o == nil || o.ScheduledAt.Get() == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return *o.ScheduledAt.Get()
+	return o.ScheduledAt
 }
 
 // GetScheduledAtOk returns a tuple with the ScheduledAt field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacancyDraftVacancyDraftItem) GetScheduledAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.ScheduledAt.Get(), o.ScheduledAt.IsSet()
+	return &o.ScheduledAt, true
 }
 
 // SetScheduledAt sets field value
 func (o *VacancyDraftVacancyDraftItem) SetScheduledAt(v string) {
-	o.ScheduledAt.Set(&v)
+	o.ScheduledAt = v
 }
 
 // GetAreas returns the Areas field value
@@ -592,7 +590,7 @@ func (o VacancyDraftVacancyDraftItem) ToMap() (map[string]interface{}, error) {
 	if o.RequiredPublications != nil {
 		toSerialize["required_publications"] = o.RequiredPublications
 	}
-	toSerialize["scheduled_at"] = o.ScheduledAt.Get()
+	toSerialize["scheduled_at"] = o.ScheduledAt
 	toSerialize["areas"] = o.Areas
 	if o.AssignedManager.IsSet() {
 		toSerialize["assigned_manager"] = o.AssignedManager.Get()

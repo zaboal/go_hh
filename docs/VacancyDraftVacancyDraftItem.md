@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **LastChangeTime** | Pointer to **NullableString** | Время изменения черновика (в формате [ISO 8601](https://ru.wikipedia.org/wiki/ISO_8601) с точностью до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;) | [optional] 
 **PublicationReady** | **bool** | Готовность черновика к публикации | 
 **RequiredPublications** | Pointer to [**[]VacancyDraftPublications**](VacancyDraftPublications.md) | Массив объектов с информацией о необходимых публикациях на счету | [optional] 
-**ScheduledAt** | **NullableString** | Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | 
+**ScheduledAt** | **string** | Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60; | 
 **Areas** | [**[]VacancyAreaOutput**](VacancyAreaOutput.md) | Коды и названия регионов (фед. округа, субъекты федерации, города) | 
 **AssignedManager** | Pointer to [**NullableVacancyDraftAssignedManager**](VacancyDraftAssignedManager.md) |  | [optional] 
 **BillingType** | [**NullableVacancyBillingTypeOutput**](VacancyBillingTypeOutput.md) |  | 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewVacancyDraftVacancyDraftItem
 
-`func NewVacancyDraftVacancyDraftItem(completedFieldsPercentage float32, draftId string, publicationReady bool, scheduledAt NullableString, areas []VacancyAreaOutput, billingType NullableVacancyBillingTypeOutput, publicationType string, url string, vacancyType NullableString, ) *VacancyDraftVacancyDraftItem`
+`func NewVacancyDraftVacancyDraftItem(completedFieldsPercentage float32, draftId string, publicationReady bool, scheduledAt string, areas []VacancyAreaOutput, billingType NullableVacancyBillingTypeOutput, publicationType string, url string, vacancyType NullableString, ) *VacancyDraftVacancyDraftItem`
 
 NewVacancyDraftVacancyDraftItem instantiates a new VacancyDraftVacancyDraftItem object
 This constructor will assign default values to properties that have it defined,
@@ -295,16 +295,6 @@ and a boolean to check if the value has been set.
 SetScheduledAt sets ScheduledAt field to given value.
 
 
-### SetScheduledAtNil
-
-`func (o *VacancyDraftVacancyDraftItem) SetScheduledAtNil(b bool)`
-
- SetScheduledAtNil sets the value for ScheduledAt to be an explicit nil
-
-### UnsetScheduledAt
-`func (o *VacancyDraftVacancyDraftItem) UnsetScheduledAt()`
-
-UnsetScheduledAt ensures that no value is present for ScheduledAt, not even an explicit nil
 ### GetAreas
 
 `func (o *VacancyDraftVacancyDraftItem) GetAreas() []VacancyAreaOutput`

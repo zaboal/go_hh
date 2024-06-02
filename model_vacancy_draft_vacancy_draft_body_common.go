@@ -66,6 +66,8 @@ type VacancyDraftVacancyDraftBodyCommon struct {
 	ResponseUrl NullableString `json:"response_url,omitempty"`
 	Salary NullableVacancySalary `json:"salary,omitempty"`
 	Schedule NullableVacancySchedule `json:"schedule,omitempty"`
+	// Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm`
+	ScheduledAt *string `json:"scheduled_at,omitempty"`
 	Test NullableVacancyDraftTest `json:"test,omitempty"`
 	Type NullableVacancyDraftType `json:"type,omitempty"`
 	// Вашу вакансию увидят больше людей. Мы разместим ее дополнительно на сервисе Зарплата.ру
@@ -1164,6 +1166,38 @@ func (o *VacancyDraftVacancyDraftBodyCommon) UnsetSchedule() {
 	o.Schedule.Unset()
 }
 
+// GetScheduledAt returns the ScheduledAt field value if set, zero value otherwise.
+func (o *VacancyDraftVacancyDraftBodyCommon) GetScheduledAt() string {
+	if o == nil || IsNil(o.ScheduledAt) {
+		var ret string
+		return ret
+	}
+	return *o.ScheduledAt
+}
+
+// GetScheduledAtOk returns a tuple with the ScheduledAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VacancyDraftVacancyDraftBodyCommon) GetScheduledAtOk() (*string, bool) {
+	if o == nil || IsNil(o.ScheduledAt) {
+		return nil, false
+	}
+	return o.ScheduledAt, true
+}
+
+// HasScheduledAt returns a boolean if a field has been set.
+func (o *VacancyDraftVacancyDraftBodyCommon) HasScheduledAt() bool {
+	if o != nil && !IsNil(o.ScheduledAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetScheduledAt gets a reference to the given string and assigns it to the ScheduledAt field.
+func (o *VacancyDraftVacancyDraftBodyCommon) SetScheduledAt(v string) {
+	o.ScheduledAt = &v
+}
+
 // GetTest returns the Test field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VacancyDraftVacancyDraftBodyCommon) GetTest() VacancyDraftTest {
 	if o == nil || IsNil(o.Test.Get()) {
@@ -1472,6 +1506,9 @@ func (o VacancyDraftVacancyDraftBodyCommon) ToMap() (map[string]interface{}, err
 	}
 	if o.Schedule.IsSet() {
 		toSerialize["schedule"] = o.Schedule.Get()
+	}
+	if !IsNil(o.ScheduledAt) {
+		toSerialize["scheduled_at"] = o.ScheduledAt
 	}
 	if o.Test.IsSet() {
 		toSerialize["test"] = o.Test.Get()
