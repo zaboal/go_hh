@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Access** | Pointer to [**NullableResumeObjectsAccess**](ResumeObjectsAccess.md) |  | [optional] 
+**Access** | Pointer to [**ResumeObjectsAccess**](ResumeObjectsAccess.md) |  | [optional] 
 **BirthDate** | Pointer to **NullableString** | День рождения (в формате &#x60;ГГГГ-ММ-ДД&#x60;) | [optional] 
-**BusinessTripReadiness** | Pointer to [**NullableIncludesId**](IncludesId.md) |  | [optional] 
+**BusinessTripReadiness** | Pointer to [**IncludesId**](IncludesId.md) |  | [optional] 
 **Certificate** | Pointer to [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | [optional] 
 **DriverLicenseTypes** | Pointer to [**[]ResumeObjectsDriverLicenseTypes**](ResumeObjectsDriverLicenseTypes.md) | Список категорий водительских прав соискателя | [optional] 
 **Employments** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Список подходящих соискателю типов занятостей. Элементы справочника [employment](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
@@ -14,22 +14,22 @@ Name | Type | Description | Notes
 **HasVehicle** | Pointer to **NullableBool** | Наличие личного автомобиля у соискателя | [optional] 
 **HiddenFields** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Документация [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле &#x60;resume_hidden_fields&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
-**Metro** | Pointer to [**NullableIncludesId**](IncludesId.md) |  | [optional] 
+**Metro** | Pointer to [**IncludesId**](IncludesId.md) |  | [optional] 
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
 **Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) |  | [optional] 
 **Portfolio** | Pointer to [**[]ResumeObjectsPortfolio**](ResumeObjectsPortfolio.md) | Список изображений в портфолио пользователя | [optional] 
 **ProfessionalRoles** | Pointer to [**[]IncludesId**](IncludesId.md) | Массив объектов профролей. Элемент справочника [professional_roles](#tag/Obshie-spravochniki/operation/get-professional-roles-dictionary) | [optional] 
 **Recommendation** | Pointer to [**[]ResumeObjectsRecommendation**](ResumeObjectsRecommendation.md) | Список рекомендаций | [optional] 
-**Relocation** | Pointer to [**NullableResumeObjectsRelocationPublic**](ResumeObjectsRelocationPublic.md) |  | [optional] 
-**ResumeLocale** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
-**Salary** | Pointer to [**NullableResumeObjectsSalaryAddEdit**](ResumeObjectsSalaryAddEdit.md) |  | [optional] 
+**Relocation** | Pointer to [**ResumeObjectsRelocationPublic**](ResumeObjectsRelocationPublic.md) |  | [optional] 
+**ResumeLocale** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
+**Salary** | Pointer to [**ResumeObjectsSalaryAddEdit**](ResumeObjectsSalaryAddEdit.md) |  | [optional] 
 **Schedules** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Список подходящих соискателю графиков работы. Элементы справочника [schedule](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 **Site** | Pointer to [**[]ResumeObjectsSite**](ResumeObjectsSite.md) | Профили в соц. сетях и других сервисах | [optional] 
 **SkillSet** | Pointer to **[]string** | Ключевые навыки (список уникальных строк) | [optional] 
 **Skills** | Pointer to **NullableString** | Дополнительная информация, описание навыков в свободной форме | [optional] 
 **Title** | Pointer to **NullableString** | Желаемая должность | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
-**TravelTime** | Pointer to [**NullableIncludesId**](IncludesId.md) |  | [optional] 
+**TravelTime** | Pointer to [**IncludesId**](IncludesId.md) |  | [optional] 
 **WorkTicket** | Pointer to [**[]IncludesId**](IncludesId.md) | Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas)  | [optional] 
 **Area** | Pointer to [**Id**](Id.md) | Город проживания. Элемент справочника [areas](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
 **Citizenship** | Pointer to [**[]IncludesId**](IncludesId.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | [optional] 
@@ -83,16 +83,6 @@ SetAccess sets Access field to given value.
 
 HasAccess returns a boolean if a field has been set.
 
-### SetAccessNil
-
-`func (o *ResumeAddResumeRequest) SetAccessNil(b bool)`
-
- SetAccessNil sets the value for Access to be an explicit nil
-
-### UnsetAccess
-`func (o *ResumeAddResumeRequest) UnsetAccess()`
-
-UnsetAccess ensures that no value is present for Access, not even an explicit nil
 ### GetBirthDate
 
 `func (o *ResumeAddResumeRequest) GetBirthDate() string`
@@ -153,16 +143,6 @@ SetBusinessTripReadiness sets BusinessTripReadiness field to given value.
 
 HasBusinessTripReadiness returns a boolean if a field has been set.
 
-### SetBusinessTripReadinessNil
-
-`func (o *ResumeAddResumeRequest) SetBusinessTripReadinessNil(b bool)`
-
- SetBusinessTripReadinessNil sets the value for BusinessTripReadiness to be an explicit nil
-
-### UnsetBusinessTripReadiness
-`func (o *ResumeAddResumeRequest) UnsetBusinessTripReadiness()`
-
-UnsetBusinessTripReadiness ensures that no value is present for BusinessTripReadiness, not even an explicit nil
 ### GetCertificate
 
 `func (o *ResumeAddResumeRequest) GetCertificate() []ResumeObjectsCertificate`
@@ -433,16 +413,6 @@ SetMetro sets Metro field to given value.
 
 HasMetro returns a boolean if a field has been set.
 
-### SetMetroNil
-
-`func (o *ResumeAddResumeRequest) SetMetroNil(b bool)`
-
- SetMetroNil sets the value for Metro to be an explicit nil
-
-### UnsetMetro
-`func (o *ResumeAddResumeRequest) UnsetMetro()`
-
-UnsetMetro ensures that no value is present for Metro, not even an explicit nil
 ### GetMiddleName
 
 `func (o *ResumeAddResumeRequest) GetMiddleName() string`
@@ -633,16 +603,6 @@ SetRelocation sets Relocation field to given value.
 
 HasRelocation returns a boolean if a field has been set.
 
-### SetRelocationNil
-
-`func (o *ResumeAddResumeRequest) SetRelocationNil(b bool)`
-
- SetRelocationNil sets the value for Relocation to be an explicit nil
-
-### UnsetRelocation
-`func (o *ResumeAddResumeRequest) UnsetRelocation()`
-
-UnsetRelocation ensures that no value is present for Relocation, not even an explicit nil
 ### GetResumeLocale
 
 `func (o *ResumeAddResumeRequest) GetResumeLocale() IncludesIdName`
@@ -668,16 +628,6 @@ SetResumeLocale sets ResumeLocale field to given value.
 
 HasResumeLocale returns a boolean if a field has been set.
 
-### SetResumeLocaleNil
-
-`func (o *ResumeAddResumeRequest) SetResumeLocaleNil(b bool)`
-
- SetResumeLocaleNil sets the value for ResumeLocale to be an explicit nil
-
-### UnsetResumeLocale
-`func (o *ResumeAddResumeRequest) UnsetResumeLocale()`
-
-UnsetResumeLocale ensures that no value is present for ResumeLocale, not even an explicit nil
 ### GetSalary
 
 `func (o *ResumeAddResumeRequest) GetSalary() ResumeObjectsSalaryAddEdit`
@@ -703,16 +653,6 @@ SetSalary sets Salary field to given value.
 
 HasSalary returns a boolean if a field has been set.
 
-### SetSalaryNil
-
-`func (o *ResumeAddResumeRequest) SetSalaryNil(b bool)`
-
- SetSalaryNil sets the value for Salary to be an explicit nil
-
-### UnsetSalary
-`func (o *ResumeAddResumeRequest) UnsetSalary()`
-
-UnsetSalary ensures that no value is present for Salary, not even an explicit nil
 ### GetSchedules
 
 `func (o *ResumeAddResumeRequest) GetSchedules() []IncludesIdName`
@@ -948,16 +888,6 @@ SetTravelTime sets TravelTime field to given value.
 
 HasTravelTime returns a boolean if a field has been set.
 
-### SetTravelTimeNil
-
-`func (o *ResumeAddResumeRequest) SetTravelTimeNil(b bool)`
-
- SetTravelTimeNil sets the value for TravelTime to be an explicit nil
-
-### UnsetTravelTime
-`func (o *ResumeAddResumeRequest) UnsetTravelTime()`
-
-UnsetTravelTime ensures that no value is present for TravelTime, not even an explicit nil
 ### GetWorkTicket
 
 `func (o *ResumeAddResumeRequest) GetWorkTicket() []IncludesId`

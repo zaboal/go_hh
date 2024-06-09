@@ -22,7 +22,7 @@ var _ MappedNullable = &ResumeObjectsExperienceCreateEditResume{}
 
 // ResumeObjectsExperienceCreateEditResume struct for ResumeObjectsExperienceCreateEditResume
 type ResumeObjectsExperienceCreateEditResume struct {
-	Area NullableIncludesIdNameUrl `json:"area,omitempty"`
+	Area *IncludesIdNameUrl `json:"area,omitempty"`
 	// Название организации
 	Company NullableString `json:"company"`
 	// Уникальный идентификатор организации
@@ -31,13 +31,13 @@ type ResumeObjectsExperienceCreateEditResume struct {
 	CompanyUrl NullableString `json:"company_url,omitempty"`
 	// Обязанности, функции, достижения
 	Description NullableString `json:"description"`
-	Employer NullableEmployersEmployerInfoShort `json:"employer,omitempty"`
+	Employer *EmployersEmployerInfoShort `json:"employer,omitempty"`
 	// Окончание работы (дата в формате `ГГГГ-ММ-ДД`)
 	End NullableString `json:"end,omitempty"`
 	// Список отраслей компании. Возможные значения приведены в [справочнике индустрий](#tag/Obshie-spravochniki/operation/get-industries)
 	Industries []IncludesIdName `json:"industries,omitempty"`
 	// Deprecated
-	Industry NullableResumeObjectsIndustry `json:"industry,omitempty"`
+	Industry *ResumeObjectsIndustry `json:"industry,omitempty"`
 	// Должность
 	Position string `json:"position"`
 	// Начало работы (дата в формате `ГГГГ-ММ-ДД`)
@@ -67,46 +67,36 @@ func NewResumeObjectsExperienceCreateEditResumeWithDefaults() *ResumeObjectsExpe
 	return &this
 }
 
-// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetArea returns the Area field value if set, zero value otherwise.
 func (o *ResumeObjectsExperienceCreateEditResume) GetArea() IncludesIdNameUrl {
-	if o == nil || IsNil(o.Area.Get()) {
+	if o == nil || IsNil(o.Area) {
 		var ret IncludesIdNameUrl
 		return ret
 	}
-	return *o.Area.Get()
+	return *o.Area
 }
 
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeObjectsExperienceCreateEditResume) GetAreaOk() (*IncludesIdNameUrl, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Area) {
 		return nil, false
 	}
-	return o.Area.Get(), o.Area.IsSet()
+	return o.Area, true
 }
 
 // HasArea returns a boolean if a field has been set.
 func (o *ResumeObjectsExperienceCreateEditResume) HasArea() bool {
-	if o != nil && o.Area.IsSet() {
+	if o != nil && !IsNil(o.Area) {
 		return true
 	}
 
 	return false
 }
 
-// SetArea gets a reference to the given NullableIncludesIdNameUrl and assigns it to the Area field.
+// SetArea gets a reference to the given IncludesIdNameUrl and assigns it to the Area field.
 func (o *ResumeObjectsExperienceCreateEditResume) SetArea(v IncludesIdNameUrl) {
-	o.Area.Set(&v)
-}
-// SetAreaNil sets the value for Area to be an explicit nil
-func (o *ResumeObjectsExperienceCreateEditResume) SetAreaNil() {
-	o.Area.Set(nil)
-}
-
-// UnsetArea ensures that no value is present for Area, not even an explicit nil
-func (o *ResumeObjectsExperienceCreateEditResume) UnsetArea() {
-	o.Area.Unset()
+	o.Area = &v
 }
 
 // GetCompany returns the Company field value
@@ -245,46 +235,36 @@ func (o *ResumeObjectsExperienceCreateEditResume) SetDescription(v string) {
 	o.Description.Set(&v)
 }
 
-// GetEmployer returns the Employer field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetEmployer returns the Employer field value if set, zero value otherwise.
 func (o *ResumeObjectsExperienceCreateEditResume) GetEmployer() EmployersEmployerInfoShort {
-	if o == nil || IsNil(o.Employer.Get()) {
+	if o == nil || IsNil(o.Employer) {
 		var ret EmployersEmployerInfoShort
 		return ret
 	}
-	return *o.Employer.Get()
+	return *o.Employer
 }
 
 // GetEmployerOk returns a tuple with the Employer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeObjectsExperienceCreateEditResume) GetEmployerOk() (*EmployersEmployerInfoShort, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Employer) {
 		return nil, false
 	}
-	return o.Employer.Get(), o.Employer.IsSet()
+	return o.Employer, true
 }
 
 // HasEmployer returns a boolean if a field has been set.
 func (o *ResumeObjectsExperienceCreateEditResume) HasEmployer() bool {
-	if o != nil && o.Employer.IsSet() {
+	if o != nil && !IsNil(o.Employer) {
 		return true
 	}
 
 	return false
 }
 
-// SetEmployer gets a reference to the given NullableEmployersEmployerInfoShort and assigns it to the Employer field.
+// SetEmployer gets a reference to the given EmployersEmployerInfoShort and assigns it to the Employer field.
 func (o *ResumeObjectsExperienceCreateEditResume) SetEmployer(v EmployersEmployerInfoShort) {
-	o.Employer.Set(&v)
-}
-// SetEmployerNil sets the value for Employer to be an explicit nil
-func (o *ResumeObjectsExperienceCreateEditResume) SetEmployerNil() {
-	o.Employer.Set(nil)
-}
-
-// UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
-func (o *ResumeObjectsExperienceCreateEditResume) UnsetEmployer() {
-	o.Employer.Unset()
+	o.Employer = &v
 }
 
 // GetEnd returns the End field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -361,49 +341,39 @@ func (o *ResumeObjectsExperienceCreateEditResume) SetIndustries(v []IncludesIdNa
 	o.Industries = v
 }
 
-// GetIndustry returns the Industry field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetIndustry returns the Industry field value if set, zero value otherwise.
 // Deprecated
 func (o *ResumeObjectsExperienceCreateEditResume) GetIndustry() ResumeObjectsIndustry {
-	if o == nil || IsNil(o.Industry.Get()) {
+	if o == nil || IsNil(o.Industry) {
 		var ret ResumeObjectsIndustry
 		return ret
 	}
-	return *o.Industry.Get()
+	return *o.Industry
 }
 
 // GetIndustryOk returns a tuple with the Industry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 // Deprecated
 func (o *ResumeObjectsExperienceCreateEditResume) GetIndustryOk() (*ResumeObjectsIndustry, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Industry) {
 		return nil, false
 	}
-	return o.Industry.Get(), o.Industry.IsSet()
+	return o.Industry, true
 }
 
 // HasIndustry returns a boolean if a field has been set.
 func (o *ResumeObjectsExperienceCreateEditResume) HasIndustry() bool {
-	if o != nil && o.Industry.IsSet() {
+	if o != nil && !IsNil(o.Industry) {
 		return true
 	}
 
 	return false
 }
 
-// SetIndustry gets a reference to the given NullableResumeObjectsIndustry and assigns it to the Industry field.
+// SetIndustry gets a reference to the given ResumeObjectsIndustry and assigns it to the Industry field.
 // Deprecated
 func (o *ResumeObjectsExperienceCreateEditResume) SetIndustry(v ResumeObjectsIndustry) {
-	o.Industry.Set(&v)
-}
-// SetIndustryNil sets the value for Industry to be an explicit nil
-func (o *ResumeObjectsExperienceCreateEditResume) SetIndustryNil() {
-	o.Industry.Set(nil)
-}
-
-// UnsetIndustry ensures that no value is present for Industry, not even an explicit nil
-func (o *ResumeObjectsExperienceCreateEditResume) UnsetIndustry() {
-	o.Industry.Unset()
+	o.Industry = &v
 }
 
 // GetPosition returns the Position field value
@@ -464,8 +434,8 @@ func (o ResumeObjectsExperienceCreateEditResume) MarshalJSON() ([]byte, error) {
 
 func (o ResumeObjectsExperienceCreateEditResume) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Area.IsSet() {
-		toSerialize["area"] = o.Area.Get()
+	if !IsNil(o.Area) {
+		toSerialize["area"] = o.Area
 	}
 	toSerialize["company"] = o.Company.Get()
 	if o.CompanyId.IsSet() {
@@ -475,8 +445,8 @@ func (o ResumeObjectsExperienceCreateEditResume) ToMap() (map[string]interface{}
 		toSerialize["company_url"] = o.CompanyUrl.Get()
 	}
 	toSerialize["description"] = o.Description.Get()
-	if o.Employer.IsSet() {
-		toSerialize["employer"] = o.Employer.Get()
+	if !IsNil(o.Employer) {
+		toSerialize["employer"] = o.Employer
 	}
 	if o.End.IsSet() {
 		toSerialize["end"] = o.End.Get()
@@ -484,8 +454,8 @@ func (o ResumeObjectsExperienceCreateEditResume) ToMap() (map[string]interface{}
 	if !IsNil(o.Industries) {
 		toSerialize["industries"] = o.Industries
 	}
-	if o.Industry.IsSet() {
-		toSerialize["industry"] = o.Industry.Get()
+	if !IsNil(o.Industry) {
+		toSerialize["industry"] = o.Industry
 	}
 	toSerialize["position"] = o.Position
 	toSerialize["start"] = o.Start

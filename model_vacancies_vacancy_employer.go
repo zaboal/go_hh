@@ -28,7 +28,7 @@ type VacanciesVacancyEmployer struct {
 	AlternateUrl NullableString `json:"alternate_url,omitempty"`
 	// Идентификатор компании
 	Id NullableString `json:"id,omitempty"`
-	LogoUrls NullableIncludesLogoUrls `json:"logo_urls,omitempty"`
+	LogoUrls *IncludesLogoUrls `json:"logo_urls,omitempty"`
 	// Название компании
 	Name string `json:"name"`
 	// Флаг, показывающий, прошла ли компания проверку на сайте
@@ -179,46 +179,36 @@ func (o *VacanciesVacancyEmployer) UnsetId() {
 	o.Id.Unset()
 }
 
-// GetLogoUrls returns the LogoUrls field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetLogoUrls returns the LogoUrls field value if set, zero value otherwise.
 func (o *VacanciesVacancyEmployer) GetLogoUrls() IncludesLogoUrls {
-	if o == nil || IsNil(o.LogoUrls.Get()) {
+	if o == nil || IsNil(o.LogoUrls) {
 		var ret IncludesLogoUrls
 		return ret
 	}
-	return *o.LogoUrls.Get()
+	return *o.LogoUrls
 }
 
 // GetLogoUrlsOk returns a tuple with the LogoUrls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyEmployer) GetLogoUrlsOk() (*IncludesLogoUrls, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LogoUrls) {
 		return nil, false
 	}
-	return o.LogoUrls.Get(), o.LogoUrls.IsSet()
+	return o.LogoUrls, true
 }
 
 // HasLogoUrls returns a boolean if a field has been set.
 func (o *VacanciesVacancyEmployer) HasLogoUrls() bool {
-	if o != nil && o.LogoUrls.IsSet() {
+	if o != nil && !IsNil(o.LogoUrls) {
 		return true
 	}
 
 	return false
 }
 
-// SetLogoUrls gets a reference to the given NullableIncludesLogoUrls and assigns it to the LogoUrls field.
+// SetLogoUrls gets a reference to the given IncludesLogoUrls and assigns it to the LogoUrls field.
 func (o *VacanciesVacancyEmployer) SetLogoUrls(v IncludesLogoUrls) {
-	o.LogoUrls.Set(&v)
-}
-// SetLogoUrlsNil sets the value for LogoUrls to be an explicit nil
-func (o *VacanciesVacancyEmployer) SetLogoUrlsNil() {
-	o.LogoUrls.Set(nil)
-}
-
-// UnsetLogoUrls ensures that no value is present for LogoUrls, not even an explicit nil
-func (o *VacanciesVacancyEmployer) UnsetLogoUrls() {
-	o.LogoUrls.Unset()
+	o.LogoUrls = &v
 }
 
 // GetName returns the Name field value
@@ -436,8 +426,8 @@ func (o VacanciesVacancyEmployer) ToMap() (map[string]interface{}, error) {
 	if o.Id.IsSet() {
 		toSerialize["id"] = o.Id.Get()
 	}
-	if o.LogoUrls.IsSet() {
-		toSerialize["logo_urls"] = o.LogoUrls.Get()
+	if !IsNil(o.LogoUrls) {
+		toSerialize["logo_urls"] = o.LogoUrls
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["trusted"] = o.Trusted

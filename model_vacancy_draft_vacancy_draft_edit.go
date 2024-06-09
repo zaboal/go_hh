@@ -31,13 +31,13 @@ type VacancyDraftVacancyDraftEdit struct {
 	Address NullableVacancyDraftAddress `json:"address,omitempty"`
 	// Возможность [переписки с кандидатами](https://inboxemp.hh.ru/) по данной вакансии
 	AllowMessages *bool `json:"allow_messages,omitempty"`
-	Area NullableVacancyArea `json:"area,omitempty"`
+	Area *VacancyArea `json:"area,omitempty"`
 	// Список регионов
 	Areas []VacancyArea `json:"areas,omitempty"`
 	// Идентификатор рабочего аккаунта менеджера, которому перейдет вакансия после публикации
 	AssignedManagerId NullableString `json:"assigned_manager_id,omitempty"`
 	BillingType NullableVacancyDraftBillingType `json:"billing_type,omitempty"`
-	BrandedTemplate NullableVacancyDraftBrandedTemplate `json:"branded_template,omitempty"`
+	BrandedTemplate *VacancyDraftBrandedTemplate `json:"branded_template,omitempty"`
 	// Внутренний код вакансии
 	Code NullableString `json:"code,omitempty"`
 	Contacts NullableVacancyDraftContacts `json:"contacts,omitempty"`
@@ -309,46 +309,36 @@ func (o *VacancyDraftVacancyDraftEdit) SetAllowMessages(v bool) {
 	o.AllowMessages = &v
 }
 
-// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetArea returns the Area field value if set, zero value otherwise.
 func (o *VacancyDraftVacancyDraftEdit) GetArea() VacancyArea {
-	if o == nil || IsNil(o.Area.Get()) {
+	if o == nil || IsNil(o.Area) {
 		var ret VacancyArea
 		return ret
 	}
-	return *o.Area.Get()
+	return *o.Area
 }
 
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacancyDraftVacancyDraftEdit) GetAreaOk() (*VacancyArea, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Area) {
 		return nil, false
 	}
-	return o.Area.Get(), o.Area.IsSet()
+	return o.Area, true
 }
 
 // HasArea returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasArea() bool {
-	if o != nil && o.Area.IsSet() {
+	if o != nil && !IsNil(o.Area) {
 		return true
 	}
 
 	return false
 }
 
-// SetArea gets a reference to the given NullableVacancyArea and assigns it to the Area field.
+// SetArea gets a reference to the given VacancyArea and assigns it to the Area field.
 func (o *VacancyDraftVacancyDraftEdit) SetArea(v VacancyArea) {
-	o.Area.Set(&v)
-}
-// SetAreaNil sets the value for Area to be an explicit nil
-func (o *VacancyDraftVacancyDraftEdit) SetAreaNil() {
-	o.Area.Set(nil)
-}
-
-// UnsetArea ensures that no value is present for Area, not even an explicit nil
-func (o *VacancyDraftVacancyDraftEdit) UnsetArea() {
-	o.Area.Unset()
+	o.Area = &v
 }
 
 // GetAreas returns the Areas field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -468,46 +458,36 @@ func (o *VacancyDraftVacancyDraftEdit) UnsetBillingType() {
 	o.BillingType.Unset()
 }
 
-// GetBrandedTemplate returns the BrandedTemplate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetBrandedTemplate returns the BrandedTemplate field value if set, zero value otherwise.
 func (o *VacancyDraftVacancyDraftEdit) GetBrandedTemplate() VacancyDraftBrandedTemplate {
-	if o == nil || IsNil(o.BrandedTemplate.Get()) {
+	if o == nil || IsNil(o.BrandedTemplate) {
 		var ret VacancyDraftBrandedTemplate
 		return ret
 	}
-	return *o.BrandedTemplate.Get()
+	return *o.BrandedTemplate
 }
 
 // GetBrandedTemplateOk returns a tuple with the BrandedTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacancyDraftVacancyDraftEdit) GetBrandedTemplateOk() (*VacancyDraftBrandedTemplate, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BrandedTemplate) {
 		return nil, false
 	}
-	return o.BrandedTemplate.Get(), o.BrandedTemplate.IsSet()
+	return o.BrandedTemplate, true
 }
 
 // HasBrandedTemplate returns a boolean if a field has been set.
 func (o *VacancyDraftVacancyDraftEdit) HasBrandedTemplate() bool {
-	if o != nil && o.BrandedTemplate.IsSet() {
+	if o != nil && !IsNil(o.BrandedTemplate) {
 		return true
 	}
 
 	return false
 }
 
-// SetBrandedTemplate gets a reference to the given NullableVacancyDraftBrandedTemplate and assigns it to the BrandedTemplate field.
+// SetBrandedTemplate gets a reference to the given VacancyDraftBrandedTemplate and assigns it to the BrandedTemplate field.
 func (o *VacancyDraftVacancyDraftEdit) SetBrandedTemplate(v VacancyDraftBrandedTemplate) {
-	o.BrandedTemplate.Set(&v)
-}
-// SetBrandedTemplateNil sets the value for BrandedTemplate to be an explicit nil
-func (o *VacancyDraftVacancyDraftEdit) SetBrandedTemplateNil() {
-	o.BrandedTemplate.Set(nil)
-}
-
-// UnsetBrandedTemplate ensures that no value is present for BrandedTemplate, not even an explicit nil
-func (o *VacancyDraftVacancyDraftEdit) UnsetBrandedTemplate() {
-	o.BrandedTemplate.Unset()
+	o.BrandedTemplate = &v
 }
 
 // GetCode returns the Code field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1441,8 +1421,8 @@ func (o VacancyDraftVacancyDraftEdit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AllowMessages) {
 		toSerialize["allow_messages"] = o.AllowMessages
 	}
-	if o.Area.IsSet() {
-		toSerialize["area"] = o.Area.Get()
+	if !IsNil(o.Area) {
+		toSerialize["area"] = o.Area
 	}
 	if o.Areas != nil {
 		toSerialize["areas"] = o.Areas
@@ -1453,8 +1433,8 @@ func (o VacancyDraftVacancyDraftEdit) ToMap() (map[string]interface{}, error) {
 	if o.BillingType.IsSet() {
 		toSerialize["billing_type"] = o.BillingType.Get()
 	}
-	if o.BrandedTemplate.IsSet() {
-		toSerialize["branded_template"] = o.BrandedTemplate.Get()
+	if !IsNil(o.BrandedTemplate) {
+		toSerialize["branded_template"] = o.BrandedTemplate
 	}
 	if o.Code.IsSet() {
 		toSerialize["code"] = o.Code.Get()

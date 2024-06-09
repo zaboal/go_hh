@@ -10,11 +10,11 @@ Name | Type | Description | Notes
 **AcceptTemporary** | Pointer to **NullableBool** | Указание, что вакансия доступна с временным трудоустройством | [optional] 
 **Address** | Pointer to [**NullableVacancyDraftAddress**](VacancyDraftAddress.md) |  | [optional] 
 **AllowMessages** | Pointer to **bool** | Возможность [переписки с кандидатами](https://inboxemp.hh.ru/) по данной вакансии | [optional] 
-**Area** | Pointer to [**NullableVacancyArea**](VacancyArea.md) |  | [optional] 
+**Area** | Pointer to [**VacancyArea**](VacancyArea.md) |  | [optional] 
 **Areas** | Pointer to [**[]VacancyArea**](VacancyArea.md) | Список регионов | [optional] 
 **AssignedManagerId** | Pointer to **NullableString** | Идентификатор рабочего аккаунта менеджера, которому перейдет вакансия после публикации | [optional] 
 **BillingType** | Pointer to [**NullableVacancyDraftBillingType**](VacancyDraftBillingType.md) |  | [optional] 
-**BrandedTemplate** | Pointer to [**NullableVacancyDraftBrandedTemplate**](VacancyDraftBrandedTemplate.md) |  | [optional] 
+**BrandedTemplate** | Pointer to [**VacancyDraftBrandedTemplate**](VacancyDraftBrandedTemplate.md) |  | [optional] 
 **Code** | Pointer to **NullableString** | Внутренний код вакансии | [optional] 
 **Contacts** | Pointer to [**NullableVacancyDraftContacts**](VacancyDraftContacts.md) |  | [optional] 
 **CustomEmployerName** | Pointer to **NullableString** | Название компании для анонимных вакансий (&#x60;type.id&#x3D;anonymous&#x60;), например \&quot;крупный российский банк\&quot;. Поле становится обязательным при публикации вакансии **анонимного** типа | [optional] 
@@ -254,16 +254,6 @@ SetArea sets Area field to given value.
 
 HasArea returns a boolean if a field has been set.
 
-### SetAreaNil
-
-`func (o *VacancyDraftVacancyDraftEdit) SetAreaNil(b bool)`
-
- SetAreaNil sets the value for Area to be an explicit nil
-
-### UnsetArea
-`func (o *VacancyDraftVacancyDraftEdit) UnsetArea()`
-
-UnsetArea ensures that no value is present for Area, not even an explicit nil
 ### GetAreas
 
 `func (o *VacancyDraftVacancyDraftEdit) GetAreas() []VacancyArea`
@@ -394,16 +384,6 @@ SetBrandedTemplate sets BrandedTemplate field to given value.
 
 HasBrandedTemplate returns a boolean if a field has been set.
 
-### SetBrandedTemplateNil
-
-`func (o *VacancyDraftVacancyDraftEdit) SetBrandedTemplateNil(b bool)`
-
- SetBrandedTemplateNil sets the value for BrandedTemplate to be an explicit nil
-
-### UnsetBrandedTemplate
-`func (o *VacancyDraftVacancyDraftEdit) UnsetBrandedTemplate()`
-
-UnsetBrandedTemplate ensures that no value is present for BrandedTemplate, not even an explicit nil
 ### GetCode
 
 `func (o *VacancyDraftVacancyDraftEdit) GetCode() string`

@@ -47,10 +47,10 @@ type NegotiationsCollectionNegotiationsItemsInner struct {
 	// Возможные [действия по отклику/приглашению](https://github.com/hhru/api/blob/master/docs/employer_negotiations.md#actions-info) 
 	Actions []VacancyNegotiationActions `json:"actions"`
 	EmployerState EmployersEmployersState `json:"employer_state"`
-	FunnelStage NullableEmployersFunnelStage `json:"funnel_stage,omitempty"`
+	FunnelStage *EmployersFunnelStage `json:"funnel_stage,omitempty"`
 	// Шаблоны писем
 	Templates []VacancyTemplates `json:"templates"`
-	TestResult NullableSkillVerificationsTestResultWithUrl `json:"test_result,omitempty"`
+	TestResult *SkillVerificationsTestResultWithUrl `json:"test_result,omitempty"`
 	Resume NullableResumeResumeShortLogoUrl90 `json:"resume,omitempty"`
 	// Ссылка на полную версию отклика
 	Url string `json:"url"`
@@ -433,46 +433,36 @@ func (o *NegotiationsCollectionNegotiationsItemsInner) SetEmployerState(v Employ
 	o.EmployerState = v
 }
 
-// GetFunnelStage returns the FunnelStage field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetFunnelStage returns the FunnelStage field value if set, zero value otherwise.
 func (o *NegotiationsCollectionNegotiationsItemsInner) GetFunnelStage() EmployersFunnelStage {
-	if o == nil || IsNil(o.FunnelStage.Get()) {
+	if o == nil || IsNil(o.FunnelStage) {
 		var ret EmployersFunnelStage
 		return ret
 	}
-	return *o.FunnelStage.Get()
+	return *o.FunnelStage
 }
 
 // GetFunnelStageOk returns a tuple with the FunnelStage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsCollectionNegotiationsItemsInner) GetFunnelStageOk() (*EmployersFunnelStage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FunnelStage) {
 		return nil, false
 	}
-	return o.FunnelStage.Get(), o.FunnelStage.IsSet()
+	return o.FunnelStage, true
 }
 
 // HasFunnelStage returns a boolean if a field has been set.
 func (o *NegotiationsCollectionNegotiationsItemsInner) HasFunnelStage() bool {
-	if o != nil && o.FunnelStage.IsSet() {
+	if o != nil && !IsNil(o.FunnelStage) {
 		return true
 	}
 
 	return false
 }
 
-// SetFunnelStage gets a reference to the given NullableEmployersFunnelStage and assigns it to the FunnelStage field.
+// SetFunnelStage gets a reference to the given EmployersFunnelStage and assigns it to the FunnelStage field.
 func (o *NegotiationsCollectionNegotiationsItemsInner) SetFunnelStage(v EmployersFunnelStage) {
-	o.FunnelStage.Set(&v)
-}
-// SetFunnelStageNil sets the value for FunnelStage to be an explicit nil
-func (o *NegotiationsCollectionNegotiationsItemsInner) SetFunnelStageNil() {
-	o.FunnelStage.Set(nil)
-}
-
-// UnsetFunnelStage ensures that no value is present for FunnelStage, not even an explicit nil
-func (o *NegotiationsCollectionNegotiationsItemsInner) UnsetFunnelStage() {
-	o.FunnelStage.Unset()
+	o.FunnelStage = &v
 }
 
 // GetTemplates returns the Templates field value
@@ -499,46 +489,36 @@ func (o *NegotiationsCollectionNegotiationsItemsInner) SetTemplates(v []VacancyT
 	o.Templates = v
 }
 
-// GetTestResult returns the TestResult field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetTestResult returns the TestResult field value if set, zero value otherwise.
 func (o *NegotiationsCollectionNegotiationsItemsInner) GetTestResult() SkillVerificationsTestResultWithUrl {
-	if o == nil || IsNil(o.TestResult.Get()) {
+	if o == nil || IsNil(o.TestResult) {
 		var ret SkillVerificationsTestResultWithUrl
 		return ret
 	}
-	return *o.TestResult.Get()
+	return *o.TestResult
 }
 
 // GetTestResultOk returns a tuple with the TestResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NegotiationsCollectionNegotiationsItemsInner) GetTestResultOk() (*SkillVerificationsTestResultWithUrl, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TestResult) {
 		return nil, false
 	}
-	return o.TestResult.Get(), o.TestResult.IsSet()
+	return o.TestResult, true
 }
 
 // HasTestResult returns a boolean if a field has been set.
 func (o *NegotiationsCollectionNegotiationsItemsInner) HasTestResult() bool {
-	if o != nil && o.TestResult.IsSet() {
+	if o != nil && !IsNil(o.TestResult) {
 		return true
 	}
 
 	return false
 }
 
-// SetTestResult gets a reference to the given NullableSkillVerificationsTestResultWithUrl and assigns it to the TestResult field.
+// SetTestResult gets a reference to the given SkillVerificationsTestResultWithUrl and assigns it to the TestResult field.
 func (o *NegotiationsCollectionNegotiationsItemsInner) SetTestResult(v SkillVerificationsTestResultWithUrl) {
-	o.TestResult.Set(&v)
-}
-// SetTestResultNil sets the value for TestResult to be an explicit nil
-func (o *NegotiationsCollectionNegotiationsItemsInner) SetTestResultNil() {
-	o.TestResult.Set(nil)
-}
-
-// UnsetTestResult ensures that no value is present for TestResult, not even an explicit nil
-func (o *NegotiationsCollectionNegotiationsItemsInner) UnsetTestResult() {
-	o.TestResult.Unset()
+	o.TestResult = &v
 }
 
 // GetResume returns the Resume field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -638,12 +618,12 @@ func (o NegotiationsCollectionNegotiationsItemsInner) ToMap() (map[string]interf
 	toSerialize["viewed_by_opponent"] = o.ViewedByOpponent
 	toSerialize["actions"] = o.Actions
 	toSerialize["employer_state"] = o.EmployerState
-	if o.FunnelStage.IsSet() {
-		toSerialize["funnel_stage"] = o.FunnelStage.Get()
+	if !IsNil(o.FunnelStage) {
+		toSerialize["funnel_stage"] = o.FunnelStage
 	}
 	toSerialize["templates"] = o.Templates
-	if o.TestResult.IsSet() {
-		toSerialize["test_result"] = o.TestResult.Get()
+	if !IsNil(o.TestResult) {
+		toSerialize["test_result"] = o.TestResult
 	}
 	if o.Resume.IsSet() {
 		toSerialize["resume"] = o.Resume.Get()

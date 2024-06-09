@@ -63,7 +63,7 @@ type VacanciesVacanciesItem struct {
 	// URL отклика для прямых вакансий (`type.id=direct`)
 	ResponseUrl NullableString `json:"response_url,omitempty"`
 	Salary NullableVacancySalary `json:"salary"`
-	Schedule NullableVacancyScheduleOutput `json:"schedule,omitempty"`
+	Schedule *VacancyScheduleOutput `json:"schedule,omitempty"`
 	// Расстояние в метрах между центром сортировки (заданной параметрами `sort_point_lat`, `sort_point_lng`) и указанным в вакансии адресом. В случае, если в адресе указаны только станции метро, выдается расстояние между центром сортировки и средней геометрической точкой указанных станций.  Значение `sort_point_distance` выдается только в случае, если заданы параметры `sort_point_lat`, `sort_point_lng`, `order_by=distance`
 	SortPointDistance NullableFloat32 `json:"sort_point_distance,omitempty"`
 	Type VacancyTypeOutput `json:"type"`
@@ -862,46 +862,36 @@ func (o *VacanciesVacanciesItem) SetSalary(v VacancySalary) {
 	o.Salary.Set(&v)
 }
 
-// GetSchedule returns the Schedule field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetSchedule returns the Schedule field value if set, zero value otherwise.
 func (o *VacanciesVacanciesItem) GetSchedule() VacancyScheduleOutput {
-	if o == nil || IsNil(o.Schedule.Get()) {
+	if o == nil || IsNil(o.Schedule) {
 		var ret VacancyScheduleOutput
 		return ret
 	}
-	return *o.Schedule.Get()
+	return *o.Schedule
 }
 
 // GetScheduleOk returns a tuple with the Schedule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacanciesItem) GetScheduleOk() (*VacancyScheduleOutput, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Schedule) {
 		return nil, false
 	}
-	return o.Schedule.Get(), o.Schedule.IsSet()
+	return o.Schedule, true
 }
 
 // HasSchedule returns a boolean if a field has been set.
 func (o *VacanciesVacanciesItem) HasSchedule() bool {
-	if o != nil && o.Schedule.IsSet() {
+	if o != nil && !IsNil(o.Schedule) {
 		return true
 	}
 
 	return false
 }
 
-// SetSchedule gets a reference to the given NullableVacancyScheduleOutput and assigns it to the Schedule field.
+// SetSchedule gets a reference to the given VacancyScheduleOutput and assigns it to the Schedule field.
 func (o *VacanciesVacanciesItem) SetSchedule(v VacancyScheduleOutput) {
-	o.Schedule.Set(&v)
-}
-// SetScheduleNil sets the value for Schedule to be an explicit nil
-func (o *VacanciesVacanciesItem) SetScheduleNil() {
-	o.Schedule.Set(nil)
-}
-
-// UnsetSchedule ensures that no value is present for Schedule, not even an explicit nil
-func (o *VacanciesVacanciesItem) UnsetSchedule() {
-	o.Schedule.Unset()
+	o.Schedule = &v
 }
 
 // GetSortPointDistance returns the SortPointDistance field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1329,8 +1319,8 @@ func (o VacanciesVacanciesItem) ToMap() (map[string]interface{}, error) {
 		toSerialize["response_url"] = o.ResponseUrl.Get()
 	}
 	toSerialize["salary"] = o.Salary.Get()
-	if o.Schedule.IsSet() {
-		toSerialize["schedule"] = o.Schedule.Get()
+	if !IsNil(o.Schedule) {
+		toSerialize["schedule"] = o.Schedule
 	}
 	if o.SortPointDistance.IsSet() {
 		toSerialize["sort_point_distance"] = o.SortPointDistance.Get()

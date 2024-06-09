@@ -41,7 +41,7 @@ type EmployerManagersEmployerManagerItem struct {
 	// Полное имя менеджера
 	// Deprecated
 	Name *string `json:"name,omitempty"`
-	Phone *EmployerManagersManagerDataPhone `json:"phone,omitempty"`
+	Phone *EmployerManagersAddEmployerManagerPhone `json:"phone,omitempty"`
 	// Должность менеджера
 	Position string `json:"position"`
 	// Количество опубликованных (активных) вакансий у данного менеджера. `null` — если у пользователя нет прав на просмотр вакансий этого менеджера
@@ -391,9 +391,9 @@ func (o *EmployerManagersEmployerManagerItem) SetName(v string) {
 }
 
 // GetPhone returns the Phone field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersManagerDataPhone {
+func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersAddEmployerManagerPhone {
 	if o == nil || IsNil(o.Phone) {
-		var ret EmployerManagersManagerDataPhone
+		var ret EmployerManagersAddEmployerManagerPhone
 		return ret
 	}
 	return *o.Phone
@@ -401,7 +401,7 @@ func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersManager
 
 // GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersManagerDataPhone, bool) {
+func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersAddEmployerManagerPhone, bool) {
 	if o == nil || IsNil(o.Phone) {
 		return nil, false
 	}
@@ -417,8 +417,8 @@ func (o *EmployerManagersEmployerManagerItem) HasPhone() bool {
 	return false
 }
 
-// SetPhone gets a reference to the given EmployerManagersManagerDataPhone and assigns it to the Phone field.
-func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersManagerDataPhone) {
+// SetPhone gets a reference to the given EmployerManagersAddEmployerManagerPhone and assigns it to the Phone field.
+func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersAddEmployerManagerPhone) {
 	o.Phone = &v
 }
 

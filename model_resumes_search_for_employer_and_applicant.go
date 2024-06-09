@@ -73,7 +73,7 @@ type ResumesSearchForEmployerAndApplicant struct {
 	Tags []IncludesId `json:"tags,omitempty"`
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
-	LastNegotiation NullableResumesNegotiationNano `json:"last_negotiation,omitempty"`
+	LastNegotiation *ResumesNegotiationNano `json:"last_negotiation,omitempty"`
 	// Для получения данных нужно передать параметр `with_job_search_status=true` 
 	JobSearchStatus *IncludesIdNameLastChangeTime `json:"job_search_status,omitempty"`
 	// Ссылка на резюме
@@ -992,46 +992,36 @@ func (o *ResumesSearchForEmployerAndApplicant) SetViewed(v bool) {
 	o.Viewed = v
 }
 
-// GetLastNegotiation returns the LastNegotiation field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetLastNegotiation returns the LastNegotiation field value if set, zero value otherwise.
 func (o *ResumesSearchForEmployerAndApplicant) GetLastNegotiation() ResumesNegotiationNano {
-	if o == nil || IsNil(o.LastNegotiation.Get()) {
+	if o == nil || IsNil(o.LastNegotiation) {
 		var ret ResumesNegotiationNano
 		return ret
 	}
-	return *o.LastNegotiation.Get()
+	return *o.LastNegotiation
 }
 
 // GetLastNegotiationOk returns a tuple with the LastNegotiation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumesSearchForEmployerAndApplicant) GetLastNegotiationOk() (*ResumesNegotiationNano, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LastNegotiation) {
 		return nil, false
 	}
-	return o.LastNegotiation.Get(), o.LastNegotiation.IsSet()
+	return o.LastNegotiation, true
 }
 
 // HasLastNegotiation returns a boolean if a field has been set.
 func (o *ResumesSearchForEmployerAndApplicant) HasLastNegotiation() bool {
-	if o != nil && o.LastNegotiation.IsSet() {
+	if o != nil && !IsNil(o.LastNegotiation) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastNegotiation gets a reference to the given NullableResumesNegotiationNano and assigns it to the LastNegotiation field.
+// SetLastNegotiation gets a reference to the given ResumesNegotiationNano and assigns it to the LastNegotiation field.
 func (o *ResumesSearchForEmployerAndApplicant) SetLastNegotiation(v ResumesNegotiationNano) {
-	o.LastNegotiation.Set(&v)
-}
-// SetLastNegotiationNil sets the value for LastNegotiation to be an explicit nil
-func (o *ResumesSearchForEmployerAndApplicant) SetLastNegotiationNil() {
-	o.LastNegotiation.Set(nil)
-}
-
-// UnsetLastNegotiation ensures that no value is present for LastNegotiation, not even an explicit nil
-func (o *ResumesSearchForEmployerAndApplicant) UnsetLastNegotiation() {
-	o.LastNegotiation.Unset()
+	o.LastNegotiation = &v
 }
 
 // GetJobSearchStatus returns the JobSearchStatus field value if set, zero value otherwise.
@@ -1162,8 +1152,8 @@ func (o ResumesSearchForEmployerAndApplicant) ToMap() (map[string]interface{}, e
 		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["viewed"] = o.Viewed
-	if o.LastNegotiation.IsSet() {
-		toSerialize["last_negotiation"] = o.LastNegotiation.Get()
+	if !IsNil(o.LastNegotiation) {
+		toSerialize["last_negotiation"] = o.LastNegotiation
 	}
 	if !IsNil(o.JobSearchStatus) {
 		toSerialize["job_search_status"] = o.JobSearchStatus

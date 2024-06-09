@@ -20,10 +20,10 @@ var _ MappedNullable = &ResumeAddResumeRequest{}
 
 // ResumeAddResumeRequest Тело запроса при создании резюме
 type ResumeAddResumeRequest struct {
-	Access NullableResumeObjectsAccess `json:"access,omitempty"`
+	Access *ResumeObjectsAccess `json:"access,omitempty"`
 	// День рождения (в формате `ГГГГ-ММ-ДД`)
 	BirthDate NullableString `json:"birth_date,omitempty"`
-	BusinessTripReadiness NullableIncludesId `json:"business_trip_readiness,omitempty"`
+	BusinessTripReadiness *IncludesId `json:"business_trip_readiness,omitempty"`
 	// Список сертификатов соискателя
 	Certificate []ResumeObjectsCertificate `json:"certificate,omitempty"`
 	// Список категорий водительских прав соискателя
@@ -38,7 +38,7 @@ type ResumeAddResumeRequest struct {
 	HiddenFields []IncludesIdName `json:"hidden_fields,omitempty"`
 	// Фамилия
 	LastName NullableString `json:"last_name,omitempty"`
-	Metro NullableIncludesId `json:"metro,omitempty"`
+	Metro *IncludesId `json:"metro,omitempty"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
 	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
@@ -48,9 +48,9 @@ type ResumeAddResumeRequest struct {
 	ProfessionalRoles []IncludesId `json:"professional_roles,omitempty"`
 	// Список рекомендаций
 	Recommendation []ResumeObjectsRecommendation `json:"recommendation,omitempty"`
-	Relocation NullableResumeObjectsRelocationPublic `json:"relocation,omitempty"`
-	ResumeLocale NullableIncludesIdName `json:"resume_locale,omitempty"`
-	Salary NullableResumeObjectsSalaryAddEdit `json:"salary,omitempty"`
+	Relocation *ResumeObjectsRelocationPublic `json:"relocation,omitempty"`
+	ResumeLocale *IncludesIdName `json:"resume_locale,omitempty"`
+	Salary *ResumeObjectsSalaryAddEdit `json:"salary,omitempty"`
 	// Список подходящих соискателю графиков работы. Элементы справочника [schedule](#tag/Obshie-spravochniki/operation/get-dictionaries)
 	Schedules []IncludesIdName `json:"schedules,omitempty"`
 	// Профили в соц. сетях и других сервисах
@@ -62,7 +62,7 @@ type ResumeAddResumeRequest struct {
 	// Желаемая должность
 	Title NullableString `json:"title,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
-	TravelTime NullableIncludesId `json:"travel_time,omitempty"`
+	TravelTime *IncludesId `json:"travel_time,omitempty"`
 	// Список регионов, в который соискатель имеет разрешение на работу. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) 
 	WorkTicket []IncludesId `json:"work_ticket,omitempty"`
 	// Город проживания. Элемент справочника [areas](#tag/Obshie-spravochniki/operation/get-areas)
@@ -98,46 +98,36 @@ func NewResumeAddResumeRequestWithDefaults() *ResumeAddResumeRequest {
 	return &this
 }
 
-// GetAccess returns the Access field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAccess returns the Access field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetAccess() ResumeObjectsAccess {
-	if o == nil || IsNil(o.Access.Get()) {
+	if o == nil || IsNil(o.Access) {
 		var ret ResumeObjectsAccess
 		return ret
 	}
-	return *o.Access.Get()
+	return *o.Access
 }
 
 // GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetAccessOk() (*ResumeObjectsAccess, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
-	return o.Access.Get(), o.Access.IsSet()
+	return o.Access, true
 }
 
 // HasAccess returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasAccess() bool {
-	if o != nil && o.Access.IsSet() {
+	if o != nil && !IsNil(o.Access) {
 		return true
 	}
 
 	return false
 }
 
-// SetAccess gets a reference to the given NullableResumeObjectsAccess and assigns it to the Access field.
+// SetAccess gets a reference to the given ResumeObjectsAccess and assigns it to the Access field.
 func (o *ResumeAddResumeRequest) SetAccess(v ResumeObjectsAccess) {
-	o.Access.Set(&v)
-}
-// SetAccessNil sets the value for Access to be an explicit nil
-func (o *ResumeAddResumeRequest) SetAccessNil() {
-	o.Access.Set(nil)
-}
-
-// UnsetAccess ensures that no value is present for Access, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetAccess() {
-	o.Access.Unset()
+	o.Access = &v
 }
 
 // GetBirthDate returns the BirthDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -182,46 +172,36 @@ func (o *ResumeAddResumeRequest) UnsetBirthDate() {
 	o.BirthDate.Unset()
 }
 
-// GetBusinessTripReadiness returns the BusinessTripReadiness field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetBusinessTripReadiness returns the BusinessTripReadiness field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetBusinessTripReadiness() IncludesId {
-	if o == nil || IsNil(o.BusinessTripReadiness.Get()) {
+	if o == nil || IsNil(o.BusinessTripReadiness) {
 		var ret IncludesId
 		return ret
 	}
-	return *o.BusinessTripReadiness.Get()
+	return *o.BusinessTripReadiness
 }
 
 // GetBusinessTripReadinessOk returns a tuple with the BusinessTripReadiness field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetBusinessTripReadinessOk() (*IncludesId, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BusinessTripReadiness) {
 		return nil, false
 	}
-	return o.BusinessTripReadiness.Get(), o.BusinessTripReadiness.IsSet()
+	return o.BusinessTripReadiness, true
 }
 
 // HasBusinessTripReadiness returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasBusinessTripReadiness() bool {
-	if o != nil && o.BusinessTripReadiness.IsSet() {
+	if o != nil && !IsNil(o.BusinessTripReadiness) {
 		return true
 	}
 
 	return false
 }
 
-// SetBusinessTripReadiness gets a reference to the given NullableIncludesId and assigns it to the BusinessTripReadiness field.
+// SetBusinessTripReadiness gets a reference to the given IncludesId and assigns it to the BusinessTripReadiness field.
 func (o *ResumeAddResumeRequest) SetBusinessTripReadiness(v IncludesId) {
-	o.BusinessTripReadiness.Set(&v)
-}
-// SetBusinessTripReadinessNil sets the value for BusinessTripReadiness to be an explicit nil
-func (o *ResumeAddResumeRequest) SetBusinessTripReadinessNil() {
-	o.BusinessTripReadiness.Set(nil)
-}
-
-// UnsetBusinessTripReadiness ensures that no value is present for BusinessTripReadiness, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetBusinessTripReadiness() {
-	o.BusinessTripReadiness.Unset()
+	o.BusinessTripReadiness = &v
 }
 
 // GetCertificate returns the Certificate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -482,46 +462,36 @@ func (o *ResumeAddResumeRequest) UnsetLastName() {
 	o.LastName.Unset()
 }
 
-// GetMetro returns the Metro field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetMetro returns the Metro field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetMetro() IncludesId {
-	if o == nil || IsNil(o.Metro.Get()) {
+	if o == nil || IsNil(o.Metro) {
 		var ret IncludesId
 		return ret
 	}
-	return *o.Metro.Get()
+	return *o.Metro
 }
 
 // GetMetroOk returns a tuple with the Metro field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetMetroOk() (*IncludesId, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metro) {
 		return nil, false
 	}
-	return o.Metro.Get(), o.Metro.IsSet()
+	return o.Metro, true
 }
 
 // HasMetro returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasMetro() bool {
-	if o != nil && o.Metro.IsSet() {
+	if o != nil && !IsNil(o.Metro) {
 		return true
 	}
 
 	return false
 }
 
-// SetMetro gets a reference to the given NullableIncludesId and assigns it to the Metro field.
+// SetMetro gets a reference to the given IncludesId and assigns it to the Metro field.
 func (o *ResumeAddResumeRequest) SetMetro(v IncludesId) {
-	o.Metro.Set(&v)
-}
-// SetMetroNil sets the value for Metro to be an explicit nil
-func (o *ResumeAddResumeRequest) SetMetroNil() {
-	o.Metro.Set(nil)
-}
-
-// UnsetMetro ensures that no value is present for Metro, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetMetro() {
-	o.Metro.Unset()
+	o.Metro = &v
 }
 
 // GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -706,130 +676,100 @@ func (o *ResumeAddResumeRequest) SetRecommendation(v []ResumeObjectsRecommendati
 	o.Recommendation = v
 }
 
-// GetRelocation returns the Relocation field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetRelocation returns the Relocation field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetRelocation() ResumeObjectsRelocationPublic {
-	if o == nil || IsNil(o.Relocation.Get()) {
+	if o == nil || IsNil(o.Relocation) {
 		var ret ResumeObjectsRelocationPublic
 		return ret
 	}
-	return *o.Relocation.Get()
+	return *o.Relocation
 }
 
 // GetRelocationOk returns a tuple with the Relocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetRelocationOk() (*ResumeObjectsRelocationPublic, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Relocation) {
 		return nil, false
 	}
-	return o.Relocation.Get(), o.Relocation.IsSet()
+	return o.Relocation, true
 }
 
 // HasRelocation returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasRelocation() bool {
-	if o != nil && o.Relocation.IsSet() {
+	if o != nil && !IsNil(o.Relocation) {
 		return true
 	}
 
 	return false
 }
 
-// SetRelocation gets a reference to the given NullableResumeObjectsRelocationPublic and assigns it to the Relocation field.
+// SetRelocation gets a reference to the given ResumeObjectsRelocationPublic and assigns it to the Relocation field.
 func (o *ResumeAddResumeRequest) SetRelocation(v ResumeObjectsRelocationPublic) {
-	o.Relocation.Set(&v)
-}
-// SetRelocationNil sets the value for Relocation to be an explicit nil
-func (o *ResumeAddResumeRequest) SetRelocationNil() {
-	o.Relocation.Set(nil)
+	o.Relocation = &v
 }
 
-// UnsetRelocation ensures that no value is present for Relocation, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetRelocation() {
-	o.Relocation.Unset()
-}
-
-// GetResumeLocale returns the ResumeLocale field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetResumeLocale returns the ResumeLocale field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetResumeLocale() IncludesIdName {
-	if o == nil || IsNil(o.ResumeLocale.Get()) {
+	if o == nil || IsNil(o.ResumeLocale) {
 		var ret IncludesIdName
 		return ret
 	}
-	return *o.ResumeLocale.Get()
+	return *o.ResumeLocale
 }
 
 // GetResumeLocaleOk returns a tuple with the ResumeLocale field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetResumeLocaleOk() (*IncludesIdName, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResumeLocale) {
 		return nil, false
 	}
-	return o.ResumeLocale.Get(), o.ResumeLocale.IsSet()
+	return o.ResumeLocale, true
 }
 
 // HasResumeLocale returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasResumeLocale() bool {
-	if o != nil && o.ResumeLocale.IsSet() {
+	if o != nil && !IsNil(o.ResumeLocale) {
 		return true
 	}
 
 	return false
 }
 
-// SetResumeLocale gets a reference to the given NullableIncludesIdName and assigns it to the ResumeLocale field.
+// SetResumeLocale gets a reference to the given IncludesIdName and assigns it to the ResumeLocale field.
 func (o *ResumeAddResumeRequest) SetResumeLocale(v IncludesIdName) {
-	o.ResumeLocale.Set(&v)
-}
-// SetResumeLocaleNil sets the value for ResumeLocale to be an explicit nil
-func (o *ResumeAddResumeRequest) SetResumeLocaleNil() {
-	o.ResumeLocale.Set(nil)
+	o.ResumeLocale = &v
 }
 
-// UnsetResumeLocale ensures that no value is present for ResumeLocale, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetResumeLocale() {
-	o.ResumeLocale.Unset()
-}
-
-// GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetSalary returns the Salary field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetSalary() ResumeObjectsSalaryAddEdit {
-	if o == nil || IsNil(o.Salary.Get()) {
+	if o == nil || IsNil(o.Salary) {
 		var ret ResumeObjectsSalaryAddEdit
 		return ret
 	}
-	return *o.Salary.Get()
+	return *o.Salary
 }
 
 // GetSalaryOk returns a tuple with the Salary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetSalaryOk() (*ResumeObjectsSalaryAddEdit, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Salary) {
 		return nil, false
 	}
-	return o.Salary.Get(), o.Salary.IsSet()
+	return o.Salary, true
 }
 
 // HasSalary returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasSalary() bool {
-	if o != nil && o.Salary.IsSet() {
+	if o != nil && !IsNil(o.Salary) {
 		return true
 	}
 
 	return false
 }
 
-// SetSalary gets a reference to the given NullableResumeObjectsSalaryAddEdit and assigns it to the Salary field.
+// SetSalary gets a reference to the given ResumeObjectsSalaryAddEdit and assigns it to the Salary field.
 func (o *ResumeAddResumeRequest) SetSalary(v ResumeObjectsSalaryAddEdit) {
-	o.Salary.Set(&v)
-}
-// SetSalaryNil sets the value for Salary to be an explicit nil
-func (o *ResumeAddResumeRequest) SetSalaryNil() {
-	o.Salary.Set(nil)
-}
-
-// UnsetSalary ensures that no value is present for Salary, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetSalary() {
-	o.Salary.Unset()
+	o.Salary = &v
 }
 
 // GetSchedules returns the Schedules field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1057,46 +997,36 @@ func (o *ResumeAddResumeRequest) UnsetTotalExperience() {
 	o.TotalExperience.Unset()
 }
 
-// GetTravelTime returns the TravelTime field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetTravelTime returns the TravelTime field value if set, zero value otherwise.
 func (o *ResumeAddResumeRequest) GetTravelTime() IncludesId {
-	if o == nil || IsNil(o.TravelTime.Get()) {
+	if o == nil || IsNil(o.TravelTime) {
 		var ret IncludesId
 		return ret
 	}
-	return *o.TravelTime.Get()
+	return *o.TravelTime
 }
 
 // GetTravelTimeOk returns a tuple with the TravelTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumeAddResumeRequest) GetTravelTimeOk() (*IncludesId, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TravelTime) {
 		return nil, false
 	}
-	return o.TravelTime.Get(), o.TravelTime.IsSet()
+	return o.TravelTime, true
 }
 
 // HasTravelTime returns a boolean if a field has been set.
 func (o *ResumeAddResumeRequest) HasTravelTime() bool {
-	if o != nil && o.TravelTime.IsSet() {
+	if o != nil && !IsNil(o.TravelTime) {
 		return true
 	}
 
 	return false
 }
 
-// SetTravelTime gets a reference to the given NullableIncludesId and assigns it to the TravelTime field.
+// SetTravelTime gets a reference to the given IncludesId and assigns it to the TravelTime field.
 func (o *ResumeAddResumeRequest) SetTravelTime(v IncludesId) {
-	o.TravelTime.Set(&v)
-}
-// SetTravelTimeNil sets the value for TravelTime to be an explicit nil
-func (o *ResumeAddResumeRequest) SetTravelTimeNil() {
-	o.TravelTime.Set(nil)
-}
-
-// UnsetTravelTime ensures that no value is present for TravelTime, not even an explicit nil
-func (o *ResumeAddResumeRequest) UnsetTravelTime() {
-	o.TravelTime.Unset()
+	o.TravelTime = &v
 }
 
 // GetWorkTicket returns the WorkTicket field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1366,14 +1296,14 @@ func (o ResumeAddResumeRequest) MarshalJSON() ([]byte, error) {
 
 func (o ResumeAddResumeRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Access.IsSet() {
-		toSerialize["access"] = o.Access.Get()
+	if !IsNil(o.Access) {
+		toSerialize["access"] = o.Access
 	}
 	if o.BirthDate.IsSet() {
 		toSerialize["birth_date"] = o.BirthDate.Get()
 	}
-	if o.BusinessTripReadiness.IsSet() {
-		toSerialize["business_trip_readiness"] = o.BusinessTripReadiness.Get()
+	if !IsNil(o.BusinessTripReadiness) {
+		toSerialize["business_trip_readiness"] = o.BusinessTripReadiness
 	}
 	if o.Certificate != nil {
 		toSerialize["certificate"] = o.Certificate
@@ -1396,8 +1326,8 @@ func (o ResumeAddResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.LastName.IsSet() {
 		toSerialize["last_name"] = o.LastName.Get()
 	}
-	if o.Metro.IsSet() {
-		toSerialize["metro"] = o.Metro.Get()
+	if !IsNil(o.Metro) {
+		toSerialize["metro"] = o.Metro
 	}
 	if o.MiddleName.IsSet() {
 		toSerialize["middle_name"] = o.MiddleName.Get()
@@ -1414,14 +1344,14 @@ func (o ResumeAddResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.Recommendation != nil {
 		toSerialize["recommendation"] = o.Recommendation
 	}
-	if o.Relocation.IsSet() {
-		toSerialize["relocation"] = o.Relocation.Get()
+	if !IsNil(o.Relocation) {
+		toSerialize["relocation"] = o.Relocation
 	}
-	if o.ResumeLocale.IsSet() {
-		toSerialize["resume_locale"] = o.ResumeLocale.Get()
+	if !IsNil(o.ResumeLocale) {
+		toSerialize["resume_locale"] = o.ResumeLocale
 	}
-	if o.Salary.IsSet() {
-		toSerialize["salary"] = o.Salary.Get()
+	if !IsNil(o.Salary) {
+		toSerialize["salary"] = o.Salary
 	}
 	if o.Schedules != nil {
 		toSerialize["schedules"] = o.Schedules
@@ -1441,8 +1371,8 @@ func (o ResumeAddResumeRequest) ToMap() (map[string]interface{}, error) {
 	if o.TotalExperience.IsSet() {
 		toSerialize["total_experience"] = o.TotalExperience.Get()
 	}
-	if o.TravelTime.IsSet() {
-		toSerialize["travel_time"] = o.TravelTime.Get()
+	if !IsNil(o.TravelTime) {
+		toSerialize["travel_time"] = o.TravelTime
 	}
 	if o.WorkTicket != nil {
 		toSerialize["work_ticket"] = o.WorkTicket

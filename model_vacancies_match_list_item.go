@@ -22,7 +22,7 @@ var _ MappedNullable = &VacanciesMatchListItem{}
 
 // VacanciesMatchListItem struct for VacanciesMatchListItem
 type VacanciesMatchListItem struct {
-	Address NullableVacanciesAddress `json:"address,omitempty"`
+	Address *VacanciesAddress `json:"address,omitempty"`
 	// Ссылка на представление вакансии на сайте
 	AlternateUrl string `json:"alternate_url"`
 	// Ссылка на отклик на вакансию на сайте
@@ -31,7 +31,7 @@ type VacanciesMatchListItem struct {
 	Archived bool `json:"archived"`
 	Area IncludesArea `json:"area"`
 	Department NullableVacancyDepartmentOutput `json:"department"`
-	Employer NullableVacanciesEmployerPublic `json:"employer"`
+	Employer VacanciesEmployerPublic `json:"employer"`
 	// Информация о наличии прикрепленного тестового задании к вакансии
 	HasTest bool `json:"has_test"`
 	// Идентификатор вакансии
@@ -58,11 +58,11 @@ type VacanciesMatchListItem struct {
 	CanInvite bool `json:"can_invite"`
 	// Дата и время публикации вакансии
 	CreatedAt string `json:"created_at"`
-	EmployerNegotiationsState NullableIncludesIdName `json:"employer_negotiations_state"`
+	EmployerNegotiationsState IncludesIdName `json:"employer_negotiations_state"`
 	Manager VacancyManagerOutput `json:"manager"`
 	// Действия для [создания отклика](#tag/Otklikipriglasheniya-rabotodatelya/operation/invite-applicant-to-vacancy). Если создать отклик невозможно (например, нет нужных услуг), то вернется пустой массив
 	NegotiationsActions []VacancyNegotiationActions `json:"negotiations_actions"`
-	NegotiationsState NullableIncludesIdName `json:"negotiations_state"`
+	NegotiationsState IncludesIdName `json:"negotiations_state"`
 	// Расстояние в метрах между центром сортировки (заданной параметрами `sort_point_lat`, `sort_point_lng`) и указанным в вакансии адресом. В случае, если в адресе указаны только станции метро, выдается расстояние между центром сортировки и средней геометрической точкой указанных станций. Значение `sort_point_distance` выдается только в случае, если заданы параметры `sort_point_lat`, `sort_point_lng`, `order_by=distance` 
 	SortPointDistance NullableFloat32 `json:"sort_point_distance,omitempty"`
 	// Шаблоны писем
@@ -75,7 +75,7 @@ type _VacanciesMatchListItem VacanciesMatchListItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesMatchListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer NullableVacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canInvite bool, createdAt string, employerNegotiationsState NullableIncludesIdName, manager VacancyManagerOutput, negotiationsActions []VacancyNegotiationActions, negotiationsState NullableIncludesIdName) *VacanciesMatchListItem {
+func NewVacanciesMatchListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer VacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canInvite bool, createdAt string, employerNegotiationsState IncludesIdName, manager VacancyManagerOutput, negotiationsActions []VacancyNegotiationActions, negotiationsState IncludesIdName) *VacanciesMatchListItem {
 	this := VacanciesMatchListItem{}
 	this.AlternateUrl = alternateUrl
 	this.ApplyAlternateUrl = applyAlternateUrl
@@ -110,46 +110,36 @@ func NewVacanciesMatchListItemWithDefaults() *VacanciesMatchListItem {
 	return &this
 }
 
-// GetAddress returns the Address field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAddress returns the Address field value if set, zero value otherwise.
 func (o *VacanciesMatchListItem) GetAddress() VacanciesAddress {
-	if o == nil || IsNil(o.Address.Get()) {
+	if o == nil || IsNil(o.Address) {
 		var ret VacanciesAddress
 		return ret
 	}
-	return *o.Address.Get()
+	return *o.Address
 }
 
 // GetAddressOk returns a tuple with the Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesMatchListItem) GetAddressOk() (*VacanciesAddress, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Address) {
 		return nil, false
 	}
-	return o.Address.Get(), o.Address.IsSet()
+	return o.Address, true
 }
 
 // HasAddress returns a boolean if a field has been set.
 func (o *VacanciesMatchListItem) HasAddress() bool {
-	if o != nil && o.Address.IsSet() {
+	if o != nil && !IsNil(o.Address) {
 		return true
 	}
 
 	return false
 }
 
-// SetAddress gets a reference to the given NullableVacanciesAddress and assigns it to the Address field.
+// SetAddress gets a reference to the given VacanciesAddress and assigns it to the Address field.
 func (o *VacanciesMatchListItem) SetAddress(v VacanciesAddress) {
-	o.Address.Set(&v)
-}
-// SetAddressNil sets the value for Address to be an explicit nil
-func (o *VacanciesMatchListItem) SetAddressNil() {
-	o.Address.Set(nil)
-}
-
-// UnsetAddress ensures that no value is present for Address, not even an explicit nil
-func (o *VacanciesMatchListItem) UnsetAddress() {
-	o.Address.Unset()
+	o.Address = &v
 }
 
 // GetAlternateUrl returns the AlternateUrl field value
@@ -275,29 +265,27 @@ func (o *VacanciesMatchListItem) SetDepartment(v VacancyDepartmentOutput) {
 }
 
 // GetEmployer returns the Employer field value
-// If the value is explicit nil, the zero value for VacanciesEmployerPublic will be returned
 func (o *VacanciesMatchListItem) GetEmployer() VacanciesEmployerPublic {
-	if o == nil || o.Employer.Get() == nil {
+	if o == nil {
 		var ret VacanciesEmployerPublic
 		return ret
 	}
 
-	return *o.Employer.Get()
+	return o.Employer
 }
 
 // GetEmployerOk returns a tuple with the Employer field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesMatchListItem) GetEmployerOk() (*VacanciesEmployerPublic, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Employer.Get(), o.Employer.IsSet()
+	return &o.Employer, true
 }
 
 // SetEmployer sets field value
 func (o *VacanciesMatchListItem) SetEmployer(v VacanciesEmployerPublic) {
-	o.Employer.Set(&v)
+	o.Employer = v
 }
 
 // GetHasTest returns the HasTest field value
@@ -675,29 +663,27 @@ func (o *VacanciesMatchListItem) SetCreatedAt(v string) {
 }
 
 // GetEmployerNegotiationsState returns the EmployerNegotiationsState field value
-// If the value is explicit nil, the zero value for IncludesIdName will be returned
 func (o *VacanciesMatchListItem) GetEmployerNegotiationsState() IncludesIdName {
-	if o == nil || o.EmployerNegotiationsState.Get() == nil {
+	if o == nil {
 		var ret IncludesIdName
 		return ret
 	}
 
-	return *o.EmployerNegotiationsState.Get()
+	return o.EmployerNegotiationsState
 }
 
 // GetEmployerNegotiationsStateOk returns a tuple with the EmployerNegotiationsState field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesMatchListItem) GetEmployerNegotiationsStateOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.EmployerNegotiationsState.Get(), o.EmployerNegotiationsState.IsSet()
+	return &o.EmployerNegotiationsState, true
 }
 
 // SetEmployerNegotiationsState sets field value
 func (o *VacanciesMatchListItem) SetEmployerNegotiationsState(v IncludesIdName) {
-	o.EmployerNegotiationsState.Set(&v)
+	o.EmployerNegotiationsState = v
 }
 
 // GetManager returns the Manager field value
@@ -749,29 +735,27 @@ func (o *VacanciesMatchListItem) SetNegotiationsActions(v []VacancyNegotiationAc
 }
 
 // GetNegotiationsState returns the NegotiationsState field value
-// If the value is explicit nil, the zero value for IncludesIdName will be returned
 func (o *VacanciesMatchListItem) GetNegotiationsState() IncludesIdName {
-	if o == nil || o.NegotiationsState.Get() == nil {
+	if o == nil {
 		var ret IncludesIdName
 		return ret
 	}
 
-	return *o.NegotiationsState.Get()
+	return o.NegotiationsState
 }
 
 // GetNegotiationsStateOk returns a tuple with the NegotiationsState field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesMatchListItem) GetNegotiationsStateOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.NegotiationsState.Get(), o.NegotiationsState.IsSet()
+	return &o.NegotiationsState, true
 }
 
 // SetNegotiationsState sets field value
 func (o *VacanciesMatchListItem) SetNegotiationsState(v IncludesIdName) {
-	o.NegotiationsState.Set(&v)
+	o.NegotiationsState = v
 }
 
 // GetSortPointDistance returns the SortPointDistance field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -858,15 +842,15 @@ func (o VacanciesMatchListItem) MarshalJSON() ([]byte, error) {
 
 func (o VacanciesMatchListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Address.IsSet() {
-		toSerialize["address"] = o.Address.Get()
+	if !IsNil(o.Address) {
+		toSerialize["address"] = o.Address
 	}
 	toSerialize["alternate_url"] = o.AlternateUrl
 	toSerialize["apply_alternate_url"] = o.ApplyAlternateUrl
 	toSerialize["archived"] = o.Archived
 	toSerialize["area"] = o.Area
 	toSerialize["department"] = o.Department.Get()
-	toSerialize["employer"] = o.Employer.Get()
+	toSerialize["employer"] = o.Employer
 	toSerialize["has_test"] = o.HasTest
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
@@ -885,10 +869,10 @@ func (o VacanciesMatchListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize["url"] = o.Url
 	toSerialize["can_invite"] = o.CanInvite
 	toSerialize["created_at"] = o.CreatedAt
-	toSerialize["employer_negotiations_state"] = o.EmployerNegotiationsState.Get()
+	toSerialize["employer_negotiations_state"] = o.EmployerNegotiationsState
 	toSerialize["manager"] = o.Manager
 	toSerialize["negotiations_actions"] = o.NegotiationsActions
-	toSerialize["negotiations_state"] = o.NegotiationsState.Get()
+	toSerialize["negotiations_state"] = o.NegotiationsState
 	if o.SortPointDistance.IsSet() {
 		toSerialize["sort_point_distance"] = o.SortPointDistance.Get()
 	}

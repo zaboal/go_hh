@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AdditionalPhone** | Pointer to [**EmployerManagersManagerDataAdditionalPhone**](EmployerManagersManagerDataAdditionalPhone.md) |  | [optional] 
+**AdditionalPhone** | Pointer to [**EmployerManagersAddEmployerManagerAdditionalPhone**](EmployerManagersAddEmployerManagerAdditionalPhone.md) |  | [optional] 
 **Permissions** | Pointer to [**[]EmployerManagerTypesAvailablePermissions**](EmployerManagerTypesAvailablePermissions.md) | Список прав, которые можно дать данному типу менеджера | [optional] 
-**Phone** | Pointer to [**EmployerManagersManagerDataPhone**](EmployerManagersManagerDataPhone.md) |  | [optional] 
+**Phone** | Pointer to [**EmployerManagersAddEmployerManagerPhone**](EmployerManagersAddEmployerManagerPhone.md) |  | [optional] 
 **Position** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAdditionalPhone
 
-`func (o *EmployerManagersManagerData) GetAdditionalPhone() EmployerManagersManagerDataAdditionalPhone`
+`func (o *EmployerManagersManagerData) GetAdditionalPhone() EmployerManagersAddEmployerManagerAdditionalPhone`
 
 GetAdditionalPhone returns the AdditionalPhone field if non-nil, zero value otherwise.
 
 ### GetAdditionalPhoneOk
 
-`func (o *EmployerManagersManagerData) GetAdditionalPhoneOk() (*EmployerManagersManagerDataAdditionalPhone, bool)`
+`func (o *EmployerManagersManagerData) GetAdditionalPhoneOk() (*EmployerManagersAddEmployerManagerAdditionalPhone, bool)`
 
 GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalPhone
 
-`func (o *EmployerManagersManagerData) SetAdditionalPhone(v EmployerManagersManagerDataAdditionalPhone)`
+`func (o *EmployerManagersManagerData) SetAdditionalPhone(v EmployerManagersAddEmployerManagerAdditionalPhone)`
 
 SetAdditionalPhone sets AdditionalPhone field to given value.
 
@@ -80,20 +80,20 @@ HasPermissions returns a boolean if a field has been set.
 
 ### GetPhone
 
-`func (o *EmployerManagersManagerData) GetPhone() EmployerManagersManagerDataPhone`
+`func (o *EmployerManagersManagerData) GetPhone() EmployerManagersAddEmployerManagerPhone`
 
 GetPhone returns the Phone field if non-nil, zero value otherwise.
 
 ### GetPhoneOk
 
-`func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersManagerDataPhone, bool)`
+`func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersAddEmployerManagerPhone, bool)`
 
 GetPhoneOk returns a tuple with the Phone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhone
 
-`func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersManagerDataPhone)`
+`func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersAddEmployerManagerPhone)`
 
 SetPhone sets Phone field to given value.
 

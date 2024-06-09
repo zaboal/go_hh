@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccreditedItEmployer** | Pointer to **bool** | Флаг, показывающий, прошла ли компания IT аккредитацию | [optional] 
 **AlternateUrl** | Pointer to **NullableString** | Ссылка на представление компании на сайте | [optional] 
 **Id** | Pointer to **NullableString** | Идентификатор компании | [optional] 
-**LogoUrls** | Pointer to [**NullableIncludesLogoUrls**](IncludesLogoUrls.md) |  | [optional] 
+**LogoUrls** | Pointer to [**IncludesLogoUrls**](IncludesLogoUrls.md) |  | [optional] 
 **Name** | **string** | Название компании | 
 **Trusted** | **bool** | Флаг, показывающий, прошла ли компания проверку на сайте | 
 **Url** | Pointer to **NullableString** | URL, на который нужно сделать GET-запрос, чтобы получить информацию о компании | [optional] 
@@ -154,16 +154,6 @@ SetLogoUrls sets LogoUrls field to given value.
 
 HasLogoUrls returns a boolean if a field has been set.
 
-### SetLogoUrlsNil
-
-`func (o *VacanciesVacancyEmployer) SetLogoUrlsNil(b bool)`
-
- SetLogoUrlsNil sets the value for LogoUrls to be an explicit nil
-
-### UnsetLogoUrls
-`func (o *VacanciesVacancyEmployer) UnsetLogoUrls()`
-
-UnsetLogoUrls ensures that no value is present for LogoUrls, not even an explicit nil
 ### GetName
 
 `func (o *VacanciesVacancyEmployer) GetName() string`

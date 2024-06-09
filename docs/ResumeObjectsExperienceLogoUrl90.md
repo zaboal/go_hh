@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Area** | Pointer to [**NullableIncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
+**Area** | Pointer to [**IncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
 **Company** | Pointer to **NullableString** | Название организации | [optional] 
 **CompanyId** | Pointer to **NullableString** | Уникальный идентификатор организации | [optional] 
 **CompanyUrl** | Pointer to **NullableString** | Сайт компании | [optional] 
 **Description** | Pointer to **NullableString** | Обязанности, функции, достижения | [optional] 
-**Employer** | Pointer to [**NullableEmployersEmployerInfoShortLogoUrl90**](EmployersEmployerInfoShortLogoUrl90.md) |  | [optional] 
+**Employer** | Pointer to [**EmployersEmployerInfoShortLogoUrl90**](EmployersEmployerInfoShortLogoUrl90.md) |  | [optional] 
 **End** | Pointer to **NullableString** | Окончание работы (дата в формате &#x60;ГГГГ-ММ-ДД&#x60;) | [optional] 
 **Industries** | [**[]IncludesIdName**](IncludesIdName.md) | Список отраслей компании. Возможные значения приведены в [справочнике индустрий](#tag/Obshie-spravochniki/operation/get-industries) | 
-**Industry** | Pointer to [**NullableResumeObjectsIndustry**](ResumeObjectsIndustry.md) |  | [optional] 
+**Industry** | Pointer to [**ResumeObjectsIndustry**](ResumeObjectsIndustry.md) |  | [optional] 
 **Position** | **string** | Должность | 
 **Start** | **string** | Начало работы (дата в формате &#x60;ГГГГ-ММ-ДД&#x60;) | 
 
@@ -60,16 +60,6 @@ SetArea sets Area field to given value.
 
 HasArea returns a boolean if a field has been set.
 
-### SetAreaNil
-
-`func (o *ResumeObjectsExperienceLogoUrl90) SetAreaNil(b bool)`
-
- SetAreaNil sets the value for Area to be an explicit nil
-
-### UnsetArea
-`func (o *ResumeObjectsExperienceLogoUrl90) UnsetArea()`
-
-UnsetArea ensures that no value is present for Area, not even an explicit nil
 ### GetCompany
 
 `func (o *ResumeObjectsExperienceLogoUrl90) GetCompany() string`
@@ -235,16 +225,6 @@ SetEmployer sets Employer field to given value.
 
 HasEmployer returns a boolean if a field has been set.
 
-### SetEmployerNil
-
-`func (o *ResumeObjectsExperienceLogoUrl90) SetEmployerNil(b bool)`
-
- SetEmployerNil sets the value for Employer to be an explicit nil
-
-### UnsetEmployer
-`func (o *ResumeObjectsExperienceLogoUrl90) UnsetEmployer()`
-
-UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
 ### GetEnd
 
 `func (o *ResumeObjectsExperienceLogoUrl90) GetEnd() string`
@@ -325,16 +305,6 @@ SetIndustry sets Industry field to given value.
 
 HasIndustry returns a boolean if a field has been set.
 
-### SetIndustryNil
-
-`func (o *ResumeObjectsExperienceLogoUrl90) SetIndustryNil(b bool)`
-
- SetIndustryNil sets the value for Industry to be an explicit nil
-
-### UnsetIndustry
-`func (o *ResumeObjectsExperienceLogoUrl90) UnsetIndustry()`
-
-UnsetIndustry ensures that no value is present for Industry, not even an explicit nil
 ### GetPosition
 
 `func (o *ResumeObjectsExperienceLogoUrl90) GetPosition() string`

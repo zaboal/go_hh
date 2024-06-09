@@ -55,7 +55,7 @@ type VacanciesVacancyForManager struct {
 	Description string `json:"description"`
 	// Список требуемых категорий водительских прав
 	DriverLicenseTypes []VacancyDriverLicenceTypeItem `json:"driver_license_types"`
-	Employer NullableVacanciesVacancyEmployer `json:"employer,omitempty"`
+	Employer *VacanciesVacancyEmployer `json:"employer,omitempty"`
 	Employment NullableVacancyEmploymentOutput `json:"employment,omitempty"`
 	Experience NullableVacancyExperienceOutput `json:"experience"`
 	// Информация о наличии прикрепленного тестового задании к вакансии
@@ -91,8 +91,8 @@ type VacanciesVacancyForManager struct {
 	Test NullableVacancyDraftTest `json:"test,omitempty"`
 	// Идентификатор типа вакансии из справочника [`vacancy_type`](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-dictionaries)
 	Type IncludesIdName `json:"type"`
-	VacancyConstructorTemplate NullableVacancyVacancyConstructorTemplate `json:"vacancy_constructor_template,omitempty"`
-	VideoVacancy NullableVacancyVideoVacancy `json:"video_vacancy,omitempty"`
+	VacancyConstructorTemplate *VacancyVacancyConstructorTemplate `json:"vacancy_constructor_template,omitempty"`
+	VideoVacancy *VacancyVideoVacancy `json:"video_vacancy,omitempty"`
 	// Список рабочих дней
 	WorkingDays []VacancyWorkingDayItemOutput `json:"working_days,omitempty"`
 	// Список с временными интервалами работы
@@ -685,46 +685,36 @@ func (o *VacanciesVacancyForManager) SetDriverLicenseTypes(v []VacancyDriverLice
 	o.DriverLicenseTypes = v
 }
 
-// GetEmployer returns the Employer field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetEmployer returns the Employer field value if set, zero value otherwise.
 func (o *VacanciesVacancyForManager) GetEmployer() VacanciesVacancyEmployer {
-	if o == nil || IsNil(o.Employer.Get()) {
+	if o == nil || IsNil(o.Employer) {
 		var ret VacanciesVacancyEmployer
 		return ret
 	}
-	return *o.Employer.Get()
+	return *o.Employer
 }
 
 // GetEmployerOk returns a tuple with the Employer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyForManager) GetEmployerOk() (*VacanciesVacancyEmployer, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Employer) {
 		return nil, false
 	}
-	return o.Employer.Get(), o.Employer.IsSet()
+	return o.Employer, true
 }
 
 // HasEmployer returns a boolean if a field has been set.
 func (o *VacanciesVacancyForManager) HasEmployer() bool {
-	if o != nil && o.Employer.IsSet() {
+	if o != nil && !IsNil(o.Employer) {
 		return true
 	}
 
 	return false
 }
 
-// SetEmployer gets a reference to the given NullableVacanciesVacancyEmployer and assigns it to the Employer field.
+// SetEmployer gets a reference to the given VacanciesVacancyEmployer and assigns it to the Employer field.
 func (o *VacanciesVacancyForManager) SetEmployer(v VacanciesVacancyEmployer) {
-	o.Employer.Set(&v)
-}
-// SetEmployerNil sets the value for Employer to be an explicit nil
-func (o *VacanciesVacancyForManager) SetEmployerNil() {
-	o.Employer.Set(nil)
-}
-
-// UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
-func (o *VacanciesVacancyForManager) UnsetEmployer() {
-	o.Employer.Unset()
+	o.Employer = &v
 }
 
 // GetEmployment returns the Employment field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1376,88 +1366,68 @@ func (o *VacanciesVacancyForManager) SetType(v IncludesIdName) {
 	o.Type = v
 }
 
-// GetVacancyConstructorTemplate returns the VacancyConstructorTemplate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetVacancyConstructorTemplate returns the VacancyConstructorTemplate field value if set, zero value otherwise.
 func (o *VacanciesVacancyForManager) GetVacancyConstructorTemplate() VacancyVacancyConstructorTemplate {
-	if o == nil || IsNil(o.VacancyConstructorTemplate.Get()) {
+	if o == nil || IsNil(o.VacancyConstructorTemplate) {
 		var ret VacancyVacancyConstructorTemplate
 		return ret
 	}
-	return *o.VacancyConstructorTemplate.Get()
+	return *o.VacancyConstructorTemplate
 }
 
 // GetVacancyConstructorTemplateOk returns a tuple with the VacancyConstructorTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyForManager) GetVacancyConstructorTemplateOk() (*VacancyVacancyConstructorTemplate, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.VacancyConstructorTemplate) {
 		return nil, false
 	}
-	return o.VacancyConstructorTemplate.Get(), o.VacancyConstructorTemplate.IsSet()
+	return o.VacancyConstructorTemplate, true
 }
 
 // HasVacancyConstructorTemplate returns a boolean if a field has been set.
 func (o *VacanciesVacancyForManager) HasVacancyConstructorTemplate() bool {
-	if o != nil && o.VacancyConstructorTemplate.IsSet() {
+	if o != nil && !IsNil(o.VacancyConstructorTemplate) {
 		return true
 	}
 
 	return false
 }
 
-// SetVacancyConstructorTemplate gets a reference to the given NullableVacancyVacancyConstructorTemplate and assigns it to the VacancyConstructorTemplate field.
+// SetVacancyConstructorTemplate gets a reference to the given VacancyVacancyConstructorTemplate and assigns it to the VacancyConstructorTemplate field.
 func (o *VacanciesVacancyForManager) SetVacancyConstructorTemplate(v VacancyVacancyConstructorTemplate) {
-	o.VacancyConstructorTemplate.Set(&v)
-}
-// SetVacancyConstructorTemplateNil sets the value for VacancyConstructorTemplate to be an explicit nil
-func (o *VacanciesVacancyForManager) SetVacancyConstructorTemplateNil() {
-	o.VacancyConstructorTemplate.Set(nil)
+	o.VacancyConstructorTemplate = &v
 }
 
-// UnsetVacancyConstructorTemplate ensures that no value is present for VacancyConstructorTemplate, not even an explicit nil
-func (o *VacanciesVacancyForManager) UnsetVacancyConstructorTemplate() {
-	o.VacancyConstructorTemplate.Unset()
-}
-
-// GetVideoVacancy returns the VideoVacancy field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetVideoVacancy returns the VideoVacancy field value if set, zero value otherwise.
 func (o *VacanciesVacancyForManager) GetVideoVacancy() VacancyVideoVacancy {
-	if o == nil || IsNil(o.VideoVacancy.Get()) {
+	if o == nil || IsNil(o.VideoVacancy) {
 		var ret VacancyVideoVacancy
 		return ret
 	}
-	return *o.VideoVacancy.Get()
+	return *o.VideoVacancy
 }
 
 // GetVideoVacancyOk returns a tuple with the VideoVacancy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyForManager) GetVideoVacancyOk() (*VacancyVideoVacancy, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.VideoVacancy) {
 		return nil, false
 	}
-	return o.VideoVacancy.Get(), o.VideoVacancy.IsSet()
+	return o.VideoVacancy, true
 }
 
 // HasVideoVacancy returns a boolean if a field has been set.
 func (o *VacanciesVacancyForManager) HasVideoVacancy() bool {
-	if o != nil && o.VideoVacancy.IsSet() {
+	if o != nil && !IsNil(o.VideoVacancy) {
 		return true
 	}
 
 	return false
 }
 
-// SetVideoVacancy gets a reference to the given NullableVacancyVideoVacancy and assigns it to the VideoVacancy field.
+// SetVideoVacancy gets a reference to the given VacancyVideoVacancy and assigns it to the VideoVacancy field.
 func (o *VacanciesVacancyForManager) SetVideoVacancy(v VacancyVideoVacancy) {
-	o.VideoVacancy.Set(&v)
-}
-// SetVideoVacancyNil sets the value for VideoVacancy to be an explicit nil
-func (o *VacanciesVacancyForManager) SetVideoVacancyNil() {
-	o.VideoVacancy.Set(nil)
-}
-
-// UnsetVideoVacancy ensures that no value is present for VideoVacancy, not even an explicit nil
-func (o *VacanciesVacancyForManager) UnsetVideoVacancy() {
-	o.VideoVacancy.Unset()
+	o.VideoVacancy = &v
 }
 
 // GetWorkingDays returns the WorkingDays field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1873,8 +1843,8 @@ func (o VacanciesVacancyForManager) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["description"] = o.Description
 	toSerialize["driver_license_types"] = o.DriverLicenseTypes
-	if o.Employer.IsSet() {
-		toSerialize["employer"] = o.Employer.Get()
+	if !IsNil(o.Employer) {
+		toSerialize["employer"] = o.Employer
 	}
 	if o.Employment.IsSet() {
 		toSerialize["employment"] = o.Employment.Get()
@@ -1915,11 +1885,11 @@ func (o VacanciesVacancyForManager) ToMap() (map[string]interface{}, error) {
 		toSerialize["test"] = o.Test.Get()
 	}
 	toSerialize["type"] = o.Type
-	if o.VacancyConstructorTemplate.IsSet() {
-		toSerialize["vacancy_constructor_template"] = o.VacancyConstructorTemplate.Get()
+	if !IsNil(o.VacancyConstructorTemplate) {
+		toSerialize["vacancy_constructor_template"] = o.VacancyConstructorTemplate
 	}
-	if o.VideoVacancy.IsSet() {
-		toSerialize["video_vacancy"] = o.VideoVacancy.Get()
+	if !IsNil(o.VideoVacancy) {
+		toSerialize["video_vacancy"] = o.VideoVacancy
 	}
 	if o.WorkingDays != nil {
 		toSerialize["working_days"] = o.WorkingDays

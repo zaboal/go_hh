@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Actions** | [**ResumeObjectsActionsForOwner**](ResumeObjectsActionsForOwner.md) | Дополнительные действия | 
 **Age** | Pointer to **NullableFloat32** | Возраст | [optional] 
 **AlternateUrl** | **string** | URL резюме на сайте | 
-**Area** | Pointer to [**NullableIncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
+**Area** | Pointer to [**IncludesIdNameUrl**](IncludesIdNameUrl.md) |  | [optional] 
 **AutoHideTime** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
 **CanViewFullInfo** | Pointer to **NullableBool** | Доступен ли просмотр контактной информации в резюме текущему работодателю | [optional] 
 **Certificate** | [**[]ResumeObjectsCertificate**](ResumeObjectsCertificate.md) | Список сертификатов соискателя | 
@@ -16,13 +16,13 @@ Name | Type | Description | Notes
 **Education** | [**ResumeObjectsEducation**](ResumeObjectsEducation.md) | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
 **Experience** | [**[]ResumeObjectsExperienceForOwner**](ResumeObjectsExperienceForOwner.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
-**Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
+**Gender** | Pointer to [**IncludesIdName**](IncludesIdName.md) |  | [optional] 
 **HiddenFields** | [**[]IncludesIdName**](IncludesIdName.md) | Документация [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле &#x60;resume_hidden_fields&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **Id** | **string** | Идентификатор резюме | 
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
 **Marked** | **bool** | Выделено ли резюме в поиске | 
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
-**Photo** | Pointer to [**NullableProfilePhoto**](ProfilePhoto.md) |  | [optional] 
+**Photo** | Pointer to [**ProfilePhoto**](ProfilePhoto.md) |  | [optional] 
 **Platform** | Pointer to [**IncludesId**](IncludesId.md) | Ресурс, на котором было размещено резюме | [optional] 
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **Title** | Pointer to **NullableString** | Желаемая должность | [optional] 
@@ -153,16 +153,6 @@ SetArea sets Area field to given value.
 
 HasArea returns a boolean if a field has been set.
 
-### SetAreaNil
-
-`func (o *ResumesSuitableResumeItem) SetAreaNil(b bool)`
-
- SetAreaNil sets the value for Area to be an explicit nil
-
-### UnsetArea
-`func (o *ResumesSuitableResumeItem) UnsetArea()`
-
-UnsetArea ensures that no value is present for Area, not even an explicit nil
 ### GetAutoHideTime
 
 `func (o *ResumesSuitableResumeItem) GetAutoHideTime() IncludesIdName`
@@ -393,16 +383,6 @@ SetGender sets Gender field to given value.
 
 HasGender returns a boolean if a field has been set.
 
-### SetGenderNil
-
-`func (o *ResumesSuitableResumeItem) SetGenderNil(b bool)`
-
- SetGenderNil sets the value for Gender to be an explicit nil
-
-### UnsetGender
-`func (o *ResumesSuitableResumeItem) UnsetGender()`
-
-UnsetGender ensures that no value is present for Gender, not even an explicit nil
 ### GetHiddenFields
 
 `func (o *ResumesSuitableResumeItem) GetHiddenFields() []IncludesIdName`
@@ -558,16 +538,6 @@ SetPhoto sets Photo field to given value.
 
 HasPhoto returns a boolean if a field has been set.
 
-### SetPhotoNil
-
-`func (o *ResumesSuitableResumeItem) SetPhotoNil(b bool)`
-
- SetPhotoNil sets the value for Photo to be an explicit nil
-
-### UnsetPhoto
-`func (o *ResumesSuitableResumeItem) UnsetPhoto()`
-
-UnsetPhoto ensures that no value is present for Photo, not even an explicit nil
 ### GetPlatform
 
 `func (o *ResumesSuitableResumeItem) GetPlatform() IncludesId`

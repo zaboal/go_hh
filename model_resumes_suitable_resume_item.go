@@ -28,7 +28,7 @@ type ResumesSuitableResumeItem struct {
 	Age NullableFloat32 `json:"age,omitempty"`
 	// URL резюме на сайте
 	AlternateUrl string `json:"alternate_url"`
-	Area NullableIncludesIdNameUrl `json:"area,omitempty"`
+	Area *IncludesIdNameUrl `json:"area,omitempty"`
 	AutoHideTime NullableIncludesIdName `json:"auto_hide_time,omitempty"`
 	// Доступен ли просмотр контактной информации в резюме текущему работодателю
 	CanViewFullInfo NullableBool `json:"can_view_full_info,omitempty"`
@@ -44,7 +44,7 @@ type ResumesSuitableResumeItem struct {
 	Experience []ResumeObjectsExperienceForOwner `json:"experience"`
 	// Имя
 	FirstName NullableString `json:"first_name,omitempty"`
-	Gender NullableIncludesIdName `json:"gender,omitempty"`
+	Gender *IncludesIdName `json:"gender,omitempty"`
 	// Документация [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле `resume_hidden_fields` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
 	HiddenFields []IncludesIdName `json:"hidden_fields"`
 	// Идентификатор резюме
@@ -55,7 +55,7 @@ type ResumesSuitableResumeItem struct {
 	Marked bool `json:"marked"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
-	Photo NullableProfilePhoto `json:"photo,omitempty"`
+	Photo *ProfilePhoto `json:"photo,omitempty"`
 	// Ресурс, на котором было размещено резюме
 	Platform *IncludesId `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
@@ -200,46 +200,36 @@ func (o *ResumesSuitableResumeItem) SetAlternateUrl(v string) {
 	o.AlternateUrl = v
 }
 
-// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetArea returns the Area field value if set, zero value otherwise.
 func (o *ResumesSuitableResumeItem) GetArea() IncludesIdNameUrl {
-	if o == nil || IsNil(o.Area.Get()) {
+	if o == nil || IsNil(o.Area) {
 		var ret IncludesIdNameUrl
 		return ret
 	}
-	return *o.Area.Get()
+	return *o.Area
 }
 
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumesSuitableResumeItem) GetAreaOk() (*IncludesIdNameUrl, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Area) {
 		return nil, false
 	}
-	return o.Area.Get(), o.Area.IsSet()
+	return o.Area, true
 }
 
 // HasArea returns a boolean if a field has been set.
 func (o *ResumesSuitableResumeItem) HasArea() bool {
-	if o != nil && o.Area.IsSet() {
+	if o != nil && !IsNil(o.Area) {
 		return true
 	}
 
 	return false
 }
 
-// SetArea gets a reference to the given NullableIncludesIdNameUrl and assigns it to the Area field.
+// SetArea gets a reference to the given IncludesIdNameUrl and assigns it to the Area field.
 func (o *ResumesSuitableResumeItem) SetArea(v IncludesIdNameUrl) {
-	o.Area.Set(&v)
-}
-// SetAreaNil sets the value for Area to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetAreaNil() {
-	o.Area.Set(nil)
-}
-
-// UnsetArea ensures that no value is present for Area, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetArea() {
-	o.Area.Unset()
+	o.Area = &v
 }
 
 // GetAutoHideTime returns the AutoHideTime field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -488,46 +478,36 @@ func (o *ResumesSuitableResumeItem) UnsetFirstName() {
 	o.FirstName.Unset()
 }
 
-// GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetGender returns the Gender field value if set, zero value otherwise.
 func (o *ResumesSuitableResumeItem) GetGender() IncludesIdName {
-	if o == nil || IsNil(o.Gender.Get()) {
+	if o == nil || IsNil(o.Gender) {
 		var ret IncludesIdName
 		return ret
 	}
-	return *o.Gender.Get()
+	return *o.Gender
 }
 
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumesSuitableResumeItem) GetGenderOk() (*IncludesIdName, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Gender) {
 		return nil, false
 	}
-	return o.Gender.Get(), o.Gender.IsSet()
+	return o.Gender, true
 }
 
 // HasGender returns a boolean if a field has been set.
 func (o *ResumesSuitableResumeItem) HasGender() bool {
-	if o != nil && o.Gender.IsSet() {
+	if o != nil && !IsNil(o.Gender) {
 		return true
 	}
 
 	return false
 }
 
-// SetGender gets a reference to the given NullableIncludesIdName and assigns it to the Gender field.
+// SetGender gets a reference to the given IncludesIdName and assigns it to the Gender field.
 func (o *ResumesSuitableResumeItem) SetGender(v IncludesIdName) {
-	o.Gender.Set(&v)
-}
-// SetGenderNil sets the value for Gender to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetGenderNil() {
-	o.Gender.Set(nil)
-}
-
-// UnsetGender ensures that no value is present for Gender, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetGender() {
-	o.Gender.Unset()
+	o.Gender = &v
 }
 
 // GetHiddenFields returns the HiddenFields field value
@@ -686,46 +666,36 @@ func (o *ResumesSuitableResumeItem) UnsetMiddleName() {
 	o.MiddleName.Unset()
 }
 
-// GetPhoto returns the Photo field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPhoto returns the Photo field value if set, zero value otherwise.
 func (o *ResumesSuitableResumeItem) GetPhoto() ProfilePhoto {
-	if o == nil || IsNil(o.Photo.Get()) {
+	if o == nil || IsNil(o.Photo) {
 		var ret ProfilePhoto
 		return ret
 	}
-	return *o.Photo.Get()
+	return *o.Photo
 }
 
 // GetPhotoOk returns a tuple with the Photo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResumesSuitableResumeItem) GetPhotoOk() (*ProfilePhoto, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Photo) {
 		return nil, false
 	}
-	return o.Photo.Get(), o.Photo.IsSet()
+	return o.Photo, true
 }
 
 // HasPhoto returns a boolean if a field has been set.
 func (o *ResumesSuitableResumeItem) HasPhoto() bool {
-	if o != nil && o.Photo.IsSet() {
+	if o != nil && !IsNil(o.Photo) {
 		return true
 	}
 
 	return false
 }
 
-// SetPhoto gets a reference to the given NullableProfilePhoto and assigns it to the Photo field.
+// SetPhoto gets a reference to the given ProfilePhoto and assigns it to the Photo field.
 func (o *ResumesSuitableResumeItem) SetPhoto(v ProfilePhoto) {
-	o.Photo.Set(&v)
-}
-// SetPhotoNil sets the value for Photo to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetPhotoNil() {
-	o.Photo.Set(nil)
-}
-
-// UnsetPhoto ensures that no value is present for Photo, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetPhoto() {
-	o.Photo.Unset()
+	o.Photo = &v
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
@@ -1045,8 +1015,8 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 		toSerialize["age"] = o.Age.Get()
 	}
 	toSerialize["alternate_url"] = o.AlternateUrl
-	if o.Area.IsSet() {
-		toSerialize["area"] = o.Area.Get()
+	if !IsNil(o.Area) {
+		toSerialize["area"] = o.Area
 	}
 	if o.AutoHideTime.IsSet() {
 		toSerialize["auto_hide_time"] = o.AutoHideTime.Get()
@@ -1062,8 +1032,8 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 	if o.FirstName.IsSet() {
 		toSerialize["first_name"] = o.FirstName.Get()
 	}
-	if o.Gender.IsSet() {
-		toSerialize["gender"] = o.Gender.Get()
+	if !IsNil(o.Gender) {
+		toSerialize["gender"] = o.Gender
 	}
 	toSerialize["hidden_fields"] = o.HiddenFields
 	toSerialize["id"] = o.Id
@@ -1074,8 +1044,8 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 	if o.MiddleName.IsSet() {
 		toSerialize["middle_name"] = o.MiddleName.Get()
 	}
-	if o.Photo.IsSet() {
-		toSerialize["photo"] = o.Photo.Get()
+	if !IsNil(o.Photo) {
+		toSerialize["photo"] = o.Photo
 	}
 	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform

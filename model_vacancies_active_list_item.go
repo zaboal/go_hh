@@ -22,7 +22,7 @@ var _ MappedNullable = &VacanciesActiveListItem{}
 
 // VacanciesActiveListItem struct for VacanciesActiveListItem
 type VacanciesActiveListItem struct {
-	Address NullableVacanciesAddress `json:"address,omitempty"`
+	Address *VacanciesAddress `json:"address,omitempty"`
 	// Ссылка на представление вакансии на сайте
 	AlternateUrl string `json:"alternate_url"`
 	// Ссылка на отклик на вакансию на сайте
@@ -31,7 +31,7 @@ type VacanciesActiveListItem struct {
 	Archived bool `json:"archived"`
 	Area IncludesArea `json:"area"`
 	Department NullableVacancyDepartmentOutput `json:"department"`
-	Employer NullableVacanciesEmployerPublic `json:"employer"`
+	Employer VacanciesEmployerPublic `json:"employer"`
 	// Информация о наличии прикрепленного тестового задании к вакансии
 	HasTest bool `json:"has_test"`
 	// Идентификатор вакансии
@@ -75,7 +75,7 @@ type _VacanciesActiveListItem VacanciesActiveListItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesActiveListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer NullableVacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canUpgradeBillingType bool, counters VacancyCountersForActive, createdAt string, expiresAt string, hasUpdates bool, manager VacancyManagerOutput) *VacanciesActiveListItem {
+func NewVacanciesActiveListItem(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer VacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, canUpgradeBillingType bool, counters VacancyCountersForActive, createdAt string, expiresAt string, hasUpdates bool, manager VacancyManagerOutput) *VacanciesActiveListItem {
 	this := VacanciesActiveListItem{}
 	this.AlternateUrl = alternateUrl
 	this.ApplyAlternateUrl = applyAlternateUrl
@@ -110,46 +110,36 @@ func NewVacanciesActiveListItemWithDefaults() *VacanciesActiveListItem {
 	return &this
 }
 
-// GetAddress returns the Address field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAddress returns the Address field value if set, zero value otherwise.
 func (o *VacanciesActiveListItem) GetAddress() VacanciesAddress {
-	if o == nil || IsNil(o.Address.Get()) {
+	if o == nil || IsNil(o.Address) {
 		var ret VacanciesAddress
 		return ret
 	}
-	return *o.Address.Get()
+	return *o.Address
 }
 
 // GetAddressOk returns a tuple with the Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesActiveListItem) GetAddressOk() (*VacanciesAddress, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Address) {
 		return nil, false
 	}
-	return o.Address.Get(), o.Address.IsSet()
+	return o.Address, true
 }
 
 // HasAddress returns a boolean if a field has been set.
 func (o *VacanciesActiveListItem) HasAddress() bool {
-	if o != nil && o.Address.IsSet() {
+	if o != nil && !IsNil(o.Address) {
 		return true
 	}
 
 	return false
 }
 
-// SetAddress gets a reference to the given NullableVacanciesAddress and assigns it to the Address field.
+// SetAddress gets a reference to the given VacanciesAddress and assigns it to the Address field.
 func (o *VacanciesActiveListItem) SetAddress(v VacanciesAddress) {
-	o.Address.Set(&v)
-}
-// SetAddressNil sets the value for Address to be an explicit nil
-func (o *VacanciesActiveListItem) SetAddressNil() {
-	o.Address.Set(nil)
-}
-
-// UnsetAddress ensures that no value is present for Address, not even an explicit nil
-func (o *VacanciesActiveListItem) UnsetAddress() {
-	o.Address.Unset()
+	o.Address = &v
 }
 
 // GetAlternateUrl returns the AlternateUrl field value
@@ -275,29 +265,27 @@ func (o *VacanciesActiveListItem) SetDepartment(v VacancyDepartmentOutput) {
 }
 
 // GetEmployer returns the Employer field value
-// If the value is explicit nil, the zero value for VacanciesEmployerPublic will be returned
 func (o *VacanciesActiveListItem) GetEmployer() VacanciesEmployerPublic {
-	if o == nil || o.Employer.Get() == nil {
+	if o == nil {
 		var ret VacanciesEmployerPublic
 		return ret
 	}
 
-	return *o.Employer.Get()
+	return o.Employer
 }
 
 // GetEmployerOk returns a tuple with the Employer field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesActiveListItem) GetEmployerOk() (*VacanciesEmployerPublic, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Employer.Get(), o.Employer.IsSet()
+	return &o.Employer, true
 }
 
 // SetEmployer sets field value
 func (o *VacanciesActiveListItem) SetEmployer(v VacanciesEmployerPublic) {
-	o.Employer.Set(&v)
+	o.Employer = v
 }
 
 // GetHasTest returns the HasTest field value
@@ -864,15 +852,15 @@ func (o VacanciesActiveListItem) MarshalJSON() ([]byte, error) {
 
 func (o VacanciesActiveListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Address.IsSet() {
-		toSerialize["address"] = o.Address.Get()
+	if !IsNil(o.Address) {
+		toSerialize["address"] = o.Address
 	}
 	toSerialize["alternate_url"] = o.AlternateUrl
 	toSerialize["apply_alternate_url"] = o.ApplyAlternateUrl
 	toSerialize["archived"] = o.Archived
 	toSerialize["area"] = o.Area
 	toSerialize["department"] = o.Department.Get()
-	toSerialize["employer"] = o.Employer.Get()
+	toSerialize["employer"] = o.Employer
 	toSerialize["has_test"] = o.HasTest
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
