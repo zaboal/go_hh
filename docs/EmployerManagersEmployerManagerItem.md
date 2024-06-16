@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **string** | Фамилия менеджера | [optional] 
 **MiddleName** | Pointer to **NullableString** | Отчество менеджера | [optional] 
 **Name** | Pointer to **string** | Полное имя менеджера | [optional] 
-**Phone** | Pointer to [**EmployerManagersAddEmployerManagerPhone**](EmployerManagersAddEmployerManagerPhone.md) |  | [optional] 
+**Phone** | Pointer to [**EmployerManagersEmployerManagerItemPhone**](EmployerManagersEmployerManagerItemPhone.md) |  | [optional] 
 **Position** | **string** | Должность менеджера | 
 **VacanciesCount** | Pointer to **NullableFloat32** | Количество опубликованных (активных) вакансий у данного менеджера. &#x60;null&#x60; — если у пользователя нет прав на просмотр вакансий этого менеджера | [optional] 
 
@@ -294,20 +294,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetPhone
 
-`func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersAddEmployerManagerPhone`
+`func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersEmployerManagerItemPhone`
 
 GetPhone returns the Phone field if non-nil, zero value otherwise.
 
 ### GetPhoneOk
 
-`func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersAddEmployerManagerPhone, bool)`
+`func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool)`
 
 GetPhoneOk returns a tuple with the Phone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhone
 
-`func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersAddEmployerManagerPhone)`
+`func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersEmployerManagerItemPhone)`
 
 SetPhone sets Phone field to given value.
 
