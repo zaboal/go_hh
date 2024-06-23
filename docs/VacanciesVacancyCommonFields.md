@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **InitialCreatedAt** | **string** | Дата и время создания вакансии | 
 **InsiderInterview** | Pointer to [**NullableVacancyInsiderInterview**](VacancyInsiderInterview.md) |  | [optional] 
 **KeySkills** | [**[]VacancyKeySkillItem**](VacancyKeySkillItem.md) | Список ключевых навыков, не более 30 | 
-**Languages** | Pointer to **[]string** |  | [optional] 
+**Languages** | Pointer to [**[]VacancyLanguageOutput**](VacancyLanguageOutput.md) | Список языков вакансии. Значения из справочника [/languages](#tag/Obshie-spravochniki/operation/get-dictionaries) | [optional] 
 **Name** | **string** | Название | 
 **NegotiationsUrl** | Pointer to **NullableString** | Ссылка для получения списка откликов/приглашений | [optional] 
 **Premium** | **bool** | Является ли данная вакансия премиум-вакансией | 
@@ -721,20 +721,20 @@ SetKeySkills sets KeySkills field to given value.
 
 ### GetLanguages
 
-`func (o *VacanciesVacancyCommonFields) GetLanguages() []string`
+`func (o *VacanciesVacancyCommonFields) GetLanguages() []VacancyLanguageOutput`
 
 GetLanguages returns the Languages field if non-nil, zero value otherwise.
 
 ### GetLanguagesOk
 
-`func (o *VacanciesVacancyCommonFields) GetLanguagesOk() (*[]string, bool)`
+`func (o *VacanciesVacancyCommonFields) GetLanguagesOk() (*[]VacancyLanguageOutput, bool)`
 
 GetLanguagesOk returns a tuple with the Languages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLanguages
 
-`func (o *VacanciesVacancyCommonFields) SetLanguages(v []string)`
+`func (o *VacanciesVacancyCommonFields) SetLanguages(v []VacancyLanguageOutput)`
 
 SetLanguages sets Languages field to given value.
 
@@ -744,16 +744,6 @@ SetLanguages sets Languages field to given value.
 
 HasLanguages returns a boolean if a field has been set.
 
-### SetLanguagesNil
-
-`func (o *VacanciesVacancyCommonFields) SetLanguagesNil(b bool)`
-
- SetLanguagesNil sets the value for Languages to be an explicit nil
-
-### UnsetLanguages
-`func (o *VacanciesVacancyCommonFields) UnsetLanguages()`
-
-UnsetLanguages ensures that no value is present for Languages, not even an explicit nil
 ### GetName
 
 `func (o *VacanciesVacancyCommonFields) GetName() string`

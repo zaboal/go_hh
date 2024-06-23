@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the ResumeResumeShort type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ResumeResumeShort{}
+// checks if the ResumeResumeProfileShort type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResumeResumeProfileShort{}
 
-// ResumeResumeShort struct for ResumeResumeShort
-type ResumeResumeShort struct {
+// ResumeResumeProfileShort struct for ResumeResumeProfileShort
+type ResumeResumeProfileShort struct {
 	// URL резюме на сайте
 	AlternateUrl string `json:"alternate_url"`
 	// Идентификатор резюме
@@ -60,29 +60,16 @@ type ResumeResumeShort struct {
 	UpdatedAt string `json:"updated_at"`
 	// Опыт работы. В объекте опыта отсутствует описание (поле description), а также должность (поле position) доступна только в последнем опыте
 	Experience []ResumeObjectsExperienceShort `json:"experience"`
-	// Дополнительные действия
-	Actions ResumeObjectsActions `json:"actions"`
-	// Добавлено ли резюме в избранные
-	Favorited bool `json:"favorited"`
-	// Краткая история откликов/приглашений по резюме
-	NegotiationsHistory ResumeObjectsNegotiationsHistoryUrl `json:"negotiations_history"`
-	// Информация о владельце резюме
-	Owner ResumeObjectsOwner `json:"owner"`
-	Photo NullableResumeObjectsPhoto `json:"photo,omitempty"`
-	// Теги к резюме
-	Tags []IncludesId `json:"tags,omitempty"`
-	// Было ли резюме уже просмотрено работодателем
-	Viewed bool `json:"viewed"`
 }
 
-type _ResumeResumeShort ResumeResumeShort
+type _ResumeResumeProfileShort ResumeResumeProfileShort
 
-// NewResumeResumeShort instantiates a new ResumeResumeShort object
+// NewResumeResumeProfileShort instantiates a new ResumeResumeProfileShort object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperienceShort, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool) *ResumeResumeShort {
-	this := ResumeResumeShort{}
+func NewResumeResumeProfileShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperienceShort) *ResumeResumeProfileShort {
+	this := ResumeResumeProfileShort{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
 	this.Title = title
@@ -91,26 +78,25 @@ func NewResumeResumeShort(alternateUrl string, id string, title NullableString, 
 	this.Download = download
 	this.Education = education
 	this.HiddenFields = hiddenFields
+	var marked bool = false
+	this.Marked = &marked
 	this.UpdatedAt = updatedAt
 	this.Experience = experience
-	this.Actions = actions
-	this.Favorited = favorited
-	this.NegotiationsHistory = negotiationsHistory
-	this.Owner = owner
-	this.Viewed = viewed
 	return &this
 }
 
-// NewResumeResumeShortWithDefaults instantiates a new ResumeResumeShort object
+// NewResumeResumeProfileShortWithDefaults instantiates a new ResumeResumeProfileShort object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewResumeResumeShortWithDefaults() *ResumeResumeShort {
-	this := ResumeResumeShort{}
+func NewResumeResumeProfileShortWithDefaults() *ResumeResumeProfileShort {
+	this := ResumeResumeProfileShort{}
+	var marked bool = false
+	this.Marked = &marked
 	return &this
 }
 
 // GetAlternateUrl returns the AlternateUrl field value
-func (o *ResumeResumeShort) GetAlternateUrl() string {
+func (o *ResumeResumeProfileShort) GetAlternateUrl() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -121,7 +107,7 @@ func (o *ResumeResumeShort) GetAlternateUrl() string {
 
 // GetAlternateUrlOk returns a tuple with the AlternateUrl field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetAlternateUrlOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetAlternateUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -129,12 +115,12 @@ func (o *ResumeResumeShort) GetAlternateUrlOk() (*string, bool) {
 }
 
 // SetAlternateUrl sets field value
-func (o *ResumeResumeShort) SetAlternateUrl(v string) {
+func (o *ResumeResumeProfileShort) SetAlternateUrl(v string) {
 	o.AlternateUrl = v
 }
 
 // GetId returns the Id field value
-func (o *ResumeResumeShort) GetId() string {
+func (o *ResumeResumeProfileShort) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -145,7 +131,7 @@ func (o *ResumeResumeShort) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetIdOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,13 +139,13 @@ func (o *ResumeResumeShort) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *ResumeResumeShort) SetId(v string) {
+func (o *ResumeResumeProfileShort) SetId(v string) {
 	o.Id = v
 }
 
 // GetTitle returns the Title field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *ResumeResumeShort) GetTitle() string {
+func (o *ResumeResumeProfileShort) GetTitle() string {
 	if o == nil || o.Title.Get() == nil {
 		var ret string
 		return ret
@@ -171,7 +157,7 @@ func (o *ResumeResumeShort) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetTitleOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetTitleOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -179,12 +165,12 @@ func (o *ResumeResumeShort) GetTitleOk() (*string, bool) {
 }
 
 // SetTitle sets field value
-func (o *ResumeResumeShort) SetTitle(v string) {
+func (o *ResumeResumeProfileShort) SetTitle(v string) {
 	o.Title.Set(&v)
 }
 
 // GetAge returns the Age field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetAge() float32 {
+func (o *ResumeResumeProfileShort) GetAge() float32 {
 	if o == nil || IsNil(o.Age.Get()) {
 		var ret float32
 		return ret
@@ -195,7 +181,7 @@ func (o *ResumeResumeShort) GetAge() float32 {
 // GetAgeOk returns a tuple with the Age field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetAgeOk() (*float32, bool) {
+func (o *ResumeResumeProfileShort) GetAgeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -203,7 +189,7 @@ func (o *ResumeResumeShort) GetAgeOk() (*float32, bool) {
 }
 
 // HasAge returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasAge() bool {
+func (o *ResumeResumeProfileShort) HasAge() bool {
 	if o != nil && o.Age.IsSet() {
 		return true
 	}
@@ -212,21 +198,21 @@ func (o *ResumeResumeShort) HasAge() bool {
 }
 
 // SetAge gets a reference to the given NullableFloat32 and assigns it to the Age field.
-func (o *ResumeResumeShort) SetAge(v float32) {
+func (o *ResumeResumeProfileShort) SetAge(v float32) {
 	o.Age.Set(&v)
 }
 // SetAgeNil sets the value for Age to be an explicit nil
-func (o *ResumeResumeShort) SetAgeNil() {
+func (o *ResumeResumeProfileShort) SetAgeNil() {
 	o.Age.Set(nil)
 }
 
 // UnsetAge ensures that no value is present for Age, not even an explicit nil
-func (o *ResumeResumeShort) UnsetAge() {
+func (o *ResumeResumeProfileShort) UnsetAge() {
 	o.Age.Unset()
 }
 
 // GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetArea() IncludesIdNameUrl {
+func (o *ResumeResumeProfileShort) GetArea() IncludesIdNameUrl {
 	if o == nil || IsNil(o.Area.Get()) {
 		var ret IncludesIdNameUrl
 		return ret
@@ -237,7 +223,7 @@ func (o *ResumeResumeShort) GetArea() IncludesIdNameUrl {
 // GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetAreaOk() (*IncludesIdNameUrl, bool) {
+func (o *ResumeResumeProfileShort) GetAreaOk() (*IncludesIdNameUrl, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -245,7 +231,7 @@ func (o *ResumeResumeShort) GetAreaOk() (*IncludesIdNameUrl, bool) {
 }
 
 // HasArea returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasArea() bool {
+func (o *ResumeResumeProfileShort) HasArea() bool {
 	if o != nil && o.Area.IsSet() {
 		return true
 	}
@@ -254,21 +240,21 @@ func (o *ResumeResumeShort) HasArea() bool {
 }
 
 // SetArea gets a reference to the given NullableIncludesIdNameUrl and assigns it to the Area field.
-func (o *ResumeResumeShort) SetArea(v IncludesIdNameUrl) {
+func (o *ResumeResumeProfileShort) SetArea(v IncludesIdNameUrl) {
 	o.Area.Set(&v)
 }
 // SetAreaNil sets the value for Area to be an explicit nil
-func (o *ResumeResumeShort) SetAreaNil() {
+func (o *ResumeResumeProfileShort) SetAreaNil() {
 	o.Area.Set(nil)
 }
 
 // UnsetArea ensures that no value is present for Area, not even an explicit nil
-func (o *ResumeResumeShort) UnsetArea() {
+func (o *ResumeResumeProfileShort) UnsetArea() {
 	o.Area.Unset()
 }
 
 // GetCanViewFullInfo returns the CanViewFullInfo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetCanViewFullInfo() bool {
+func (o *ResumeResumeProfileShort) GetCanViewFullInfo() bool {
 	if o == nil || IsNil(o.CanViewFullInfo.Get()) {
 		var ret bool
 		return ret
@@ -279,7 +265,7 @@ func (o *ResumeResumeShort) GetCanViewFullInfo() bool {
 // GetCanViewFullInfoOk returns a tuple with the CanViewFullInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetCanViewFullInfoOk() (*bool, bool) {
+func (o *ResumeResumeProfileShort) GetCanViewFullInfoOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -287,7 +273,7 @@ func (o *ResumeResumeShort) GetCanViewFullInfoOk() (*bool, bool) {
 }
 
 // HasCanViewFullInfo returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasCanViewFullInfo() bool {
+func (o *ResumeResumeProfileShort) HasCanViewFullInfo() bool {
 	if o != nil && o.CanViewFullInfo.IsSet() {
 		return true
 	}
@@ -296,21 +282,21 @@ func (o *ResumeResumeShort) HasCanViewFullInfo() bool {
 }
 
 // SetCanViewFullInfo gets a reference to the given NullableBool and assigns it to the CanViewFullInfo field.
-func (o *ResumeResumeShort) SetCanViewFullInfo(v bool) {
+func (o *ResumeResumeProfileShort) SetCanViewFullInfo(v bool) {
 	o.CanViewFullInfo.Set(&v)
 }
 // SetCanViewFullInfoNil sets the value for CanViewFullInfo to be an explicit nil
-func (o *ResumeResumeShort) SetCanViewFullInfoNil() {
+func (o *ResumeResumeProfileShort) SetCanViewFullInfoNil() {
 	o.CanViewFullInfo.Set(nil)
 }
 
 // UnsetCanViewFullInfo ensures that no value is present for CanViewFullInfo, not even an explicit nil
-func (o *ResumeResumeShort) UnsetCanViewFullInfo() {
+func (o *ResumeResumeProfileShort) UnsetCanViewFullInfo() {
 	o.CanViewFullInfo.Unset()
 }
 
 // GetCertificate returns the Certificate field value
-func (o *ResumeResumeShort) GetCertificate() []ResumeObjectsCertificate {
+func (o *ResumeResumeProfileShort) GetCertificate() []ResumeObjectsCertificate {
 	if o == nil {
 		var ret []ResumeObjectsCertificate
 		return ret
@@ -321,7 +307,7 @@ func (o *ResumeResumeShort) GetCertificate() []ResumeObjectsCertificate {
 
 // GetCertificateOk returns a tuple with the Certificate field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetCertificateOk() ([]ResumeObjectsCertificate, bool) {
+func (o *ResumeResumeProfileShort) GetCertificateOk() ([]ResumeObjectsCertificate, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -329,12 +315,12 @@ func (o *ResumeResumeShort) GetCertificateOk() ([]ResumeObjectsCertificate, bool
 }
 
 // SetCertificate sets field value
-func (o *ResumeResumeShort) SetCertificate(v []ResumeObjectsCertificate) {
+func (o *ResumeResumeProfileShort) SetCertificate(v []ResumeObjectsCertificate) {
 	o.Certificate = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *ResumeResumeShort) GetCreatedAt() string {
+func (o *ResumeResumeProfileShort) GetCreatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -345,7 +331,7 @@ func (o *ResumeResumeShort) GetCreatedAt() string {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetCreatedAtOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -353,12 +339,12 @@ func (o *ResumeResumeShort) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *ResumeResumeShort) SetCreatedAt(v string) {
+func (o *ResumeResumeProfileShort) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
 // GetDownload returns the Download field value
-func (o *ResumeResumeShort) GetDownload() map[string]interface{} {
+func (o *ResumeResumeProfileShort) GetDownload() map[string]interface{} {
 	if o == nil {
 		var ret map[string]interface{}
 		return ret
@@ -369,7 +355,7 @@ func (o *ResumeResumeShort) GetDownload() map[string]interface{} {
 
 // GetDownloadOk returns a tuple with the Download field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetDownloadOk() (map[string]interface{}, bool) {
+func (o *ResumeResumeProfileShort) GetDownloadOk() (map[string]interface{}, bool) {
 	if o == nil {
 		return map[string]interface{}{}, false
 	}
@@ -377,12 +363,12 @@ func (o *ResumeResumeShort) GetDownloadOk() (map[string]interface{}, bool) {
 }
 
 // SetDownload sets field value
-func (o *ResumeResumeShort) SetDownload(v map[string]interface{}) {
+func (o *ResumeResumeProfileShort) SetDownload(v map[string]interface{}) {
 	o.Download = v
 }
 
 // GetEducation returns the Education field value
-func (o *ResumeResumeShort) GetEducation() map[string]interface{} {
+func (o *ResumeResumeProfileShort) GetEducation() map[string]interface{} {
 	if o == nil {
 		var ret map[string]interface{}
 		return ret
@@ -393,7 +379,7 @@ func (o *ResumeResumeShort) GetEducation() map[string]interface{} {
 
 // GetEducationOk returns a tuple with the Education field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetEducationOk() (map[string]interface{}, bool) {
+func (o *ResumeResumeProfileShort) GetEducationOk() (map[string]interface{}, bool) {
 	if o == nil {
 		return map[string]interface{}{}, false
 	}
@@ -401,12 +387,12 @@ func (o *ResumeResumeShort) GetEducationOk() (map[string]interface{}, bool) {
 }
 
 // SetEducation sets field value
-func (o *ResumeResumeShort) SetEducation(v map[string]interface{}) {
+func (o *ResumeResumeProfileShort) SetEducation(v map[string]interface{}) {
 	o.Education = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetFirstName() string {
+func (o *ResumeResumeProfileShort) GetFirstName() string {
 	if o == nil || IsNil(o.FirstName.Get()) {
 		var ret string
 		return ret
@@ -417,7 +403,7 @@ func (o *ResumeResumeShort) GetFirstName() string {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetFirstNameOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetFirstNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -425,7 +411,7 @@ func (o *ResumeResumeShort) GetFirstNameOk() (*string, bool) {
 }
 
 // HasFirstName returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasFirstName() bool {
+func (o *ResumeResumeProfileShort) HasFirstName() bool {
 	if o != nil && o.FirstName.IsSet() {
 		return true
 	}
@@ -434,21 +420,21 @@ func (o *ResumeResumeShort) HasFirstName() bool {
 }
 
 // SetFirstName gets a reference to the given NullableString and assigns it to the FirstName field.
-func (o *ResumeResumeShort) SetFirstName(v string) {
+func (o *ResumeResumeProfileShort) SetFirstName(v string) {
 	o.FirstName.Set(&v)
 }
 // SetFirstNameNil sets the value for FirstName to be an explicit nil
-func (o *ResumeResumeShort) SetFirstNameNil() {
+func (o *ResumeResumeProfileShort) SetFirstNameNil() {
 	o.FirstName.Set(nil)
 }
 
 // UnsetFirstName ensures that no value is present for FirstName, not even an explicit nil
-func (o *ResumeResumeShort) UnsetFirstName() {
+func (o *ResumeResumeProfileShort) UnsetFirstName() {
 	o.FirstName.Unset()
 }
 
 // GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetGender() IncludesIdName {
+func (o *ResumeResumeProfileShort) GetGender() IncludesIdName {
 	if o == nil || IsNil(o.Gender.Get()) {
 		var ret IncludesIdName
 		return ret
@@ -459,7 +445,7 @@ func (o *ResumeResumeShort) GetGender() IncludesIdName {
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetGenderOk() (*IncludesIdName, bool) {
+func (o *ResumeResumeProfileShort) GetGenderOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -467,7 +453,7 @@ func (o *ResumeResumeShort) GetGenderOk() (*IncludesIdName, bool) {
 }
 
 // HasGender returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasGender() bool {
+func (o *ResumeResumeProfileShort) HasGender() bool {
 	if o != nil && o.Gender.IsSet() {
 		return true
 	}
@@ -476,21 +462,21 @@ func (o *ResumeResumeShort) HasGender() bool {
 }
 
 // SetGender gets a reference to the given NullableIncludesIdName and assigns it to the Gender field.
-func (o *ResumeResumeShort) SetGender(v IncludesIdName) {
+func (o *ResumeResumeProfileShort) SetGender(v IncludesIdName) {
 	o.Gender.Set(&v)
 }
 // SetGenderNil sets the value for Gender to be an explicit nil
-func (o *ResumeResumeShort) SetGenderNil() {
+func (o *ResumeResumeProfileShort) SetGenderNil() {
 	o.Gender.Set(nil)
 }
 
 // UnsetGender ensures that no value is present for Gender, not even an explicit nil
-func (o *ResumeResumeShort) UnsetGender() {
+func (o *ResumeResumeProfileShort) UnsetGender() {
 	o.Gender.Unset()
 }
 
 // GetHiddenFields returns the HiddenFields field value
-func (o *ResumeResumeShort) GetHiddenFields() []IncludesIdName {
+func (o *ResumeResumeProfileShort) GetHiddenFields() []IncludesIdName {
 	if o == nil {
 		var ret []IncludesIdName
 		return ret
@@ -501,7 +487,7 @@ func (o *ResumeResumeShort) GetHiddenFields() []IncludesIdName {
 
 // GetHiddenFieldsOk returns a tuple with the HiddenFields field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
+func (o *ResumeResumeProfileShort) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -509,12 +495,12 @@ func (o *ResumeResumeShort) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
 }
 
 // SetHiddenFields sets field value
-func (o *ResumeResumeShort) SetHiddenFields(v []IncludesIdName) {
+func (o *ResumeResumeProfileShort) SetHiddenFields(v []IncludesIdName) {
 	o.HiddenFields = v
 }
 
 // GetLastName returns the LastName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetLastName() string {
+func (o *ResumeResumeProfileShort) GetLastName() string {
 	if o == nil || IsNil(o.LastName.Get()) {
 		var ret string
 		return ret
@@ -525,7 +511,7 @@ func (o *ResumeResumeShort) GetLastName() string {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetLastNameOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetLastNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -533,7 +519,7 @@ func (o *ResumeResumeShort) GetLastNameOk() (*string, bool) {
 }
 
 // HasLastName returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasLastName() bool {
+func (o *ResumeResumeProfileShort) HasLastName() bool {
 	if o != nil && o.LastName.IsSet() {
 		return true
 	}
@@ -542,21 +528,21 @@ func (o *ResumeResumeShort) HasLastName() bool {
 }
 
 // SetLastName gets a reference to the given NullableString and assigns it to the LastName field.
-func (o *ResumeResumeShort) SetLastName(v string) {
+func (o *ResumeResumeProfileShort) SetLastName(v string) {
 	o.LastName.Set(&v)
 }
 // SetLastNameNil sets the value for LastName to be an explicit nil
-func (o *ResumeResumeShort) SetLastNameNil() {
+func (o *ResumeResumeProfileShort) SetLastNameNil() {
 	o.LastName.Set(nil)
 }
 
 // UnsetLastName ensures that no value is present for LastName, not even an explicit nil
-func (o *ResumeResumeShort) UnsetLastName() {
+func (o *ResumeResumeProfileShort) UnsetLastName() {
 	o.LastName.Unset()
 }
 
 // GetMarked returns the Marked field value if set, zero value otherwise.
-func (o *ResumeResumeShort) GetMarked() bool {
+func (o *ResumeResumeProfileShort) GetMarked() bool {
 	if o == nil || IsNil(o.Marked) {
 		var ret bool
 		return ret
@@ -566,7 +552,7 @@ func (o *ResumeResumeShort) GetMarked() bool {
 
 // GetMarkedOk returns a tuple with the Marked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetMarkedOk() (*bool, bool) {
+func (o *ResumeResumeProfileShort) GetMarkedOk() (*bool, bool) {
 	if o == nil || IsNil(o.Marked) {
 		return nil, false
 	}
@@ -574,7 +560,7 @@ func (o *ResumeResumeShort) GetMarkedOk() (*bool, bool) {
 }
 
 // HasMarked returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasMarked() bool {
+func (o *ResumeResumeProfileShort) HasMarked() bool {
 	if o != nil && !IsNil(o.Marked) {
 		return true
 	}
@@ -583,12 +569,12 @@ func (o *ResumeResumeShort) HasMarked() bool {
 }
 
 // SetMarked gets a reference to the given bool and assigns it to the Marked field.
-func (o *ResumeResumeShort) SetMarked(v bool) {
+func (o *ResumeResumeProfileShort) SetMarked(v bool) {
 	o.Marked = &v
 }
 
 // GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetMiddleName() string {
+func (o *ResumeResumeProfileShort) GetMiddleName() string {
 	if o == nil || IsNil(o.MiddleName.Get()) {
 		var ret string
 		return ret
@@ -599,7 +585,7 @@ func (o *ResumeResumeShort) GetMiddleName() string {
 // GetMiddleNameOk returns a tuple with the MiddleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetMiddleNameOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetMiddleNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -607,7 +593,7 @@ func (o *ResumeResumeShort) GetMiddleNameOk() (*string, bool) {
 }
 
 // HasMiddleName returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasMiddleName() bool {
+func (o *ResumeResumeProfileShort) HasMiddleName() bool {
 	if o != nil && o.MiddleName.IsSet() {
 		return true
 	}
@@ -616,21 +602,21 @@ func (o *ResumeResumeShort) HasMiddleName() bool {
 }
 
 // SetMiddleName gets a reference to the given NullableString and assigns it to the MiddleName field.
-func (o *ResumeResumeShort) SetMiddleName(v string) {
+func (o *ResumeResumeProfileShort) SetMiddleName(v string) {
 	o.MiddleName.Set(&v)
 }
 // SetMiddleNameNil sets the value for MiddleName to be an explicit nil
-func (o *ResumeResumeShort) SetMiddleNameNil() {
+func (o *ResumeResumeProfileShort) SetMiddleNameNil() {
 	o.MiddleName.Set(nil)
 }
 
 // UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
-func (o *ResumeResumeShort) UnsetMiddleName() {
+func (o *ResumeResumeProfileShort) UnsetMiddleName() {
 	o.MiddleName.Unset()
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumeResumeShort) GetPlatform() map[string]interface{} {
+func (o *ResumeResumeProfileShort) GetPlatform() map[string]interface{} {
 	if o == nil || IsNil(o.Platform) {
 		var ret map[string]interface{}
 		return ret
@@ -640,7 +626,7 @@ func (o *ResumeResumeShort) GetPlatform() map[string]interface{} {
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetPlatformOk() (map[string]interface{}, bool) {
+func (o *ResumeResumeProfileShort) GetPlatformOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return map[string]interface{}{}, false
 	}
@@ -648,7 +634,7 @@ func (o *ResumeResumeShort) GetPlatformOk() (map[string]interface{}, bool) {
 }
 
 // HasPlatform returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasPlatform() bool {
+func (o *ResumeResumeProfileShort) HasPlatform() bool {
 	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
@@ -657,12 +643,12 @@ func (o *ResumeResumeShort) HasPlatform() bool {
 }
 
 // SetPlatform gets a reference to the given map[string]interface{} and assigns it to the Platform field.
-func (o *ResumeResumeShort) SetPlatform(v map[string]interface{}) {
+func (o *ResumeResumeProfileShort) SetPlatform(v map[string]interface{}) {
 	o.Platform = v
 }
 
 // GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetSalary() ResumeObjectsSalaryProperties {
+func (o *ResumeResumeProfileShort) GetSalary() ResumeObjectsSalaryProperties {
 	if o == nil || IsNil(o.Salary.Get()) {
 		var ret ResumeObjectsSalaryProperties
 		return ret
@@ -673,7 +659,7 @@ func (o *ResumeResumeShort) GetSalary() ResumeObjectsSalaryProperties {
 // GetSalaryOk returns a tuple with the Salary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool) {
+func (o *ResumeResumeProfileShort) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -681,7 +667,7 @@ func (o *ResumeResumeShort) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool)
 }
 
 // HasSalary returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasSalary() bool {
+func (o *ResumeResumeProfileShort) HasSalary() bool {
 	if o != nil && o.Salary.IsSet() {
 		return true
 	}
@@ -690,21 +676,21 @@ func (o *ResumeResumeShort) HasSalary() bool {
 }
 
 // SetSalary gets a reference to the given NullableResumeObjectsSalaryProperties and assigns it to the Salary field.
-func (o *ResumeResumeShort) SetSalary(v ResumeObjectsSalaryProperties) {
+func (o *ResumeResumeProfileShort) SetSalary(v ResumeObjectsSalaryProperties) {
 	o.Salary.Set(&v)
 }
 // SetSalaryNil sets the value for Salary to be an explicit nil
-func (o *ResumeResumeShort) SetSalaryNil() {
+func (o *ResumeResumeProfileShort) SetSalaryNil() {
 	o.Salary.Set(nil)
 }
 
 // UnsetSalary ensures that no value is present for Salary, not even an explicit nil
-func (o *ResumeResumeShort) UnsetSalary() {
+func (o *ResumeResumeProfileShort) UnsetSalary() {
 	o.Salary.Unset()
 }
 
 // GetTotalExperience returns the TotalExperience field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetTotalExperience() ResumeObjectsTotalExperience {
+func (o *ResumeResumeProfileShort) GetTotalExperience() ResumeObjectsTotalExperience {
 	if o == nil || IsNil(o.TotalExperience.Get()) {
 		var ret ResumeObjectsTotalExperience
 		return ret
@@ -715,7 +701,7 @@ func (o *ResumeResumeShort) GetTotalExperience() ResumeObjectsTotalExperience {
 // GetTotalExperienceOk returns a tuple with the TotalExperience field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetTotalExperienceOk() (*ResumeObjectsTotalExperience, bool) {
+func (o *ResumeResumeProfileShort) GetTotalExperienceOk() (*ResumeObjectsTotalExperience, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -723,7 +709,7 @@ func (o *ResumeResumeShort) GetTotalExperienceOk() (*ResumeObjectsTotalExperienc
 }
 
 // HasTotalExperience returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasTotalExperience() bool {
+func (o *ResumeResumeProfileShort) HasTotalExperience() bool {
 	if o != nil && o.TotalExperience.IsSet() {
 		return true
 	}
@@ -732,21 +718,21 @@ func (o *ResumeResumeShort) HasTotalExperience() bool {
 }
 
 // SetTotalExperience gets a reference to the given NullableResumeObjectsTotalExperience and assigns it to the TotalExperience field.
-func (o *ResumeResumeShort) SetTotalExperience(v ResumeObjectsTotalExperience) {
+func (o *ResumeResumeProfileShort) SetTotalExperience(v ResumeObjectsTotalExperience) {
 	o.TotalExperience.Set(&v)
 }
 // SetTotalExperienceNil sets the value for TotalExperience to be an explicit nil
-func (o *ResumeResumeShort) SetTotalExperienceNil() {
+func (o *ResumeResumeProfileShort) SetTotalExperienceNil() {
 	o.TotalExperience.Set(nil)
 }
 
 // UnsetTotalExperience ensures that no value is present for TotalExperience, not even an explicit nil
-func (o *ResumeResumeShort) UnsetTotalExperience() {
+func (o *ResumeResumeProfileShort) UnsetTotalExperience() {
 	o.TotalExperience.Unset()
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
-func (o *ResumeResumeShort) GetUpdatedAt() string {
+func (o *ResumeResumeProfileShort) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -757,7 +743,7 @@ func (o *ResumeResumeShort) GetUpdatedAt() string {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetUpdatedAtOk() (*string, bool) {
+func (o *ResumeResumeProfileShort) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -765,12 +751,12 @@ func (o *ResumeResumeShort) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value
-func (o *ResumeResumeShort) SetUpdatedAt(v string) {
+func (o *ResumeResumeProfileShort) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
 // GetExperience returns the Experience field value
-func (o *ResumeResumeShort) GetExperience() []ResumeObjectsExperienceShort {
+func (o *ResumeResumeProfileShort) GetExperience() []ResumeObjectsExperienceShort {
 	if o == nil {
 		var ret []ResumeObjectsExperienceShort
 		return ret
@@ -781,7 +767,7 @@ func (o *ResumeResumeShort) GetExperience() []ResumeObjectsExperienceShort {
 
 // GetExperienceOk returns a tuple with the Experience field value
 // and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetExperienceOk() ([]ResumeObjectsExperienceShort, bool) {
+func (o *ResumeResumeProfileShort) GetExperienceOk() ([]ResumeObjectsExperienceShort, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -789,205 +775,11 @@ func (o *ResumeResumeShort) GetExperienceOk() ([]ResumeObjectsExperienceShort, b
 }
 
 // SetExperience sets field value
-func (o *ResumeResumeShort) SetExperience(v []ResumeObjectsExperienceShort) {
+func (o *ResumeResumeProfileShort) SetExperience(v []ResumeObjectsExperienceShort) {
 	o.Experience = v
 }
 
-// GetActions returns the Actions field value
-func (o *ResumeResumeShort) GetActions() ResumeObjectsActions {
-	if o == nil {
-		var ret ResumeObjectsActions
-		return ret
-	}
-
-	return o.Actions
-}
-
-// GetActionsOk returns a tuple with the Actions field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetActionsOk() (*ResumeObjectsActions, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Actions, true
-}
-
-// SetActions sets field value
-func (o *ResumeResumeShort) SetActions(v ResumeObjectsActions) {
-	o.Actions = v
-}
-
-// GetFavorited returns the Favorited field value
-func (o *ResumeResumeShort) GetFavorited() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Favorited
-}
-
-// GetFavoritedOk returns a tuple with the Favorited field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetFavoritedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Favorited, true
-}
-
-// SetFavorited sets field value
-func (o *ResumeResumeShort) SetFavorited(v bool) {
-	o.Favorited = v
-}
-
-// GetNegotiationsHistory returns the NegotiationsHistory field value
-func (o *ResumeResumeShort) GetNegotiationsHistory() ResumeObjectsNegotiationsHistoryUrl {
-	if o == nil {
-		var ret ResumeObjectsNegotiationsHistoryUrl
-		return ret
-	}
-
-	return o.NegotiationsHistory
-}
-
-// GetNegotiationsHistoryOk returns a tuple with the NegotiationsHistory field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetNegotiationsHistoryOk() (*ResumeObjectsNegotiationsHistoryUrl, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.NegotiationsHistory, true
-}
-
-// SetNegotiationsHistory sets field value
-func (o *ResumeResumeShort) SetNegotiationsHistory(v ResumeObjectsNegotiationsHistoryUrl) {
-	o.NegotiationsHistory = v
-}
-
-// GetOwner returns the Owner field value
-func (o *ResumeResumeShort) GetOwner() ResumeObjectsOwner {
-	if o == nil {
-		var ret ResumeObjectsOwner
-		return ret
-	}
-
-	return o.Owner
-}
-
-// GetOwnerOk returns a tuple with the Owner field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetOwnerOk() (*ResumeObjectsOwner, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Owner, true
-}
-
-// SetOwner sets field value
-func (o *ResumeResumeShort) SetOwner(v ResumeObjectsOwner) {
-	o.Owner = v
-}
-
-// GetPhoto returns the Photo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeResumeShort) GetPhoto() ResumeObjectsPhoto {
-	if o == nil || IsNil(o.Photo.Get()) {
-		var ret ResumeObjectsPhoto
-		return ret
-	}
-	return *o.Photo.Get()
-}
-
-// GetPhotoOk returns a tuple with the Photo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeResumeShort) GetPhotoOk() (*ResumeObjectsPhoto, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Photo.Get(), o.Photo.IsSet()
-}
-
-// HasPhoto returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasPhoto() bool {
-	if o != nil && o.Photo.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPhoto gets a reference to the given NullableResumeObjectsPhoto and assigns it to the Photo field.
-func (o *ResumeResumeShort) SetPhoto(v ResumeObjectsPhoto) {
-	o.Photo.Set(&v)
-}
-// SetPhotoNil sets the value for Photo to be an explicit nil
-func (o *ResumeResumeShort) SetPhotoNil() {
-	o.Photo.Set(nil)
-}
-
-// UnsetPhoto ensures that no value is present for Photo, not even an explicit nil
-func (o *ResumeResumeShort) UnsetPhoto() {
-	o.Photo.Unset()
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *ResumeResumeShort) GetTags() []IncludesId {
-	if o == nil || IsNil(o.Tags) {
-		var ret []IncludesId
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetTagsOk() ([]IncludesId, bool) {
-	if o == nil || IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *ResumeResumeShort) HasTags() bool {
-	if o != nil && !IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []IncludesId and assigns it to the Tags field.
-func (o *ResumeResumeShort) SetTags(v []IncludesId) {
-	o.Tags = v
-}
-
-// GetViewed returns the Viewed field value
-func (o *ResumeResumeShort) GetViewed() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Viewed
-}
-
-// GetViewedOk returns a tuple with the Viewed field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetViewedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Viewed, true
-}
-
-// SetViewed sets field value
-func (o *ResumeResumeShort) SetViewed(v bool) {
-	o.Viewed = v
-}
-
-func (o ResumeResumeShort) MarshalJSON() ([]byte, error) {
+func (o ResumeResumeProfileShort) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -995,7 +787,7 @@ func (o ResumeResumeShort) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ResumeResumeShort) ToMap() (map[string]interface{}, error) {
+func (o ResumeResumeProfileShort) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["alternate_url"] = o.AlternateUrl
 	toSerialize["id"] = o.Id
@@ -1040,21 +832,10 @@ func (o ResumeResumeShort) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["experience"] = o.Experience
-	toSerialize["actions"] = o.Actions
-	toSerialize["favorited"] = o.Favorited
-	toSerialize["negotiations_history"] = o.NegotiationsHistory
-	toSerialize["owner"] = o.Owner
-	if o.Photo.IsSet() {
-		toSerialize["photo"] = o.Photo.Get()
-	}
-	if !IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
-	}
-	toSerialize["viewed"] = o.Viewed
 	return toSerialize, nil
 }
 
-func (o *ResumeResumeShort) UnmarshalJSON(data []byte) (err error) {
+func (o *ResumeResumeProfileShort) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -1069,11 +850,6 @@ func (o *ResumeResumeShort) UnmarshalJSON(data []byte) (err error) {
 		"hidden_fields",
 		"updated_at",
 		"experience",
-		"actions",
-		"favorited",
-		"negotiations_history",
-		"owner",
-		"viewed",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -1090,53 +866,53 @@ func (o *ResumeResumeShort) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varResumeResumeShort := _ResumeResumeShort{}
+	varResumeResumeProfileShort := _ResumeResumeProfileShort{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varResumeResumeShort)
+	err = decoder.Decode(&varResumeResumeProfileShort)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ResumeResumeShort(varResumeResumeShort)
+	*o = ResumeResumeProfileShort(varResumeResumeProfileShort)
 
 	return err
 }
 
-type NullableResumeResumeShort struct {
-	value *ResumeResumeShort
+type NullableResumeResumeProfileShort struct {
+	value *ResumeResumeProfileShort
 	isSet bool
 }
 
-func (v NullableResumeResumeShort) Get() *ResumeResumeShort {
+func (v NullableResumeResumeProfileShort) Get() *ResumeResumeProfileShort {
 	return v.value
 }
 
-func (v *NullableResumeResumeShort) Set(val *ResumeResumeShort) {
+func (v *NullableResumeResumeProfileShort) Set(val *ResumeResumeProfileShort) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableResumeResumeShort) IsSet() bool {
+func (v NullableResumeResumeProfileShort) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableResumeResumeShort) Unset() {
+func (v *NullableResumeResumeProfileShort) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableResumeResumeShort(val *ResumeResumeShort) *NullableResumeResumeShort {
-	return &NullableResumeResumeShort{value: val, isSet: true}
+func NewNullableResumeResumeProfileShort(val *ResumeResumeProfileShort) *NullableResumeResumeProfileShort {
+	return &NullableResumeResumeProfileShort{value: val, isSet: true}
 }
 
-func (v NullableResumeResumeShort) MarshalJSON() ([]byte, error) {
+func (v NullableResumeResumeProfileShort) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableResumeResumeShort) UnmarshalJSON(src []byte) error {
+func (v *NullableResumeResumeProfileShort) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

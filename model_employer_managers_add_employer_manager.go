@@ -37,7 +37,7 @@ type EmployerManagersAddEmployerManager struct {
 	MiddleName *string `json:"middle_name,omitempty"`
 	// Список [прав менеджера](#tag/Menedzhery-rabotodatelya/operation/get-employer-manager-types)
 	Permissions []EmployerManagersPermissions `json:"permissions,omitempty"`
-	Phone EmployerManagersEmployerManagerItemPhone `json:"phone"`
+	Phone EmployerManagersEmployerManagerInfoPhone `json:"phone"`
 	// Должность менеджера
 	Position string `json:"position"`
 }
@@ -48,7 +48,7 @@ type _EmployerManagersAddEmployerManager EmployerManagersAddEmployerManager
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployerManagersAddEmployerManager(area EmployerManagersAreaId, email string, firstName string, isMainContactPerson bool, lastName string, managerType EmployerManagersManagerTypeId, phone EmployerManagersEmployerManagerItemPhone, position string) *EmployerManagersAddEmployerManager {
+func NewEmployerManagersAddEmployerManager(area EmployerManagersAreaId, email string, firstName string, isMainContactPerson bool, lastName string, managerType EmployerManagersManagerTypeId, phone EmployerManagersEmployerManagerInfoPhone, position string) *EmployerManagersAddEmployerManager {
 	this := EmployerManagersAddEmployerManager{}
 	this.Area = area
 	this.Email = email
@@ -310,9 +310,9 @@ func (o *EmployerManagersAddEmployerManager) SetPermissions(v []EmployerManagers
 }
 
 // GetPhone returns the Phone field value
-func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersEmployerManagerItemPhone {
+func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersEmployerManagerInfoPhone {
 	if o == nil {
-		var ret EmployerManagersEmployerManagerItemPhone
+		var ret EmployerManagersEmployerManagerInfoPhone
 		return ret
 	}
 
@@ -321,7 +321,7 @@ func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersEmployer
 
 // GetPhoneOk returns a tuple with the Phone field value
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool) {
+func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -329,7 +329,7 @@ func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersEmpl
 }
 
 // SetPhone sets field value
-func (o *EmployerManagersAddEmployerManager) SetPhone(v EmployerManagersEmployerManagerItemPhone) {
+func (o *EmployerManagersAddEmployerManager) SetPhone(v EmployerManagersEmployerManagerInfoPhone) {
 	o.Phone = v
 }
 

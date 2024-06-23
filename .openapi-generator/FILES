@@ -65,9 +65,9 @@ docs/EmployerManagersAreaId.md
 docs/EmployerManagersEmployerManagerId.md
 docs/EmployerManagersEmployerManagerInfo.md
 docs/EmployerManagersEmployerManagerInfoAdditionalPhone.md
+docs/EmployerManagersEmployerManagerInfoPhone.md
 docs/EmployerManagersEmployerManagerItem.md
 docs/EmployerManagersEmployerManagerItemAdditionalPhone.md
-docs/EmployerManagersEmployerManagerItemPhone.md
 docs/EmployerManagersEmployerManagerLimits.md
 docs/EmployerManagersManagerData.md
 docs/EmployerManagersManagerType.md
@@ -347,6 +347,8 @@ docs/ResumeObjectsExperienceForOwner.md
 docs/ResumeObjectsExperienceLogoUrl90.md
 docs/ResumeObjectsExperienceProperties.md
 docs/ResumeObjectsExperiencePropertiesLogoUrl90.md
+docs/ResumeObjectsExperiencePropertiesShort.md
+docs/ResumeObjectsExperienceShort.md
 docs/ResumeObjectsIndustry.md
 docs/ResumeObjectsLanguage.md
 docs/ResumeObjectsLastNegotiations.md
@@ -380,7 +382,9 @@ docs/ResumeResumeFull.md
 docs/ResumeResumeNano.md
 docs/ResumeResumeNanoWithUrl.md
 docs/ResumeResumeProfile.md
+docs/ResumeResumeProfileCommon.md
 docs/ResumeResumeProfileLogoUrl90.md
+docs/ResumeResumeProfileShort.md
 docs/ResumeResumeShort.md
 docs/ResumeResumeShortAdditionalFields.md
 docs/ResumeResumeShortForOwner.md
@@ -811,9 +815,9 @@ model_employer_managers_area_id.go
 model_employer_managers_employer_manager_id.go
 model_employer_managers_employer_manager_info.go
 model_employer_managers_employer_manager_info_additional_phone.go
+model_employer_managers_employer_manager_info_phone.go
 model_employer_managers_employer_manager_item.go
 model_employer_managers_employer_manager_item_additional_phone.go
-model_employer_managers_employer_manager_item_phone.go
 model_employer_managers_employer_manager_limits.go
 model_employer_managers_manager_data.go
 model_employer_managers_manager_type.go
@@ -1059,6 +1063,8 @@ model_resume_objects_experience_for_owner.go
 model_resume_objects_experience_logo_url90.go
 model_resume_objects_experience_properties.go
 model_resume_objects_experience_properties_logo_url90.go
+model_resume_objects_experience_properties_short.go
+model_resume_objects_experience_short.go
 model_resume_objects_industry.go
 model_resume_objects_language.go
 model_resume_objects_last_negotiations.go
@@ -1092,7 +1098,9 @@ model_resume_resume_full.go
 model_resume_resume_nano.go
 model_resume_resume_nano_with_url.go
 model_resume_resume_profile.go
+model_resume_resume_profile_common.go
 model_resume_resume_profile_logo_url90.go
+model_resume_resume_profile_short.go
 model_resume_resume_short.go
 model_resume_resume_short_additional_fields.go
 model_resume_resume_short_for_owner.go

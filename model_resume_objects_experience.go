@@ -29,8 +29,6 @@ type ResumeObjectsExperience struct {
 	CompanyId NullableString `json:"company_id,omitempty"`
 	// Сайт компании
 	CompanyUrl NullableString `json:"company_url,omitempty"`
-	// Обязанности, функции, достижения
-	Description NullableString `json:"description,omitempty"`
 	Employer *EmployersEmployerInfoShort `json:"employer,omitempty"`
 	// Окончание работы (дата в формате `ГГГГ-ММ-ДД`)
 	End NullableString `json:"end,omitempty"`
@@ -42,6 +40,8 @@ type ResumeObjectsExperience struct {
 	Position string `json:"position"`
 	// Начало работы (дата в формате `ГГГГ-ММ-ДД`)
 	Start string `json:"start"`
+	// Обязанности, функции, достижения
+	Description NullableString `json:"description,omitempty"`
 }
 
 type _ResumeObjectsExperience ResumeObjectsExperience
@@ -222,48 +222,6 @@ func (o *ResumeObjectsExperience) SetCompanyUrlNil() {
 // UnsetCompanyUrl ensures that no value is present for CompanyUrl, not even an explicit nil
 func (o *ResumeObjectsExperience) UnsetCompanyUrl() {
 	o.CompanyUrl.Unset()
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumeObjectsExperience) GetDescription() string {
-	if o == nil || IsNil(o.Description.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.Description.Get()
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeObjectsExperience) GetDescriptionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Description.Get(), o.Description.IsSet()
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *ResumeObjectsExperience) HasDescription() bool {
-	if o != nil && o.Description.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
-func (o *ResumeObjectsExperience) SetDescription(v string) {
-	o.Description.Set(&v)
-}
-// SetDescriptionNil sets the value for Description to be an explicit nil
-func (o *ResumeObjectsExperience) SetDescriptionNil() {
-	o.Description.Set(nil)
-}
-
-// UnsetDescription ensures that no value is present for Description, not even an explicit nil
-func (o *ResumeObjectsExperience) UnsetDescription() {
-	o.Description.Unset()
 }
 
 // GetEmployer returns the Employer field value if set, zero value otherwise.
@@ -447,6 +405,48 @@ func (o *ResumeObjectsExperience) SetStart(v string) {
 	o.Start = v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperience) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperience) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ResumeObjectsExperience) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *ResumeObjectsExperience) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *ResumeObjectsExperience) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *ResumeObjectsExperience) UnsetDescription() {
+	o.Description.Unset()
+}
+
 func (o ResumeObjectsExperience) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -469,9 +469,6 @@ func (o ResumeObjectsExperience) ToMap() (map[string]interface{}, error) {
 	if o.CompanyUrl.IsSet() {
 		toSerialize["company_url"] = o.CompanyUrl.Get()
 	}
-	if o.Description.IsSet() {
-		toSerialize["description"] = o.Description.Get()
-	}
 	if !IsNil(o.Employer) {
 		toSerialize["employer"] = o.Employer
 	}
@@ -484,6 +481,9 @@ func (o ResumeObjectsExperience) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["position"] = o.Position
 	toSerialize["start"] = o.Start
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
 	return toSerialize, nil
 }
 

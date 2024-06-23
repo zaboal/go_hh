@@ -44,9 +44,13 @@ type EmployerManagersEmployerManagerInfo struct {
 	Name *string `json:"name,omitempty"`
 	// Список [прав менеджера](#tag/Menedzhery-rabotodatelya/operation/get-employer-manager-types)
 	Permissions []EmployerManagerTypesAvailablePermissions `json:"permissions"`
-	Phone EmployerManagersEmployerManagerItemPhone `json:"phone"`
+	Phone EmployerManagersEmployerManagerInfoPhone `json:"phone"`
 	// Должность менеджера
 	Position string `json:"position"`
+	// Первый спецпризнак менеджера
+	SpecialNote1 NullableString `json:"special_note_1,omitempty"`
+	// Второй спецпризнак менеджера
+	SpecialNote2 NullableString `json:"special_note_2,omitempty"`
 	// Количество опубликованных (активных) вакансий у данного менеджера. `null` — если у пользователя нет прав на просмотр вакансий этого менеджера
 	VacanciesCount NullableFloat32 `json:"vacancies_count,omitempty"`
 }
@@ -57,7 +61,7 @@ type _EmployerManagersEmployerManagerInfo EmployerManagersEmployerManagerInfo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployerManagersEmployerManagerInfo(email string, firstName string, id string, isMainContactPerson bool, lastName string, permissions []EmployerManagerTypesAvailablePermissions, phone EmployerManagersEmployerManagerItemPhone, position string) *EmployerManagersEmployerManagerInfo {
+func NewEmployerManagersEmployerManagerInfo(email string, firstName string, id string, isMainContactPerson bool, lastName string, permissions []EmployerManagerTypesAvailablePermissions, phone EmployerManagersEmployerManagerInfoPhone, position string) *EmployerManagersEmployerManagerInfo {
 	this := EmployerManagersEmployerManagerInfo{}
 	this.Email = email
 	this.FirstName = firstName
@@ -418,9 +422,9 @@ func (o *EmployerManagersEmployerManagerInfo) SetPermissions(v []EmployerManager
 }
 
 // GetPhone returns the Phone field value
-func (o *EmployerManagersEmployerManagerInfo) GetPhone() EmployerManagersEmployerManagerItemPhone {
+func (o *EmployerManagersEmployerManagerInfo) GetPhone() EmployerManagersEmployerManagerInfoPhone {
 	if o == nil {
-		var ret EmployerManagersEmployerManagerItemPhone
+		var ret EmployerManagersEmployerManagerInfoPhone
 		return ret
 	}
 
@@ -429,7 +433,7 @@ func (o *EmployerManagersEmployerManagerInfo) GetPhone() EmployerManagersEmploye
 
 // GetPhoneOk returns a tuple with the Phone field value
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerInfo) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool) {
+func (o *EmployerManagersEmployerManagerInfo) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -437,7 +441,7 @@ func (o *EmployerManagersEmployerManagerInfo) GetPhoneOk() (*EmployerManagersEmp
 }
 
 // SetPhone sets field value
-func (o *EmployerManagersEmployerManagerInfo) SetPhone(v EmployerManagersEmployerManagerItemPhone) {
+func (o *EmployerManagersEmployerManagerInfo) SetPhone(v EmployerManagersEmployerManagerInfoPhone) {
 	o.Phone = v
 }
 
@@ -463,6 +467,90 @@ func (o *EmployerManagersEmployerManagerInfo) GetPositionOk() (*string, bool) {
 // SetPosition sets field value
 func (o *EmployerManagersEmployerManagerInfo) SetPosition(v string) {
 	o.Position = v
+}
+
+// GetSpecialNote1 returns the SpecialNote1 field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote1() string {
+	if o == nil || IsNil(o.SpecialNote1.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SpecialNote1.Get()
+}
+
+// GetSpecialNote1Ok returns a tuple with the SpecialNote1 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote1Ok() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SpecialNote1.Get(), o.SpecialNote1.IsSet()
+}
+
+// HasSpecialNote1 returns a boolean if a field has been set.
+func (o *EmployerManagersEmployerManagerInfo) HasSpecialNote1() bool {
+	if o != nil && o.SpecialNote1.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSpecialNote1 gets a reference to the given NullableString and assigns it to the SpecialNote1 field.
+func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote1(v string) {
+	o.SpecialNote1.Set(&v)
+}
+// SetSpecialNote1Nil sets the value for SpecialNote1 to be an explicit nil
+func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote1Nil() {
+	o.SpecialNote1.Set(nil)
+}
+
+// UnsetSpecialNote1 ensures that no value is present for SpecialNote1, not even an explicit nil
+func (o *EmployerManagersEmployerManagerInfo) UnsetSpecialNote1() {
+	o.SpecialNote1.Unset()
+}
+
+// GetSpecialNote2 returns the SpecialNote2 field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote2() string {
+	if o == nil || IsNil(o.SpecialNote2.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SpecialNote2.Get()
+}
+
+// GetSpecialNote2Ok returns a tuple with the SpecialNote2 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote2Ok() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SpecialNote2.Get(), o.SpecialNote2.IsSet()
+}
+
+// HasSpecialNote2 returns a boolean if a field has been set.
+func (o *EmployerManagersEmployerManagerInfo) HasSpecialNote2() bool {
+	if o != nil && o.SpecialNote2.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSpecialNote2 gets a reference to the given NullableString and assigns it to the SpecialNote2 field.
+func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote2(v string) {
+	o.SpecialNote2.Set(&v)
+}
+// SetSpecialNote2Nil sets the value for SpecialNote2 to be an explicit nil
+func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote2Nil() {
+	o.SpecialNote2.Set(nil)
+}
+
+// UnsetSpecialNote2 ensures that no value is present for SpecialNote2, not even an explicit nil
+func (o *EmployerManagersEmployerManagerInfo) UnsetSpecialNote2() {
+	o.SpecialNote2.Unset()
 }
 
 // GetVacanciesCount returns the VacanciesCount field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -543,6 +631,12 @@ func (o EmployerManagersEmployerManagerInfo) ToMap() (map[string]interface{}, er
 	toSerialize["permissions"] = o.Permissions
 	toSerialize["phone"] = o.Phone
 	toSerialize["position"] = o.Position
+	if o.SpecialNote1.IsSet() {
+		toSerialize["special_note_1"] = o.SpecialNote1.Get()
+	}
+	if o.SpecialNote2.IsSet() {
+		toSerialize["special_note_2"] = o.SpecialNote2.Get()
+	}
 	if o.VacanciesCount.IsSet() {
 		toSerialize["vacancies_count"] = o.VacanciesCount.Get()
 	}

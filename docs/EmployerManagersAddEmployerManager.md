@@ -13,14 +13,14 @@ Name | Type | Description | Notes
 **ManagerType** | [**EmployerManagersManagerTypeId**](EmployerManagersManagerTypeId.md) |  | 
 **MiddleName** | Pointer to **string** | Отчество менеджера | [optional] 
 **Permissions** | Pointer to [**[]EmployerManagersPermissions**](EmployerManagersPermissions.md) | Список [прав менеджера](#tag/Menedzhery-rabotodatelya/operation/get-employer-manager-types) | [optional] 
-**Phone** | [**EmployerManagersEmployerManagerItemPhone**](EmployerManagersEmployerManagerItemPhone.md) |  | 
+**Phone** | [**EmployerManagersEmployerManagerInfoPhone**](EmployerManagersEmployerManagerInfoPhone.md) |  | 
 **Position** | **string** | Должность менеджера | 
 
 ## Methods
 
 ### NewEmployerManagersAddEmployerManager
 
-`func NewEmployerManagersAddEmployerManager(area EmployerManagersAreaId, email string, firstName string, isMainContactPerson bool, lastName string, managerType EmployerManagersManagerTypeId, phone EmployerManagersEmployerManagerItemPhone, position string, ) *EmployerManagersAddEmployerManager`
+`func NewEmployerManagersAddEmployerManager(area EmployerManagersAreaId, email string, firstName string, isMainContactPerson bool, lastName string, managerType EmployerManagersManagerTypeId, phone EmployerManagersEmployerManagerInfoPhone, position string, ) *EmployerManagersAddEmployerManager`
 
 NewEmployerManagersAddEmployerManager instantiates a new EmployerManagersAddEmployerManager object
 This constructor will assign default values to properties that have it defined,
@@ -232,20 +232,20 @@ HasPermissions returns a boolean if a field has been set.
 
 ### GetPhone
 
-`func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersEmployerManagerItemPhone`
+`func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersEmployerManagerInfoPhone`
 
 GetPhone returns the Phone field if non-nil, zero value otherwise.
 
 ### GetPhoneOk
 
-`func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool)`
+`func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool)`
 
 GetPhoneOk returns a tuple with the Phone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhone
 
-`func (o *EmployerManagersAddEmployerManager) SetPhone(v EmployerManagersEmployerManagerItemPhone)`
+`func (o *EmployerManagersAddEmployerManager) SetPhone(v EmployerManagersEmployerManagerInfoPhone)`
 
 SetPhone sets Phone field to given value.
 

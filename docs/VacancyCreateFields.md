@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Area** | [**VacancyArea**](VacancyArea.md) |  | 
 **BillingType** | [**VacancyBillingType**](VacancyBillingType.md) |  | 
 **Description** | **string** | Описание в html, не менее 200 символов | 
-**DriverLicenseTypes** | Pointer to **[]string** |  | [optional] 
+**DriverLicenseTypes** | Pointer to [**[]VacancyDriverLicenceTypeItem**](VacancyDriverLicenceTypeItem.md) | Список требуемых категорий водительских прав | [optional] 
 **Manager** | Pointer to [**NullableVacancyManager**](VacancyManager.md) |  | [optional] 
 **Name** | **string** | Название | 
 **PreviousId** | Pointer to **NullableString** | Если этот параметр передан, то у новой вакансии дополнительно будет создана связь с предыдущей вакансией (поле previous_id). Этот параметр не влияет на другие и не связан с ними, их всё равно необходимо передавать.  Должен быть равен только ID архивной вакансии. ID архивной вакансии можно получить, запросив [список архивных вакансий](#tag/Upravlenie-vakansiyami/operation/get-archived-vacancies) &lt;a name&#x3D;&#39;previous_id&#39;&gt;&lt;/a&gt;  | [optional] 
@@ -94,20 +94,20 @@ SetDescription sets Description field to given value.
 
 ### GetDriverLicenseTypes
 
-`func (o *VacancyCreateFields) GetDriverLicenseTypes() []string`
+`func (o *VacancyCreateFields) GetDriverLicenseTypes() []VacancyDriverLicenceTypeItem`
 
 GetDriverLicenseTypes returns the DriverLicenseTypes field if non-nil, zero value otherwise.
 
 ### GetDriverLicenseTypesOk
 
-`func (o *VacancyCreateFields) GetDriverLicenseTypesOk() (*[]string, bool)`
+`func (o *VacancyCreateFields) GetDriverLicenseTypesOk() (*[]VacancyDriverLicenceTypeItem, bool)`
 
 GetDriverLicenseTypesOk returns a tuple with the DriverLicenseTypes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDriverLicenseTypes
 
-`func (o *VacancyCreateFields) SetDriverLicenseTypes(v []string)`
+`func (o *VacancyCreateFields) SetDriverLicenseTypes(v []VacancyDriverLicenceTypeItem)`
 
 SetDriverLicenseTypes sets DriverLicenseTypes field to given value.
 
@@ -117,16 +117,6 @@ SetDriverLicenseTypes sets DriverLicenseTypes field to given value.
 
 HasDriverLicenseTypes returns a boolean if a field has been set.
 
-### SetDriverLicenseTypesNil
-
-`func (o *VacancyCreateFields) SetDriverLicenseTypesNil(b bool)`
-
- SetDriverLicenseTypesNil sets the value for DriverLicenseTypes to be an explicit nil
-
-### UnsetDriverLicenseTypes
-`func (o *VacancyCreateFields) UnsetDriverLicenseTypes()`
-
-UnsetDriverLicenseTypes ensures that no value is present for DriverLicenseTypes, not even an explicit nil
 ### GetManager
 
 `func (o *VacancyCreateFields) GetManager() VacancyManager`

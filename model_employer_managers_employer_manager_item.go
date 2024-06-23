@@ -41,9 +41,13 @@ type EmployerManagersEmployerManagerItem struct {
 	// Полное имя менеджера
 	// Deprecated
 	Name *string `json:"name,omitempty"`
-	Phone *EmployerManagersEmployerManagerItemPhone `json:"phone,omitempty"`
+	Phone *EmployerManagersEmployerManagerInfoPhone `json:"phone,omitempty"`
 	// Должность менеджера
 	Position string `json:"position"`
+	// Первый спецпризнак менеджера
+	SpecialNote1 NullableString `json:"special_note_1,omitempty"`
+	// Второй спецпризнак менеджера
+	SpecialNote2 NullableString `json:"special_note_2,omitempty"`
 	// Количество опубликованных (активных) вакансий у данного менеджера. `null` — если у пользователя нет прав на просмотр вакансий этого менеджера
 	VacanciesCount NullableFloat32 `json:"vacancies_count,omitempty"`
 }
@@ -391,9 +395,9 @@ func (o *EmployerManagersEmployerManagerItem) SetName(v string) {
 }
 
 // GetPhone returns the Phone field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersEmployerManagerItemPhone {
+func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersEmployerManagerInfoPhone {
 	if o == nil || IsNil(o.Phone) {
-		var ret EmployerManagersEmployerManagerItemPhone
+		var ret EmployerManagersEmployerManagerInfoPhone
 		return ret
 	}
 	return *o.Phone
@@ -401,7 +405,7 @@ func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersEmploye
 
 // GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool) {
+func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool) {
 	if o == nil || IsNil(o.Phone) {
 		return nil, false
 	}
@@ -417,8 +421,8 @@ func (o *EmployerManagersEmployerManagerItem) HasPhone() bool {
 	return false
 }
 
-// SetPhone gets a reference to the given EmployerManagersEmployerManagerItemPhone and assigns it to the Phone field.
-func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersEmployerManagerItemPhone) {
+// SetPhone gets a reference to the given EmployerManagersEmployerManagerInfoPhone and assigns it to the Phone field.
+func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersEmployerManagerInfoPhone) {
 	o.Phone = &v
 }
 
@@ -444,6 +448,90 @@ func (o *EmployerManagersEmployerManagerItem) GetPositionOk() (*string, bool) {
 // SetPosition sets field value
 func (o *EmployerManagersEmployerManagerItem) SetPosition(v string) {
 	o.Position = v
+}
+
+// GetSpecialNote1 returns the SpecialNote1 field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployerManagersEmployerManagerItem) GetSpecialNote1() string {
+	if o == nil || IsNil(o.SpecialNote1.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SpecialNote1.Get()
+}
+
+// GetSpecialNote1Ok returns a tuple with the SpecialNote1 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployerManagersEmployerManagerItem) GetSpecialNote1Ok() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SpecialNote1.Get(), o.SpecialNote1.IsSet()
+}
+
+// HasSpecialNote1 returns a boolean if a field has been set.
+func (o *EmployerManagersEmployerManagerItem) HasSpecialNote1() bool {
+	if o != nil && o.SpecialNote1.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSpecialNote1 gets a reference to the given NullableString and assigns it to the SpecialNote1 field.
+func (o *EmployerManagersEmployerManagerItem) SetSpecialNote1(v string) {
+	o.SpecialNote1.Set(&v)
+}
+// SetSpecialNote1Nil sets the value for SpecialNote1 to be an explicit nil
+func (o *EmployerManagersEmployerManagerItem) SetSpecialNote1Nil() {
+	o.SpecialNote1.Set(nil)
+}
+
+// UnsetSpecialNote1 ensures that no value is present for SpecialNote1, not even an explicit nil
+func (o *EmployerManagersEmployerManagerItem) UnsetSpecialNote1() {
+	o.SpecialNote1.Unset()
+}
+
+// GetSpecialNote2 returns the SpecialNote2 field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployerManagersEmployerManagerItem) GetSpecialNote2() string {
+	if o == nil || IsNil(o.SpecialNote2.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SpecialNote2.Get()
+}
+
+// GetSpecialNote2Ok returns a tuple with the SpecialNote2 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployerManagersEmployerManagerItem) GetSpecialNote2Ok() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SpecialNote2.Get(), o.SpecialNote2.IsSet()
+}
+
+// HasSpecialNote2 returns a boolean if a field has been set.
+func (o *EmployerManagersEmployerManagerItem) HasSpecialNote2() bool {
+	if o != nil && o.SpecialNote2.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSpecialNote2 gets a reference to the given NullableString and assigns it to the SpecialNote2 field.
+func (o *EmployerManagersEmployerManagerItem) SetSpecialNote2(v string) {
+	o.SpecialNote2.Set(&v)
+}
+// SetSpecialNote2Nil sets the value for SpecialNote2 to be an explicit nil
+func (o *EmployerManagersEmployerManagerItem) SetSpecialNote2Nil() {
+	o.SpecialNote2.Set(nil)
+}
+
+// UnsetSpecialNote2 ensures that no value is present for SpecialNote2, not even an explicit nil
+func (o *EmployerManagersEmployerManagerItem) UnsetSpecialNote2() {
+	o.SpecialNote2.Unset()
 }
 
 // GetVacanciesCount returns the VacanciesCount field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -526,6 +614,12 @@ func (o EmployerManagersEmployerManagerItem) ToMap() (map[string]interface{}, er
 		toSerialize["phone"] = o.Phone
 	}
 	toSerialize["position"] = o.Position
+	if o.SpecialNote1.IsSet() {
+		toSerialize["special_note_1"] = o.SpecialNote1.Get()
+	}
+	if o.SpecialNote2.IsSet() {
+		toSerialize["special_note_2"] = o.SpecialNote2.Get()
+	}
 	if o.VacanciesCount.IsSet() {
 		toSerialize["vacancies_count"] = o.VacanciesCount.Get()
 	}

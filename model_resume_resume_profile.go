@@ -41,8 +41,6 @@ type ResumeResumeProfile struct {
 	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education map[string]interface{} `json:"education"`
-	// Опыт работы
-	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
 	FirstName NullableString `json:"first_name,omitempty"`
 	Gender NullableIncludesIdName `json:"gender,omitempty"`
@@ -60,6 +58,8 @@ type ResumeResumeProfile struct {
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
+	// Опыт работы
+	Experience []ResumeObjectsExperience `json:"experience"`
 }
 
 type _ResumeResumeProfile ResumeResumeProfile
@@ -68,7 +68,7 @@ type _ResumeResumeProfile ResumeResumeProfile
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string) *ResumeResumeProfile {
+func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperience) *ResumeResumeProfile {
 	this := ResumeResumeProfile{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -77,11 +77,11 @@ func NewResumeResumeProfile(alternateUrl string, id string, title NullableString
 	this.CreatedAt = createdAt
 	this.Download = download
 	this.Education = education
-	this.Experience = experience
 	this.HiddenFields = hiddenFields
 	var marked bool = false
 	this.Marked = &marked
 	this.UpdatedAt = updatedAt
+	this.Experience = experience
 	return &this
 }
 
@@ -389,30 +389,6 @@ func (o *ResumeResumeProfile) GetEducationOk() (map[string]interface{}, bool) {
 // SetEducation sets field value
 func (o *ResumeResumeProfile) SetEducation(v map[string]interface{}) {
 	o.Education = v
-}
-
-// GetExperience returns the Experience field value
-func (o *ResumeResumeProfile) GetExperience() []ResumeObjectsExperience {
-	if o == nil {
-		var ret []ResumeObjectsExperience
-		return ret
-	}
-
-	return o.Experience
-}
-
-// GetExperienceOk returns a tuple with the Experience field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeProfile) GetExperienceOk() ([]ResumeObjectsExperience, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Experience, true
-}
-
-// SetExperience sets field value
-func (o *ResumeResumeProfile) SetExperience(v []ResumeObjectsExperience) {
-	o.Experience = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -779,6 +755,30 @@ func (o *ResumeResumeProfile) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
+// GetExperience returns the Experience field value
+func (o *ResumeResumeProfile) GetExperience() []ResumeObjectsExperience {
+	if o == nil {
+		var ret []ResumeObjectsExperience
+		return ret
+	}
+
+	return o.Experience
+}
+
+// GetExperienceOk returns a tuple with the Experience field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeProfile) GetExperienceOk() ([]ResumeObjectsExperience, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Experience, true
+}
+
+// SetExperience sets field value
+func (o *ResumeResumeProfile) SetExperience(v []ResumeObjectsExperience) {
+	o.Experience = v
+}
+
 func (o ResumeResumeProfile) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -805,7 +805,6 @@ func (o ResumeResumeProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["download"] = o.Download
 	toSerialize["education"] = o.Education
-	toSerialize["experience"] = o.Experience
 	if o.FirstName.IsSet() {
 		toSerialize["first_name"] = o.FirstName.Get()
 	}
@@ -832,6 +831,7 @@ func (o ResumeResumeProfile) ToMap() (map[string]interface{}, error) {
 		toSerialize["total_experience"] = o.TotalExperience.Get()
 	}
 	toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize["experience"] = o.Experience
 	return toSerialize, nil
 }
 
@@ -847,9 +847,9 @@ func (o *ResumeResumeProfile) UnmarshalJSON(data []byte) (err error) {
 		"created_at",
 		"download",
 		"education",
-		"experience",
 		"hidden_fields",
 		"updated_at",
+		"experience",
 	}
 
 	allProperties := make(map[string]interface{})

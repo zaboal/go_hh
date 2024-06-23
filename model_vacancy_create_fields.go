@@ -26,7 +26,8 @@ type VacancyCreateFields struct {
 	BillingType VacancyBillingType `json:"billing_type"`
 	// Описание в html, не менее 200 символов
 	Description string `json:"description"`
-	DriverLicenseTypes []string `json:"driver_license_types,omitempty"`
+	// Список требуемых категорий водительских прав
+	DriverLicenseTypes []VacancyDriverLicenceTypeItem `json:"driver_license_types,omitempty"`
 	Manager NullableVacancyManager `json:"manager,omitempty"`
 	// Название
 	Name string `json:"name"`
@@ -131,10 +132,10 @@ func (o *VacancyCreateFields) SetDescription(v string) {
 	o.Description = v
 }
 
-// GetDriverLicenseTypes returns the DriverLicenseTypes field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacancyCreateFields) GetDriverLicenseTypes() []string {
-	if o == nil {
-		var ret []string
+// GetDriverLicenseTypes returns the DriverLicenseTypes field value if set, zero value otherwise.
+func (o *VacancyCreateFields) GetDriverLicenseTypes() []VacancyDriverLicenceTypeItem {
+	if o == nil || IsNil(o.DriverLicenseTypes) {
+		var ret []VacancyDriverLicenceTypeItem
 		return ret
 	}
 	return o.DriverLicenseTypes
@@ -142,8 +143,7 @@ func (o *VacancyCreateFields) GetDriverLicenseTypes() []string {
 
 // GetDriverLicenseTypesOk returns a tuple with the DriverLicenseTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacancyCreateFields) GetDriverLicenseTypesOk() ([]string, bool) {
+func (o *VacancyCreateFields) GetDriverLicenseTypesOk() ([]VacancyDriverLicenceTypeItem, bool) {
 	if o == nil || IsNil(o.DriverLicenseTypes) {
 		return nil, false
 	}
@@ -159,8 +159,8 @@ func (o *VacancyCreateFields) HasDriverLicenseTypes() bool {
 	return false
 }
 
-// SetDriverLicenseTypes gets a reference to the given []string and assigns it to the DriverLicenseTypes field.
-func (o *VacancyCreateFields) SetDriverLicenseTypes(v []string) {
+// SetDriverLicenseTypes gets a reference to the given []VacancyDriverLicenceTypeItem and assigns it to the DriverLicenseTypes field.
+func (o *VacancyCreateFields) SetDriverLicenseTypes(v []VacancyDriverLicenceTypeItem) {
 	o.DriverLicenseTypes = v
 }
 
@@ -309,7 +309,7 @@ func (o VacancyCreateFields) ToMap() (map[string]interface{}, error) {
 	toSerialize["area"] = o.Area
 	toSerialize["billing_type"] = o.BillingType
 	toSerialize["description"] = o.Description
-	if o.DriverLicenseTypes != nil {
+	if !IsNil(o.DriverLicenseTypes) {
 		toSerialize["driver_license_types"] = o.DriverLicenseTypes
 	}
 	if o.Manager.IsSet() {

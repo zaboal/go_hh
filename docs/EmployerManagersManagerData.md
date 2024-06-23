@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AdditionalPhone** | Pointer to [**EmployerManagersEmployerManagerInfoAdditionalPhone**](EmployerManagersEmployerManagerInfoAdditionalPhone.md) |  | [optional] 
 **Permissions** | Pointer to [**[]EmployerManagerTypesAvailablePermissions**](EmployerManagerTypesAvailablePermissions.md) | Список прав, которые можно дать данному типу менеджера | [optional] 
-**Phone** | Pointer to [**EmployerManagersEmployerManagerItemPhone**](EmployerManagersEmployerManagerItemPhone.md) |  | [optional] 
+**Phone** | Pointer to [**EmployerManagersEmployerManagerInfoPhone**](EmployerManagersEmployerManagerInfoPhone.md) |  | [optional] 
 **Position** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasPermissions returns a boolean if a field has been set.
 
 ### GetPhone
 
-`func (o *EmployerManagersManagerData) GetPhone() EmployerManagersEmployerManagerItemPhone`
+`func (o *EmployerManagersManagerData) GetPhone() EmployerManagersEmployerManagerInfoPhone`
 
 GetPhone returns the Phone field if non-nil, zero value otherwise.
 
 ### GetPhoneOk
 
-`func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool)`
+`func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool)`
 
 GetPhoneOk returns a tuple with the Phone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhone
 
-`func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersEmployerManagerItemPhone)`
+`func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersEmployerManagerInfoPhone)`
 
 SetPhone sets Phone field to given value.
 

@@ -29,8 +29,6 @@ type ResumeObjectsExperienceCreateEditResume struct {
 	CompanyId NullableString `json:"company_id,omitempty"`
 	// Сайт компании
 	CompanyUrl NullableString `json:"company_url,omitempty"`
-	// Обязанности, функции, достижения
-	Description NullableString `json:"description"`
 	Employer *EmployersEmployerInfoShort `json:"employer,omitempty"`
 	// Окончание работы (дата в формате `ГГГГ-ММ-ДД`)
 	End NullableString `json:"end,omitempty"`
@@ -42,6 +40,8 @@ type ResumeObjectsExperienceCreateEditResume struct {
 	Position string `json:"position"`
 	// Начало работы (дата в формате `ГГГГ-ММ-ДД`)
 	Start string `json:"start"`
+	// Обязанности, функции, достижения
+	Description NullableString `json:"description"`
 }
 
 type _ResumeObjectsExperienceCreateEditResume ResumeObjectsExperienceCreateEditResume
@@ -50,12 +50,12 @@ type _ResumeObjectsExperienceCreateEditResume ResumeObjectsExperienceCreateEditR
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeObjectsExperienceCreateEditResume(company NullableString, description NullableString, position string, start string) *ResumeObjectsExperienceCreateEditResume {
+func NewResumeObjectsExperienceCreateEditResume(company NullableString, position string, start string, description NullableString) *ResumeObjectsExperienceCreateEditResume {
 	this := ResumeObjectsExperienceCreateEditResume{}
 	this.Company = company
-	this.Description = description
 	this.Position = position
 	this.Start = start
+	this.Description = description
 	return &this
 }
 
@@ -207,32 +207,6 @@ func (o *ResumeObjectsExperienceCreateEditResume) SetCompanyUrlNil() {
 // UnsetCompanyUrl ensures that no value is present for CompanyUrl, not even an explicit nil
 func (o *ResumeObjectsExperienceCreateEditResume) UnsetCompanyUrl() {
 	o.CompanyUrl.Unset()
-}
-
-// GetDescription returns the Description field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *ResumeObjectsExperienceCreateEditResume) GetDescription() string {
-	if o == nil || o.Description.Get() == nil {
-		var ret string
-		return ret
-	}
-
-	return *o.Description.Get()
-}
-
-// GetDescriptionOk returns a tuple with the Description field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumeObjectsExperienceCreateEditResume) GetDescriptionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Description.Get(), o.Description.IsSet()
-}
-
-// SetDescription sets field value
-func (o *ResumeObjectsExperienceCreateEditResume) SetDescription(v string) {
-	o.Description.Set(&v)
 }
 
 // GetEmployer returns the Employer field value if set, zero value otherwise.
@@ -424,6 +398,32 @@ func (o *ResumeObjectsExperienceCreateEditResume) SetStart(v string) {
 	o.Start = v
 }
 
+// GetDescription returns the Description field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ResumeObjectsExperienceCreateEditResume) GetDescription() string {
+	if o == nil || o.Description.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperienceCreateEditResume) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// SetDescription sets field value
+func (o *ResumeObjectsExperienceCreateEditResume) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+
 func (o ResumeObjectsExperienceCreateEditResume) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -444,7 +444,6 @@ func (o ResumeObjectsExperienceCreateEditResume) ToMap() (map[string]interface{}
 	if o.CompanyUrl.IsSet() {
 		toSerialize["company_url"] = o.CompanyUrl.Get()
 	}
-	toSerialize["description"] = o.Description.Get()
 	if !IsNil(o.Employer) {
 		toSerialize["employer"] = o.Employer
 	}
@@ -459,6 +458,7 @@ func (o ResumeObjectsExperienceCreateEditResume) ToMap() (map[string]interface{}
 	}
 	toSerialize["position"] = o.Position
 	toSerialize["start"] = o.Start
+	toSerialize["description"] = o.Description.Get()
 	return toSerialize, nil
 }
 
@@ -468,9 +468,9 @@ func (o *ResumeObjectsExperienceCreateEditResume) UnmarshalJSON(data []byte) (er
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"company",
-		"description",
 		"position",
 		"start",
+		"description",
 	}
 
 	allProperties := make(map[string]interface{})

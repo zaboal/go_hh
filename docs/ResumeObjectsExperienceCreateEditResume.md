@@ -8,19 +8,19 @@ Name | Type | Description | Notes
 **Company** | **NullableString** | Название организации | 
 **CompanyId** | Pointer to **NullableString** | Уникальный идентификатор организации | [optional] 
 **CompanyUrl** | Pointer to **NullableString** | Сайт компании | [optional] 
-**Description** | **NullableString** | Обязанности, функции, достижения | 
 **Employer** | Pointer to [**EmployersEmployerInfoShort**](EmployersEmployerInfoShort.md) |  | [optional] 
 **End** | Pointer to **NullableString** | Окончание работы (дата в формате &#x60;ГГГГ-ММ-ДД&#x60;) | [optional] 
 **Industries** | Pointer to [**[]IncludesIdName**](IncludesIdName.md) | Список отраслей компании. Возможные значения приведены в [справочнике индустрий](#tag/Obshie-spravochniki/operation/get-industries) | [optional] 
 **Industry** | Pointer to [**ResumeObjectsIndustry**](ResumeObjectsIndustry.md) |  | [optional] 
 **Position** | **string** | Должность | 
 **Start** | **string** | Начало работы (дата в формате &#x60;ГГГГ-ММ-ДД&#x60;) | 
+**Description** | **NullableString** | Обязанности, функции, достижения | 
 
 ## Methods
 
 ### NewResumeObjectsExperienceCreateEditResume
 
-`func NewResumeObjectsExperienceCreateEditResume(company NullableString, description NullableString, position string, start string, ) *ResumeObjectsExperienceCreateEditResume`
+`func NewResumeObjectsExperienceCreateEditResume(company NullableString, position string, start string, description NullableString, ) *ResumeObjectsExperienceCreateEditResume`
 
 NewResumeObjectsExperienceCreateEditResume instantiates a new ResumeObjectsExperienceCreateEditResume object
 This constructor will assign default values to properties that have it defined,
@@ -160,36 +160,6 @@ HasCompanyUrl returns a boolean if a field has been set.
 `func (o *ResumeObjectsExperienceCreateEditResume) UnsetCompanyUrl()`
 
 UnsetCompanyUrl ensures that no value is present for CompanyUrl, not even an explicit nil
-### GetDescription
-
-`func (o *ResumeObjectsExperienceCreateEditResume) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *ResumeObjectsExperienceCreateEditResume) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *ResumeObjectsExperienceCreateEditResume) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-
-### SetDescriptionNil
-
-`func (o *ResumeObjectsExperienceCreateEditResume) SetDescriptionNil(b bool)`
-
- SetDescriptionNil sets the value for Description to be an explicit nil
-
-### UnsetDescription
-`func (o *ResumeObjectsExperienceCreateEditResume) UnsetDescription()`
-
-UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetEmployer
 
 `func (o *ResumeObjectsExperienceCreateEditResume) GetEmployer() EmployersEmployerInfoShort`
@@ -340,6 +310,36 @@ and a boolean to check if the value has been set.
 SetStart sets Start field to given value.
 
 
+### GetDescription
+
+`func (o *ResumeObjectsExperienceCreateEditResume) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *ResumeObjectsExperienceCreateEditResume) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *ResumeObjectsExperienceCreateEditResume) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+
+### SetDescriptionNil
+
+`func (o *ResumeObjectsExperienceCreateEditResume) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *ResumeObjectsExperienceCreateEditResume) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

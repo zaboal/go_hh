@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания резюме | 
 **Download** | **map[string]interface{}** | Ссылки для скачивания резюме в разных форматах | 
 **Education** | **map[string]interface{}** | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
-**Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
 **HiddenFields** | [**[]IncludesIdName**](IncludesIdName.md) | Справочник [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле &#x60;resume_hidden_fields&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
@@ -25,6 +24,7 @@ Name | Type | Description | Notes
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
+**Experience** | [**[]ResumeObjectsExperienceShort**](ResumeObjectsExperienceShort.md) | Опыт работы. В объекте опыта отсутствует описание (поле description), а также должность (поле position) доступна только в последнем опыте | 
 **Actions** | [**ResumeObjectsActions**](ResumeObjectsActions.md) | Дополнительные действия | 
 **Favorited** | **bool** | Добавлено ли резюме в избранные | 
 **NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryUrl**](ResumeObjectsNegotiationsHistoryUrl.md) | Краткая история откликов/приглашений по резюме | 
@@ -40,7 +40,7 @@ Name | Type | Description | Notes
 
 ### NewResumesSearchForEmployerAndApplicant
 
-`func NewResumesSearchForEmployerAndApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, ) *ResumesSearchForEmployerAndApplicant`
+`func NewResumesSearchForEmployerAndApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperienceShort, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, ) *ResumesSearchForEmployerAndApplicant`
 
 NewResumesSearchForEmployerAndApplicant instantiates a new ResumesSearchForEmployerAndApplicant object
 This constructor will assign default values to properties that have it defined,
@@ -308,26 +308,6 @@ and a boolean to check if the value has been set.
 `func (o *ResumesSearchForEmployerAndApplicant) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
-
-
-### GetExperience
-
-`func (o *ResumesSearchForEmployerAndApplicant) GetExperience() []ResumeObjectsExperience`
-
-GetExperience returns the Experience field if non-nil, zero value otherwise.
-
-### GetExperienceOk
-
-`func (o *ResumesSearchForEmployerAndApplicant) GetExperienceOk() (*[]ResumeObjectsExperience, bool)`
-
-GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExperience
-
-`func (o *ResumesSearchForEmployerAndApplicant) SetExperience(v []ResumeObjectsExperience)`
-
-SetExperience sets Experience field to given value.
 
 
 ### GetFirstName
@@ -628,6 +608,26 @@ and a boolean to check if the value has been set.
 `func (o *ResumesSearchForEmployerAndApplicant) SetUpdatedAt(v string)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
+
+
+### GetExperience
+
+`func (o *ResumesSearchForEmployerAndApplicant) GetExperience() []ResumeObjectsExperienceShort`
+
+GetExperience returns the Experience field if non-nil, zero value otherwise.
+
+### GetExperienceOk
+
+`func (o *ResumesSearchForEmployerAndApplicant) GetExperienceOk() (*[]ResumeObjectsExperienceShort, bool)`
+
+GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperience
+
+`func (o *ResumesSearchForEmployerAndApplicant) SetExperience(v []ResumeObjectsExperienceShort)`
+
+SetExperience sets Experience field to given value.
 
 
 ### GetActions

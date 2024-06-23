@@ -38,11 +38,14 @@ type VacancyEditCommon struct {
 	// Название компании для анонимных вакансий (`type.id=anonymous`), например \"крупный российский банк\". Поле становится обязательным при публикации вакансии **анонимного** типа
 	CustomEmployerName NullableString `json:"custom_employer_name,omitempty"`
 	Department NullableVacancyDepartment `json:"department,omitempty"`
-	DriverLicenseTypes []string `json:"driver_license_types,omitempty"`
+	// Список требуемых категорий водительских прав
+	DriverLicenseTypes []VacancyDriverLicenceTypeItem `json:"driver_license_types,omitempty"`
 	Employment NullableVacancyEmployment `json:"employment,omitempty"`
 	Experience NullableVacancyExperience `json:"experience,omitempty"`
-	KeySkills []string `json:"key_skills,omitempty"`
-	Languages []string `json:"languages,omitempty"`
+	// Список ключевых навыков, не более 30
+	KeySkills []VacancyKeySkillItem `json:"key_skills,omitempty"`
+	// Список языков вакансии
+	Languages []VacancyLanguage `json:"languages,omitempty"`
 	// Список профессиональных ролей
 	ProfessionalRoles []VacancyProfessionalRoleItem `json:"professional_roles,omitempty"`
 	// Обязательно ли заполнять сообщение при отклике на вакансию
@@ -505,10 +508,10 @@ func (o *VacancyEditCommon) UnsetDepartment() {
 	o.Department.Unset()
 }
 
-// GetDriverLicenseTypes returns the DriverLicenseTypes field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacancyEditCommon) GetDriverLicenseTypes() []string {
-	if o == nil {
-		var ret []string
+// GetDriverLicenseTypes returns the DriverLicenseTypes field value if set, zero value otherwise.
+func (o *VacancyEditCommon) GetDriverLicenseTypes() []VacancyDriverLicenceTypeItem {
+	if o == nil || IsNil(o.DriverLicenseTypes) {
+		var ret []VacancyDriverLicenceTypeItem
 		return ret
 	}
 	return o.DriverLicenseTypes
@@ -516,8 +519,7 @@ func (o *VacancyEditCommon) GetDriverLicenseTypes() []string {
 
 // GetDriverLicenseTypesOk returns a tuple with the DriverLicenseTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacancyEditCommon) GetDriverLicenseTypesOk() ([]string, bool) {
+func (o *VacancyEditCommon) GetDriverLicenseTypesOk() ([]VacancyDriverLicenceTypeItem, bool) {
 	if o == nil || IsNil(o.DriverLicenseTypes) {
 		return nil, false
 	}
@@ -533,8 +535,8 @@ func (o *VacancyEditCommon) HasDriverLicenseTypes() bool {
 	return false
 }
 
-// SetDriverLicenseTypes gets a reference to the given []string and assigns it to the DriverLicenseTypes field.
-func (o *VacancyEditCommon) SetDriverLicenseTypes(v []string) {
+// SetDriverLicenseTypes gets a reference to the given []VacancyDriverLicenceTypeItem and assigns it to the DriverLicenseTypes field.
+func (o *VacancyEditCommon) SetDriverLicenseTypes(v []VacancyDriverLicenceTypeItem) {
 	o.DriverLicenseTypes = v
 }
 
@@ -622,10 +624,10 @@ func (o *VacancyEditCommon) UnsetExperience() {
 	o.Experience.Unset()
 }
 
-// GetKeySkills returns the KeySkills field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacancyEditCommon) GetKeySkills() []string {
-	if o == nil {
-		var ret []string
+// GetKeySkills returns the KeySkills field value if set, zero value otherwise.
+func (o *VacancyEditCommon) GetKeySkills() []VacancyKeySkillItem {
+	if o == nil || IsNil(o.KeySkills) {
+		var ret []VacancyKeySkillItem
 		return ret
 	}
 	return o.KeySkills
@@ -633,8 +635,7 @@ func (o *VacancyEditCommon) GetKeySkills() []string {
 
 // GetKeySkillsOk returns a tuple with the KeySkills field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacancyEditCommon) GetKeySkillsOk() ([]string, bool) {
+func (o *VacancyEditCommon) GetKeySkillsOk() ([]VacancyKeySkillItem, bool) {
 	if o == nil || IsNil(o.KeySkills) {
 		return nil, false
 	}
@@ -650,15 +651,15 @@ func (o *VacancyEditCommon) HasKeySkills() bool {
 	return false
 }
 
-// SetKeySkills gets a reference to the given []string and assigns it to the KeySkills field.
-func (o *VacancyEditCommon) SetKeySkills(v []string) {
+// SetKeySkills gets a reference to the given []VacancyKeySkillItem and assigns it to the KeySkills field.
+func (o *VacancyEditCommon) SetKeySkills(v []VacancyKeySkillItem) {
 	o.KeySkills = v
 }
 
-// GetLanguages returns the Languages field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacancyEditCommon) GetLanguages() []string {
-	if o == nil {
-		var ret []string
+// GetLanguages returns the Languages field value if set, zero value otherwise.
+func (o *VacancyEditCommon) GetLanguages() []VacancyLanguage {
+	if o == nil || IsNil(o.Languages) {
+		var ret []VacancyLanguage
 		return ret
 	}
 	return o.Languages
@@ -666,8 +667,7 @@ func (o *VacancyEditCommon) GetLanguages() []string {
 
 // GetLanguagesOk returns a tuple with the Languages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacancyEditCommon) GetLanguagesOk() ([]string, bool) {
+func (o *VacancyEditCommon) GetLanguagesOk() ([]VacancyLanguage, bool) {
 	if o == nil || IsNil(o.Languages) {
 		return nil, false
 	}
@@ -683,8 +683,8 @@ func (o *VacancyEditCommon) HasLanguages() bool {
 	return false
 }
 
-// SetLanguages gets a reference to the given []string and assigns it to the Languages field.
-func (o *VacancyEditCommon) SetLanguages(v []string) {
+// SetLanguages gets a reference to the given []VacancyLanguage and assigns it to the Languages field.
+func (o *VacancyEditCommon) SetLanguages(v []VacancyLanguage) {
 	o.Languages = v
 }
 
@@ -1158,7 +1158,7 @@ func (o VacancyEditCommon) ToMap() (map[string]interface{}, error) {
 	if o.Department.IsSet() {
 		toSerialize["department"] = o.Department.Get()
 	}
-	if o.DriverLicenseTypes != nil {
+	if !IsNil(o.DriverLicenseTypes) {
 		toSerialize["driver_license_types"] = o.DriverLicenseTypes
 	}
 	if o.Employment.IsSet() {
@@ -1167,10 +1167,10 @@ func (o VacancyEditCommon) ToMap() (map[string]interface{}, error) {
 	if o.Experience.IsSet() {
 		toSerialize["experience"] = o.Experience.Get()
 	}
-	if o.KeySkills != nil {
+	if !IsNil(o.KeySkills) {
 		toSerialize["key_skills"] = o.KeySkills
 	}
-	if o.Languages != nil {
+	if !IsNil(o.Languages) {
 		toSerialize["languages"] = o.Languages
 	}
 	if !IsNil(o.ProfessionalRoles) {

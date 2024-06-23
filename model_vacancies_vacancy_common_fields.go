@@ -67,7 +67,8 @@ type VacanciesVacancyCommonFields struct {
 	InsiderInterview NullableVacancyInsiderInterview `json:"insider_interview,omitempty"`
 	// Список ключевых навыков, не более 30
 	KeySkills []VacancyKeySkillItem `json:"key_skills"`
-	Languages []string `json:"languages,omitempty"`
+	// Список языков вакансии. Значения из справочника [/languages](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	Languages []VacancyLanguageOutput `json:"languages,omitempty"`
 	// Название
 	Name string `json:"name"`
 	// Ссылка для получения списка откликов/приглашений
@@ -910,10 +911,10 @@ func (o *VacanciesVacancyCommonFields) SetKeySkills(v []VacancyKeySkillItem) {
 	o.KeySkills = v
 }
 
-// GetLanguages returns the Languages field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyCommonFields) GetLanguages() []string {
-	if o == nil {
-		var ret []string
+// GetLanguages returns the Languages field value if set, zero value otherwise.
+func (o *VacanciesVacancyCommonFields) GetLanguages() []VacancyLanguageOutput {
+	if o == nil || IsNil(o.Languages) {
+		var ret []VacancyLanguageOutput
 		return ret
 	}
 	return o.Languages
@@ -921,8 +922,7 @@ func (o *VacanciesVacancyCommonFields) GetLanguages() []string {
 
 // GetLanguagesOk returns a tuple with the Languages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyCommonFields) GetLanguagesOk() ([]string, bool) {
+func (o *VacanciesVacancyCommonFields) GetLanguagesOk() ([]VacancyLanguageOutput, bool) {
 	if o == nil || IsNil(o.Languages) {
 		return nil, false
 	}
@@ -938,8 +938,8 @@ func (o *VacanciesVacancyCommonFields) HasLanguages() bool {
 	return false
 }
 
-// SetLanguages gets a reference to the given []string and assigns it to the Languages field.
-func (o *VacanciesVacancyCommonFields) SetLanguages(v []string) {
+// SetLanguages gets a reference to the given []VacancyLanguageOutput and assigns it to the Languages field.
+func (o *VacanciesVacancyCommonFields) SetLanguages(v []VacancyLanguageOutput) {
 	o.Languages = v
 }
 
@@ -1588,7 +1588,7 @@ func (o VacanciesVacancyCommonFields) ToMap() (map[string]interface{}, error) {
 		toSerialize["insider_interview"] = o.InsiderInterview.Get()
 	}
 	toSerialize["key_skills"] = o.KeySkills
-	if o.Languages != nil {
+	if !IsNil(o.Languages) {
 		toSerialize["languages"] = o.Languages
 	}
 	toSerialize["name"] = o.Name

@@ -1,4 +1,4 @@
-# ResumeResumeShort
+# ResumeResumeProfileCommon
 
 ## Properties
 
@@ -18,773 +18,585 @@ Name | Type | Description | Notes
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
 **HiddenFields** | [**[]IncludesIdName**](IncludesIdName.md) | Справочник [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле &#x60;resume_hidden_fields&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **LastName** | Pointer to **NullableString** | Фамилия | [optional] 
-**Marked** | Pointer to **bool** | Выделено ли резюме в поиске | [optional] 
+**Marked** | Pointer to **bool** | Выделено ли резюме в поиске | [optional] [default to false]
 **MiddleName** | Pointer to **NullableString** | Отчество | [optional] 
 **Platform** | Pointer to **map[string]interface{}** | Ресурс, на котором было размещено резюме | [optional] 
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
-**Experience** | [**[]ResumeObjectsExperienceShort**](ResumeObjectsExperienceShort.md) | Опыт работы. В объекте опыта отсутствует описание (поле description), а также должность (поле position) доступна только в последнем опыте | 
-**Actions** | [**ResumeObjectsActions**](ResumeObjectsActions.md) | Дополнительные действия | 
-**Favorited** | **bool** | Добавлено ли резюме в избранные | 
-**NegotiationsHistory** | [**ResumeObjectsNegotiationsHistoryUrl**](ResumeObjectsNegotiationsHistoryUrl.md) | Краткая история откликов/приглашений по резюме | 
-**Owner** | [**ResumeObjectsOwner**](ResumeObjectsOwner.md) | Информация о владельце резюме | 
-**Photo** | Pointer to [**NullableResumeObjectsPhoto**](ResumeObjectsPhoto.md) |  | [optional] 
-**Tags** | Pointer to [**[]IncludesId**](IncludesId.md) | Теги к резюме | [optional] 
-**Viewed** | **bool** | Было ли резюме уже просмотрено работодателем | 
 
 ## Methods
 
-### NewResumeResumeShort
+### NewResumeResumeProfileCommon
 
-`func NewResumeResumeShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperienceShort, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, ) *ResumeResumeShort`
+`func NewResumeResumeProfileCommon(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, ) *ResumeResumeProfileCommon`
 
-NewResumeResumeShort instantiates a new ResumeResumeShort object
+NewResumeResumeProfileCommon instantiates a new ResumeResumeProfileCommon object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewResumeResumeShortWithDefaults
+### NewResumeResumeProfileCommonWithDefaults
 
-`func NewResumeResumeShortWithDefaults() *ResumeResumeShort`
+`func NewResumeResumeProfileCommonWithDefaults() *ResumeResumeProfileCommon`
 
-NewResumeResumeShortWithDefaults instantiates a new ResumeResumeShort object
+NewResumeResumeProfileCommonWithDefaults instantiates a new ResumeResumeProfileCommon object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetAlternateUrl
 
-`func (o *ResumeResumeShort) GetAlternateUrl() string`
+`func (o *ResumeResumeProfileCommon) GetAlternateUrl() string`
 
 GetAlternateUrl returns the AlternateUrl field if non-nil, zero value otherwise.
 
 ### GetAlternateUrlOk
 
-`func (o *ResumeResumeShort) GetAlternateUrlOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetAlternateUrlOk() (*string, bool)`
 
 GetAlternateUrlOk returns a tuple with the AlternateUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlternateUrl
 
-`func (o *ResumeResumeShort) SetAlternateUrl(v string)`
+`func (o *ResumeResumeProfileCommon) SetAlternateUrl(v string)`
 
 SetAlternateUrl sets AlternateUrl field to given value.
 
 
 ### GetId
 
-`func (o *ResumeResumeShort) GetId() string`
+`func (o *ResumeResumeProfileCommon) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *ResumeResumeShort) GetIdOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *ResumeResumeShort) SetId(v string)`
+`func (o *ResumeResumeProfileCommon) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
 ### GetTitle
 
-`func (o *ResumeResumeShort) GetTitle() string`
+`func (o *ResumeResumeProfileCommon) GetTitle() string`
 
 GetTitle returns the Title field if non-nil, zero value otherwise.
 
 ### GetTitleOk
 
-`func (o *ResumeResumeShort) GetTitleOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetTitleOk() (*string, bool)`
 
 GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTitle
 
-`func (o *ResumeResumeShort) SetTitle(v string)`
+`func (o *ResumeResumeProfileCommon) SetTitle(v string)`
 
 SetTitle sets Title field to given value.
 
 
 ### SetTitleNil
 
-`func (o *ResumeResumeShort) SetTitleNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetTitleNil(b bool)`
 
  SetTitleNil sets the value for Title to be an explicit nil
 
 ### UnsetTitle
-`func (o *ResumeResumeShort) UnsetTitle()`
+`func (o *ResumeResumeProfileCommon) UnsetTitle()`
 
 UnsetTitle ensures that no value is present for Title, not even an explicit nil
 ### GetAge
 
-`func (o *ResumeResumeShort) GetAge() float32`
+`func (o *ResumeResumeProfileCommon) GetAge() float32`
 
 GetAge returns the Age field if non-nil, zero value otherwise.
 
 ### GetAgeOk
 
-`func (o *ResumeResumeShort) GetAgeOk() (*float32, bool)`
+`func (o *ResumeResumeProfileCommon) GetAgeOk() (*float32, bool)`
 
 GetAgeOk returns a tuple with the Age field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAge
 
-`func (o *ResumeResumeShort) SetAge(v float32)`
+`func (o *ResumeResumeProfileCommon) SetAge(v float32)`
 
 SetAge sets Age field to given value.
 
 ### HasAge
 
-`func (o *ResumeResumeShort) HasAge() bool`
+`func (o *ResumeResumeProfileCommon) HasAge() bool`
 
 HasAge returns a boolean if a field has been set.
 
 ### SetAgeNil
 
-`func (o *ResumeResumeShort) SetAgeNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetAgeNil(b bool)`
 
  SetAgeNil sets the value for Age to be an explicit nil
 
 ### UnsetAge
-`func (o *ResumeResumeShort) UnsetAge()`
+`func (o *ResumeResumeProfileCommon) UnsetAge()`
 
 UnsetAge ensures that no value is present for Age, not even an explicit nil
 ### GetArea
 
-`func (o *ResumeResumeShort) GetArea() IncludesIdNameUrl`
+`func (o *ResumeResumeProfileCommon) GetArea() IncludesIdNameUrl`
 
 GetArea returns the Area field if non-nil, zero value otherwise.
 
 ### GetAreaOk
 
-`func (o *ResumeResumeShort) GetAreaOk() (*IncludesIdNameUrl, bool)`
+`func (o *ResumeResumeProfileCommon) GetAreaOk() (*IncludesIdNameUrl, bool)`
 
 GetAreaOk returns a tuple with the Area field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArea
 
-`func (o *ResumeResumeShort) SetArea(v IncludesIdNameUrl)`
+`func (o *ResumeResumeProfileCommon) SetArea(v IncludesIdNameUrl)`
 
 SetArea sets Area field to given value.
 
 ### HasArea
 
-`func (o *ResumeResumeShort) HasArea() bool`
+`func (o *ResumeResumeProfileCommon) HasArea() bool`
 
 HasArea returns a boolean if a field has been set.
 
 ### SetAreaNil
 
-`func (o *ResumeResumeShort) SetAreaNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetAreaNil(b bool)`
 
  SetAreaNil sets the value for Area to be an explicit nil
 
 ### UnsetArea
-`func (o *ResumeResumeShort) UnsetArea()`
+`func (o *ResumeResumeProfileCommon) UnsetArea()`
 
 UnsetArea ensures that no value is present for Area, not even an explicit nil
 ### GetCanViewFullInfo
 
-`func (o *ResumeResumeShort) GetCanViewFullInfo() bool`
+`func (o *ResumeResumeProfileCommon) GetCanViewFullInfo() bool`
 
 GetCanViewFullInfo returns the CanViewFullInfo field if non-nil, zero value otherwise.
 
 ### GetCanViewFullInfoOk
 
-`func (o *ResumeResumeShort) GetCanViewFullInfoOk() (*bool, bool)`
+`func (o *ResumeResumeProfileCommon) GetCanViewFullInfoOk() (*bool, bool)`
 
 GetCanViewFullInfoOk returns a tuple with the CanViewFullInfo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCanViewFullInfo
 
-`func (o *ResumeResumeShort) SetCanViewFullInfo(v bool)`
+`func (o *ResumeResumeProfileCommon) SetCanViewFullInfo(v bool)`
 
 SetCanViewFullInfo sets CanViewFullInfo field to given value.
 
 ### HasCanViewFullInfo
 
-`func (o *ResumeResumeShort) HasCanViewFullInfo() bool`
+`func (o *ResumeResumeProfileCommon) HasCanViewFullInfo() bool`
 
 HasCanViewFullInfo returns a boolean if a field has been set.
 
 ### SetCanViewFullInfoNil
 
-`func (o *ResumeResumeShort) SetCanViewFullInfoNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetCanViewFullInfoNil(b bool)`
 
  SetCanViewFullInfoNil sets the value for CanViewFullInfo to be an explicit nil
 
 ### UnsetCanViewFullInfo
-`func (o *ResumeResumeShort) UnsetCanViewFullInfo()`
+`func (o *ResumeResumeProfileCommon) UnsetCanViewFullInfo()`
 
 UnsetCanViewFullInfo ensures that no value is present for CanViewFullInfo, not even an explicit nil
 ### GetCertificate
 
-`func (o *ResumeResumeShort) GetCertificate() []ResumeObjectsCertificate`
+`func (o *ResumeResumeProfileCommon) GetCertificate() []ResumeObjectsCertificate`
 
 GetCertificate returns the Certificate field if non-nil, zero value otherwise.
 
 ### GetCertificateOk
 
-`func (o *ResumeResumeShort) GetCertificateOk() (*[]ResumeObjectsCertificate, bool)`
+`func (o *ResumeResumeProfileCommon) GetCertificateOk() (*[]ResumeObjectsCertificate, bool)`
 
 GetCertificateOk returns a tuple with the Certificate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCertificate
 
-`func (o *ResumeResumeShort) SetCertificate(v []ResumeObjectsCertificate)`
+`func (o *ResumeResumeProfileCommon) SetCertificate(v []ResumeObjectsCertificate)`
 
 SetCertificate sets Certificate field to given value.
 
 
 ### GetCreatedAt
 
-`func (o *ResumeResumeShort) GetCreatedAt() string`
+`func (o *ResumeResumeProfileCommon) GetCreatedAt() string`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *ResumeResumeShort) GetCreatedAtOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetCreatedAtOk() (*string, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *ResumeResumeShort) SetCreatedAt(v string)`
+`func (o *ResumeResumeProfileCommon) SetCreatedAt(v string)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetDownload
 
-`func (o *ResumeResumeShort) GetDownload() map[string]interface{}`
+`func (o *ResumeResumeProfileCommon) GetDownload() map[string]interface{}`
 
 GetDownload returns the Download field if non-nil, zero value otherwise.
 
 ### GetDownloadOk
 
-`func (o *ResumeResumeShort) GetDownloadOk() (*map[string]interface{}, bool)`
+`func (o *ResumeResumeProfileCommon) GetDownloadOk() (*map[string]interface{}, bool)`
 
 GetDownloadOk returns a tuple with the Download field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDownload
 
-`func (o *ResumeResumeShort) SetDownload(v map[string]interface{})`
+`func (o *ResumeResumeProfileCommon) SetDownload(v map[string]interface{})`
 
 SetDownload sets Download field to given value.
 
 
 ### GetEducation
 
-`func (o *ResumeResumeShort) GetEducation() map[string]interface{}`
+`func (o *ResumeResumeProfileCommon) GetEducation() map[string]interface{}`
 
 GetEducation returns the Education field if non-nil, zero value otherwise.
 
 ### GetEducationOk
 
-`func (o *ResumeResumeShort) GetEducationOk() (*map[string]interface{}, bool)`
+`func (o *ResumeResumeProfileCommon) GetEducationOk() (*map[string]interface{}, bool)`
 
 GetEducationOk returns a tuple with the Education field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEducation
 
-`func (o *ResumeResumeShort) SetEducation(v map[string]interface{})`
+`func (o *ResumeResumeProfileCommon) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
 
 
 ### GetFirstName
 
-`func (o *ResumeResumeShort) GetFirstName() string`
+`func (o *ResumeResumeProfileCommon) GetFirstName() string`
 
 GetFirstName returns the FirstName field if non-nil, zero value otherwise.
 
 ### GetFirstNameOk
 
-`func (o *ResumeResumeShort) GetFirstNameOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetFirstNameOk() (*string, bool)`
 
 GetFirstNameOk returns a tuple with the FirstName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFirstName
 
-`func (o *ResumeResumeShort) SetFirstName(v string)`
+`func (o *ResumeResumeProfileCommon) SetFirstName(v string)`
 
 SetFirstName sets FirstName field to given value.
 
 ### HasFirstName
 
-`func (o *ResumeResumeShort) HasFirstName() bool`
+`func (o *ResumeResumeProfileCommon) HasFirstName() bool`
 
 HasFirstName returns a boolean if a field has been set.
 
 ### SetFirstNameNil
 
-`func (o *ResumeResumeShort) SetFirstNameNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetFirstNameNil(b bool)`
 
  SetFirstNameNil sets the value for FirstName to be an explicit nil
 
 ### UnsetFirstName
-`func (o *ResumeResumeShort) UnsetFirstName()`
+`func (o *ResumeResumeProfileCommon) UnsetFirstName()`
 
 UnsetFirstName ensures that no value is present for FirstName, not even an explicit nil
 ### GetGender
 
-`func (o *ResumeResumeShort) GetGender() IncludesIdName`
+`func (o *ResumeResumeProfileCommon) GetGender() IncludesIdName`
 
 GetGender returns the Gender field if non-nil, zero value otherwise.
 
 ### GetGenderOk
 
-`func (o *ResumeResumeShort) GetGenderOk() (*IncludesIdName, bool)`
+`func (o *ResumeResumeProfileCommon) GetGenderOk() (*IncludesIdName, bool)`
 
 GetGenderOk returns a tuple with the Gender field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGender
 
-`func (o *ResumeResumeShort) SetGender(v IncludesIdName)`
+`func (o *ResumeResumeProfileCommon) SetGender(v IncludesIdName)`
 
 SetGender sets Gender field to given value.
 
 ### HasGender
 
-`func (o *ResumeResumeShort) HasGender() bool`
+`func (o *ResumeResumeProfileCommon) HasGender() bool`
 
 HasGender returns a boolean if a field has been set.
 
 ### SetGenderNil
 
-`func (o *ResumeResumeShort) SetGenderNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetGenderNil(b bool)`
 
  SetGenderNil sets the value for Gender to be an explicit nil
 
 ### UnsetGender
-`func (o *ResumeResumeShort) UnsetGender()`
+`func (o *ResumeResumeProfileCommon) UnsetGender()`
 
 UnsetGender ensures that no value is present for Gender, not even an explicit nil
 ### GetHiddenFields
 
-`func (o *ResumeResumeShort) GetHiddenFields() []IncludesIdName`
+`func (o *ResumeResumeProfileCommon) GetHiddenFields() []IncludesIdName`
 
 GetHiddenFields returns the HiddenFields field if non-nil, zero value otherwise.
 
 ### GetHiddenFieldsOk
 
-`func (o *ResumeResumeShort) GetHiddenFieldsOk() (*[]IncludesIdName, bool)`
+`func (o *ResumeResumeProfileCommon) GetHiddenFieldsOk() (*[]IncludesIdName, bool)`
 
 GetHiddenFieldsOk returns a tuple with the HiddenFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHiddenFields
 
-`func (o *ResumeResumeShort) SetHiddenFields(v []IncludesIdName)`
+`func (o *ResumeResumeProfileCommon) SetHiddenFields(v []IncludesIdName)`
 
 SetHiddenFields sets HiddenFields field to given value.
 
 
 ### GetLastName
 
-`func (o *ResumeResumeShort) GetLastName() string`
+`func (o *ResumeResumeProfileCommon) GetLastName() string`
 
 GetLastName returns the LastName field if non-nil, zero value otherwise.
 
 ### GetLastNameOk
 
-`func (o *ResumeResumeShort) GetLastNameOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetLastNameOk() (*string, bool)`
 
 GetLastNameOk returns a tuple with the LastName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastName
 
-`func (o *ResumeResumeShort) SetLastName(v string)`
+`func (o *ResumeResumeProfileCommon) SetLastName(v string)`
 
 SetLastName sets LastName field to given value.
 
 ### HasLastName
 
-`func (o *ResumeResumeShort) HasLastName() bool`
+`func (o *ResumeResumeProfileCommon) HasLastName() bool`
 
 HasLastName returns a boolean if a field has been set.
 
 ### SetLastNameNil
 
-`func (o *ResumeResumeShort) SetLastNameNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetLastNameNil(b bool)`
 
  SetLastNameNil sets the value for LastName to be an explicit nil
 
 ### UnsetLastName
-`func (o *ResumeResumeShort) UnsetLastName()`
+`func (o *ResumeResumeProfileCommon) UnsetLastName()`
 
 UnsetLastName ensures that no value is present for LastName, not even an explicit nil
 ### GetMarked
 
-`func (o *ResumeResumeShort) GetMarked() bool`
+`func (o *ResumeResumeProfileCommon) GetMarked() bool`
 
 GetMarked returns the Marked field if non-nil, zero value otherwise.
 
 ### GetMarkedOk
 
-`func (o *ResumeResumeShort) GetMarkedOk() (*bool, bool)`
+`func (o *ResumeResumeProfileCommon) GetMarkedOk() (*bool, bool)`
 
 GetMarkedOk returns a tuple with the Marked field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMarked
 
-`func (o *ResumeResumeShort) SetMarked(v bool)`
+`func (o *ResumeResumeProfileCommon) SetMarked(v bool)`
 
 SetMarked sets Marked field to given value.
 
 ### HasMarked
 
-`func (o *ResumeResumeShort) HasMarked() bool`
+`func (o *ResumeResumeProfileCommon) HasMarked() bool`
 
 HasMarked returns a boolean if a field has been set.
 
 ### GetMiddleName
 
-`func (o *ResumeResumeShort) GetMiddleName() string`
+`func (o *ResumeResumeProfileCommon) GetMiddleName() string`
 
 GetMiddleName returns the MiddleName field if non-nil, zero value otherwise.
 
 ### GetMiddleNameOk
 
-`func (o *ResumeResumeShort) GetMiddleNameOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetMiddleNameOk() (*string, bool)`
 
 GetMiddleNameOk returns a tuple with the MiddleName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMiddleName
 
-`func (o *ResumeResumeShort) SetMiddleName(v string)`
+`func (o *ResumeResumeProfileCommon) SetMiddleName(v string)`
 
 SetMiddleName sets MiddleName field to given value.
 
 ### HasMiddleName
 
-`func (o *ResumeResumeShort) HasMiddleName() bool`
+`func (o *ResumeResumeProfileCommon) HasMiddleName() bool`
 
 HasMiddleName returns a boolean if a field has been set.
 
 ### SetMiddleNameNil
 
-`func (o *ResumeResumeShort) SetMiddleNameNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetMiddleNameNil(b bool)`
 
  SetMiddleNameNil sets the value for MiddleName to be an explicit nil
 
 ### UnsetMiddleName
-`func (o *ResumeResumeShort) UnsetMiddleName()`
+`func (o *ResumeResumeProfileCommon) UnsetMiddleName()`
 
 UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
 ### GetPlatform
 
-`func (o *ResumeResumeShort) GetPlatform() map[string]interface{}`
+`func (o *ResumeResumeProfileCommon) GetPlatform() map[string]interface{}`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *ResumeResumeShort) GetPlatformOk() (*map[string]interface{}, bool)`
+`func (o *ResumeResumeProfileCommon) GetPlatformOk() (*map[string]interface{}, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *ResumeResumeShort) SetPlatform(v map[string]interface{})`
+`func (o *ResumeResumeProfileCommon) SetPlatform(v map[string]interface{})`
 
 SetPlatform sets Platform field to given value.
 
 ### HasPlatform
 
-`func (o *ResumeResumeShort) HasPlatform() bool`
+`func (o *ResumeResumeProfileCommon) HasPlatform() bool`
 
 HasPlatform returns a boolean if a field has been set.
 
 ### GetSalary
 
-`func (o *ResumeResumeShort) GetSalary() ResumeObjectsSalaryProperties`
+`func (o *ResumeResumeProfileCommon) GetSalary() ResumeObjectsSalaryProperties`
 
 GetSalary returns the Salary field if non-nil, zero value otherwise.
 
 ### GetSalaryOk
 
-`func (o *ResumeResumeShort) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool)`
+`func (o *ResumeResumeProfileCommon) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool)`
 
 GetSalaryOk returns a tuple with the Salary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSalary
 
-`func (o *ResumeResumeShort) SetSalary(v ResumeObjectsSalaryProperties)`
+`func (o *ResumeResumeProfileCommon) SetSalary(v ResumeObjectsSalaryProperties)`
 
 SetSalary sets Salary field to given value.
 
 ### HasSalary
 
-`func (o *ResumeResumeShort) HasSalary() bool`
+`func (o *ResumeResumeProfileCommon) HasSalary() bool`
 
 HasSalary returns a boolean if a field has been set.
 
 ### SetSalaryNil
 
-`func (o *ResumeResumeShort) SetSalaryNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetSalaryNil(b bool)`
 
  SetSalaryNil sets the value for Salary to be an explicit nil
 
 ### UnsetSalary
-`func (o *ResumeResumeShort) UnsetSalary()`
+`func (o *ResumeResumeProfileCommon) UnsetSalary()`
 
 UnsetSalary ensures that no value is present for Salary, not even an explicit nil
 ### GetTotalExperience
 
-`func (o *ResumeResumeShort) GetTotalExperience() ResumeObjectsTotalExperience`
+`func (o *ResumeResumeProfileCommon) GetTotalExperience() ResumeObjectsTotalExperience`
 
 GetTotalExperience returns the TotalExperience field if non-nil, zero value otherwise.
 
 ### GetTotalExperienceOk
 
-`func (o *ResumeResumeShort) GetTotalExperienceOk() (*ResumeObjectsTotalExperience, bool)`
+`func (o *ResumeResumeProfileCommon) GetTotalExperienceOk() (*ResumeObjectsTotalExperience, bool)`
 
 GetTotalExperienceOk returns a tuple with the TotalExperience field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalExperience
 
-`func (o *ResumeResumeShort) SetTotalExperience(v ResumeObjectsTotalExperience)`
+`func (o *ResumeResumeProfileCommon) SetTotalExperience(v ResumeObjectsTotalExperience)`
 
 SetTotalExperience sets TotalExperience field to given value.
 
 ### HasTotalExperience
 
-`func (o *ResumeResumeShort) HasTotalExperience() bool`
+`func (o *ResumeResumeProfileCommon) HasTotalExperience() bool`
 
 HasTotalExperience returns a boolean if a field has been set.
 
 ### SetTotalExperienceNil
 
-`func (o *ResumeResumeShort) SetTotalExperienceNil(b bool)`
+`func (o *ResumeResumeProfileCommon) SetTotalExperienceNil(b bool)`
 
  SetTotalExperienceNil sets the value for TotalExperience to be an explicit nil
 
 ### UnsetTotalExperience
-`func (o *ResumeResumeShort) UnsetTotalExperience()`
+`func (o *ResumeResumeProfileCommon) UnsetTotalExperience()`
 
 UnsetTotalExperience ensures that no value is present for TotalExperience, not even an explicit nil
 ### GetUpdatedAt
 
-`func (o *ResumeResumeShort) GetUpdatedAt() string`
+`func (o *ResumeResumeProfileCommon) GetUpdatedAt() string`
 
 GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
 
 ### GetUpdatedAtOk
 
-`func (o *ResumeResumeShort) GetUpdatedAtOk() (*string, bool)`
+`func (o *ResumeResumeProfileCommon) GetUpdatedAtOk() (*string, bool)`
 
 GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedAt
 
-`func (o *ResumeResumeShort) SetUpdatedAt(v string)`
+`func (o *ResumeResumeProfileCommon) SetUpdatedAt(v string)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
-
-
-### GetExperience
-
-`func (o *ResumeResumeShort) GetExperience() []ResumeObjectsExperienceShort`
-
-GetExperience returns the Experience field if non-nil, zero value otherwise.
-
-### GetExperienceOk
-
-`func (o *ResumeResumeShort) GetExperienceOk() (*[]ResumeObjectsExperienceShort, bool)`
-
-GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExperience
-
-`func (o *ResumeResumeShort) SetExperience(v []ResumeObjectsExperienceShort)`
-
-SetExperience sets Experience field to given value.
-
-
-### GetActions
-
-`func (o *ResumeResumeShort) GetActions() ResumeObjectsActions`
-
-GetActions returns the Actions field if non-nil, zero value otherwise.
-
-### GetActionsOk
-
-`func (o *ResumeResumeShort) GetActionsOk() (*ResumeObjectsActions, bool)`
-
-GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActions
-
-`func (o *ResumeResumeShort) SetActions(v ResumeObjectsActions)`
-
-SetActions sets Actions field to given value.
-
-
-### GetFavorited
-
-`func (o *ResumeResumeShort) GetFavorited() bool`
-
-GetFavorited returns the Favorited field if non-nil, zero value otherwise.
-
-### GetFavoritedOk
-
-`func (o *ResumeResumeShort) GetFavoritedOk() (*bool, bool)`
-
-GetFavoritedOk returns a tuple with the Favorited field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFavorited
-
-`func (o *ResumeResumeShort) SetFavorited(v bool)`
-
-SetFavorited sets Favorited field to given value.
-
-
-### GetNegotiationsHistory
-
-`func (o *ResumeResumeShort) GetNegotiationsHistory() ResumeObjectsNegotiationsHistoryUrl`
-
-GetNegotiationsHistory returns the NegotiationsHistory field if non-nil, zero value otherwise.
-
-### GetNegotiationsHistoryOk
-
-`func (o *ResumeResumeShort) GetNegotiationsHistoryOk() (*ResumeObjectsNegotiationsHistoryUrl, bool)`
-
-GetNegotiationsHistoryOk returns a tuple with the NegotiationsHistory field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNegotiationsHistory
-
-`func (o *ResumeResumeShort) SetNegotiationsHistory(v ResumeObjectsNegotiationsHistoryUrl)`
-
-SetNegotiationsHistory sets NegotiationsHistory field to given value.
-
-
-### GetOwner
-
-`func (o *ResumeResumeShort) GetOwner() ResumeObjectsOwner`
-
-GetOwner returns the Owner field if non-nil, zero value otherwise.
-
-### GetOwnerOk
-
-`func (o *ResumeResumeShort) GetOwnerOk() (*ResumeObjectsOwner, bool)`
-
-GetOwnerOk returns a tuple with the Owner field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOwner
-
-`func (o *ResumeResumeShort) SetOwner(v ResumeObjectsOwner)`
-
-SetOwner sets Owner field to given value.
-
-
-### GetPhoto
-
-`func (o *ResumeResumeShort) GetPhoto() ResumeObjectsPhoto`
-
-GetPhoto returns the Photo field if non-nil, zero value otherwise.
-
-### GetPhotoOk
-
-`func (o *ResumeResumeShort) GetPhotoOk() (*ResumeObjectsPhoto, bool)`
-
-GetPhotoOk returns a tuple with the Photo field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPhoto
-
-`func (o *ResumeResumeShort) SetPhoto(v ResumeObjectsPhoto)`
-
-SetPhoto sets Photo field to given value.
-
-### HasPhoto
-
-`func (o *ResumeResumeShort) HasPhoto() bool`
-
-HasPhoto returns a boolean if a field has been set.
-
-### SetPhotoNil
-
-`func (o *ResumeResumeShort) SetPhotoNil(b bool)`
-
- SetPhotoNil sets the value for Photo to be an explicit nil
-
-### UnsetPhoto
-`func (o *ResumeResumeShort) UnsetPhoto()`
-
-UnsetPhoto ensures that no value is present for Photo, not even an explicit nil
-### GetTags
-
-`func (o *ResumeResumeShort) GetTags() []IncludesId`
-
-GetTags returns the Tags field if non-nil, zero value otherwise.
-
-### GetTagsOk
-
-`func (o *ResumeResumeShort) GetTagsOk() (*[]IncludesId, bool)`
-
-GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTags
-
-`func (o *ResumeResumeShort) SetTags(v []IncludesId)`
-
-SetTags sets Tags field to given value.
-
-### HasTags
-
-`func (o *ResumeResumeShort) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
-
-### GetViewed
-
-`func (o *ResumeResumeShort) GetViewed() bool`
-
-GetViewed returns the Viewed field if non-nil, zero value otherwise.
-
-### GetViewedOk
-
-`func (o *ResumeResumeShort) GetViewedOk() (*bool, bool)`
-
-GetViewedOk returns a tuple with the Viewed field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetViewed
-
-`func (o *ResumeResumeShort) SetViewed(v bool)`
-
-SetViewed sets Viewed field to given value.
 
 
 

@@ -15,133 +15,379 @@ import (
 	"encoding/json"
 )
 
-// checks if the EmployerManagersManagerData type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EmployerManagersManagerData{}
+// checks if the ResumeObjectsExperiencePropertiesShort type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResumeObjectsExperiencePropertiesShort{}
 
-// EmployerManagersManagerData struct for EmployerManagersManagerData
-type EmployerManagersManagerData struct {
-	AdditionalPhone *EmployerManagersEmployerManagerInfoAdditionalPhone `json:"additional_phone,omitempty"`
-	// Список прав, которые можно дать данному типу менеджера
-	Permissions []EmployerManagerTypesAvailablePermissions `json:"permissions,omitempty"`
-	Phone *EmployerManagersEmployerManagerInfoPhone `json:"phone,omitempty"`
+// ResumeObjectsExperiencePropertiesShort struct for ResumeObjectsExperiencePropertiesShort
+type ResumeObjectsExperiencePropertiesShort struct {
+	Area NullableIncludesIdNameUrl `json:"area,omitempty"`
+	// Название организации
+	Company NullableString `json:"company,omitempty"`
+	// Уникальный идентификатор организации
+	CompanyId NullableString `json:"company_id,omitempty"`
+	// Сайт компании
+	CompanyUrl NullableString `json:"company_url,omitempty"`
+	Employer NullableEmployersEmployerInfoShort `json:"employer,omitempty"`
+	// Окончание работы (дата в формате `ГГГГ-ММ-ДД`)
+	End NullableString `json:"end,omitempty"`
+	// Список отраслей компании. Возможные значения приведены в [справочнике индустрий](#tag/Obshie-spravochniki/operation/get-industries)
+	Industries []IncludesIdName `json:"industries,omitempty"`
+	// Deprecated
+	Industry NullableResumeObjectsIndustry `json:"industry,omitempty"`
+	// Должность
 	Position *string `json:"position,omitempty"`
+	// Начало работы (дата в формате `ГГГГ-ММ-ДД`)
+	Start *string `json:"start,omitempty"`
 }
 
-// NewEmployerManagersManagerData instantiates a new EmployerManagersManagerData object
+// NewResumeObjectsExperiencePropertiesShort instantiates a new ResumeObjectsExperiencePropertiesShort object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployerManagersManagerData() *EmployerManagersManagerData {
-	this := EmployerManagersManagerData{}
+func NewResumeObjectsExperiencePropertiesShort() *ResumeObjectsExperiencePropertiesShort {
+	this := ResumeObjectsExperiencePropertiesShort{}
 	return &this
 }
 
-// NewEmployerManagersManagerDataWithDefaults instantiates a new EmployerManagersManagerData object
+// NewResumeObjectsExperiencePropertiesShortWithDefaults instantiates a new ResumeObjectsExperiencePropertiesShort object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEmployerManagersManagerDataWithDefaults() *EmployerManagersManagerData {
-	this := EmployerManagersManagerData{}
+func NewResumeObjectsExperiencePropertiesShortWithDefaults() *ResumeObjectsExperiencePropertiesShort {
+	this := ResumeObjectsExperiencePropertiesShort{}
 	return &this
 }
 
-// GetAdditionalPhone returns the AdditionalPhone field value if set, zero value otherwise.
-func (o *EmployerManagersManagerData) GetAdditionalPhone() EmployerManagersEmployerManagerInfoAdditionalPhone {
-	if o == nil || IsNil(o.AdditionalPhone) {
-		var ret EmployerManagersEmployerManagerInfoAdditionalPhone
+// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperiencePropertiesShort) GetArea() IncludesIdNameUrl {
+	if o == nil || IsNil(o.Area.Get()) {
+		var ret IncludesIdNameUrl
 		return ret
 	}
-	return *o.AdditionalPhone
+	return *o.Area.Get()
 }
 
-// GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field value if set, nil otherwise
+// GetAreaOk returns a tuple with the Area field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersManagerData) GetAdditionalPhoneOk() (*EmployerManagersEmployerManagerInfoAdditionalPhone, bool) {
-	if o == nil || IsNil(o.AdditionalPhone) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperiencePropertiesShort) GetAreaOk() (*IncludesIdNameUrl, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AdditionalPhone, true
+	return o.Area.Get(), o.Area.IsSet()
 }
 
-// HasAdditionalPhone returns a boolean if a field has been set.
-func (o *EmployerManagersManagerData) HasAdditionalPhone() bool {
-	if o != nil && !IsNil(o.AdditionalPhone) {
+// HasArea returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasArea() bool {
+	if o != nil && o.Area.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAdditionalPhone gets a reference to the given EmployerManagersEmployerManagerInfoAdditionalPhone and assigns it to the AdditionalPhone field.
-func (o *EmployerManagersManagerData) SetAdditionalPhone(v EmployerManagersEmployerManagerInfoAdditionalPhone) {
-	o.AdditionalPhone = &v
+// SetArea gets a reference to the given NullableIncludesIdNameUrl and assigns it to the Area field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetArea(v IncludesIdNameUrl) {
+	o.Area.Set(&v)
+}
+// SetAreaNil sets the value for Area to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetAreaNil() {
+	o.Area.Set(nil)
 }
 
-// GetPermissions returns the Permissions field value if set, zero value otherwise.
-func (o *EmployerManagersManagerData) GetPermissions() []EmployerManagerTypesAvailablePermissions {
-	if o == nil || IsNil(o.Permissions) {
-		var ret []EmployerManagerTypesAvailablePermissions
+// UnsetArea ensures that no value is present for Area, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetArea() {
+	o.Area.Unset()
+}
+
+// GetCompany returns the Company field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperiencePropertiesShort) GetCompany() string {
+	if o == nil || IsNil(o.Company.Get()) {
+		var ret string
 		return ret
 	}
-	return o.Permissions
+	return *o.Company.Get()
 }
 
-// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
+// GetCompanyOk returns a tuple with the Company field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersManagerData) GetPermissionsOk() ([]EmployerManagerTypesAvailablePermissions, bool) {
-	if o == nil || IsNil(o.Permissions) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperiencePropertiesShort) GetCompanyOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Permissions, true
+	return o.Company.Get(), o.Company.IsSet()
 }
 
-// HasPermissions returns a boolean if a field has been set.
-func (o *EmployerManagersManagerData) HasPermissions() bool {
-	if o != nil && !IsNil(o.Permissions) {
+// HasCompany returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasCompany() bool {
+	if o != nil && o.Company.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPermissions gets a reference to the given []EmployerManagerTypesAvailablePermissions and assigns it to the Permissions field.
-func (o *EmployerManagersManagerData) SetPermissions(v []EmployerManagerTypesAvailablePermissions) {
-	o.Permissions = v
+// SetCompany gets a reference to the given NullableString and assigns it to the Company field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetCompany(v string) {
+	o.Company.Set(&v)
+}
+// SetCompanyNil sets the value for Company to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetCompanyNil() {
+	o.Company.Set(nil)
 }
 
-// GetPhone returns the Phone field value if set, zero value otherwise.
-func (o *EmployerManagersManagerData) GetPhone() EmployerManagersEmployerManagerInfoPhone {
-	if o == nil || IsNil(o.Phone) {
-		var ret EmployerManagersEmployerManagerInfoPhone
+// UnsetCompany ensures that no value is present for Company, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetCompany() {
+	o.Company.Unset()
+}
+
+// GetCompanyId returns the CompanyId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperiencePropertiesShort) GetCompanyId() string {
+	if o == nil || IsNil(o.CompanyId.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.Phone
+	return *o.CompanyId.Get()
 }
 
-// GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
+// GetCompanyIdOk returns a tuple with the CompanyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersManagerData) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool) {
-	if o == nil || IsNil(o.Phone) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperiencePropertiesShort) GetCompanyIdOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Phone, true
+	return o.CompanyId.Get(), o.CompanyId.IsSet()
 }
 
-// HasPhone returns a boolean if a field has been set.
-func (o *EmployerManagersManagerData) HasPhone() bool {
-	if o != nil && !IsNil(o.Phone) {
+// HasCompanyId returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasCompanyId() bool {
+	if o != nil && o.CompanyId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPhone gets a reference to the given EmployerManagersEmployerManagerInfoPhone and assigns it to the Phone field.
-func (o *EmployerManagersManagerData) SetPhone(v EmployerManagersEmployerManagerInfoPhone) {
-	o.Phone = &v
+// SetCompanyId gets a reference to the given NullableString and assigns it to the CompanyId field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetCompanyId(v string) {
+	o.CompanyId.Set(&v)
+}
+// SetCompanyIdNil sets the value for CompanyId to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetCompanyIdNil() {
+	o.CompanyId.Set(nil)
+}
+
+// UnsetCompanyId ensures that no value is present for CompanyId, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetCompanyId() {
+	o.CompanyId.Unset()
+}
+
+// GetCompanyUrl returns the CompanyUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperiencePropertiesShort) GetCompanyUrl() string {
+	if o == nil || IsNil(o.CompanyUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.CompanyUrl.Get()
+}
+
+// GetCompanyUrlOk returns a tuple with the CompanyUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperiencePropertiesShort) GetCompanyUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CompanyUrl.Get(), o.CompanyUrl.IsSet()
+}
+
+// HasCompanyUrl returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasCompanyUrl() bool {
+	if o != nil && o.CompanyUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCompanyUrl gets a reference to the given NullableString and assigns it to the CompanyUrl field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetCompanyUrl(v string) {
+	o.CompanyUrl.Set(&v)
+}
+// SetCompanyUrlNil sets the value for CompanyUrl to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetCompanyUrlNil() {
+	o.CompanyUrl.Set(nil)
+}
+
+// UnsetCompanyUrl ensures that no value is present for CompanyUrl, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetCompanyUrl() {
+	o.CompanyUrl.Unset()
+}
+
+// GetEmployer returns the Employer field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperiencePropertiesShort) GetEmployer() EmployersEmployerInfoShort {
+	if o == nil || IsNil(o.Employer.Get()) {
+		var ret EmployersEmployerInfoShort
+		return ret
+	}
+	return *o.Employer.Get()
+}
+
+// GetEmployerOk returns a tuple with the Employer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperiencePropertiesShort) GetEmployerOk() (*EmployersEmployerInfoShort, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Employer.Get(), o.Employer.IsSet()
+}
+
+// HasEmployer returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasEmployer() bool {
+	if o != nil && o.Employer.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEmployer gets a reference to the given NullableEmployersEmployerInfoShort and assigns it to the Employer field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetEmployer(v EmployersEmployerInfoShort) {
+	o.Employer.Set(&v)
+}
+// SetEmployerNil sets the value for Employer to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetEmployerNil() {
+	o.Employer.Set(nil)
+}
+
+// UnsetEmployer ensures that no value is present for Employer, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetEmployer() {
+	o.Employer.Unset()
+}
+
+// GetEnd returns the End field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsExperiencePropertiesShort) GetEnd() string {
+	if o == nil || IsNil(o.End.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.End.Get()
+}
+
+// GetEndOk returns a tuple with the End field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsExperiencePropertiesShort) GetEndOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.End.Get(), o.End.IsSet()
+}
+
+// HasEnd returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasEnd() bool {
+	if o != nil && o.End.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEnd gets a reference to the given NullableString and assigns it to the End field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetEnd(v string) {
+	o.End.Set(&v)
+}
+// SetEndNil sets the value for End to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetEndNil() {
+	o.End.Set(nil)
+}
+
+// UnsetEnd ensures that no value is present for End, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetEnd() {
+	o.End.Unset()
+}
+
+// GetIndustries returns the Industries field value if set, zero value otherwise.
+func (o *ResumeObjectsExperiencePropertiesShort) GetIndustries() []IncludesIdName {
+	if o == nil || IsNil(o.Industries) {
+		var ret []IncludesIdName
+		return ret
+	}
+	return o.Industries
+}
+
+// GetIndustriesOk returns a tuple with the Industries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) GetIndustriesOk() ([]IncludesIdName, bool) {
+	if o == nil || IsNil(o.Industries) {
+		return nil, false
+	}
+	return o.Industries, true
+}
+
+// HasIndustries returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasIndustries() bool {
+	if o != nil && !IsNil(o.Industries) {
+		return true
+	}
+
+	return false
+}
+
+// SetIndustries gets a reference to the given []IncludesIdName and assigns it to the Industries field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetIndustries(v []IncludesIdName) {
+	o.Industries = v
+}
+
+// GetIndustry returns the Industry field value if set, zero value otherwise (both if not set or set to explicit null).
+// Deprecated
+func (o *ResumeObjectsExperiencePropertiesShort) GetIndustry() ResumeObjectsIndustry {
+	if o == nil || IsNil(o.Industry.Get()) {
+		var ret ResumeObjectsIndustry
+		return ret
+	}
+	return *o.Industry.Get()
+}
+
+// GetIndustryOk returns a tuple with the Industry field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+// Deprecated
+func (o *ResumeObjectsExperiencePropertiesShort) GetIndustryOk() (*ResumeObjectsIndustry, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Industry.Get(), o.Industry.IsSet()
+}
+
+// HasIndustry returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasIndustry() bool {
+	if o != nil && o.Industry.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIndustry gets a reference to the given NullableResumeObjectsIndustry and assigns it to the Industry field.
+// Deprecated
+func (o *ResumeObjectsExperiencePropertiesShort) SetIndustry(v ResumeObjectsIndustry) {
+	o.Industry.Set(&v)
+}
+// SetIndustryNil sets the value for Industry to be an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) SetIndustryNil() {
+	o.Industry.Set(nil)
+}
+
+// UnsetIndustry ensures that no value is present for Industry, not even an explicit nil
+func (o *ResumeObjectsExperiencePropertiesShort) UnsetIndustry() {
+	o.Industry.Unset()
 }
 
 // GetPosition returns the Position field value if set, zero value otherwise.
-func (o *EmployerManagersManagerData) GetPosition() string {
+func (o *ResumeObjectsExperiencePropertiesShort) GetPosition() string {
 	if o == nil || IsNil(o.Position) {
 		var ret string
 		return ret
@@ -151,7 +397,7 @@ func (o *EmployerManagersManagerData) GetPosition() string {
 
 // GetPositionOk returns a tuple with the Position field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersManagerData) GetPositionOk() (*string, bool) {
+func (o *ResumeObjectsExperiencePropertiesShort) GetPositionOk() (*string, bool) {
 	if o == nil || IsNil(o.Position) {
 		return nil, false
 	}
@@ -159,7 +405,7 @@ func (o *EmployerManagersManagerData) GetPositionOk() (*string, bool) {
 }
 
 // HasPosition returns a boolean if a field has been set.
-func (o *EmployerManagersManagerData) HasPosition() bool {
+func (o *ResumeObjectsExperiencePropertiesShort) HasPosition() bool {
 	if o != nil && !IsNil(o.Position) {
 		return true
 	}
@@ -168,11 +414,43 @@ func (o *EmployerManagersManagerData) HasPosition() bool {
 }
 
 // SetPosition gets a reference to the given string and assigns it to the Position field.
-func (o *EmployerManagersManagerData) SetPosition(v string) {
+func (o *ResumeObjectsExperiencePropertiesShort) SetPosition(v string) {
 	o.Position = &v
 }
 
-func (o EmployerManagersManagerData) MarshalJSON() ([]byte, error) {
+// GetStart returns the Start field value if set, zero value otherwise.
+func (o *ResumeObjectsExperiencePropertiesShort) GetStart() string {
+	if o == nil || IsNil(o.Start) {
+		var ret string
+		return ret
+	}
+	return *o.Start
+}
+
+// GetStartOk returns a tuple with the Start field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) GetStartOk() (*string, bool) {
+	if o == nil || IsNil(o.Start) {
+		return nil, false
+	}
+	return o.Start, true
+}
+
+// HasStart returns a boolean if a field has been set.
+func (o *ResumeObjectsExperiencePropertiesShort) HasStart() bool {
+	if o != nil && !IsNil(o.Start) {
+		return true
+	}
+
+	return false
+}
+
+// SetStart gets a reference to the given string and assigns it to the Start field.
+func (o *ResumeObjectsExperiencePropertiesShort) SetStart(v string) {
+	o.Start = &v
+}
+
+func (o ResumeObjectsExperiencePropertiesShort) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -180,55 +458,73 @@ func (o EmployerManagersManagerData) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EmployerManagersManagerData) ToMap() (map[string]interface{}, error) {
+func (o ResumeObjectsExperiencePropertiesShort) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AdditionalPhone) {
-		toSerialize["additional_phone"] = o.AdditionalPhone
+	if o.Area.IsSet() {
+		toSerialize["area"] = o.Area.Get()
 	}
-	if !IsNil(o.Permissions) {
-		toSerialize["permissions"] = o.Permissions
+	if o.Company.IsSet() {
+		toSerialize["company"] = o.Company.Get()
 	}
-	if !IsNil(o.Phone) {
-		toSerialize["phone"] = o.Phone
+	if o.CompanyId.IsSet() {
+		toSerialize["company_id"] = o.CompanyId.Get()
+	}
+	if o.CompanyUrl.IsSet() {
+		toSerialize["company_url"] = o.CompanyUrl.Get()
+	}
+	if o.Employer.IsSet() {
+		toSerialize["employer"] = o.Employer.Get()
+	}
+	if o.End.IsSet() {
+		toSerialize["end"] = o.End.Get()
+	}
+	if !IsNil(o.Industries) {
+		toSerialize["industries"] = o.Industries
+	}
+	if o.Industry.IsSet() {
+		toSerialize["industry"] = o.Industry.Get()
 	}
 	if !IsNil(o.Position) {
 		toSerialize["position"] = o.Position
 	}
+	if !IsNil(o.Start) {
+		toSerialize["start"] = o.Start
+	}
 	return toSerialize, nil
 }
 
-type NullableEmployerManagersManagerData struct {
-	value *EmployerManagersManagerData
+type NullableResumeObjectsExperiencePropertiesShort struct {
+	value *ResumeObjectsExperiencePropertiesShort
 	isSet bool
 }
 
-func (v NullableEmployerManagersManagerData) Get() *EmployerManagersManagerData {
+func (v NullableResumeObjectsExperiencePropertiesShort) Get() *ResumeObjectsExperiencePropertiesShort {
 	return v.value
 }
 
-func (v *NullableEmployerManagersManagerData) Set(val *EmployerManagersManagerData) {
+func (v *NullableResumeObjectsExperiencePropertiesShort) Set(val *ResumeObjectsExperiencePropertiesShort) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEmployerManagersManagerData) IsSet() bool {
+func (v NullableResumeObjectsExperiencePropertiesShort) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEmployerManagersManagerData) Unset() {
+func (v *NullableResumeObjectsExperiencePropertiesShort) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEmployerManagersManagerData(val *EmployerManagersManagerData) *NullableEmployerManagersManagerData {
-	return &NullableEmployerManagersManagerData{value: val, isSet: true}
+func NewNullableResumeObjectsExperiencePropertiesShort(val *ResumeObjectsExperiencePropertiesShort) *NullableResumeObjectsExperiencePropertiesShort {
+	return &NullableResumeObjectsExperiencePropertiesShort{value: val, isSet: true}
 }
 
-func (v NullableEmployerManagersManagerData) MarshalJSON() ([]byte, error) {
+func (v NullableResumeObjectsExperiencePropertiesShort) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEmployerManagersManagerData) UnmarshalJSON(src []byte) error {
+func (v *NullableResumeObjectsExperiencePropertiesShort) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

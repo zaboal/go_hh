@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания резюме | 
 **Download** | **map[string]interface{}** | Ссылки для скачивания резюме в разных форматах | 
 **Education** | **map[string]interface{}** | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
-**Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
 **HiddenFields** | [**[]IncludesIdName**](IncludesIdName.md) | Справочник [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле &#x60;resume_hidden_fields&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
@@ -25,12 +24,13 @@ Name | Type | Description | Notes
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
+**Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 
 ## Methods
 
 ### NewResumeResumeProfile
 
-`func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, ) *ResumeResumeProfile`
+`func NewResumeResumeProfile(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperience, ) *ResumeResumeProfile`
 
 NewResumeResumeProfile instantiates a new ResumeResumeProfile object
 This constructor will assign default values to properties that have it defined,
@@ -298,26 +298,6 @@ and a boolean to check if the value has been set.
 `func (o *ResumeResumeProfile) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
-
-
-### GetExperience
-
-`func (o *ResumeResumeProfile) GetExperience() []ResumeObjectsExperience`
-
-GetExperience returns the Experience field if non-nil, zero value otherwise.
-
-### GetExperienceOk
-
-`func (o *ResumeResumeProfile) GetExperienceOk() (*[]ResumeObjectsExperience, bool)`
-
-GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExperience
-
-`func (o *ResumeResumeProfile) SetExperience(v []ResumeObjectsExperience)`
-
-SetExperience sets Experience field to given value.
 
 
 ### GetFirstName
@@ -618,6 +598,26 @@ and a boolean to check if the value has been set.
 `func (o *ResumeResumeProfile) SetUpdatedAt(v string)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
+
+
+### GetExperience
+
+`func (o *ResumeResumeProfile) GetExperience() []ResumeObjectsExperience`
+
+GetExperience returns the Experience field if non-nil, zero value otherwise.
+
+### GetExperienceOk
+
+`func (o *ResumeResumeProfile) GetExperienceOk() (*[]ResumeObjectsExperience, bool)`
+
+GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperience
+
+`func (o *ResumeResumeProfile) SetExperience(v []ResumeObjectsExperience)`
+
+SetExperience sets Experience field to given value.
 
 
 

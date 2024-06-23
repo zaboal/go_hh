@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **CreatedAt** | **string** | Дата и время создания резюме | 
 **Download** | **map[string]interface{}** | Ссылки для скачивания резюме в разных форматах | 
 **Education** | **map[string]interface{}** | Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \&quot;средний\&quot;, то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \&quot;высшее\&quot;, то сохранится только высшее образование  | 
-**Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **FirstName** | Pointer to **NullableString** | Имя | [optional] 
 **Gender** | Pointer to [**NullableIncludesIdName**](IncludesIdName.md) |  | [optional] 
 **HiddenFields** | [**[]IncludesIdName**](IncludesIdName.md) | Справочник [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле &#x60;resume_hidden_fields&#x60; [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
@@ -25,6 +24,7 @@ Name | Type | Description | Notes
 **Salary** | Pointer to [**NullableResumeObjectsSalaryProperties**](ResumeObjectsSalaryProperties.md) |  | [optional] 
 **TotalExperience** | Pointer to [**NullableResumeObjectsTotalExperience**](ResumeObjectsTotalExperience.md) |  | [optional] 
 **UpdatedAt** | **string** | Дата и время обновления резюме | 
+**Experience** | [**[]ResumeObjectsExperience**](ResumeObjectsExperience.md) | Опыт работы | 
 **BirthDate** | Pointer to **NullableString** | День рождения (в формате &#x60;ГГГГ-ММ-ДД&#x60;) | [optional] 
 **BusinessTripReadiness** | [**IncludesIdName**](IncludesIdName.md) | Готовность к командировкам. Элемент справочника [business_trip_readiness](#tag/Obshie-spravochniki/operation/get-dictionaries) | 
 **Citizenship** | [**[]IncludesIdNameUrl**](IncludesIdNameUrl.md) | Список гражданств соискателя. Элементы [справочника регионов](#tag/Obshie-spravochniki/operation/get-areas) | 
@@ -69,7 +69,7 @@ Name | Type | Description | Notes
 
 ### NewResumeResumeForApplicant
 
-`func NewResumeResumeForApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsPaidServices, recommendation []ResumeObjectsRecommendation, relocation map[string]interface{}, resumeLocale map[string]interface{}, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, blocked bool, finished bool, status IncludesIdName, moderationNote []ResumeObjectsModerationNote, progress ResumeObjectsProgress, publishUrl string, access ResumeObjectsAccess, actions ResumeObjectsActionsForOwner, newViews float32, totalViews float32, viewsUrl string, portfolio []ResumeObjectsPortfolio, ) *ResumeResumeForApplicant`
+`func NewResumeResumeForApplicant(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperience, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsPaidServices, recommendation []ResumeObjectsRecommendation, relocation map[string]interface{}, resumeLocale map[string]interface{}, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, blocked bool, finished bool, status IncludesIdName, moderationNote []ResumeObjectsModerationNote, progress ResumeObjectsProgress, publishUrl string, access ResumeObjectsAccess, actions ResumeObjectsActionsForOwner, newViews float32, totalViews float32, viewsUrl string, portfolio []ResumeObjectsPortfolio, ) *ResumeResumeForApplicant`
 
 NewResumeResumeForApplicant instantiates a new ResumeResumeForApplicant object
 This constructor will assign default values to properties that have it defined,
@@ -337,26 +337,6 @@ and a boolean to check if the value has been set.
 `func (o *ResumeResumeForApplicant) SetEducation(v map[string]interface{})`
 
 SetEducation sets Education field to given value.
-
-
-### GetExperience
-
-`func (o *ResumeResumeForApplicant) GetExperience() []ResumeObjectsExperience`
-
-GetExperience returns the Experience field if non-nil, zero value otherwise.
-
-### GetExperienceOk
-
-`func (o *ResumeResumeForApplicant) GetExperienceOk() (*[]ResumeObjectsExperience, bool)`
-
-GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExperience
-
-`func (o *ResumeResumeForApplicant) SetExperience(v []ResumeObjectsExperience)`
-
-SetExperience sets Experience field to given value.
 
 
 ### GetFirstName
@@ -657,6 +637,26 @@ and a boolean to check if the value has been set.
 `func (o *ResumeResumeForApplicant) SetUpdatedAt(v string)`
 
 SetUpdatedAt sets UpdatedAt field to given value.
+
+
+### GetExperience
+
+`func (o *ResumeResumeForApplicant) GetExperience() []ResumeObjectsExperience`
+
+GetExperience returns the Experience field if non-nil, zero value otherwise.
+
+### GetExperienceOk
+
+`func (o *ResumeResumeForApplicant) GetExperienceOk() (*[]ResumeObjectsExperience, bool)`
+
+GetExperienceOk returns a tuple with the Experience field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperience
+
+`func (o *ResumeResumeForApplicant) SetExperience(v []ResumeObjectsExperience)`
+
+SetExperience sets Experience field to given value.
 
 
 ### GetBirthDate

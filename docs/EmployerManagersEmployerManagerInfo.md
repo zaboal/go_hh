@@ -16,15 +16,17 @@ Name | Type | Description | Notes
 **MiddleName** | Pointer to **string** | Отчество менеджера | [optional] 
 **Name** | Pointer to **string** | Полное имя менеджера | [optional] 
 **Permissions** | [**[]EmployerManagerTypesAvailablePermissions**](EmployerManagerTypesAvailablePermissions.md) | Список [прав менеджера](#tag/Menedzhery-rabotodatelya/operation/get-employer-manager-types) | 
-**Phone** | [**EmployerManagersEmployerManagerItemPhone**](EmployerManagersEmployerManagerItemPhone.md) |  | 
+**Phone** | [**EmployerManagersEmployerManagerInfoPhone**](EmployerManagersEmployerManagerInfoPhone.md) |  | 
 **Position** | **string** | Должность менеджера | 
+**SpecialNote1** | Pointer to **NullableString** | Первый спецпризнак менеджера | [optional] 
+**SpecialNote2** | Pointer to **NullableString** | Второй спецпризнак менеджера | [optional] 
 **VacanciesCount** | Pointer to **NullableFloat32** | Количество опубликованных (активных) вакансий у данного менеджера. &#x60;null&#x60; — если у пользователя нет прав на просмотр вакансий этого менеджера | [optional] 
 
 ## Methods
 
 ### NewEmployerManagersEmployerManagerInfo
 
-`func NewEmployerManagersEmployerManagerInfo(email string, firstName string, id string, isMainContactPerson bool, lastName string, permissions []EmployerManagerTypesAvailablePermissions, phone EmployerManagersEmployerManagerItemPhone, position string, ) *EmployerManagersEmployerManagerInfo`
+`func NewEmployerManagersEmployerManagerInfo(email string, firstName string, id string, isMainContactPerson bool, lastName string, permissions []EmployerManagerTypesAvailablePermissions, phone EmployerManagersEmployerManagerInfoPhone, position string, ) *EmployerManagersEmployerManagerInfo`
 
 NewEmployerManagersEmployerManagerInfo instantiates a new EmployerManagersEmployerManagerInfo object
 This constructor will assign default values to properties that have it defined,
@@ -311,20 +313,20 @@ SetPermissions sets Permissions field to given value.
 
 ### GetPhone
 
-`func (o *EmployerManagersEmployerManagerInfo) GetPhone() EmployerManagersEmployerManagerItemPhone`
+`func (o *EmployerManagersEmployerManagerInfo) GetPhone() EmployerManagersEmployerManagerInfoPhone`
 
 GetPhone returns the Phone field if non-nil, zero value otherwise.
 
 ### GetPhoneOk
 
-`func (o *EmployerManagersEmployerManagerInfo) GetPhoneOk() (*EmployerManagersEmployerManagerItemPhone, bool)`
+`func (o *EmployerManagersEmployerManagerInfo) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool)`
 
 GetPhoneOk returns a tuple with the Phone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPhone
 
-`func (o *EmployerManagersEmployerManagerInfo) SetPhone(v EmployerManagersEmployerManagerItemPhone)`
+`func (o *EmployerManagersEmployerManagerInfo) SetPhone(v EmployerManagersEmployerManagerInfoPhone)`
 
 SetPhone sets Phone field to given value.
 
@@ -349,6 +351,76 @@ and a boolean to check if the value has been set.
 SetPosition sets Position field to given value.
 
 
+### GetSpecialNote1
+
+`func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote1() string`
+
+GetSpecialNote1 returns the SpecialNote1 field if non-nil, zero value otherwise.
+
+### GetSpecialNote1Ok
+
+`func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote1Ok() (*string, bool)`
+
+GetSpecialNote1Ok returns a tuple with the SpecialNote1 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSpecialNote1
+
+`func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote1(v string)`
+
+SetSpecialNote1 sets SpecialNote1 field to given value.
+
+### HasSpecialNote1
+
+`func (o *EmployerManagersEmployerManagerInfo) HasSpecialNote1() bool`
+
+HasSpecialNote1 returns a boolean if a field has been set.
+
+### SetSpecialNote1Nil
+
+`func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote1Nil(b bool)`
+
+ SetSpecialNote1Nil sets the value for SpecialNote1 to be an explicit nil
+
+### UnsetSpecialNote1
+`func (o *EmployerManagersEmployerManagerInfo) UnsetSpecialNote1()`
+
+UnsetSpecialNote1 ensures that no value is present for SpecialNote1, not even an explicit nil
+### GetSpecialNote2
+
+`func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote2() string`
+
+GetSpecialNote2 returns the SpecialNote2 field if non-nil, zero value otherwise.
+
+### GetSpecialNote2Ok
+
+`func (o *EmployerManagersEmployerManagerInfo) GetSpecialNote2Ok() (*string, bool)`
+
+GetSpecialNote2Ok returns a tuple with the SpecialNote2 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSpecialNote2
+
+`func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote2(v string)`
+
+SetSpecialNote2 sets SpecialNote2 field to given value.
+
+### HasSpecialNote2
+
+`func (o *EmployerManagersEmployerManagerInfo) HasSpecialNote2() bool`
+
+HasSpecialNote2 returns a boolean if a field has been set.
+
+### SetSpecialNote2Nil
+
+`func (o *EmployerManagersEmployerManagerInfo) SetSpecialNote2Nil(b bool)`
+
+ SetSpecialNote2Nil sets the value for SpecialNote2 to be an explicit nil
+
+### UnsetSpecialNote2
+`func (o *EmployerManagersEmployerManagerInfo) UnsetSpecialNote2()`
+
+UnsetSpecialNote2 ensures that no value is present for SpecialNote2, not even an explicit nil
 ### GetVacanciesCount
 
 `func (o *EmployerManagersEmployerManagerInfo) GetVacanciesCount() float32`

@@ -41,8 +41,6 @@ type VacanciesVisitorsVisitorItemsItemsInner struct {
 	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education map[string]interface{} `json:"education"`
-	// Опыт работы
-	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
 	FirstName NullableString `json:"first_name,omitempty"`
 	Gender NullableIncludesIdName `json:"gender,omitempty"`
@@ -60,6 +58,8 @@ type VacanciesVisitorsVisitorItemsItemsInner struct {
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
+	// Опыт работы. В объекте опыта отсутствует описание (поле description), а также должность (поле position) доступна только в последнем опыте
+	Experience []ResumeObjectsExperienceShort `json:"experience"`
 	// Дополнительные действия
 	Actions ResumeObjectsActions `json:"actions"`
 	// Добавлено ли резюме в избранные
@@ -83,7 +83,7 @@ type _VacanciesVisitorsVisitorItemsItemsInner VacanciesVisitorsVisitorItemsItems
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, url string) *VacanciesVisitorsVisitorItemsItemsInner {
+func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperienceShort, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, url string) *VacanciesVisitorsVisitorItemsItemsInner {
 	this := VacanciesVisitorsVisitorItemsItemsInner{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -92,9 +92,9 @@ func NewVacanciesVisitorsVisitorItemsItemsInner(alternateUrl string, id string, 
 	this.CreatedAt = createdAt
 	this.Download = download
 	this.Education = education
-	this.Experience = experience
 	this.HiddenFields = hiddenFields
 	this.UpdatedAt = updatedAt
+	this.Experience = experience
 	this.Actions = actions
 	this.Favorited = favorited
 	this.NegotiationsHistory = negotiationsHistory
@@ -406,30 +406,6 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) GetEducationOk() (map[string]i
 // SetEducation sets field value
 func (o *VacanciesVisitorsVisitorItemsItemsInner) SetEducation(v map[string]interface{}) {
 	o.Education = v
-}
-
-// GetExperience returns the Experience field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetExperience() []ResumeObjectsExperience {
-	if o == nil {
-		var ret []ResumeObjectsExperience
-		return ret
-	}
-
-	return o.Experience
-}
-
-// GetExperienceOk returns a tuple with the Experience field value
-// and a boolean to check if the value has been set.
-func (o *VacanciesVisitorsVisitorItemsItemsInner) GetExperienceOk() ([]ResumeObjectsExperience, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Experience, true
-}
-
-// SetExperience sets field value
-func (o *VacanciesVisitorsVisitorItemsItemsInner) SetExperience(v []ResumeObjectsExperience) {
-	o.Experience = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -796,6 +772,30 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
+// GetExperience returns the Experience field value
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetExperience() []ResumeObjectsExperienceShort {
+	if o == nil {
+		var ret []ResumeObjectsExperienceShort
+		return ret
+	}
+
+	return o.Experience
+}
+
+// GetExperienceOk returns a tuple with the Experience field value
+// and a boolean to check if the value has been set.
+func (o *VacanciesVisitorsVisitorItemsItemsInner) GetExperienceOk() ([]ResumeObjectsExperienceShort, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Experience, true
+}
+
+// SetExperience sets field value
+func (o *VacanciesVisitorsVisitorItemsItemsInner) SetExperience(v []ResumeObjectsExperienceShort) {
+	o.Experience = v
+}
+
 // GetActions returns the Actions field value
 func (o *VacanciesVisitorsVisitorItemsItemsInner) GetActions() ResumeObjectsActions {
 	if o == nil {
@@ -1040,7 +1040,6 @@ func (o VacanciesVisitorsVisitorItemsItemsInner) ToMap() (map[string]interface{}
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["download"] = o.Download
 	toSerialize["education"] = o.Education
-	toSerialize["experience"] = o.Experience
 	if o.FirstName.IsSet() {
 		toSerialize["first_name"] = o.FirstName.Get()
 	}
@@ -1067,6 +1066,7 @@ func (o VacanciesVisitorsVisitorItemsItemsInner) ToMap() (map[string]interface{}
 		toSerialize["total_experience"] = o.TotalExperience.Get()
 	}
 	toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize["experience"] = o.Experience
 	toSerialize["actions"] = o.Actions
 	toSerialize["favorited"] = o.Favorited
 	toSerialize["negotiations_history"] = o.NegotiationsHistory
@@ -1094,9 +1094,9 @@ func (o *VacanciesVisitorsVisitorItemsItemsInner) UnmarshalJSON(data []byte) (er
 		"created_at",
 		"download",
 		"education",
-		"experience",
 		"hidden_fields",
 		"updated_at",
+		"experience",
 		"actions",
 		"favorited",
 		"negotiations_history",

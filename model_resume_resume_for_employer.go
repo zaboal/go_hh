@@ -41,8 +41,6 @@ type ResumeResumeForEmployer struct {
 	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
 	Education map[string]interface{} `json:"education"`
-	// Опыт работы
-	Experience []ResumeObjectsExperience `json:"experience"`
 	// Имя
 	FirstName NullableString `json:"first_name,omitempty"`
 	Gender NullableIncludesIdName `json:"gender,omitempty"`
@@ -60,6 +58,8 @@ type ResumeResumeForEmployer struct {
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
+	// Опыт работы
+	Experience []ResumeObjectsExperience `json:"experience"`
 	// День рождения (в формате `ГГГГ-ММ-ДД`)
 	BirthDate NullableString `json:"birth_date,omitempty"`
 	// Готовность к командировкам. Элемент справочника [business_trip_readiness](#tag/Obshie-spravochniki/operation/get-dictionaries)
@@ -127,7 +127,7 @@ type _ResumeResumeForEmployer ResumeResumeForEmployer
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperience, hiddenFields []IncludesIdName, updatedAt string, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsEmployerPaidServicesInner, recommendation []ResumeObjectsRecommendation, relocation map[string]interface{}, resumeLocale map[string]interface{}, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer, owner ResumeObjectsOwner, portfolio []ResumeObjectsPortfolioNoId) *ResumeResumeForEmployer {
+func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperience, businessTripReadiness IncludesIdName, citizenship []IncludesIdNameUrl, contact []IncludesContact, driverLicenseTypes []ResumeObjectsDriverLicenseTypes, employments []IncludesIdName, language []IncludesLanguageLevel, paidServices []ResumeObjectsEmployerPaidServicesInner, recommendation []ResumeObjectsRecommendation, relocation map[string]interface{}, resumeLocale map[string]interface{}, schedule IncludesIdName, schedules []IncludesIdName, site []ResumeObjectsSite, skillSet []string, travelTime IncludesIdName, workTicket []IncludesIdNameUrl, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryForEmployer, owner ResumeObjectsOwner, portfolio []ResumeObjectsPortfolioNoId) *ResumeResumeForEmployer {
 	this := ResumeResumeForEmployer{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -136,11 +136,11 @@ func NewResumeResumeForEmployer(alternateUrl string, id string, title NullableSt
 	this.CreatedAt = createdAt
 	this.Download = download
 	this.Education = education
-	this.Experience = experience
 	this.HiddenFields = hiddenFields
 	var marked bool = false
 	this.Marked = &marked
 	this.UpdatedAt = updatedAt
+	this.Experience = experience
 	this.BusinessTripReadiness = businessTripReadiness
 	this.Citizenship = citizenship
 	this.Contact = contact
@@ -469,30 +469,6 @@ func (o *ResumeResumeForEmployer) GetEducationOk() (map[string]interface{}, bool
 // SetEducation sets field value
 func (o *ResumeResumeForEmployer) SetEducation(v map[string]interface{}) {
 	o.Education = v
-}
-
-// GetExperience returns the Experience field value
-func (o *ResumeResumeForEmployer) GetExperience() []ResumeObjectsExperience {
-	if o == nil {
-		var ret []ResumeObjectsExperience
-		return ret
-	}
-
-	return o.Experience
-}
-
-// GetExperienceOk returns a tuple with the Experience field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeForEmployer) GetExperienceOk() ([]ResumeObjectsExperience, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Experience, true
-}
-
-// SetExperience sets field value
-func (o *ResumeResumeForEmployer) SetExperience(v []ResumeObjectsExperience) {
-	o.Experience = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -857,6 +833,30 @@ func (o *ResumeResumeForEmployer) GetUpdatedAtOk() (*string, bool) {
 // SetUpdatedAt sets field value
 func (o *ResumeResumeForEmployer) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
+}
+
+// GetExperience returns the Experience field value
+func (o *ResumeResumeForEmployer) GetExperience() []ResumeObjectsExperience {
+	if o == nil {
+		var ret []ResumeObjectsExperience
+		return ret
+	}
+
+	return o.Experience
+}
+
+// GetExperienceOk returns a tuple with the Experience field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeForEmployer) GetExperienceOk() ([]ResumeObjectsExperience, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Experience, true
+}
+
+// SetExperience sets field value
+func (o *ResumeResumeForEmployer) SetExperience(v []ResumeObjectsExperience) {
+	o.Experience = v
 }
 
 // GetBirthDate returns the BirthDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1776,7 +1776,6 @@ func (o ResumeResumeForEmployer) ToMap() (map[string]interface{}, error) {
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["download"] = o.Download
 	toSerialize["education"] = o.Education
-	toSerialize["experience"] = o.Experience
 	if o.FirstName.IsSet() {
 		toSerialize["first_name"] = o.FirstName.Get()
 	}
@@ -1803,6 +1802,7 @@ func (o ResumeResumeForEmployer) ToMap() (map[string]interface{}, error) {
 		toSerialize["total_experience"] = o.TotalExperience.Get()
 	}
 	toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize["experience"] = o.Experience
 	if o.BirthDate.IsSet() {
 		toSerialize["birth_date"] = o.BirthDate.Get()
 	}
@@ -1869,9 +1869,9 @@ func (o *ResumeResumeForEmployer) UnmarshalJSON(data []byte) (err error) {
 		"created_at",
 		"download",
 		"education",
-		"experience",
 		"hidden_fields",
 		"updated_at",
+		"experience",
 		"business_trip_readiness",
 		"citizenship",
 		"contact",
