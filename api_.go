@@ -28992,6 +28992,512 @@ func (a *DefaultApiService) GetVacanciesExecute(r ApiGetVacanciesRequest) (*Vaca
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetVacanciesRelatedToVacancyRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	vacancyId string
+	hHUserAgent *string
+	page *float32
+	perPage *float32
+	text *string
+	searchField *string
+	experience *string
+	employment *string
+	schedule *string
+	area *string
+	metro *string
+	professionalRole *string
+	industry *string
+	employerId *string
+	currency *string
+	salary *float32
+	label *string
+	onlyWithSalary *bool
+	period *float32
+	dateFrom *string
+	dateTo *string
+	topLat *float32
+	bottomLat *float32
+	leftLng *float32
+	rightLng *float32
+	orderBy *string
+	sortPointLat *float32
+	sortPointLng *float32
+	clusters *bool
+	describeArguments *bool
+	noMagic *bool
+	premium *bool
+	responsesCountEnabled *bool
+	partTime *string
+	locale *string
+	host *string
+}
+
+// Название приложения и контактная почта разработчика (см. [Информация о клиенте](#section/Obshaya-informaciya/Trebovaniya-k-zaprosam)) 
+func (r ApiGetVacanciesRelatedToVacancyRequest) HHUserAgent(hHUserAgent string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.hHUserAgent = &hHUserAgent
+	return r
+}
+
+// Номер страницы
+func (r ApiGetVacanciesRelatedToVacancyRequest) Page(page float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.page = &page
+	return r
+}
+
+// Количество элементов
+func (r ApiGetVacanciesRelatedToVacancyRequest) PerPage(perPage float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.perPage = &perPage
+	return r
+}
+
+// Переданное значение ищется в полях вакансии, указанных в параметре &#x60;search_field&#x60;. Доступен [язык запросов](https://hh.ru/article/1175). Специально для этого поля есть [автодополнение](#tag/Podskazki/operation/get-vacancy-search-keywords)
+func (r ApiGetVacanciesRelatedToVacancyRequest) Text(text string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.text = &text
+	return r
+}
+
+// Область поиска. Справочник с возможными значениями: &#x60;vacancy_search_fields&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). По умолчанию, используются все поля. Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) SearchField(searchField string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.searchField = &searchField
+	return r
+}
+
+// Опыт работы. Необходимо передавать &#x60;id&#x60; из справочника &#x60;experience&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Experience(experience string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.experience = &experience
+	return r
+}
+
+// Тип занятости. Необходимо передавать &#x60;id&#x60; из справочника &#x60;employment&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Employment(employment string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.employment = &employment
+	return r
+}
+
+// График работы. Необходимо передавать &#x60;id&#x60; из справочника &#x60;schedule&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Schedule(schedule string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.schedule = &schedule
+	return r
+}
+
+// Регион. Необходимо передавать &#x60;id&#x60; из справочника [/areas](#tag/Obshie-spravochniki/operation/get-areas). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Area(area string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.area = &area
+	return r
+}
+
+// Ветка или станция метро. Необходимо передавать &#x60;id&#x60; из справочника [/metro](#tag/Obshie-spravochniki/operation/get-metro-stations). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Metro(metro string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.metro = &metro
+	return r
+}
+
+// Профессиональная область. Необходимо передавать &#x60;id&#x60; из справочника [/professional_roles](#tag/Obshie-spravochniki/operation/get-professional-roles-dictionary) 
+func (r ApiGetVacanciesRelatedToVacancyRequest) ProfessionalRole(professionalRole string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.professionalRole = &professionalRole
+	return r
+}
+
+// Индустрия компании, разместившей вакансию. Необходимо передавать &#x60;id&#x60; из справочника [/industries](#tag/Obshie-spravochniki/operation/get-industries). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Industry(industry string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.industry = &industry
+	return r
+}
+
+// Идентификатор [работодателя](#tag/Rabotodatel). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) EmployerId(employerId string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.employerId = &employerId
+	return r
+}
+
+// Код валюты. Справочник с возможными значениями: &#x60;currency&#x60; (ключ &#x60;code&#x60;) в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). Имеет смысл указывать только совместно с параметром &#x60;salary&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Currency(currency string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.currency = &currency
+	return r
+}
+
+// Размер заработной платы. Если указано это поле, но не указано &#x60;currency&#x60;, то для &#x60;currency&#x60; используется значение RUR. При указании значения будут найдены вакансии, в которых вилка зарплаты близка к указанной в запросе. При этом значения пересчитываются по текущим курсам ЦБ РФ. Например, при указании &#x60;salary&#x3D;100&amp;currency&#x3D;EUR&#x60; будут найдены вакансии, где вилка зарплаты указана в рублях и после пересчёта в Евро близка к 100 EUR. По умолчанию будут также найдены вакансии, в которых вилка зарплаты не указана, чтобы такие вакансии отфильтровать, используйте &#x60;only_with_salary&#x3D;true&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Salary(salary float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.salary = &salary
+	return r
+}
+
+// Фильтр по меткам вакансий. Необходимо передавать &#x60;id&#x60; из справочника &#x60;vacancy_label&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Label(label string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.label = &label
+	return r
+}
+
+// Показывать вакансии только с указанием зарплаты. По умолчанию &#x60;false&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) OnlyWithSalary(onlyWithSalary bool) ApiGetVacanciesRelatedToVacancyRequest {
+	r.onlyWithSalary = &onlyWithSalary
+	return r
+}
+
+// Количество дней, в пределах которых производится поиск по вакансиям 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Period(period float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.period = &period
+	return r
+}
+
+// Дата, которая ограничивает снизу диапазон дат публикации вакансий. Нельзя передавать вместе с параметром &#x60;period&#x60;. Значение указывается в формате &#x60;ISO 8601 - YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Указанное значение будет округлено до ближайших пяти минут 
+func (r ApiGetVacanciesRelatedToVacancyRequest) DateFrom(dateFrom string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.dateFrom = &dateFrom
+	return r
+}
+
+// Дата, которая ограничивает сверху диапазон дат публикации вакансий. Нельзя передавать вместе с параметром &#x60;period&#x60;. Значение указывается в формате &#x60;ISO 8601 - YYYY-MM-DD&#x60; или с точность до секунды &#x60;YYYY-MM-DDThh:mm:ss±hhmm&#x60;. Указанное значение будет округлено до ближайших пяти минут 
+func (r ApiGetVacanciesRelatedToVacancyRequest) DateTo(dateTo string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.dateTo = &dateTo
+	return r
+}
+
+// Верхняя граница широты. При поиске используется значение указанного в вакансии адреса. Принимаемое значение — градусы в виде десятичной дроби. Необходимо передавать одновременно все четыре параметра гео-координат, иначе вернется ошибка 
+func (r ApiGetVacanciesRelatedToVacancyRequest) TopLat(topLat float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.topLat = &topLat
+	return r
+}
+
+// Нижняя граница широты. При поиске используется значение указанного в вакансии адреса. Принимаемое значение — градусы в виде десятичной дроби. Необходимо передавать одновременно все четыре параметра гео-координат, иначе вернется ошибка 
+func (r ApiGetVacanciesRelatedToVacancyRequest) BottomLat(bottomLat float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.bottomLat = &bottomLat
+	return r
+}
+
+// Левая граница долготы. При поиске используется значение указанного в вакансии адреса. Принимаемое значение — градусы в виде десятичной дроби. Необходимо передавать одновременно все четыре параметра гео-координат, иначе вернется ошибка 
+func (r ApiGetVacanciesRelatedToVacancyRequest) LeftLng(leftLng float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.leftLng = &leftLng
+	return r
+}
+
+// Правая граница долготы. При поиске используется значение указанного в вакансии адреса. Принимаемое значение — градусы в виде десятичной дроби. Необходимо передавать одновременно все четыре параметра гео-координат, иначе вернется ошибка 
+func (r ApiGetVacanciesRelatedToVacancyRequest) RightLng(rightLng float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.rightLng = &rightLng
+	return r
+}
+
+// Сортировка списка вакансий. Справочник с возможными значениями: &#x60;vacancy_search_order&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). Если выбрана сортировка по удалённости от гео-точки &#x60;distance&#x60;, необходимо также задать её координаты: &#x60;sort_point_lat&#x60;, &#x60;sort_point_lng&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) OrderBy(orderBy string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// Значение географической широты точки, по расстоянию от которой будут отсортированы вакансии. Необходимо указывать только, если &#x60;order_by&#x60; установлено в &#x60;distance&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) SortPointLat(sortPointLat float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.sortPointLat = &sortPointLat
+	return r
+}
+
+// Значение географической долготы точки, по расстоянию от которой будут отсортированы вакансии. Необходимо указывать только, если &#x60;order_by&#x60; установлено в &#x60;distance&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) SortPointLng(sortPointLng float32) ApiGetVacanciesRelatedToVacancyRequest {
+	r.sortPointLng = &sortPointLng
+	return r
+}
+
+// Возвращать ли [кластеры для данного поиска](#tag/Poisk-vakansij/Klastery-v-poiske-vakansij). По умолчанию — &#x60;false&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Clusters(clusters bool) ApiGetVacanciesRelatedToVacancyRequest {
+	r.clusters = &clusters
+	return r
+}
+
+// Возвращать ли описание использованных параметров поиска. Успешный ответ будет содержать поле [&#x60;arguments&#x60;]((#tag/Poisk-vakansij/operation/get-vacancies))). По умолчанию — &#x60;false&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) DescribeArguments(describeArguments bool) ApiGetVacanciesRelatedToVacancyRequest {
+	r.describeArguments = &describeArguments
+	return r
+}
+
+// Если значение &#x60;true&#x60; — автоматическое преобразование вакансий отключено. По умолчанию – false. При включённом автоматическом преобразовании, будет предпринята попытка изменить текстовый запрос пользователя на набор параметров. Например, запрос &#x60;text&#x3D;москва бухгалтер 100500&#x60; будет преобразован в &#x60;text&#x3D;бухгалтер&amp;only_with_salary&#x3D;true&amp;area&#x3D;1&amp;salary&#x3D;100500&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) NoMagic(noMagic bool) ApiGetVacanciesRelatedToVacancyRequest {
+	r.noMagic = &noMagic
+	return r
+}
+
+// Если значение &#x60;true&#x60; — в сортировке вакансий будет учтены премиум вакансии. Такая сортировка используется на сайте. По умолчанию — false 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Premium(premium bool) ApiGetVacanciesRelatedToVacancyRequest {
+	r.premium = &premium
+	return r
+}
+
+// Если значение &#x60;true&#x60; — дополнительное поле &#x60;counters&#x60; с количеством откликов для вакансии включено. По-умолчанию — &#x60;false&#x60; 
+func (r ApiGetVacanciesRelatedToVacancyRequest) ResponsesCountEnabled(responsesCountEnabled bool) ApiGetVacanciesRelatedToVacancyRequest {
+	r.responsesCountEnabled = &responsesCountEnabled
+	return r
+}
+
+// Вакансии для подработки. Возможные значения: * Все элементы из &#x60;working_days&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). * Все элементы из &#x60;working_time_intervals&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). * Все элементы из &#x60;working_time_modes&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). * Элементы &#x60;part&#x60; или &#x60;project&#x60; из &#x60;employment&#x60; в [/dictionaries](#tag/Obshie-spravochniki/operation/get-dictionaries). * Элемент &#x60;accept_temporary&#x60;, показывает вакансии только с временным трудоустройством. Можно указать несколько значений 
+func (r ApiGetVacanciesRelatedToVacancyRequest) PartTime(partTime string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.partTime = &partTime
+	return r
+}
+
+// Идентификатор локали (см. [Локализация](#tag/Obshie-spravochniki/operation/get-locales)) 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Locale(locale string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.locale = &locale
+	return r
+}
+
+// Доменное имя сайта (см. [Выбор сайта](#section/Obshaya-informaciya/Vybor-sajta)) 
+func (r ApiGetVacanciesRelatedToVacancyRequest) Host(host string) ApiGetVacanciesRelatedToVacancyRequest {
+	r.host = &host
+	return r
+}
+
+func (r ApiGetVacanciesRelatedToVacancyRequest) Execute() (*VacanciesVacanciesResponse, *http.Response, error) {
+	return r.ApiService.GetVacanciesRelatedToVacancyExecute(r)
+}
+
+/*
+GetVacanciesRelatedToVacancy Поиск подходящих вакансий
+
+По умолчанию, выдает вакансии, похожие на вакансию.
+
+Если запрос идет со страницы вакансии (параметр `hhtmSource=vacancy`):
+  * когда пользователь авторизован как соискатель, и у него есть резюме - выдает подходящие под последнее резюме пользователя вакансии
+  * когда у соискателя нет резюме - результаты поиска по заголовку вакансии
+  * когда пользователь не авторизован - рекомендации для анонимов
+
+При указании параметров пагинации (`page`, `per_page`) работает ограничение: глубина возвращаемых результатов не может быть больше `2000`. Например, возможен запрос `per_page=10&page=199` (выдача с `1991` по `2000` вакансию), но запрос с `per_page=10&page=200` вернёт ошибку (выдача с `2001` по `2010` вакансию)
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param vacancyId Идентификатор вакансии
+ @return ApiGetVacanciesRelatedToVacancyRequest
+*/
+func (a *DefaultApiService) GetVacanciesRelatedToVacancy(ctx context.Context, vacancyId string) ApiGetVacanciesRelatedToVacancyRequest {
+	return ApiGetVacanciesRelatedToVacancyRequest{
+		ApiService: a,
+		ctx: ctx,
+		vacancyId: vacancyId,
+	}
+}
+
+// Execute executes the request
+//  @return VacanciesVacanciesResponse
+func (a *DefaultApiService) GetVacanciesRelatedToVacancyExecute(r ApiGetVacanciesRelatedToVacancyRequest) (*VacanciesVacanciesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *VacanciesVacanciesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetVacanciesRelatedToVacancy")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/vacancies/{vacancy_id}/related_vacancies"
+	localVarPath = strings.Replace(localVarPath, "{"+"vacancy_id"+"}", url.PathEscape(parameterValueToString(r.vacancyId, "vacancyId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.hHUserAgent == nil {
+		return localVarReturnValue, nil, reportError("hHUserAgent is required and must be specified")
+	}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
+	} else {
+		var defaultValue float32 = 0
+		r.page = &defaultValue
+	}
+	if r.perPage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "per_page", r.perPage, "")
+	} else {
+		var defaultValue float32 = 10
+		r.perPage = &defaultValue
+	}
+	if r.text != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "text", r.text, "")
+	}
+	if r.searchField != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search_field", r.searchField, "")
+	}
+	if r.experience != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "experience", r.experience, "")
+	}
+	if r.employment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "employment", r.employment, "")
+	}
+	if r.schedule != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "schedule", r.schedule, "")
+	}
+	if r.area != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "area", r.area, "")
+	}
+	if r.metro != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "metro", r.metro, "")
+	}
+	if r.professionalRole != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "professional_role", r.professionalRole, "")
+	}
+	if r.industry != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "industry", r.industry, "")
+	}
+	if r.employerId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "employer_id", r.employerId, "")
+	}
+	if r.currency != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "")
+	}
+	if r.salary != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "salary", r.salary, "")
+	}
+	if r.label != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "label", r.label, "")
+	}
+	if r.onlyWithSalary != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "only_with_salary", r.onlyWithSalary, "")
+	}
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "")
+	}
+	if r.dateFrom != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "")
+	}
+	if r.dateTo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "")
+	}
+	if r.topLat != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "top_lat", r.topLat, "")
+	}
+	if r.bottomLat != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bottom_lat", r.bottomLat, "")
+	}
+	if r.leftLng != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "left_lng", r.leftLng, "")
+	}
+	if r.rightLng != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "right_lng", r.rightLng, "")
+	}
+	if r.orderBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order_by", r.orderBy, "")
+	}
+	if r.sortPointLat != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_point_lat", r.sortPointLat, "")
+	}
+	if r.sortPointLng != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_point_lng", r.sortPointLng, "")
+	}
+	if r.clusters != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "clusters", r.clusters, "")
+	}
+	if r.describeArguments != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "describe_arguments", r.describeArguments, "")
+	}
+	if r.noMagic != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "no_magic", r.noMagic, "")
+	}
+	if r.premium != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "premium", r.premium, "")
+	}
+	if r.responsesCountEnabled != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "responses_count_enabled", r.responsesCountEnabled, "")
+	}
+	if r.partTime != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "part_time", r.partTime, "")
+	}
+	if r.locale != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "locale", r.locale, "")
+	} else {
+		var defaultValue string = "RU"
+		r.locale = &defaultValue
+	}
+	if r.host != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "host", r.host, "")
+	} else {
+		var defaultValue string = "hh.ru"
+		r.host = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "HH-User-Agent", r.hHUserAgent, "")
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorsCommonBadArgumentErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorsCommonCaptchaErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorsCommonNotFoundErrors
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetVacanciesSimilarToResumeRequest struct {
 	ctx context.Context
 	ApiService *DefaultApiService

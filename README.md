@@ -546,6 +546,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetTestsDictionary**](docs/DefaultApi.md#gettestsdictionary) | **Get** /employers/{employer_id}/tests | Справочник тестов работодателя
 *DefaultApi* | [**GetTestsDictionary_0**](docs/DefaultApi.md#gettestsdictionary_0) | **Get** /employers/{employer_id}/tests | Справочник тестов работодателя
 *DefaultApi* | [**GetVacancies**](docs/DefaultApi.md#getvacancies) | **Get** /vacancies | Поиск по вакансиям
+*DefaultApi* | [**GetVacanciesRelatedToVacancy**](docs/DefaultApi.md#getvacanciesrelatedtovacancy) | **Get** /vacancies/{vacancy_id}/related_vacancies | Поиск подходящих вакансий
 *DefaultApi* | [**GetVacanciesSimilarToResume**](docs/DefaultApi.md#getvacanciessimilartoresume) | **Get** /resumes/{resume_id}/similar_vacancies | Поиск по вакансиям, похожим на резюме
 *DefaultApi* | [**GetVacanciesSimilarToVacancy**](docs/DefaultApi.md#getvacanciessimilartovacancy) | **Get** /vacancies/{vacancy_id}/similar_vacancies | Поиск по вакансиям, похожим на вакансию
 *DefaultApi* | [**GetVacancy**](docs/DefaultApi.md#getvacancy) | **Get** /vacancies/{vacancy_id} | Просмотр вакансии
@@ -656,12 +657,12 @@ Class | Method | HTTP request | Description
  - [EmployerManagerTypesEmployerManagerTypesItem](docs/EmployerManagerTypesEmployerManagerTypesItem.md)
  - [EmployerManagerTypesResponse](docs/EmployerManagerTypesResponse.md)
  - [EmployerManagersAddEmployerManager](docs/EmployerManagersAddEmployerManager.md)
+ - [EmployerManagersAddEmployerManagerAdditionalPhone](docs/EmployerManagersAddEmployerManagerAdditionalPhone.md)
+ - [EmployerManagersAddEmployerManagerPhone](docs/EmployerManagersAddEmployerManagerPhone.md)
  - [EmployerManagersArea](docs/EmployerManagersArea.md)
  - [EmployerManagersAreaId](docs/EmployerManagersAreaId.md)
  - [EmployerManagersEmployerManagerId](docs/EmployerManagersEmployerManagerId.md)
  - [EmployerManagersEmployerManagerInfo](docs/EmployerManagersEmployerManagerInfo.md)
- - [EmployerManagersEmployerManagerInfoAdditionalPhone](docs/EmployerManagersEmployerManagerInfoAdditionalPhone.md)
- - [EmployerManagersEmployerManagerInfoPhone](docs/EmployerManagersEmployerManagerInfoPhone.md)
  - [EmployerManagersEmployerManagerItem](docs/EmployerManagersEmployerManagerItem.md)
  - [EmployerManagersEmployerManagerItemAdditionalPhone](docs/EmployerManagersEmployerManagerItemAdditionalPhone.md)
  - [EmployerManagersEmployerManagerLimits](docs/EmployerManagersEmployerManagerLimits.md)
