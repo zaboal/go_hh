@@ -38,7 +38,7 @@ type VacancyDraftVacancyDraftItem struct {
 	// Массив объектов с информацией о необходимых публикациях на счету
 	RequiredPublications []VacancyDraftPublications `json:"required_publications,omitempty"`
 	// Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm`
-	ScheduledAt string `json:"scheduled_at"`
+	ScheduledAt string `json:"scheduled_at" validate:"regexp=^\\\\d{4}-[01]\\\\d-[0-3]\\\\dT[0-2]\\\\d:[0-5]\\\\d:[0-5]\\\\d(?:\\\\.\\\\d+)?((\\\\+|-)[0-1][0-9]{3})?$"`
 	// Коды и названия регионов (фед. округа, субъекты федерации, города)
 	Areas []VacancyAreaOutput `json:"areas"`
 	AssignedManager NullableVacancyDraftAssignedManager `json:"assigned_manager,omitempty"`

@@ -33,13 +33,13 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Описание в html, не менее 200 символов | [optional] 
 **Name** | Pointer to **string** | Название | [optional] 
 **BillingType** | [**VacancyBillingType**](VacancyBillingType.md) |  | 
-**Manager** | [**NullableVacancyEditManagerManager**](VacancyEditManagerManager.md) |  | 
+**Manager** | [**NullableIncludesId**](IncludesId.md) | Идентификатор менеджера, которому надо передать автопоиск из ([списка менеджеров компании](#tag/Menedzhery-rabotodatelya/operation/get-employer-managers)) | 
 
 ## Methods
 
 ### NewVacancyEdit
 
-`func NewVacancyEdit(billingType VacancyBillingType, manager NullableVacancyEditManagerManager, ) *VacancyEdit`
+`func NewVacancyEdit(billingType VacancyBillingType, manager NullableIncludesId, ) *VacancyEdit`
 
 NewVacancyEdit instantiates a new VacancyEdit object
 This constructor will assign default values to properties that have it defined,
@@ -936,20 +936,20 @@ SetBillingType sets BillingType field to given value.
 
 ### GetManager
 
-`func (o *VacancyEdit) GetManager() VacancyEditManagerManager`
+`func (o *VacancyEdit) GetManager() IncludesId`
 
 GetManager returns the Manager field if non-nil, zero value otherwise.
 
 ### GetManagerOk
 
-`func (o *VacancyEdit) GetManagerOk() (*VacancyEditManagerManager, bool)`
+`func (o *VacancyEdit) GetManagerOk() (*IncludesId, bool)`
 
 GetManagerOk returns a tuple with the Manager field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetManager
 
-`func (o *VacancyEdit) SetManager(v VacancyEditManagerManager)`
+`func (o *VacancyEdit) SetManager(v IncludesId)`
 
 SetManager sets Manager field to given value.
 

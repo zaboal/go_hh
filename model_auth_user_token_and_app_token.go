@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -48,7 +49,11 @@ func (dst *AuthUserTokenAndAppToken) UnmarshalJSON(data []byte) error {
 		if string(jsonAuthAppToken) == "{}" { // empty struct
 			dst.AuthAppToken = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.AuthAppToken); err != nil {
+				dst.AuthAppToken = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.AuthAppToken = nil
@@ -61,7 +66,11 @@ func (dst *AuthUserTokenAndAppToken) UnmarshalJSON(data []byte) error {
 		if string(jsonAuthUserToken) == "{}" { // empty struct
 			dst.AuthUserToken = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.AuthUserToken); err != nil {
+				dst.AuthUserToken = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.AuthUserToken = nil

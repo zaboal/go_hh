@@ -25,7 +25,7 @@ type VacancyDraftPhoneFormatted struct {
 	// Комментарий (удобное время для звонка по этому номеру)
 	Comment NullableString `json:"comment,omitempty"`
 	// Телефонный номер целиком
-	Formatted string `json:"formatted"`
+	Formatted string `json:"formatted" validate:"regexp=^\\\\d+$"`
 }
 
 type _VacancyDraftPhoneFormatted VacancyDraftPhoneFormatted

@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -48,7 +49,11 @@ func (dst *IncludesContactPropertiesValue) UnmarshalJSON(data []byte) error {
 		if string(jsonIncludesContactPhoneValue) == "{}" { // empty struct
 			dst.IncludesContactPhoneValue = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.IncludesContactPhoneValue); err != nil {
+				dst.IncludesContactPhoneValue = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.IncludesContactPhoneValue = nil
@@ -61,7 +66,11 @@ func (dst *IncludesContactPropertiesValue) UnmarshalJSON(data []byte) error {
 		if string(jsonString) == "{}" { // empty struct
 			dst.String = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.String); err != nil {
+				dst.String = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.String = nil

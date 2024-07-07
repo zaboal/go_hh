@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -40,7 +41,11 @@ func (dst *EmployersBrandingConstructorConstructorWidgetsInner) UnmarshalJSON(da
 		if string(jsonEmployersBrandingConstructorGalleryWidget) == "{}" { // empty struct
 			dst.EmployersBrandingConstructorGalleryWidget = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.EmployersBrandingConstructorGalleryWidget); err != nil {
+				dst.EmployersBrandingConstructorGalleryWidget = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.EmployersBrandingConstructorGalleryWidget = nil

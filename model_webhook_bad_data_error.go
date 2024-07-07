@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -48,7 +49,11 @@ func (dst *WebhookBadDataError) UnmarshalJSON(data []byte) error {
 		if string(jsonErrorsCommonBadJsonDataErrors) == "{}" { // empty struct
 			dst.ErrorsCommonBadJsonDataErrors = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadJsonDataErrors); err != nil {
+				dst.ErrorsCommonBadJsonDataErrors = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadJsonDataErrors = nil
@@ -61,7 +66,11 @@ func (dst *WebhookBadDataError) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookErrors) == "{}" { // empty struct
 			dst.WebhookErrors = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookErrors); err != nil {
+				dst.WebhookErrors = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookErrors = nil

@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -48,7 +49,11 @@ func (dst *VacanciesVacancyProlongateActionsInner) UnmarshalJSON(data []byte) er
 		if string(jsonVacanciesVacancyProlongateAvailableActions) == "{}" { // empty struct
 			dst.VacanciesVacancyProlongateAvailableActions = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.VacanciesVacancyProlongateAvailableActions); err != nil {
+				dst.VacanciesVacancyProlongateAvailableActions = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.VacanciesVacancyProlongateAvailableActions = nil
@@ -61,7 +66,11 @@ func (dst *VacanciesVacancyProlongateActionsInner) UnmarshalJSON(data []byte) er
 		if string(jsonVacanciesVacancyProlongateUnavailableActions) == "{}" { // empty struct
 			dst.VacanciesVacancyProlongateUnavailableActions = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.VacanciesVacancyProlongateUnavailableActions); err != nil {
+				dst.VacanciesVacancyProlongateUnavailableActions = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.VacanciesVacancyProlongateUnavailableActions = nil

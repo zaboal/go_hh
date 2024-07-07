@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -88,7 +89,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadNegotiationEmployerStateChange) == "{}" { // empty struct
 			dst.WebhookPayloadNegotiationEmployerStateChange = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadNegotiationEmployerStateChange); err != nil {
+				dst.WebhookPayloadNegotiationEmployerStateChange = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadNegotiationEmployerStateChange = nil
@@ -101,7 +106,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadNewNegotiationVacancy) == "{}" { // empty struct
 			dst.WebhookPayloadNewNegotiationVacancy = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadNewNegotiationVacancy); err != nil {
+				dst.WebhookPayloadNewNegotiationVacancy = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadNewNegotiationVacancy = nil
@@ -114,7 +123,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadNewResponseOrInvitationVacancy) == "{}" { // empty struct
 			dst.WebhookPayloadNewResponseOrInvitationVacancy = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadNewResponseOrInvitationVacancy); err != nil {
+				dst.WebhookPayloadNewResponseOrInvitationVacancy = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadNewResponseOrInvitationVacancy = nil
@@ -127,7 +140,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadVacancyArchivation) == "{}" { // empty struct
 			dst.WebhookPayloadVacancyArchivation = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadVacancyArchivation); err != nil {
+				dst.WebhookPayloadVacancyArchivation = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadVacancyArchivation = nil
@@ -140,7 +157,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadVacancyChange) == "{}" { // empty struct
 			dst.WebhookPayloadVacancyChange = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadVacancyChange); err != nil {
+				dst.WebhookPayloadVacancyChange = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadVacancyChange = nil
@@ -153,7 +174,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadVacancyProlongation) == "{}" { // empty struct
 			dst.WebhookPayloadVacancyProlongation = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadVacancyProlongation); err != nil {
+				dst.WebhookPayloadVacancyProlongation = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadVacancyProlongation = nil
@@ -166,7 +191,11 @@ func (dst *WebhookSendObjectBaseUserPayload) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookPayloadVacancyPublicationForVacancyManager) == "{}" { // empty struct
 			dst.WebhookPayloadVacancyPublicationForVacancyManager = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookPayloadVacancyPublicationForVacancyManager); err != nil {
+				dst.WebhookPayloadVacancyPublicationForVacancyManager = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookPayloadVacancyPublicationForVacancyManager = nil

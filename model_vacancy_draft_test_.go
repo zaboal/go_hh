@@ -21,7 +21,7 @@ var _ MappedNullable = &VacancyDraftTest{}
 // VacancyDraftTest Объект - [тест](#tag/Informaciya-o-rabotodatele/operation/get-tests-dictionary) для вакансии
 type VacancyDraftTest struct {
 	// Тест, который будет добавлен в вакансию
-	Id NullableString `json:"id,omitempty"`
+	Id NullableString `json:"id,omitempty" validate:"regexp=^\\\\d+$"`
 	// Флаг обязательности прохождения теста при отклике на вакансию
 	Required NullableBool `json:"required,omitempty"`
 }

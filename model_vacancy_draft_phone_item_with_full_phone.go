@@ -23,7 +23,7 @@ type VacancyDraftPhoneItemWithFullPhone struct {
 	// Комментарий (удобное время для звонка по этому номеру)
 	Comment NullableString `json:"comment,omitempty"`
 	// Телефонный номер
-	Formatted *string `json:"formatted,omitempty"`
+	Formatted *string `json:"formatted,omitempty" validate:"regexp=^\\\\+?\\\\d{1,3} [(]\\\\d{1,5}[)] [\\\\d -]{4,10}$"`
 }
 
 // NewVacancyDraftPhoneItemWithFullPhone instantiates a new VacancyDraftPhoneItemWithFullPhone object

@@ -23,7 +23,7 @@ var _ MappedNullable = &MetroMetroLineWithStations{}
 // MetroMetroLineWithStations struct for MetroMetroLineWithStations
 type MetroMetroLineWithStations struct {
 	// Цвет линии в HEX-формате `RRGGBB` (от `000000` до `FFFFFF`)
-	HexColor string `json:"hex_color"`
+	HexColor string `json:"hex_color" validate:"regexp=^[0-9A-Fa-f]{6}$"`
 	// Идентификатор линии
 	Id string `json:"id"`
 	// Название линии

@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -48,7 +49,11 @@ func (dst *ErrorsCommonBadRequestBadArgumentBadRequestAndBadArgumentErrors) Unma
 		if string(jsonErrorsCommonBadArgumentErrors) == "{}" { // empty struct
 			dst.ErrorsCommonBadArgumentErrors = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadArgumentErrors); err != nil {
+				dst.ErrorsCommonBadArgumentErrors = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadArgumentErrors = nil
@@ -61,7 +66,11 @@ func (dst *ErrorsCommonBadRequestBadArgumentBadRequestAndBadArgumentErrors) Unma
 		if string(jsonErrorsCommonBadRequestErrors) == "{}" { // empty struct
 			dst.ErrorsCommonBadRequestErrors = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadRequestErrors); err != nil {
+				dst.ErrorsCommonBadRequestErrors = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadRequestErrors = nil

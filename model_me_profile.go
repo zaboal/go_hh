@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -64,7 +65,11 @@ func (dst *MeProfile) UnmarshalJSON(data []byte) error {
 		if string(jsonMeAnyProfile) == "{}" { // empty struct
 			dst.MeAnyProfile = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.MeAnyProfile); err != nil {
+				dst.MeAnyProfile = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.MeAnyProfile = nil
@@ -77,7 +82,11 @@ func (dst *MeProfile) UnmarshalJSON(data []byte) error {
 		if string(jsonMeApplicantProfile) == "{}" { // empty struct
 			dst.MeApplicantProfile = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.MeApplicantProfile); err != nil {
+				dst.MeApplicantProfile = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.MeApplicantProfile = nil
@@ -90,7 +99,11 @@ func (dst *MeProfile) UnmarshalJSON(data []byte) error {
 		if string(jsonMeEmployerProfile) == "{}" { // empty struct
 			dst.MeEmployerProfile = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.MeEmployerProfile); err != nil {
+				dst.MeEmployerProfile = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.MeEmployerProfile = nil
@@ -103,7 +116,11 @@ func (dst *MeProfile) UnmarshalJSON(data []byte) error {
 		if string(jsonMeManagerProfile) == "{}" { // empty struct
 			dst.MeManagerProfile = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.MeManagerProfile); err != nil {
+				dst.MeManagerProfile = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.MeManagerProfile = nil

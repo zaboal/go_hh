@@ -21,7 +21,7 @@ var _ MappedNullable = &VacancyDraftAddress{}
 // VacancyDraftAddress Адрес
 type VacancyDraftAddress struct {
 	// Адрес из [списка доступных адресов работодателя](#tag/Adresa-rabotodatelya/operation/get-employer-addresses)
-	Id NullableString `json:"id,omitempty"`
+	Id NullableString `json:"id,omitempty" validate:"regexp=^\\\\d+$"`
 	// Показывать только метро для указанного адреса
 	ShowMetroOnly NullableBool `json:"show_metro_only,omitempty"`
 }

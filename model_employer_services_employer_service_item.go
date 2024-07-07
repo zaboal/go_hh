@@ -23,10 +23,10 @@ var _ MappedNullable = &EmployerServicesEmployerServiceItem{}
 // EmployerServicesEmployerServiceItem struct for EmployerServicesEmployerServiceItem
 type EmployerServicesEmployerServiceItem struct {
 	// Время активации услуги (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm`
-	ActivatedAt string `json:"activated_at"`
+	ActivatedAt string `json:"activated_at" validate:"regexp=^\\\\d{4}-[01]\\\\d-[0-3]\\\\dT[0-2]\\\\d:[0-5]\\\\d:[0-5]\\\\d(?:\\\\.\\\\d+)?((\\\\+|-)[0-1][0-9]{3})?$"`
 	Balance EmployerServicesBalance `json:"balance,omitempty"`
 	// Время истечения услуги (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm`
-	ExpiresAt string `json:"expires_at"`
+	ExpiresAt string `json:"expires_at" validate:"regexp=^\\\\d{4}-[01]\\\\d-[0-3]\\\\dT[0-2]\\\\d:[0-5]\\\\d:[0-5]\\\\d(?:\\\\.\\\\d+)?((\\\\+|-)[0-1][0-9]{3})?$"`
 	// Идентификатор услуги
 	Id string `json:"id"`
 	ServiceType EmployerServicesServiceType `json:"service_type"`

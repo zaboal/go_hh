@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -64,7 +65,11 @@ func (dst *ErrorsCommonBadAuthorizationBadParameters) UnmarshalJSON(data []byte)
 		if string(jsonErrorsCommonBadAuthorizationInvalidClientError) == "{}" { // empty struct
 			dst.ErrorsCommonBadAuthorizationInvalidClientError = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadAuthorizationInvalidClientError); err != nil {
+				dst.ErrorsCommonBadAuthorizationInvalidClientError = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadAuthorizationInvalidClientError = nil
@@ -77,7 +82,11 @@ func (dst *ErrorsCommonBadAuthorizationBadParameters) UnmarshalJSON(data []byte)
 		if string(jsonErrorsCommonBadAuthorizationInvalidGrantError) == "{}" { // empty struct
 			dst.ErrorsCommonBadAuthorizationInvalidGrantError = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadAuthorizationInvalidGrantError); err != nil {
+				dst.ErrorsCommonBadAuthorizationInvalidGrantError = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadAuthorizationInvalidGrantError = nil
@@ -90,7 +99,11 @@ func (dst *ErrorsCommonBadAuthorizationBadParameters) UnmarshalJSON(data []byte)
 		if string(jsonErrorsCommonBadAuthorizationInvalidRequestError) == "{}" { // empty struct
 			dst.ErrorsCommonBadAuthorizationInvalidRequestError = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadAuthorizationInvalidRequestError); err != nil {
+				dst.ErrorsCommonBadAuthorizationInvalidRequestError = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadAuthorizationInvalidRequestError = nil
@@ -103,7 +116,11 @@ func (dst *ErrorsCommonBadAuthorizationBadParameters) UnmarshalJSON(data []byte)
 		if string(jsonErrorsCommonBadAuthorizationUnsupportedGrantTypeError) == "{}" { // empty struct
 			dst.ErrorsCommonBadAuthorizationUnsupportedGrantTypeError = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonBadAuthorizationUnsupportedGrantTypeError); err != nil {
+				dst.ErrorsCommonBadAuthorizationUnsupportedGrantTypeError = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonBadAuthorizationUnsupportedGrantTypeError = nil

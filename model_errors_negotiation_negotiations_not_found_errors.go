@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -48,7 +49,11 @@ func (dst *ErrorsNegotiationNegotiationsNotFoundErrors) UnmarshalJSON(data []byt
 		if string(jsonErrorsCommonNotFoundErrors) == "{}" { // empty struct
 			dst.ErrorsCommonNotFoundErrors = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsCommonNotFoundErrors); err != nil {
+				dst.ErrorsCommonNotFoundErrors = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsCommonNotFoundErrors = nil
@@ -61,7 +66,11 @@ func (dst *ErrorsNegotiationNegotiationsNotFoundErrors) UnmarshalJSON(data []byt
 		if string(jsonErrorsNegotiationNotFoundErrors) == "{}" { // empty struct
 			dst.ErrorsNegotiationNotFoundErrors = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ErrorsNegotiationNotFoundErrors); err != nil {
+				dst.ErrorsNegotiationNotFoundErrors = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ErrorsNegotiationNotFoundErrors = nil

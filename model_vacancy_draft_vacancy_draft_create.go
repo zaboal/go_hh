@@ -67,7 +67,7 @@ type VacancyDraftVacancyDraftCreate struct {
 	Salary NullableVacancySalary `json:"salary,omitempty"`
 	Schedule NullableVacancySchedule `json:"schedule,omitempty"`
 	// Время запланированной публикации вакансии (в формате [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) с точностью до секунды: `YYYY-MM-DDThh:mm:ss±hhmm`
-	ScheduledAt *string `json:"scheduled_at,omitempty"`
+	ScheduledAt *string `json:"scheduled_at,omitempty" validate:"regexp=^\\\\d{4}-[01]\\\\d-[0-3]\\\\dT[0-2]\\\\d:[0-5]\\\\d:[0-5]\\\\d(?:\\\\.\\\\d+)?((\\\\+|-)[0-1][0-9]{3})?$"`
 	Test NullableVacancyDraftTest `json:"test,omitempty"`
 	Type NullableVacancyDraftType `json:"type,omitempty"`
 	// Вашу вакансию увидят больше людей. Мы разместим ее дополнительно на сервисе Зарплата.ру

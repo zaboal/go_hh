@@ -23,13 +23,13 @@ var _ MappedNullable = &VacancyDraftPhone{}
 // VacancyDraftPhone struct for VacancyDraftPhone
 type VacancyDraftPhone struct {
 	// Код города
-	City string `json:"city"`
+	City string `json:"city" validate:"regexp=^\\\\d+$"`
 	// Комментарий (удобное время для звонка по этому номеру)
 	Comment NullableString `json:"comment,omitempty"`
 	// Код страны
-	Country string `json:"country"`
+	Country string `json:"country" validate:"regexp=^\\\\d+$"`
 	// Абонентская часть телефонного номера
-	Number string `json:"number"`
+	Number string `json:"number" validate:"regexp=^\\\\d+$"`
 }
 
 type _VacancyDraftPhone VacancyDraftPhone

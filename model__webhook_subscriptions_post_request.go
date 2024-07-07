@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -40,7 +41,11 @@ func (dst *WebhookSubscriptionsPostRequest) UnmarshalJSON(data []byte) error {
 		if string(jsonWebhookSendObjectBaseUser) == "{}" { // empty struct
 			dst.WebhookSendObjectBaseUser = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.WebhookSendObjectBaseUser); err != nil {
+				dst.WebhookSendObjectBaseUser = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.WebhookSendObjectBaseUser = nil

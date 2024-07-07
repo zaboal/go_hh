@@ -22,7 +22,8 @@ var _ MappedNullable = &VacancyEditManager{}
 
 // VacancyEditManager Поле, передаваемое в запросе при смене менеджера вакансии
 type VacancyEditManager struct {
-	Manager NullableVacancyEditManagerManager `json:"manager"`
+	// Идентификатор менеджера, которому надо передать автопоиск из ([списка менеджеров компании](#tag/Menedzhery-rabotodatelya/operation/get-employer-managers))
+	Manager NullableIncludesId `json:"manager"`
 }
 
 type _VacancyEditManager VacancyEditManager
@@ -31,7 +32,7 @@ type _VacancyEditManager VacancyEditManager
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacancyEditManager(manager NullableVacancyEditManagerManager) *VacancyEditManager {
+func NewVacancyEditManager(manager NullableIncludesId) *VacancyEditManager {
 	this := VacancyEditManager{}
 	this.Manager = manager
 	return &this
@@ -46,10 +47,10 @@ func NewVacancyEditManagerWithDefaults() *VacancyEditManager {
 }
 
 // GetManager returns the Manager field value
-// If the value is explicit nil, the zero value for VacancyEditManagerManager will be returned
-func (o *VacancyEditManager) GetManager() VacancyEditManagerManager {
+// If the value is explicit nil, the zero value for IncludesId will be returned
+func (o *VacancyEditManager) GetManager() IncludesId {
 	if o == nil || o.Manager.Get() == nil {
-		var ret VacancyEditManagerManager
+		var ret IncludesId
 		return ret
 	}
 
@@ -59,7 +60,7 @@ func (o *VacancyEditManager) GetManager() VacancyEditManagerManager {
 // GetManagerOk returns a tuple with the Manager field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacancyEditManager) GetManagerOk() (*VacancyEditManagerManager, bool) {
+func (o *VacancyEditManager) GetManagerOk() (*IncludesId, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,7 +68,7 @@ func (o *VacancyEditManager) GetManagerOk() (*VacancyEditManagerManager, bool) {
 }
 
 // SetManager sets field value
-func (o *VacancyEditManager) SetManager(v VacancyEditManagerManager) {
+func (o *VacancyEditManager) SetManager(v IncludesId) {
 	o.Manager.Set(&v)
 }
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &VacancyDraftProfessionalRoleItem{}
 // VacancyDraftProfessionalRoleItem struct for VacancyDraftProfessionalRoleItem
 type VacancyDraftProfessionalRoleItem struct {
 	// Идентификатор профессиональной роли. Элемент справочника [professional_roles](#tag/Obshie-spravochniki/operation/get-professional-roles-dictionary)
-	Id *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty" validate:"regexp=^\\\\d+$"`
 }
 
 // NewVacancyDraftProfessionalRoleItem instantiates a new VacancyDraftProfessionalRoleItem object

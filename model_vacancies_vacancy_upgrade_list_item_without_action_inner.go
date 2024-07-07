@@ -13,6 +13,7 @@ package hh
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
 	"fmt"
 )
 
@@ -45,7 +46,11 @@ func (dst *VacanciesVacancyUpgradeListItemWithoutActionInner) UnmarshalJSON(data
 		if string(jsonVacanciesUpgradeFieldsWithoutAction) == "{}" { // empty struct
 			dst.VacanciesUpgradeFieldsWithoutAction = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.VacanciesUpgradeFieldsWithoutAction); err != nil {
+				dst.VacanciesUpgradeFieldsWithoutAction = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.VacanciesUpgradeFieldsWithoutAction = nil
