@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ApplicantQuestionState** | Pointer to **bool** | Является ли вопросом до отклика | [optional] 
 **Counters** | Pointer to [**NegotiationsObjectsCounters**](NegotiationsObjectsCounters.md) |  | [optional] 
 **CreatedAt** | **string** | Дата и время создания отклика/приглашения | 
 **HasUpdates** | **bool** | Есть ли в откликах/приглашениях по данной вакансии обновления, требующие внимания | 
@@ -39,6 +40,31 @@ will change when the set of required properties is changed
 NewNegotiationsObjectsTopicItemWithDefaults instantiates a new NegotiationsObjectsTopicItem object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetApplicantQuestionState
+
+`func (o *NegotiationsObjectsTopicItem) GetApplicantQuestionState() bool`
+
+GetApplicantQuestionState returns the ApplicantQuestionState field if non-nil, zero value otherwise.
+
+### GetApplicantQuestionStateOk
+
+`func (o *NegotiationsObjectsTopicItem) GetApplicantQuestionStateOk() (*bool, bool)`
+
+GetApplicantQuestionStateOk returns a tuple with the ApplicantQuestionState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApplicantQuestionState
+
+`func (o *NegotiationsObjectsTopicItem) SetApplicantQuestionState(v bool)`
+
+SetApplicantQuestionState sets ApplicantQuestionState field to given value.
+
+### HasApplicantQuestionState
+
+`func (o *NegotiationsObjectsTopicItem) HasApplicantQuestionState() bool`
+
+HasApplicantQuestionState returns a boolean if a field has been set.
 
 ### GetCounters
 

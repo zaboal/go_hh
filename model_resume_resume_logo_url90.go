@@ -17,19 +17,22 @@ import (
 	"fmt"
 )
 
-// checks if the ResumesSuitableResumeItem type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ResumesSuitableResumeItem{}
+// checks if the ResumeResumeLogoUrl90 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResumeResumeLogoUrl90{}
 
-// ResumesSuitableResumeItem struct for ResumesSuitableResumeItem
-type ResumesSuitableResumeItem struct {
-	// Дополнительные действия
-	Actions ResumeObjectsActionsForOwner `json:"actions"`
-	// Возраст
-	Age NullableFloat32 `json:"age,omitempty"`
+// ResumeResumeLogoUrl90 struct for ResumeResumeLogoUrl90
+type ResumeResumeLogoUrl90 struct {
 	// URL резюме на сайте
 	AlternateUrl string `json:"alternate_url"`
-	Area *IncludesIdNameUrl `json:"area,omitempty"`
-	AutoHideTime *IncludesIdName `json:"auto_hide_time,omitempty"`
+	// Идентификатор резюме
+	Id string `json:"id"`
+	// Желаемая должность
+	Title NullableString `json:"title"`
+	// Ссылка на получение элементов
+	Url string `json:"url"`
+	// Возраст
+	Age NullableFloat32 `json:"age,omitempty"`
+	Area NullableIncludesIdNameUrl `json:"area,omitempty"`
 	// Доступен ли просмотр контактной информации в резюме текущему работодателю
 	CanViewFullInfo NullableBool `json:"can_view_full_info,omitempty"`
 	// Список сертификатов соискателя
@@ -37,147 +40,66 @@ type ResumesSuitableResumeItem struct {
 	// Дата и время создания резюме
 	CreatedAt string `json:"created_at"`
 	// Ссылки для скачивания резюме в разных форматах
-	Download ResumeObjectsDownload `json:"download"`
+	Download map[string]interface{} `json:"download"`
 	// Образование соискателя.   Особенности сохранения образования:  * Если передать и высшее и среднее образование и уровень образования \"средний\", то сохранится только среднее образование. * Если передать и высшее и среднее образование и уровень образования \"высшее\", то сохранится только высшее образование 
-	Education ResumeObjectsEducation `json:"education"`
+	Education map[string]interface{} `json:"education"`
 	// Опыт работы
-	Experience []ResumeObjectsExperienceForOwner `json:"experience"`
+	Experience []ResumeObjectsExperienceLogoUrl90 `json:"experience"`
 	// Имя
 	FirstName NullableString `json:"first_name,omitempty"`
-	Gender *IncludesIdName `json:"gender,omitempty"`
-	// Документация [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле `resume_hidden_fields` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
+	Gender NullableIncludesIdName `json:"gender,omitempty"`
+	// Справочник [Список скрытых полей](https://github.com/hhru/api/blob/master/docs/employer_resumes.md#hidden-fields). Возможные значения элементов приведены в поле `resume_hidden_fields` [справочника полей](#tag/Obshie-spravochniki/operation/get-dictionaries)
 	HiddenFields []IncludesIdName `json:"hidden_fields"`
-	// Идентификатор резюме
-	Id string `json:"id"`
 	// Фамилия
 	LastName NullableString `json:"last_name,omitempty"`
 	// Выделено ли резюме в поиске
-	Marked bool `json:"marked"`
+	Marked *bool `json:"marked,omitempty"`
 	// Отчество
 	MiddleName NullableString `json:"middle_name,omitempty"`
-	Photo *ProfilePhoto `json:"photo,omitempty"`
 	// Ресурс, на котором было размещено резюме
-	Platform *IncludesId `json:"platform,omitempty"`
+	Platform map[string]interface{} `json:"platform,omitempty"`
 	Salary NullableResumeObjectsSalaryProperties `json:"salary,omitempty"`
-	// Желаемая должность
-	Title NullableString `json:"title,omitempty"`
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
-	// URL резюме на сайте
-	Url string `json:"url"`
-	Access ResumeObjectsAccess `json:"access"`
-	// Заполнено ли резюме
-	Finished bool `json:"finished"`
-	// Принимает значение `true`, если резюме является неполным. Применимо только для вакансий, у которых не установлен флаг «принимать неполные резюме».   При получении `true` в данном поле, соискатель должен заполнить обязательные поля (доступны в [выдаче полного резюме](#tag/Prosmotr-rezyume/operation/get-resume)) перед откликом на данную вакансию 
-	RequiresCompletion bool `json:"requires_completion"`
-	// Статус [резюме](#tag/Rezyume.-Prosmotr-informacii/Status-rezyume) 
-	Status IncludesIdName `json:"status"`
 }
 
-type _ResumesSuitableResumeItem ResumesSuitableResumeItem
+type _ResumeResumeLogoUrl90 ResumeResumeLogoUrl90
 
-// NewResumesSuitableResumeItem instantiates a new ResumesSuitableResumeItem object
+// NewResumeResumeLogoUrl90 instantiates a new ResumeResumeLogoUrl90 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumesSuitableResumeItem(actions ResumeObjectsActionsForOwner, alternateUrl string, certificate []ResumeObjectsCertificate, createdAt string, download ResumeObjectsDownload, education ResumeObjectsEducation, experience []ResumeObjectsExperienceForOwner, hiddenFields []IncludesIdName, id string, marked bool, updatedAt string, url string, access ResumeObjectsAccess, finished bool, requiresCompletion bool, status IncludesIdName) *ResumesSuitableResumeItem {
-	this := ResumesSuitableResumeItem{}
-	this.Actions = actions
+func NewResumeResumeLogoUrl90(alternateUrl string, id string, title NullableString, url string, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, experience []ResumeObjectsExperienceLogoUrl90, hiddenFields []IncludesIdName, updatedAt string) *ResumeResumeLogoUrl90 {
+	this := ResumeResumeLogoUrl90{}
 	this.AlternateUrl = alternateUrl
+	this.Id = id
+	this.Title = title
+	this.Url = url
 	this.Certificate = certificate
 	this.CreatedAt = createdAt
 	this.Download = download
 	this.Education = education
 	this.Experience = experience
 	this.HiddenFields = hiddenFields
-	this.Id = id
-	this.Marked = marked
+	var marked bool = false
+	this.Marked = &marked
 	this.UpdatedAt = updatedAt
-	this.Url = url
-	this.Access = access
-	this.Finished = finished
-	this.RequiresCompletion = requiresCompletion
-	this.Status = status
 	return &this
 }
 
-// NewResumesSuitableResumeItemWithDefaults instantiates a new ResumesSuitableResumeItem object
+// NewResumeResumeLogoUrl90WithDefaults instantiates a new ResumeResumeLogoUrl90 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewResumesSuitableResumeItemWithDefaults() *ResumesSuitableResumeItem {
-	this := ResumesSuitableResumeItem{}
+func NewResumeResumeLogoUrl90WithDefaults() *ResumeResumeLogoUrl90 {
+	this := ResumeResumeLogoUrl90{}
+	var marked bool = false
+	this.Marked = &marked
 	return &this
-}
-
-// GetActions returns the Actions field value
-func (o *ResumesSuitableResumeItem) GetActions() ResumeObjectsActionsForOwner {
-	if o == nil {
-		var ret ResumeObjectsActionsForOwner
-		return ret
-	}
-
-	return o.Actions
-}
-
-// GetActionsOk returns a tuple with the Actions field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetActionsOk() (*ResumeObjectsActionsForOwner, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Actions, true
-}
-
-// SetActions sets field value
-func (o *ResumesSuitableResumeItem) SetActions(v ResumeObjectsActionsForOwner) {
-	o.Actions = v
-}
-
-// GetAge returns the Age field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetAge() float32 {
-	if o == nil || IsNil(o.Age.Get()) {
-		var ret float32
-		return ret
-	}
-	return *o.Age.Get()
-}
-
-// GetAgeOk returns a tuple with the Age field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetAgeOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Age.Get(), o.Age.IsSet()
-}
-
-// HasAge returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasAge() bool {
-	if o != nil && o.Age.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetAge gets a reference to the given NullableFloat32 and assigns it to the Age field.
-func (o *ResumesSuitableResumeItem) SetAge(v float32) {
-	o.Age.Set(&v)
-}
-// SetAgeNil sets the value for Age to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetAgeNil() {
-	o.Age.Set(nil)
-}
-
-// UnsetAge ensures that no value is present for Age, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetAge() {
-	o.Age.Unset()
 }
 
 // GetAlternateUrl returns the AlternateUrl field value
-func (o *ResumesSuitableResumeItem) GetAlternateUrl() string {
+func (o *ResumeResumeLogoUrl90) GetAlternateUrl() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -188,7 +110,7 @@ func (o *ResumesSuitableResumeItem) GetAlternateUrl() string {
 
 // GetAlternateUrlOk returns a tuple with the AlternateUrl field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetAlternateUrlOk() (*string, bool) {
+func (o *ResumeResumeLogoUrl90) GetAlternateUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -196,336 +118,12 @@ func (o *ResumesSuitableResumeItem) GetAlternateUrlOk() (*string, bool) {
 }
 
 // SetAlternateUrl sets field value
-func (o *ResumesSuitableResumeItem) SetAlternateUrl(v string) {
+func (o *ResumeResumeLogoUrl90) SetAlternateUrl(v string) {
 	o.AlternateUrl = v
 }
 
-// GetArea returns the Area field value if set, zero value otherwise.
-func (o *ResumesSuitableResumeItem) GetArea() IncludesIdNameUrl {
-	if o == nil || IsNil(o.Area) {
-		var ret IncludesIdNameUrl
-		return ret
-	}
-	return *o.Area
-}
-
-// GetAreaOk returns a tuple with the Area field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetAreaOk() (*IncludesIdNameUrl, bool) {
-	if o == nil || IsNil(o.Area) {
-		return nil, false
-	}
-	return o.Area, true
-}
-
-// HasArea returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasArea() bool {
-	if o != nil && !IsNil(o.Area) {
-		return true
-	}
-
-	return false
-}
-
-// SetArea gets a reference to the given IncludesIdNameUrl and assigns it to the Area field.
-func (o *ResumesSuitableResumeItem) SetArea(v IncludesIdNameUrl) {
-	o.Area = &v
-}
-
-// GetAutoHideTime returns the AutoHideTime field value if set, zero value otherwise.
-func (o *ResumesSuitableResumeItem) GetAutoHideTime() IncludesIdName {
-	if o == nil || IsNil(o.AutoHideTime) {
-		var ret IncludesIdName
-		return ret
-	}
-	return *o.AutoHideTime
-}
-
-// GetAutoHideTimeOk returns a tuple with the AutoHideTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetAutoHideTimeOk() (*IncludesIdName, bool) {
-	if o == nil || IsNil(o.AutoHideTime) {
-		return nil, false
-	}
-	return o.AutoHideTime, true
-}
-
-// HasAutoHideTime returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasAutoHideTime() bool {
-	if o != nil && !IsNil(o.AutoHideTime) {
-		return true
-	}
-
-	return false
-}
-
-// SetAutoHideTime gets a reference to the given IncludesIdName and assigns it to the AutoHideTime field.
-func (o *ResumesSuitableResumeItem) SetAutoHideTime(v IncludesIdName) {
-	o.AutoHideTime = &v
-}
-
-// GetCanViewFullInfo returns the CanViewFullInfo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetCanViewFullInfo() bool {
-	if o == nil || IsNil(o.CanViewFullInfo.Get()) {
-		var ret bool
-		return ret
-	}
-	return *o.CanViewFullInfo.Get()
-}
-
-// GetCanViewFullInfoOk returns a tuple with the CanViewFullInfo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetCanViewFullInfoOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.CanViewFullInfo.Get(), o.CanViewFullInfo.IsSet()
-}
-
-// HasCanViewFullInfo returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasCanViewFullInfo() bool {
-	if o != nil && o.CanViewFullInfo.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCanViewFullInfo gets a reference to the given NullableBool and assigns it to the CanViewFullInfo field.
-func (o *ResumesSuitableResumeItem) SetCanViewFullInfo(v bool) {
-	o.CanViewFullInfo.Set(&v)
-}
-// SetCanViewFullInfoNil sets the value for CanViewFullInfo to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetCanViewFullInfoNil() {
-	o.CanViewFullInfo.Set(nil)
-}
-
-// UnsetCanViewFullInfo ensures that no value is present for CanViewFullInfo, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetCanViewFullInfo() {
-	o.CanViewFullInfo.Unset()
-}
-
-// GetCertificate returns the Certificate field value
-func (o *ResumesSuitableResumeItem) GetCertificate() []ResumeObjectsCertificate {
-	if o == nil {
-		var ret []ResumeObjectsCertificate
-		return ret
-	}
-
-	return o.Certificate
-}
-
-// GetCertificateOk returns a tuple with the Certificate field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetCertificateOk() ([]ResumeObjectsCertificate, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Certificate, true
-}
-
-// SetCertificate sets field value
-func (o *ResumesSuitableResumeItem) SetCertificate(v []ResumeObjectsCertificate) {
-	o.Certificate = v
-}
-
-// GetCreatedAt returns the CreatedAt field value
-func (o *ResumesSuitableResumeItem) GetCreatedAt() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetCreatedAtOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
-}
-
-// SetCreatedAt sets field value
-func (o *ResumesSuitableResumeItem) SetCreatedAt(v string) {
-	o.CreatedAt = v
-}
-
-// GetDownload returns the Download field value
-func (o *ResumesSuitableResumeItem) GetDownload() ResumeObjectsDownload {
-	if o == nil {
-		var ret ResumeObjectsDownload
-		return ret
-	}
-
-	return o.Download
-}
-
-// GetDownloadOk returns a tuple with the Download field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetDownloadOk() (*ResumeObjectsDownload, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Download, true
-}
-
-// SetDownload sets field value
-func (o *ResumesSuitableResumeItem) SetDownload(v ResumeObjectsDownload) {
-	o.Download = v
-}
-
-// GetEducation returns the Education field value
-func (o *ResumesSuitableResumeItem) GetEducation() ResumeObjectsEducation {
-	if o == nil {
-		var ret ResumeObjectsEducation
-		return ret
-	}
-
-	return o.Education
-}
-
-// GetEducationOk returns a tuple with the Education field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetEducationOk() (*ResumeObjectsEducation, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Education, true
-}
-
-// SetEducation sets field value
-func (o *ResumesSuitableResumeItem) SetEducation(v ResumeObjectsEducation) {
-	o.Education = v
-}
-
-// GetExperience returns the Experience field value
-func (o *ResumesSuitableResumeItem) GetExperience() []ResumeObjectsExperienceForOwner {
-	if o == nil {
-		var ret []ResumeObjectsExperienceForOwner
-		return ret
-	}
-
-	return o.Experience
-}
-
-// GetExperienceOk returns a tuple with the Experience field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetExperienceOk() ([]ResumeObjectsExperienceForOwner, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Experience, true
-}
-
-// SetExperience sets field value
-func (o *ResumesSuitableResumeItem) SetExperience(v []ResumeObjectsExperienceForOwner) {
-	o.Experience = v
-}
-
-// GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetFirstName() string {
-	if o == nil || IsNil(o.FirstName.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.FirstName.Get()
-}
-
-// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetFirstNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.FirstName.Get(), o.FirstName.IsSet()
-}
-
-// HasFirstName returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasFirstName() bool {
-	if o != nil && o.FirstName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetFirstName gets a reference to the given NullableString and assigns it to the FirstName field.
-func (o *ResumesSuitableResumeItem) SetFirstName(v string) {
-	o.FirstName.Set(&v)
-}
-// SetFirstNameNil sets the value for FirstName to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetFirstNameNil() {
-	o.FirstName.Set(nil)
-}
-
-// UnsetFirstName ensures that no value is present for FirstName, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetFirstName() {
-	o.FirstName.Unset()
-}
-
-// GetGender returns the Gender field value if set, zero value otherwise.
-func (o *ResumesSuitableResumeItem) GetGender() IncludesIdName {
-	if o == nil || IsNil(o.Gender) {
-		var ret IncludesIdName
-		return ret
-	}
-	return *o.Gender
-}
-
-// GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetGenderOk() (*IncludesIdName, bool) {
-	if o == nil || IsNil(o.Gender) {
-		return nil, false
-	}
-	return o.Gender, true
-}
-
-// HasGender returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasGender() bool {
-	if o != nil && !IsNil(o.Gender) {
-		return true
-	}
-
-	return false
-}
-
-// SetGender gets a reference to the given IncludesIdName and assigns it to the Gender field.
-func (o *ResumesSuitableResumeItem) SetGender(v IncludesIdName) {
-	o.Gender = &v
-}
-
-// GetHiddenFields returns the HiddenFields field value
-func (o *ResumesSuitableResumeItem) GetHiddenFields() []IncludesIdName {
-	if o == nil {
-		var ret []IncludesIdName
-		return ret
-	}
-
-	return o.HiddenFields
-}
-
-// GetHiddenFieldsOk returns a tuple with the HiddenFields field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.HiddenFields, true
-}
-
-// SetHiddenFields sets field value
-func (o *ResumesSuitableResumeItem) SetHiddenFields(v []IncludesIdName) {
-	o.HiddenFields = v
-}
-
 // GetId returns the Id field value
-func (o *ResumesSuitableResumeItem) GetId() string {
+func (o *ResumeResumeLogoUrl90) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -536,7 +134,7 @@ func (o *ResumesSuitableResumeItem) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetIdOk() (*string, bool) {
+func (o *ResumeResumeLogoUrl90) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -544,334 +142,38 @@ func (o *ResumesSuitableResumeItem) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *ResumesSuitableResumeItem) SetId(v string) {
+func (o *ResumeResumeLogoUrl90) SetId(v string) {
 	o.Id = v
 }
 
-// GetLastName returns the LastName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetLastName() string {
-	if o == nil || IsNil(o.LastName.Get()) {
+// GetTitle returns the Title field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *ResumeResumeLogoUrl90) GetTitle() string {
+	if o == nil || o.Title.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.LastName.Get()
-}
 
-// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetLastNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.LastName.Get(), o.LastName.IsSet()
-}
-
-// HasLastName returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasLastName() bool {
-	if o != nil && o.LastName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetLastName gets a reference to the given NullableString and assigns it to the LastName field.
-func (o *ResumesSuitableResumeItem) SetLastName(v string) {
-	o.LastName.Set(&v)
-}
-// SetLastNameNil sets the value for LastName to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetLastNameNil() {
-	o.LastName.Set(nil)
-}
-
-// UnsetLastName ensures that no value is present for LastName, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetLastName() {
-	o.LastName.Unset()
-}
-
-// GetMarked returns the Marked field value
-func (o *ResumesSuitableResumeItem) GetMarked() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Marked
-}
-
-// GetMarkedOk returns a tuple with the Marked field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetMarkedOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Marked, true
-}
-
-// SetMarked sets field value
-func (o *ResumesSuitableResumeItem) SetMarked(v bool) {
-	o.Marked = v
-}
-
-// GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetMiddleName() string {
-	if o == nil || IsNil(o.MiddleName.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.MiddleName.Get()
-}
-
-// GetMiddleNameOk returns a tuple with the MiddleName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetMiddleNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.MiddleName.Get(), o.MiddleName.IsSet()
-}
-
-// HasMiddleName returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasMiddleName() bool {
-	if o != nil && o.MiddleName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetMiddleName gets a reference to the given NullableString and assigns it to the MiddleName field.
-func (o *ResumesSuitableResumeItem) SetMiddleName(v string) {
-	o.MiddleName.Set(&v)
-}
-// SetMiddleNameNil sets the value for MiddleName to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetMiddleNameNil() {
-	o.MiddleName.Set(nil)
-}
-
-// UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetMiddleName() {
-	o.MiddleName.Unset()
-}
-
-// GetPhoto returns the Photo field value if set, zero value otherwise.
-func (o *ResumesSuitableResumeItem) GetPhoto() ProfilePhoto {
-	if o == nil || IsNil(o.Photo) {
-		var ret ProfilePhoto
-		return ret
-	}
-	return *o.Photo
-}
-
-// GetPhotoOk returns a tuple with the Photo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetPhotoOk() (*ProfilePhoto, bool) {
-	if o == nil || IsNil(o.Photo) {
-		return nil, false
-	}
-	return o.Photo, true
-}
-
-// HasPhoto returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasPhoto() bool {
-	if o != nil && !IsNil(o.Photo) {
-		return true
-	}
-
-	return false
-}
-
-// SetPhoto gets a reference to the given ProfilePhoto and assigns it to the Photo field.
-func (o *ResumesSuitableResumeItem) SetPhoto(v ProfilePhoto) {
-	o.Photo = &v
-}
-
-// GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *ResumesSuitableResumeItem) GetPlatform() IncludesId {
-	if o == nil || IsNil(o.Platform) {
-		var ret IncludesId
-		return ret
-	}
-	return *o.Platform
-}
-
-// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetPlatformOk() (*IncludesId, bool) {
-	if o == nil || IsNil(o.Platform) {
-		return nil, false
-	}
-	return o.Platform, true
-}
-
-// HasPlatform returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasPlatform() bool {
-	if o != nil && !IsNil(o.Platform) {
-		return true
-	}
-
-	return false
-}
-
-// SetPlatform gets a reference to the given IncludesId and assigns it to the Platform field.
-func (o *ResumesSuitableResumeItem) SetPlatform(v IncludesId) {
-	o.Platform = &v
-}
-
-// GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetSalary() ResumeObjectsSalaryProperties {
-	if o == nil || IsNil(o.Salary.Get()) {
-		var ret ResumeObjectsSalaryProperties
-		return ret
-	}
-	return *o.Salary.Get()
-}
-
-// GetSalaryOk returns a tuple with the Salary field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Salary.Get(), o.Salary.IsSet()
-}
-
-// HasSalary returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasSalary() bool {
-	if o != nil && o.Salary.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSalary gets a reference to the given NullableResumeObjectsSalaryProperties and assigns it to the Salary field.
-func (o *ResumesSuitableResumeItem) SetSalary(v ResumeObjectsSalaryProperties) {
-	o.Salary.Set(&v)
-}
-// SetSalaryNil sets the value for Salary to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetSalaryNil() {
-	o.Salary.Set(nil)
-}
-
-// UnsetSalary ensures that no value is present for Salary, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetSalary() {
-	o.Salary.Unset()
-}
-
-// GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetTitle() string {
-	if o == nil || IsNil(o.Title.Get()) {
-		var ret string
-		return ret
-	}
 	return *o.Title.Get()
 }
 
-// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// GetTitleOk returns a tuple with the Title field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetTitleOk() (*string, bool) {
+func (o *ResumeResumeLogoUrl90) GetTitleOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.Title.Get(), o.Title.IsSet()
 }
 
-// HasTitle returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasTitle() bool {
-	if o != nil && o.Title.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle gets a reference to the given NullableString and assigns it to the Title field.
-func (o *ResumesSuitableResumeItem) SetTitle(v string) {
+// SetTitle sets field value
+func (o *ResumeResumeLogoUrl90) SetTitle(v string) {
 	o.Title.Set(&v)
-}
-// SetTitleNil sets the value for Title to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetTitleNil() {
-	o.Title.Set(nil)
-}
-
-// UnsetTitle ensures that no value is present for Title, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetTitle() {
-	o.Title.Unset()
-}
-
-// GetTotalExperience returns the TotalExperience field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResumesSuitableResumeItem) GetTotalExperience() ResumeObjectsTotalExperience {
-	if o == nil || IsNil(o.TotalExperience.Get()) {
-		var ret ResumeObjectsTotalExperience
-		return ret
-	}
-	return *o.TotalExperience.Get()
-}
-
-// GetTotalExperienceOk returns a tuple with the TotalExperience field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResumesSuitableResumeItem) GetTotalExperienceOk() (*ResumeObjectsTotalExperience, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.TotalExperience.Get(), o.TotalExperience.IsSet()
-}
-
-// HasTotalExperience returns a boolean if a field has been set.
-func (o *ResumesSuitableResumeItem) HasTotalExperience() bool {
-	if o != nil && o.TotalExperience.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalExperience gets a reference to the given NullableResumeObjectsTotalExperience and assigns it to the TotalExperience field.
-func (o *ResumesSuitableResumeItem) SetTotalExperience(v ResumeObjectsTotalExperience) {
-	o.TotalExperience.Set(&v)
-}
-// SetTotalExperienceNil sets the value for TotalExperience to be an explicit nil
-func (o *ResumesSuitableResumeItem) SetTotalExperienceNil() {
-	o.TotalExperience.Set(nil)
-}
-
-// UnsetTotalExperience ensures that no value is present for TotalExperience, not even an explicit nil
-func (o *ResumesSuitableResumeItem) UnsetTotalExperience() {
-	o.TotalExperience.Unset()
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *ResumesSuitableResumeItem) GetUpdatedAt() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetUpdatedAtOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *ResumesSuitableResumeItem) SetUpdatedAt(v string) {
-	o.UpdatedAt = v
 }
 
 // GetUrl returns the Url field value
-func (o *ResumesSuitableResumeItem) GetUrl() string {
+func (o *ResumeResumeLogoUrl90) GetUrl() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -882,7 +184,7 @@ func (o *ResumesSuitableResumeItem) GetUrl() string {
 
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetUrlOk() (*string, bool) {
+func (o *ResumeResumeLogoUrl90) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -890,107 +192,621 @@ func (o *ResumesSuitableResumeItem) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value
-func (o *ResumesSuitableResumeItem) SetUrl(v string) {
+func (o *ResumeResumeLogoUrl90) SetUrl(v string) {
 	o.Url = v
 }
 
-// GetAccess returns the Access field value
-func (o *ResumesSuitableResumeItem) GetAccess() ResumeObjectsAccess {
-	if o == nil {
-		var ret ResumeObjectsAccess
+// GetAge returns the Age field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetAge() float32 {
+	if o == nil || IsNil(o.Age.Get()) {
+		var ret float32
 		return ret
 	}
-
-	return o.Access
+	return *o.Age.Get()
 }
 
-// GetAccessOk returns a tuple with the Access field value
+// GetAgeOk returns a tuple with the Age field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetAccessOk() (*ResumeObjectsAccess, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetAgeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Access, true
+	return o.Age.Get(), o.Age.IsSet()
 }
 
-// SetAccess sets field value
-func (o *ResumesSuitableResumeItem) SetAccess(v ResumeObjectsAccess) {
-	o.Access = v
+// HasAge returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasAge() bool {
+	if o != nil && o.Age.IsSet() {
+		return true
+	}
+
+	return false
 }
 
-// GetFinished returns the Finished field value
-func (o *ResumesSuitableResumeItem) GetFinished() bool {
+// SetAge gets a reference to the given NullableFloat32 and assigns it to the Age field.
+func (o *ResumeResumeLogoUrl90) SetAge(v float32) {
+	o.Age.Set(&v)
+}
+// SetAgeNil sets the value for Age to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetAgeNil() {
+	o.Age.Set(nil)
+}
+
+// UnsetAge ensures that no value is present for Age, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetAge() {
+	o.Age.Unset()
+}
+
+// GetArea returns the Area field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetArea() IncludesIdNameUrl {
+	if o == nil || IsNil(o.Area.Get()) {
+		var ret IncludesIdNameUrl
+		return ret
+	}
+	return *o.Area.Get()
+}
+
+// GetAreaOk returns a tuple with the Area field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetAreaOk() (*IncludesIdNameUrl, bool) {
 	if o == nil {
+		return nil, false
+	}
+	return o.Area.Get(), o.Area.IsSet()
+}
+
+// HasArea returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasArea() bool {
+	if o != nil && o.Area.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetArea gets a reference to the given NullableIncludesIdNameUrl and assigns it to the Area field.
+func (o *ResumeResumeLogoUrl90) SetArea(v IncludesIdNameUrl) {
+	o.Area.Set(&v)
+}
+// SetAreaNil sets the value for Area to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetAreaNil() {
+	o.Area.Set(nil)
+}
+
+// UnsetArea ensures that no value is present for Area, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetArea() {
+	o.Area.Unset()
+}
+
+// GetCanViewFullInfo returns the CanViewFullInfo field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetCanViewFullInfo() bool {
+	if o == nil || IsNil(o.CanViewFullInfo.Get()) {
 		var ret bool
 		return ret
 	}
-
-	return o.Finished
+	return *o.CanViewFullInfo.Get()
 }
 
-// GetFinishedOk returns a tuple with the Finished field value
+// GetCanViewFullInfoOk returns a tuple with the CanViewFullInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetFinishedOk() (*bool, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetCanViewFullInfoOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Finished, true
+	return o.CanViewFullInfo.Get(), o.CanViewFullInfo.IsSet()
 }
 
-// SetFinished sets field value
-func (o *ResumesSuitableResumeItem) SetFinished(v bool) {
-	o.Finished = v
+// HasCanViewFullInfo returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasCanViewFullInfo() bool {
+	if o != nil && o.CanViewFullInfo.IsSet() {
+		return true
+	}
+
+	return false
 }
 
-// GetRequiresCompletion returns the RequiresCompletion field value
-func (o *ResumesSuitableResumeItem) GetRequiresCompletion() bool {
+// SetCanViewFullInfo gets a reference to the given NullableBool and assigns it to the CanViewFullInfo field.
+func (o *ResumeResumeLogoUrl90) SetCanViewFullInfo(v bool) {
+	o.CanViewFullInfo.Set(&v)
+}
+// SetCanViewFullInfoNil sets the value for CanViewFullInfo to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetCanViewFullInfoNil() {
+	o.CanViewFullInfo.Set(nil)
+}
+
+// UnsetCanViewFullInfo ensures that no value is present for CanViewFullInfo, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetCanViewFullInfo() {
+	o.CanViewFullInfo.Unset()
+}
+
+// GetCertificate returns the Certificate field value
+func (o *ResumeResumeLogoUrl90) GetCertificate() []ResumeObjectsCertificate {
 	if o == nil {
-		var ret bool
+		var ret []ResumeObjectsCertificate
 		return ret
 	}
 
-	return o.RequiresCompletion
+	return o.Certificate
 }
 
-// GetRequiresCompletionOk returns a tuple with the RequiresCompletion field value
+// GetCertificateOk returns a tuple with the Certificate field value
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetRequiresCompletionOk() (*bool, bool) {
+func (o *ResumeResumeLogoUrl90) GetCertificateOk() ([]ResumeObjectsCertificate, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RequiresCompletion, true
+	return o.Certificate, true
 }
 
-// SetRequiresCompletion sets field value
-func (o *ResumesSuitableResumeItem) SetRequiresCompletion(v bool) {
-	o.RequiresCompletion = v
+// SetCertificate sets field value
+func (o *ResumeResumeLogoUrl90) SetCertificate(v []ResumeObjectsCertificate) {
+	o.Certificate = v
 }
 
-// GetStatus returns the Status field value
-func (o *ResumesSuitableResumeItem) GetStatus() IncludesIdName {
+// GetCreatedAt returns the CreatedAt field value
+func (o *ResumeResumeLogoUrl90) GetCreatedAt() string {
 	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetCreatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *ResumeResumeLogoUrl90) SetCreatedAt(v string) {
+	o.CreatedAt = v
+}
+
+// GetDownload returns the Download field value
+func (o *ResumeResumeLogoUrl90) GetDownload() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+
+	return o.Download
+}
+
+// GetDownloadOk returns a tuple with the Download field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetDownloadOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
+	}
+	return o.Download, true
+}
+
+// SetDownload sets field value
+func (o *ResumeResumeLogoUrl90) SetDownload(v map[string]interface{}) {
+	o.Download = v
+}
+
+// GetEducation returns the Education field value
+func (o *ResumeResumeLogoUrl90) GetEducation() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+
+	return o.Education
+}
+
+// GetEducationOk returns a tuple with the Education field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetEducationOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
+	}
+	return o.Education, true
+}
+
+// SetEducation sets field value
+func (o *ResumeResumeLogoUrl90) SetEducation(v map[string]interface{}) {
+	o.Education = v
+}
+
+// GetExperience returns the Experience field value
+func (o *ResumeResumeLogoUrl90) GetExperience() []ResumeObjectsExperienceLogoUrl90 {
+	if o == nil {
+		var ret []ResumeObjectsExperienceLogoUrl90
+		return ret
+	}
+
+	return o.Experience
+}
+
+// GetExperienceOk returns a tuple with the Experience field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetExperienceOk() ([]ResumeObjectsExperienceLogoUrl90, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Experience, true
+}
+
+// SetExperience sets field value
+func (o *ResumeResumeLogoUrl90) SetExperience(v []ResumeObjectsExperienceLogoUrl90) {
+	o.Experience = v
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetFirstName() string {
+	if o == nil || IsNil(o.FirstName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FirstName.Get()
+}
+
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetFirstNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FirstName.Get(), o.FirstName.IsSet()
+}
+
+// HasFirstName returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasFirstName() bool {
+	if o != nil && o.FirstName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstName gets a reference to the given NullableString and assigns it to the FirstName field.
+func (o *ResumeResumeLogoUrl90) SetFirstName(v string) {
+	o.FirstName.Set(&v)
+}
+// SetFirstNameNil sets the value for FirstName to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetFirstNameNil() {
+	o.FirstName.Set(nil)
+}
+
+// UnsetFirstName ensures that no value is present for FirstName, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetFirstName() {
+	o.FirstName.Unset()
+}
+
+// GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetGender() IncludesIdName {
+	if o == nil || IsNil(o.Gender.Get()) {
 		var ret IncludesIdName
 		return ret
 	}
-
-	return o.Status
+	return *o.Gender.Get()
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResumesSuitableResumeItem) GetStatusOk() (*IncludesIdName, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetGenderOk() (*IncludesIdName, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return o.Gender.Get(), o.Gender.IsSet()
 }
 
-// SetStatus sets field value
-func (o *ResumesSuitableResumeItem) SetStatus(v IncludesIdName) {
-	o.Status = v
+// HasGender returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasGender() bool {
+	if o != nil && o.Gender.IsSet() {
+		return true
+	}
+
+	return false
 }
 
-func (o ResumesSuitableResumeItem) MarshalJSON() ([]byte, error) {
+// SetGender gets a reference to the given NullableIncludesIdName and assigns it to the Gender field.
+func (o *ResumeResumeLogoUrl90) SetGender(v IncludesIdName) {
+	o.Gender.Set(&v)
+}
+// SetGenderNil sets the value for Gender to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetGenderNil() {
+	o.Gender.Set(nil)
+}
+
+// UnsetGender ensures that no value is present for Gender, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetGender() {
+	o.Gender.Unset()
+}
+
+// GetHiddenFields returns the HiddenFields field value
+func (o *ResumeResumeLogoUrl90) GetHiddenFields() []IncludesIdName {
+	if o == nil {
+		var ret []IncludesIdName
+		return ret
+	}
+
+	return o.HiddenFields
+}
+
+// GetHiddenFieldsOk returns a tuple with the HiddenFields field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetHiddenFieldsOk() ([]IncludesIdName, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.HiddenFields, true
+}
+
+// SetHiddenFields sets field value
+func (o *ResumeResumeLogoUrl90) SetHiddenFields(v []IncludesIdName) {
+	o.HiddenFields = v
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetLastName() string {
+	if o == nil || IsNil(o.LastName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.LastName.Get()
+}
+
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetLastNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LastName.Get(), o.LastName.IsSet()
+}
+
+// HasLastName returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasLastName() bool {
+	if o != nil && o.LastName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLastName gets a reference to the given NullableString and assigns it to the LastName field.
+func (o *ResumeResumeLogoUrl90) SetLastName(v string) {
+	o.LastName.Set(&v)
+}
+// SetLastNameNil sets the value for LastName to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetLastNameNil() {
+	o.LastName.Set(nil)
+}
+
+// UnsetLastName ensures that no value is present for LastName, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetLastName() {
+	o.LastName.Unset()
+}
+
+// GetMarked returns the Marked field value if set, zero value otherwise.
+func (o *ResumeResumeLogoUrl90) GetMarked() bool {
+	if o == nil || IsNil(o.Marked) {
+		var ret bool
+		return ret
+	}
+	return *o.Marked
+}
+
+// GetMarkedOk returns a tuple with the Marked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetMarkedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Marked) {
+		return nil, false
+	}
+	return o.Marked, true
+}
+
+// HasMarked returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasMarked() bool {
+	if o != nil && !IsNil(o.Marked) {
+		return true
+	}
+
+	return false
+}
+
+// SetMarked gets a reference to the given bool and assigns it to the Marked field.
+func (o *ResumeResumeLogoUrl90) SetMarked(v bool) {
+	o.Marked = &v
+}
+
+// GetMiddleName returns the MiddleName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetMiddleName() string {
+	if o == nil || IsNil(o.MiddleName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.MiddleName.Get()
+}
+
+// GetMiddleNameOk returns a tuple with the MiddleName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetMiddleNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MiddleName.Get(), o.MiddleName.IsSet()
+}
+
+// HasMiddleName returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasMiddleName() bool {
+	if o != nil && o.MiddleName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMiddleName gets a reference to the given NullableString and assigns it to the MiddleName field.
+func (o *ResumeResumeLogoUrl90) SetMiddleName(v string) {
+	o.MiddleName.Set(&v)
+}
+// SetMiddleNameNil sets the value for MiddleName to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetMiddleNameNil() {
+	o.MiddleName.Set(nil)
+}
+
+// UnsetMiddleName ensures that no value is present for MiddleName, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetMiddleName() {
+	o.MiddleName.Unset()
+}
+
+// GetPlatform returns the Platform field value if set, zero value otherwise.
+func (o *ResumeResumeLogoUrl90) GetPlatform() map[string]interface{} {
+	if o == nil || IsNil(o.Platform) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Platform
+}
+
+// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetPlatformOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Platform) {
+		return map[string]interface{}{}, false
+	}
+	return o.Platform, true
+}
+
+// HasPlatform returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasPlatform() bool {
+	if o != nil && !IsNil(o.Platform) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatform gets a reference to the given map[string]interface{} and assigns it to the Platform field.
+func (o *ResumeResumeLogoUrl90) SetPlatform(v map[string]interface{}) {
+	o.Platform = v
+}
+
+// GetSalary returns the Salary field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetSalary() ResumeObjectsSalaryProperties {
+	if o == nil || IsNil(o.Salary.Get()) {
+		var ret ResumeObjectsSalaryProperties
+		return ret
+	}
+	return *o.Salary.Get()
+}
+
+// GetSalaryOk returns a tuple with the Salary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetSalaryOk() (*ResumeObjectsSalaryProperties, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Salary.Get(), o.Salary.IsSet()
+}
+
+// HasSalary returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasSalary() bool {
+	if o != nil && o.Salary.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSalary gets a reference to the given NullableResumeObjectsSalaryProperties and assigns it to the Salary field.
+func (o *ResumeResumeLogoUrl90) SetSalary(v ResumeObjectsSalaryProperties) {
+	o.Salary.Set(&v)
+}
+// SetSalaryNil sets the value for Salary to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetSalaryNil() {
+	o.Salary.Set(nil)
+}
+
+// UnsetSalary ensures that no value is present for Salary, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetSalary() {
+	o.Salary.Unset()
+}
+
+// GetTotalExperience returns the TotalExperience field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeResumeLogoUrl90) GetTotalExperience() ResumeObjectsTotalExperience {
+	if o == nil || IsNil(o.TotalExperience.Get()) {
+		var ret ResumeObjectsTotalExperience
+		return ret
+	}
+	return *o.TotalExperience.Get()
+}
+
+// GetTotalExperienceOk returns a tuple with the TotalExperience field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeResumeLogoUrl90) GetTotalExperienceOk() (*ResumeObjectsTotalExperience, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TotalExperience.Get(), o.TotalExperience.IsSet()
+}
+
+// HasTotalExperience returns a boolean if a field has been set.
+func (o *ResumeResumeLogoUrl90) HasTotalExperience() bool {
+	if o != nil && o.TotalExperience.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalExperience gets a reference to the given NullableResumeObjectsTotalExperience and assigns it to the TotalExperience field.
+func (o *ResumeResumeLogoUrl90) SetTotalExperience(v ResumeObjectsTotalExperience) {
+	o.TotalExperience.Set(&v)
+}
+// SetTotalExperienceNil sets the value for TotalExperience to be an explicit nil
+func (o *ResumeResumeLogoUrl90) SetTotalExperienceNil() {
+	o.TotalExperience.Set(nil)
+}
+
+// UnsetTotalExperience ensures that no value is present for TotalExperience, not even an explicit nil
+func (o *ResumeResumeLogoUrl90) UnsetTotalExperience() {
+	o.TotalExperience.Unset()
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *ResumeResumeLogoUrl90) GetUpdatedAt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeLogoUrl90) GetUpdatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *ResumeResumeLogoUrl90) SetUpdatedAt(v string) {
+	o.UpdatedAt = v
+}
+
+func (o ResumeResumeLogoUrl90) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -998,18 +814,17 @@ func (o ResumesSuitableResumeItem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
+func (o ResumeResumeLogoUrl90) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["actions"] = o.Actions
+	toSerialize["alternate_url"] = o.AlternateUrl
+	toSerialize["id"] = o.Id
+	toSerialize["title"] = o.Title.Get()
+	toSerialize["url"] = o.Url
 	if o.Age.IsSet() {
 		toSerialize["age"] = o.Age.Get()
 	}
-	toSerialize["alternate_url"] = o.AlternateUrl
-	if !IsNil(o.Area) {
-		toSerialize["area"] = o.Area
-	}
-	if !IsNil(o.AutoHideTime) {
-		toSerialize["auto_hide_time"] = o.AutoHideTime
+	if o.Area.IsSet() {
+		toSerialize["area"] = o.Area.Get()
 	}
 	if o.CanViewFullInfo.IsSet() {
 		toSerialize["can_view_full_info"] = o.CanViewFullInfo.Get()
@@ -1022,20 +837,18 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 	if o.FirstName.IsSet() {
 		toSerialize["first_name"] = o.FirstName.Get()
 	}
-	if !IsNil(o.Gender) {
-		toSerialize["gender"] = o.Gender
+	if o.Gender.IsSet() {
+		toSerialize["gender"] = o.Gender.Get()
 	}
 	toSerialize["hidden_fields"] = o.HiddenFields
-	toSerialize["id"] = o.Id
 	if o.LastName.IsSet() {
 		toSerialize["last_name"] = o.LastName.Get()
 	}
-	toSerialize["marked"] = o.Marked
+	if !IsNil(o.Marked) {
+		toSerialize["marked"] = o.Marked
+	}
 	if o.MiddleName.IsSet() {
 		toSerialize["middle_name"] = o.MiddleName.Get()
-	}
-	if !IsNil(o.Photo) {
-		toSerialize["photo"] = o.Photo
 	}
 	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
@@ -1043,42 +856,29 @@ func (o ResumesSuitableResumeItem) ToMap() (map[string]interface{}, error) {
 	if o.Salary.IsSet() {
 		toSerialize["salary"] = o.Salary.Get()
 	}
-	if o.Title.IsSet() {
-		toSerialize["title"] = o.Title.Get()
-	}
 	if o.TotalExperience.IsSet() {
 		toSerialize["total_experience"] = o.TotalExperience.Get()
 	}
 	toSerialize["updated_at"] = o.UpdatedAt
-	toSerialize["url"] = o.Url
-	toSerialize["access"] = o.Access
-	toSerialize["finished"] = o.Finished
-	toSerialize["requires_completion"] = o.RequiresCompletion
-	toSerialize["status"] = o.Status
 	return toSerialize, nil
 }
 
-func (o *ResumesSuitableResumeItem) UnmarshalJSON(data []byte) (err error) {
+func (o *ResumeResumeLogoUrl90) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"actions",
 		"alternate_url",
+		"id",
+		"title",
+		"url",
 		"certificate",
 		"created_at",
 		"download",
 		"education",
 		"experience",
 		"hidden_fields",
-		"id",
-		"marked",
 		"updated_at",
-		"url",
-		"access",
-		"finished",
-		"requires_completion",
-		"status",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -1095,53 +895,53 @@ func (o *ResumesSuitableResumeItem) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varResumesSuitableResumeItem := _ResumesSuitableResumeItem{}
+	varResumeResumeLogoUrl90 := _ResumeResumeLogoUrl90{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varResumesSuitableResumeItem)
+	err = decoder.Decode(&varResumeResumeLogoUrl90)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ResumesSuitableResumeItem(varResumesSuitableResumeItem)
+	*o = ResumeResumeLogoUrl90(varResumeResumeLogoUrl90)
 
 	return err
 }
 
-type NullableResumesSuitableResumeItem struct {
-	value *ResumesSuitableResumeItem
+type NullableResumeResumeLogoUrl90 struct {
+	value *ResumeResumeLogoUrl90
 	isSet bool
 }
 
-func (v NullableResumesSuitableResumeItem) Get() *ResumesSuitableResumeItem {
+func (v NullableResumeResumeLogoUrl90) Get() *ResumeResumeLogoUrl90 {
 	return v.value
 }
 
-func (v *NullableResumesSuitableResumeItem) Set(val *ResumesSuitableResumeItem) {
+func (v *NullableResumeResumeLogoUrl90) Set(val *ResumeResumeLogoUrl90) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableResumesSuitableResumeItem) IsSet() bool {
+func (v NullableResumeResumeLogoUrl90) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableResumesSuitableResumeItem) Unset() {
+func (v *NullableResumeResumeLogoUrl90) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableResumesSuitableResumeItem(val *ResumesSuitableResumeItem) *NullableResumesSuitableResumeItem {
-	return &NullableResumesSuitableResumeItem{value: val, isSet: true}
+func NewNullableResumeResumeLogoUrl90(val *ResumeResumeLogoUrl90) *NullableResumeResumeLogoUrl90 {
+	return &NullableResumeResumeLogoUrl90{value: val, isSet: true}
 }
 
-func (v NullableResumesSuitableResumeItem) MarshalJSON() ([]byte, error) {
+func (v NullableResumeResumeLogoUrl90) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableResumesSuitableResumeItem) UnmarshalJSON(src []byte) error {
+func (v *NullableResumeResumeLogoUrl90) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

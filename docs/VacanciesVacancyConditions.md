@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **AllowMessages** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **Area** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
 **BillingType** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**BrandedTemplate** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
+**BrandedTemplate** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
 **Code** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
 **Contacts** | Pointer to [**NullableVacanciesVacancyConditionFieldsContactsCondition**](VacanciesVacancyConditionFieldsContactsCondition.md) |  | [optional] 
 **CustomEmployerName** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle**](VacanciesVacancyConditionFieldsRequiredLengthWithTitle.md) |  | [optional] 
@@ -338,20 +338,20 @@ HasBillingType returns a boolean if a field has been set.
 UnsetBillingType ensures that no value is present for BillingType, not even an explicit nil
 ### GetBrandedTemplate
 
-`func (o *VacanciesVacancyConditions) GetBrandedTemplate() VacanciesVacancyConditionFieldsRequiredWithTitle`
+`func (o *VacanciesVacancyConditions) GetBrandedTemplate() VacanciesVacancyConditionFieldsRequiredLengthWithTitle`
 
 GetBrandedTemplate returns the BrandedTemplate field if non-nil, zero value otherwise.
 
 ### GetBrandedTemplateOk
 
-`func (o *VacanciesVacancyConditions) GetBrandedTemplateOk() (*VacanciesVacancyConditionFieldsRequiredWithTitle, bool)`
+`func (o *VacanciesVacancyConditions) GetBrandedTemplateOk() (*VacanciesVacancyConditionFieldsRequiredLengthWithTitle, bool)`
 
 GetBrandedTemplateOk returns a tuple with the BrandedTemplate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBrandedTemplate
 
-`func (o *VacanciesVacancyConditions) SetBrandedTemplate(v VacanciesVacancyConditionFieldsRequiredWithTitle)`
+`func (o *VacanciesVacancyConditions) SetBrandedTemplate(v VacanciesVacancyConditionFieldsRequiredLengthWithTitle)`
 
 SetBrandedTemplate sets BrandedTemplate field to given value.
 

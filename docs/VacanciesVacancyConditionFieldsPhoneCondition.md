@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxCount** | Pointer to **NullableFloat32** | Максимальное количество объектов для полей, в которых передается список. Если &#x60;null&#x60; — количество неограниченно | [optional] 
-**MinCount** | Pointer to **NullableFloat32** | Минимальное количество объектов для полей, в которых передается список | [optional] 
+**MaxCount** | Pointer to **float32** | Максимальное количество объектов для полей, в которых передается список. Если &#x60;null&#x60; — количество неограниченно | [optional] 
+**MinCount** | Pointer to **float32** | Минимальное количество объектов для полей, в которых передается список | [optional] 
 **Required** | Pointer to **NullableBool** | Является ли поле необходимым? | [optional] 
 **Fields** | Pointer to [**NullableVacanciesVacancyConditionFieldsPhoneFields**](VacanciesVacancyConditionFieldsPhoneFields.md) |  | [optional] 
 
@@ -53,16 +53,6 @@ SetMaxCount sets MaxCount field to given value.
 
 HasMaxCount returns a boolean if a field has been set.
 
-### SetMaxCountNil
-
-`func (o *VacanciesVacancyConditionFieldsPhoneCondition) SetMaxCountNil(b bool)`
-
- SetMaxCountNil sets the value for MaxCount to be an explicit nil
-
-### UnsetMaxCount
-`func (o *VacanciesVacancyConditionFieldsPhoneCondition) UnsetMaxCount()`
-
-UnsetMaxCount ensures that no value is present for MaxCount, not even an explicit nil
 ### GetMinCount
 
 `func (o *VacanciesVacancyConditionFieldsPhoneCondition) GetMinCount() float32`
@@ -88,16 +78,6 @@ SetMinCount sets MinCount field to given value.
 
 HasMinCount returns a boolean if a field has been set.
 
-### SetMinCountNil
-
-`func (o *VacanciesVacancyConditionFieldsPhoneCondition) SetMinCountNil(b bool)`
-
- SetMinCountNil sets the value for MinCount to be an explicit nil
-
-### UnsetMinCount
-`func (o *VacanciesVacancyConditionFieldsPhoneCondition) UnsetMinCount()`
-
-UnsetMinCount ensures that no value is present for MinCount, not even an explicit nil
 ### GetRequired
 
 `func (o *VacanciesVacancyConditionFieldsPhoneCondition) GetRequired() bool`

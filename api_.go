@@ -3881,6 +3881,7 @@ type ApiCreateSavedVacancySearchRequest struct {
 	page *float32
 	perPage *float32
 	text *string
+	name *string
 	searchField *string
 	experience *string
 	employment *string
@@ -3935,6 +3936,12 @@ func (r ApiCreateSavedVacancySearchRequest) PerPage(perPage float32) ApiCreateSa
 // Переданное значение ищется в полях вакансии, указанных в параметре &#x60;search_field&#x60;. Доступен [язык запросов](https://hh.ru/article/1175). Специально для этого поля есть [автодополнение](#tag/Podskazki/operation/get-vacancy-search-keywords)
 func (r ApiCreateSavedVacancySearchRequest) Text(text string) ApiCreateSavedVacancySearchRequest {
 	r.text = &text
+	return r
+}
+
+// Название нового автопоиска
+func (r ApiCreateSavedVacancySearchRequest) Name(name string) ApiCreateSavedVacancySearchRequest {
+	r.name = &name
 	return r
 }
 
@@ -4178,6 +4185,9 @@ func (a *DefaultApiService) CreateSavedVacancySearchExecute(r ApiCreateSavedVaca
 	}
 	if r.text != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "text", r.text, "")
+	}
+	if r.name != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "")
 	}
 	if r.searchField != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search_field", r.searchField, "")

@@ -28,7 +28,7 @@ type ErrorsNegotiationForbiddenErrors struct {
 	Description *string `json:"description,omitempty"`
 	// Массив с данными ошибок
 	Errors []ErrorsNegotiationForbiddenError `json:"errors"`
-	// Ошибки авторизации:   * `token-revoked` — Токен отозван пользователем, приложению необходимо [запросить новую авторизацию](#tag/Avtorizaciya-rabotodatelya/operation/authorize)   * `token-expired` — Время жизни `access_token` завершилось, необходимо [получить `refresh_token`](#tag/Avtorizaciya-rabotodatelya/operation/authorize) 
+	// Ошибки авторизации:   * `token-revoked` — Токен отозван пользователем или сервером, приложению необходимо [запросить новую авторизацию](#tag/Avtorizaciya-rabotodatelya/operation/authorize)   * `token-expired` — Время жизни `access_token` завершилось, необходимо [получить `refresh_token`](#tag/Avtorizaciya-rabotodatelya/operation/authorize) 
 	OauthError *string `json:"oauth_error,omitempty"`
 }
 

@@ -15,203 +15,119 @@ import (
 	"encoding/json"
 )
 
-// checks if the VacanciesVacancyConditionFieldsSalaryFields type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &VacanciesVacancyConditionFieldsSalaryFields{}
+// checks if the VacanciesVacancyConditionFieldsMaxMinValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VacanciesVacancyConditionFieldsMaxMinValue{}
 
-// VacanciesVacancyConditionFieldsSalaryFields struct for VacanciesVacancyConditionFieldsSalaryFields
-type VacanciesVacancyConditionFieldsSalaryFields struct {
-	Currency NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"currency,omitempty"`
-	From NullableVacanciesVacancyConditionFieldsRequiredValueWithTitle `json:"from,omitempty"`
-	Gross NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"gross,omitempty"`
-	To NullableVacanciesVacancyConditionFieldsRequiredValueWithTitle `json:"to,omitempty"`
+// VacanciesVacancyConditionFieldsMaxMinValue struct for VacanciesVacancyConditionFieldsMaxMinValue
+type VacanciesVacancyConditionFieldsMaxMinValue struct {
+	// Максимальное значение
+	MaxValue NullableFloat32 `json:"max_value,omitempty"`
+	// Минимальное значение
+	MinValue NullableFloat32 `json:"min_value,omitempty"`
 }
 
-// NewVacanciesVacancyConditionFieldsSalaryFields instantiates a new VacanciesVacancyConditionFieldsSalaryFields object
+// NewVacanciesVacancyConditionFieldsMaxMinValue instantiates a new VacanciesVacancyConditionFieldsMaxMinValue object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesVacancyConditionFieldsSalaryFields() *VacanciesVacancyConditionFieldsSalaryFields {
-	this := VacanciesVacancyConditionFieldsSalaryFields{}
+func NewVacanciesVacancyConditionFieldsMaxMinValue() *VacanciesVacancyConditionFieldsMaxMinValue {
+	this := VacanciesVacancyConditionFieldsMaxMinValue{}
 	return &this
 }
 
-// NewVacanciesVacancyConditionFieldsSalaryFieldsWithDefaults instantiates a new VacanciesVacancyConditionFieldsSalaryFields object
+// NewVacanciesVacancyConditionFieldsMaxMinValueWithDefaults instantiates a new VacanciesVacancyConditionFieldsMaxMinValue object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewVacanciesVacancyConditionFieldsSalaryFieldsWithDefaults() *VacanciesVacancyConditionFieldsSalaryFields {
-	this := VacanciesVacancyConditionFieldsSalaryFields{}
+func NewVacanciesVacancyConditionFieldsMaxMinValueWithDefaults() *VacanciesVacancyConditionFieldsMaxMinValue {
+	this := VacanciesVacancyConditionFieldsMaxMinValue{}
 	return &this
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetCurrency() VacanciesVacancyConditionFieldsRequiredWithTitle {
-	if o == nil || IsNil(o.Currency.Get()) {
-		var ret VacanciesVacancyConditionFieldsRequiredWithTitle
+// GetMaxValue returns the MaxValue field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) GetMaxValue() float32 {
+	if o == nil || IsNil(o.MaxValue.Get()) {
+		var ret float32
 		return ret
 	}
-	return *o.Currency.Get()
+	return *o.MaxValue.Get()
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetMaxValueOk returns a tuple with the MaxValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetCurrencyOk() (*VacanciesVacancyConditionFieldsRequiredWithTitle, bool) {
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) GetMaxValueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Currency.Get(), o.Currency.IsSet()
+	return o.MaxValue.Get(), o.MaxValue.IsSet()
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) HasCurrency() bool {
-	if o != nil && o.Currency.IsSet() {
+// HasMaxValue returns a boolean if a field has been set.
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) HasMaxValue() bool {
+	if o != nil && o.MaxValue.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrency gets a reference to the given NullableVacanciesVacancyConditionFieldsRequiredWithTitle and assigns it to the Currency field.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetCurrency(v VacanciesVacancyConditionFieldsRequiredWithTitle) {
-	o.Currency.Set(&v)
+// SetMaxValue gets a reference to the given NullableFloat32 and assigns it to the MaxValue field.
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) SetMaxValue(v float32) {
+	o.MaxValue.Set(&v)
 }
-// SetCurrencyNil sets the value for Currency to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetCurrencyNil() {
-	o.Currency.Set(nil)
-}
-
-// UnsetCurrency ensures that no value is present for Currency, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) UnsetCurrency() {
-	o.Currency.Unset()
+// SetMaxValueNil sets the value for MaxValue to be an explicit nil
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) SetMaxValueNil() {
+	o.MaxValue.Set(nil)
 }
 
-// GetFrom returns the From field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetFrom() VacanciesVacancyConditionFieldsRequiredValueWithTitle {
-	if o == nil || IsNil(o.From.Get()) {
-		var ret VacanciesVacancyConditionFieldsRequiredValueWithTitle
+// UnsetMaxValue ensures that no value is present for MaxValue, not even an explicit nil
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) UnsetMaxValue() {
+	o.MaxValue.Unset()
+}
+
+// GetMinValue returns the MinValue field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) GetMinValue() float32 {
+	if o == nil || IsNil(o.MinValue.Get()) {
+		var ret float32
 		return ret
 	}
-	return *o.From.Get()
+	return *o.MinValue.Get()
 }
 
-// GetFromOk returns a tuple with the From field value if set, nil otherwise
+// GetMinValueOk returns a tuple with the MinValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetFromOk() (*VacanciesVacancyConditionFieldsRequiredValueWithTitle, bool) {
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) GetMinValueOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.From.Get(), o.From.IsSet()
+	return o.MinValue.Get(), o.MinValue.IsSet()
 }
 
-// HasFrom returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) HasFrom() bool {
-	if o != nil && o.From.IsSet() {
+// HasMinValue returns a boolean if a field has been set.
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) HasMinValue() bool {
+	if o != nil && o.MinValue.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFrom gets a reference to the given NullableVacanciesVacancyConditionFieldsRequiredValueWithTitle and assigns it to the From field.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetFrom(v VacanciesVacancyConditionFieldsRequiredValueWithTitle) {
-	o.From.Set(&v)
+// SetMinValue gets a reference to the given NullableFloat32 and assigns it to the MinValue field.
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) SetMinValue(v float32) {
+	o.MinValue.Set(&v)
 }
-// SetFromNil sets the value for From to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetFromNil() {
-	o.From.Set(nil)
-}
-
-// UnsetFrom ensures that no value is present for From, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) UnsetFrom() {
-	o.From.Unset()
+// SetMinValueNil sets the value for MinValue to be an explicit nil
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) SetMinValueNil() {
+	o.MinValue.Set(nil)
 }
 
-// GetGross returns the Gross field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetGross() VacanciesVacancyConditionFieldsRequiredWithTitle {
-	if o == nil || IsNil(o.Gross.Get()) {
-		var ret VacanciesVacancyConditionFieldsRequiredWithTitle
-		return ret
-	}
-	return *o.Gross.Get()
+// UnsetMinValue ensures that no value is present for MinValue, not even an explicit nil
+func (o *VacanciesVacancyConditionFieldsMaxMinValue) UnsetMinValue() {
+	o.MinValue.Unset()
 }
 
-// GetGrossOk returns a tuple with the Gross field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetGrossOk() (*VacanciesVacancyConditionFieldsRequiredWithTitle, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Gross.Get(), o.Gross.IsSet()
-}
-
-// HasGross returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) HasGross() bool {
-	if o != nil && o.Gross.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetGross gets a reference to the given NullableVacanciesVacancyConditionFieldsRequiredWithTitle and assigns it to the Gross field.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetGross(v VacanciesVacancyConditionFieldsRequiredWithTitle) {
-	o.Gross.Set(&v)
-}
-// SetGrossNil sets the value for Gross to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetGrossNil() {
-	o.Gross.Set(nil)
-}
-
-// UnsetGross ensures that no value is present for Gross, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) UnsetGross() {
-	o.Gross.Unset()
-}
-
-// GetTo returns the To field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetTo() VacanciesVacancyConditionFieldsRequiredValueWithTitle {
-	if o == nil || IsNil(o.To.Get()) {
-		var ret VacanciesVacancyConditionFieldsRequiredValueWithTitle
-		return ret
-	}
-	return *o.To.Get()
-}
-
-// GetToOk returns a tuple with the To field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsSalaryFields) GetToOk() (*VacanciesVacancyConditionFieldsRequiredValueWithTitle, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.To.Get(), o.To.IsSet()
-}
-
-// HasTo returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) HasTo() bool {
-	if o != nil && o.To.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTo gets a reference to the given NullableVacanciesVacancyConditionFieldsRequiredValueWithTitle and assigns it to the To field.
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetTo(v VacanciesVacancyConditionFieldsRequiredValueWithTitle) {
-	o.To.Set(&v)
-}
-// SetToNil sets the value for To to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) SetToNil() {
-	o.To.Set(nil)
-}
-
-// UnsetTo ensures that no value is present for To, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsSalaryFields) UnsetTo() {
-	o.To.Unset()
-}
-
-func (o VacanciesVacancyConditionFieldsSalaryFields) MarshalJSON() ([]byte, error) {
+func (o VacanciesVacancyConditionFieldsMaxMinValue) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -219,55 +135,49 @@ func (o VacanciesVacancyConditionFieldsSalaryFields) MarshalJSON() ([]byte, erro
 	return json.Marshal(toSerialize)
 }
 
-func (o VacanciesVacancyConditionFieldsSalaryFields) ToMap() (map[string]interface{}, error) {
+func (o VacanciesVacancyConditionFieldsMaxMinValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Currency.IsSet() {
-		toSerialize["currency"] = o.Currency.Get()
+	if o.MaxValue.IsSet() {
+		toSerialize["max_value"] = o.MaxValue.Get()
 	}
-	if o.From.IsSet() {
-		toSerialize["from"] = o.From.Get()
-	}
-	if o.Gross.IsSet() {
-		toSerialize["gross"] = o.Gross.Get()
-	}
-	if o.To.IsSet() {
-		toSerialize["to"] = o.To.Get()
+	if o.MinValue.IsSet() {
+		toSerialize["min_value"] = o.MinValue.Get()
 	}
 	return toSerialize, nil
 }
 
-type NullableVacanciesVacancyConditionFieldsSalaryFields struct {
-	value *VacanciesVacancyConditionFieldsSalaryFields
+type NullableVacanciesVacancyConditionFieldsMaxMinValue struct {
+	value *VacanciesVacancyConditionFieldsMaxMinValue
 	isSet bool
 }
 
-func (v NullableVacanciesVacancyConditionFieldsSalaryFields) Get() *VacanciesVacancyConditionFieldsSalaryFields {
+func (v NullableVacanciesVacancyConditionFieldsMaxMinValue) Get() *VacanciesVacancyConditionFieldsMaxMinValue {
 	return v.value
 }
 
-func (v *NullableVacanciesVacancyConditionFieldsSalaryFields) Set(val *VacanciesVacancyConditionFieldsSalaryFields) {
+func (v *NullableVacanciesVacancyConditionFieldsMaxMinValue) Set(val *VacanciesVacancyConditionFieldsMaxMinValue) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableVacanciesVacancyConditionFieldsSalaryFields) IsSet() bool {
+func (v NullableVacanciesVacancyConditionFieldsMaxMinValue) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableVacanciesVacancyConditionFieldsSalaryFields) Unset() {
+func (v *NullableVacanciesVacancyConditionFieldsMaxMinValue) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableVacanciesVacancyConditionFieldsSalaryFields(val *VacanciesVacancyConditionFieldsSalaryFields) *NullableVacanciesVacancyConditionFieldsSalaryFields {
-	return &NullableVacanciesVacancyConditionFieldsSalaryFields{value: val, isSet: true}
+func NewNullableVacanciesVacancyConditionFieldsMaxMinValue(val *VacanciesVacancyConditionFieldsMaxMinValue) *NullableVacanciesVacancyConditionFieldsMaxMinValue {
+	return &NullableVacanciesVacancyConditionFieldsMaxMinValue{value: val, isSet: true}
 }
 
-func (v NullableVacanciesVacancyConditionFieldsSalaryFields) MarshalJSON() ([]byte, error) {
+func (v NullableVacanciesVacancyConditionFieldsMaxMinValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableVacanciesVacancyConditionFieldsSalaryFields) UnmarshalJSON(src []byte) error {
+func (v *NullableVacanciesVacancyConditionFieldsMaxMinValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

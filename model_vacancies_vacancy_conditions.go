@@ -28,7 +28,7 @@ type VacanciesVacancyConditions struct {
 	AllowMessages NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"allow_messages,omitempty"`
 	Area NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"area,omitempty"`
 	BillingType NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"billing_type,omitempty"`
-	BrandedTemplate NullableVacanciesVacancyConditionFieldsRequiredWithTitle `json:"branded_template,omitempty"`
+	BrandedTemplate NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"branded_template,omitempty"`
 	Code NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"code,omitempty"`
 	Contacts NullableVacanciesVacancyConditionFieldsContactsCondition `json:"contacts,omitempty"`
 	CustomEmployerName NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"custom_employer_name,omitempty"`
@@ -411,9 +411,9 @@ func (o *VacanciesVacancyConditions) UnsetBillingType() {
 }
 
 // GetBrandedTemplate returns the BrandedTemplate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditions) GetBrandedTemplate() VacanciesVacancyConditionFieldsRequiredWithTitle {
+func (o *VacanciesVacancyConditions) GetBrandedTemplate() VacanciesVacancyConditionFieldsRequiredLengthWithTitle {
 	if o == nil || IsNil(o.BrandedTemplate.Get()) {
-		var ret VacanciesVacancyConditionFieldsRequiredWithTitle
+		var ret VacanciesVacancyConditionFieldsRequiredLengthWithTitle
 		return ret
 	}
 	return *o.BrandedTemplate.Get()
@@ -422,7 +422,7 @@ func (o *VacanciesVacancyConditions) GetBrandedTemplate() VacanciesVacancyCondit
 // GetBrandedTemplateOk returns a tuple with the BrandedTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditions) GetBrandedTemplateOk() (*VacanciesVacancyConditionFieldsRequiredWithTitle, bool) {
+func (o *VacanciesVacancyConditions) GetBrandedTemplateOk() (*VacanciesVacancyConditionFieldsRequiredLengthWithTitle, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -438,8 +438,8 @@ func (o *VacanciesVacancyConditions) HasBrandedTemplate() bool {
 	return false
 }
 
-// SetBrandedTemplate gets a reference to the given NullableVacanciesVacancyConditionFieldsRequiredWithTitle and assigns it to the BrandedTemplate field.
-func (o *VacanciesVacancyConditions) SetBrandedTemplate(v VacanciesVacancyConditionFieldsRequiredWithTitle) {
+// SetBrandedTemplate gets a reference to the given NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle and assigns it to the BrandedTemplate field.
+func (o *VacanciesVacancyConditions) SetBrandedTemplate(v VacanciesVacancyConditionFieldsRequiredLengthWithTitle) {
 	o.BrandedTemplate.Set(&v)
 }
 // SetBrandedTemplateNil sets the value for BrandedTemplate to be an explicit nil

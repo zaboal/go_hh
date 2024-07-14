@@ -58,8 +58,6 @@ type ResumeResumeShort struct {
 	TotalExperience NullableResumeObjectsTotalExperience `json:"total_experience,omitempty"`
 	// Дата и время обновления резюме
 	UpdatedAt string `json:"updated_at"`
-	// Опыт работы. В объекте опыта отсутствует описание (поле description), а также должность (поле position) доступна только в последнем опыте
-	Experience []ResumeObjectsExperienceShort `json:"experience"`
 	// Дополнительные действия
 	Actions ResumeObjectsActions `json:"actions"`
 	// Добавлено ли резюме в избранные
@@ -73,6 +71,8 @@ type ResumeResumeShort struct {
 	Tags []IncludesId `json:"tags,omitempty"`
 	// Было ли резюме уже просмотрено работодателем
 	Viewed bool `json:"viewed"`
+	// Опыт работы. В объекте опыта отсутствует описание (поле description), а также должность (поле position) доступна только в последнем опыте
+	Experience []ResumeObjectsExperienceShort `json:"experience"`
 }
 
 type _ResumeResumeShort ResumeResumeShort
@@ -81,7 +81,7 @@ type _ResumeResumeShort ResumeResumeShort
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResumeResumeShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, experience []ResumeObjectsExperienceShort, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool) *ResumeResumeShort {
+func NewResumeResumeShort(alternateUrl string, id string, title NullableString, certificate []ResumeObjectsCertificate, createdAt string, download map[string]interface{}, education map[string]interface{}, hiddenFields []IncludesIdName, updatedAt string, actions ResumeObjectsActions, favorited bool, negotiationsHistory ResumeObjectsNegotiationsHistoryUrl, owner ResumeObjectsOwner, viewed bool, experience []ResumeObjectsExperienceShort) *ResumeResumeShort {
 	this := ResumeResumeShort{}
 	this.AlternateUrl = alternateUrl
 	this.Id = id
@@ -92,12 +92,12 @@ func NewResumeResumeShort(alternateUrl string, id string, title NullableString, 
 	this.Education = education
 	this.HiddenFields = hiddenFields
 	this.UpdatedAt = updatedAt
-	this.Experience = experience
 	this.Actions = actions
 	this.Favorited = favorited
 	this.NegotiationsHistory = negotiationsHistory
 	this.Owner = owner
 	this.Viewed = viewed
+	this.Experience = experience
 	return &this
 }
 
@@ -769,30 +769,6 @@ func (o *ResumeResumeShort) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
-// GetExperience returns the Experience field value
-func (o *ResumeResumeShort) GetExperience() []ResumeObjectsExperienceShort {
-	if o == nil {
-		var ret []ResumeObjectsExperienceShort
-		return ret
-	}
-
-	return o.Experience
-}
-
-// GetExperienceOk returns a tuple with the Experience field value
-// and a boolean to check if the value has been set.
-func (o *ResumeResumeShort) GetExperienceOk() ([]ResumeObjectsExperienceShort, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Experience, true
-}
-
-// SetExperience sets field value
-func (o *ResumeResumeShort) SetExperience(v []ResumeObjectsExperienceShort) {
-	o.Experience = v
-}
-
 // GetActions returns the Actions field value
 func (o *ResumeResumeShort) GetActions() ResumeObjectsActions {
 	if o == nil {
@@ -987,6 +963,30 @@ func (o *ResumeResumeShort) SetViewed(v bool) {
 	o.Viewed = v
 }
 
+// GetExperience returns the Experience field value
+func (o *ResumeResumeShort) GetExperience() []ResumeObjectsExperienceShort {
+	if o == nil {
+		var ret []ResumeObjectsExperienceShort
+		return ret
+	}
+
+	return o.Experience
+}
+
+// GetExperienceOk returns a tuple with the Experience field value
+// and a boolean to check if the value has been set.
+func (o *ResumeResumeShort) GetExperienceOk() ([]ResumeObjectsExperienceShort, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Experience, true
+}
+
+// SetExperience sets field value
+func (o *ResumeResumeShort) SetExperience(v []ResumeObjectsExperienceShort) {
+	o.Experience = v
+}
+
 func (o ResumeResumeShort) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1039,7 +1039,6 @@ func (o ResumeResumeShort) ToMap() (map[string]interface{}, error) {
 		toSerialize["total_experience"] = o.TotalExperience.Get()
 	}
 	toSerialize["updated_at"] = o.UpdatedAt
-	toSerialize["experience"] = o.Experience
 	toSerialize["actions"] = o.Actions
 	toSerialize["favorited"] = o.Favorited
 	toSerialize["negotiations_history"] = o.NegotiationsHistory
@@ -1051,6 +1050,7 @@ func (o ResumeResumeShort) ToMap() (map[string]interface{}, error) {
 		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["viewed"] = o.Viewed
+	toSerialize["experience"] = o.Experience
 	return toSerialize, nil
 }
 
@@ -1068,12 +1068,12 @@ func (o *ResumeResumeShort) UnmarshalJSON(data []byte) (err error) {
 		"education",
 		"hidden_fields",
 		"updated_at",
-		"experience",
 		"actions",
 		"favorited",
 		"negotiations_history",
 		"owner",
 		"viewed",
+		"experience",
 	}
 
 	allProperties := make(map[string]interface{})

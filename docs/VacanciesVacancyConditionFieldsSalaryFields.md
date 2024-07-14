@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Currency** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**From** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
+**From** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredValueWithTitle**](VacanciesVacancyConditionFieldsRequiredValueWithTitle.md) |  | [optional] 
 **Gross** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
-**To** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredWithTitle**](VacanciesVacancyConditionFieldsRequiredWithTitle.md) |  | [optional] 
+**To** | Pointer to [**NullableVacanciesVacancyConditionFieldsRequiredValueWithTitle**](VacanciesVacancyConditionFieldsRequiredValueWithTitle.md) |  | [optional] 
 
 ## Methods
 
@@ -65,20 +65,20 @@ HasCurrency returns a boolean if a field has been set.
 UnsetCurrency ensures that no value is present for Currency, not even an explicit nil
 ### GetFrom
 
-`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetFrom() VacanciesVacancyConditionFieldsRequiredWithTitle`
+`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetFrom() VacanciesVacancyConditionFieldsRequiredValueWithTitle`
 
 GetFrom returns the From field if non-nil, zero value otherwise.
 
 ### GetFromOk
 
-`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetFromOk() (*VacanciesVacancyConditionFieldsRequiredWithTitle, bool)`
+`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetFromOk() (*VacanciesVacancyConditionFieldsRequiredValueWithTitle, bool)`
 
 GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFrom
 
-`func (o *VacanciesVacancyConditionFieldsSalaryFields) SetFrom(v VacanciesVacancyConditionFieldsRequiredWithTitle)`
+`func (o *VacanciesVacancyConditionFieldsSalaryFields) SetFrom(v VacanciesVacancyConditionFieldsRequiredValueWithTitle)`
 
 SetFrom sets From field to given value.
 
@@ -135,20 +135,20 @@ HasGross returns a boolean if a field has been set.
 UnsetGross ensures that no value is present for Gross, not even an explicit nil
 ### GetTo
 
-`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetTo() VacanciesVacancyConditionFieldsRequiredWithTitle`
+`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetTo() VacanciesVacancyConditionFieldsRequiredValueWithTitle`
 
 GetTo returns the To field if non-nil, zero value otherwise.
 
 ### GetToOk
 
-`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetToOk() (*VacanciesVacancyConditionFieldsRequiredWithTitle, bool)`
+`func (o *VacanciesVacancyConditionFieldsSalaryFields) GetToOk() (*VacanciesVacancyConditionFieldsRequiredValueWithTitle, bool)`
 
 GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTo
 
-`func (o *VacanciesVacancyConditionFieldsSalaryFields) SetTo(v VacanciesVacancyConditionFieldsRequiredWithTitle)`
+`func (o *VacanciesVacancyConditionFieldsSalaryFields) SetTo(v VacanciesVacancyConditionFieldsRequiredValueWithTitle)`
 
 SetTo sets To field to given value.
 

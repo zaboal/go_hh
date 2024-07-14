@@ -21,9 +21,9 @@ var _ MappedNullable = &VacanciesVacancyConditionFieldsRequiredCountWithTitle{}
 // VacanciesVacancyConditionFieldsRequiredCountWithTitle struct for VacanciesVacancyConditionFieldsRequiredCountWithTitle
 type VacanciesVacancyConditionFieldsRequiredCountWithTitle struct {
 	// Максимальное количество объектов для полей, в которых передается список. Если `null` — количество неограниченно
-	MaxCount NullableFloat32 `json:"max_count,omitempty"`
+	MaxCount *float32 `json:"max_count,omitempty"`
 	// Минимальное количество объектов для полей, в которых передается список
-	MinCount NullableFloat32 `json:"min_count,omitempty"`
+	MinCount *float32 `json:"min_count,omitempty"`
 	// Является ли поле необходимым?
 	Required NullableBool `json:"required,omitempty"`
 }
@@ -45,88 +45,68 @@ func NewVacanciesVacancyConditionFieldsRequiredCountWithTitleWithDefaults() *Vac
 	return &this
 }
 
-// GetMaxCount returns the MaxCount field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetMaxCount returns the MaxCount field value if set, zero value otherwise.
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) GetMaxCount() float32 {
-	if o == nil || IsNil(o.MaxCount.Get()) {
+	if o == nil || IsNil(o.MaxCount) {
 		var ret float32
 		return ret
 	}
-	return *o.MaxCount.Get()
+	return *o.MaxCount
 }
 
 // GetMaxCountOk returns a tuple with the MaxCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) GetMaxCountOk() (*float32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaxCount) {
 		return nil, false
 	}
-	return o.MaxCount.Get(), o.MaxCount.IsSet()
+	return o.MaxCount, true
 }
 
 // HasMaxCount returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) HasMaxCount() bool {
-	if o != nil && o.MaxCount.IsSet() {
+	if o != nil && !IsNil(o.MaxCount) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaxCount gets a reference to the given NullableFloat32 and assigns it to the MaxCount field.
+// SetMaxCount gets a reference to the given float32 and assigns it to the MaxCount field.
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) SetMaxCount(v float32) {
-	o.MaxCount.Set(&v)
-}
-// SetMaxCountNil sets the value for MaxCount to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) SetMaxCountNil() {
-	o.MaxCount.Set(nil)
+	o.MaxCount = &v
 }
 
-// UnsetMaxCount ensures that no value is present for MaxCount, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) UnsetMaxCount() {
-	o.MaxCount.Unset()
-}
-
-// GetMinCount returns the MinCount field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetMinCount returns the MinCount field value if set, zero value otherwise.
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) GetMinCount() float32 {
-	if o == nil || IsNil(o.MinCount.Get()) {
+	if o == nil || IsNil(o.MinCount) {
 		var ret float32
 		return ret
 	}
-	return *o.MinCount.Get()
+	return *o.MinCount
 }
 
 // GetMinCountOk returns a tuple with the MinCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) GetMinCountOk() (*float32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MinCount) {
 		return nil, false
 	}
-	return o.MinCount.Get(), o.MinCount.IsSet()
+	return o.MinCount, true
 }
 
 // HasMinCount returns a boolean if a field has been set.
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) HasMinCount() bool {
-	if o != nil && o.MinCount.IsSet() {
+	if o != nil && !IsNil(o.MinCount) {
 		return true
 	}
 
 	return false
 }
 
-// SetMinCount gets a reference to the given NullableFloat32 and assigns it to the MinCount field.
+// SetMinCount gets a reference to the given float32 and assigns it to the MinCount field.
 func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) SetMinCount(v float32) {
-	o.MinCount.Set(&v)
-}
-// SetMinCountNil sets the value for MinCount to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) SetMinCountNil() {
-	o.MinCount.Set(nil)
-}
-
-// UnsetMinCount ensures that no value is present for MinCount, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsRequiredCountWithTitle) UnsetMinCount() {
-	o.MinCount.Unset()
+	o.MinCount = &v
 }
 
 // GetRequired returns the Required field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -181,11 +161,11 @@ func (o VacanciesVacancyConditionFieldsRequiredCountWithTitle) MarshalJSON() ([]
 
 func (o VacanciesVacancyConditionFieldsRequiredCountWithTitle) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MaxCount.IsSet() {
-		toSerialize["max_count"] = o.MaxCount.Get()
+	if !IsNil(o.MaxCount) {
+		toSerialize["max_count"] = o.MaxCount
 	}
-	if o.MinCount.IsSet() {
-		toSerialize["min_count"] = o.MinCount.Get()
+	if !IsNil(o.MinCount) {
+		toSerialize["min_count"] = o.MinCount
 	}
 	if o.Required.IsSet() {
 		toSerialize["required"] = o.Required.Get()

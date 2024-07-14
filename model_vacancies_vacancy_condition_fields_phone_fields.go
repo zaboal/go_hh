@@ -20,10 +20,7 @@ var _ MappedNullable = &VacanciesVacancyConditionFieldsPhoneFields{}
 
 // VacanciesVacancyConditionFieldsPhoneFields struct for VacanciesVacancyConditionFieldsPhoneFields
 type VacanciesVacancyConditionFieldsPhoneFields struct {
-	City NullableVacanciesVacancyConditionFieldsCityCondition `json:"city,omitempty"`
 	Comment NullableVacanciesVacancyConditionFieldsRequiredLengthWithTitle `json:"comment,omitempty"`
-	Country NullableVacanciesVacancyConditionFieldsCountryCondition `json:"country,omitempty"`
-	Formatted NullableVacanciesVacancyConditionFieldsFormattedCondition `json:"formatted,omitempty"`
 	Number NullableVacanciesVacancyConditionFieldsNumberCondition `json:"number,omitempty"`
 }
 
@@ -42,48 +39,6 @@ func NewVacanciesVacancyConditionFieldsPhoneFields() *VacanciesVacancyConditionF
 func NewVacanciesVacancyConditionFieldsPhoneFieldsWithDefaults() *VacanciesVacancyConditionFieldsPhoneFields {
 	this := VacanciesVacancyConditionFieldsPhoneFields{}
 	return &this
-}
-
-// GetCity returns the City field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCity() VacanciesVacancyConditionFieldsCityCondition {
-	if o == nil || IsNil(o.City.Get()) {
-		var ret VacanciesVacancyConditionFieldsCityCondition
-		return ret
-	}
-	return *o.City.Get()
-}
-
-// GetCityOk returns a tuple with the City field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCityOk() (*VacanciesVacancyConditionFieldsCityCondition, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.City.Get(), o.City.IsSet()
-}
-
-// HasCity returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsPhoneFields) HasCity() bool {
-	if o != nil && o.City.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCity gets a reference to the given NullableVacanciesVacancyConditionFieldsCityCondition and assigns it to the City field.
-func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCity(v VacanciesVacancyConditionFieldsCityCondition) {
-	o.City.Set(&v)
-}
-// SetCityNil sets the value for City to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCityNil() {
-	o.City.Set(nil)
-}
-
-// UnsetCity ensures that no value is present for City, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsPhoneFields) UnsetCity() {
-	o.City.Unset()
 }
 
 // GetComment returns the Comment field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -126,90 +81,6 @@ func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCommentNil() {
 // UnsetComment ensures that no value is present for Comment, not even an explicit nil
 func (o *VacanciesVacancyConditionFieldsPhoneFields) UnsetComment() {
 	o.Comment.Unset()
-}
-
-// GetCountry returns the Country field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCountry() VacanciesVacancyConditionFieldsCountryCondition {
-	if o == nil || IsNil(o.Country.Get()) {
-		var ret VacanciesVacancyConditionFieldsCountryCondition
-		return ret
-	}
-	return *o.Country.Get()
-}
-
-// GetCountryOk returns a tuple with the Country field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsPhoneFields) GetCountryOk() (*VacanciesVacancyConditionFieldsCountryCondition, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Country.Get(), o.Country.IsSet()
-}
-
-// HasCountry returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsPhoneFields) HasCountry() bool {
-	if o != nil && o.Country.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCountry gets a reference to the given NullableVacanciesVacancyConditionFieldsCountryCondition and assigns it to the Country field.
-func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCountry(v VacanciesVacancyConditionFieldsCountryCondition) {
-	o.Country.Set(&v)
-}
-// SetCountryNil sets the value for Country to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsPhoneFields) SetCountryNil() {
-	o.Country.Set(nil)
-}
-
-// UnsetCountry ensures that no value is present for Country, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsPhoneFields) UnsetCountry() {
-	o.Country.Unset()
-}
-
-// GetFormatted returns the Formatted field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VacanciesVacancyConditionFieldsPhoneFields) GetFormatted() VacanciesVacancyConditionFieldsFormattedCondition {
-	if o == nil || IsNil(o.Formatted.Get()) {
-		var ret VacanciesVacancyConditionFieldsFormattedCondition
-		return ret
-	}
-	return *o.Formatted.Get()
-}
-
-// GetFormattedOk returns a tuple with the Formatted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VacanciesVacancyConditionFieldsPhoneFields) GetFormattedOk() (*VacanciesVacancyConditionFieldsFormattedCondition, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Formatted.Get(), o.Formatted.IsSet()
-}
-
-// HasFormatted returns a boolean if a field has been set.
-func (o *VacanciesVacancyConditionFieldsPhoneFields) HasFormatted() bool {
-	if o != nil && o.Formatted.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetFormatted gets a reference to the given NullableVacanciesVacancyConditionFieldsFormattedCondition and assigns it to the Formatted field.
-func (o *VacanciesVacancyConditionFieldsPhoneFields) SetFormatted(v VacanciesVacancyConditionFieldsFormattedCondition) {
-	o.Formatted.Set(&v)
-}
-// SetFormattedNil sets the value for Formatted to be an explicit nil
-func (o *VacanciesVacancyConditionFieldsPhoneFields) SetFormattedNil() {
-	o.Formatted.Set(nil)
-}
-
-// UnsetFormatted ensures that no value is present for Formatted, not even an explicit nil
-func (o *VacanciesVacancyConditionFieldsPhoneFields) UnsetFormatted() {
-	o.Formatted.Unset()
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -264,17 +135,8 @@ func (o VacanciesVacancyConditionFieldsPhoneFields) MarshalJSON() ([]byte, error
 
 func (o VacanciesVacancyConditionFieldsPhoneFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.City.IsSet() {
-		toSerialize["city"] = o.City.Get()
-	}
 	if o.Comment.IsSet() {
 		toSerialize["comment"] = o.Comment.Get()
-	}
-	if o.Country.IsSet() {
-		toSerialize["country"] = o.Country.Get()
-	}
-	if o.Formatted.IsSet() {
-		toSerialize["formatted"] = o.Formatted.Get()
 	}
 	if o.Number.IsSet() {
 		toSerialize["number"] = o.Number.Get()

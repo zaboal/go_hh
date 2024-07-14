@@ -22,6 +22,8 @@ var _ MappedNullable = &NegotiationsCollectionNegotiationsItemsInner{}
 
 // NegotiationsCollectionNegotiationsItemsInner struct for NegotiationsCollectionNegotiationsItemsInner
 type NegotiationsCollectionNegotiationsItemsInner struct {
+	// Является ли вопросом до отклика
+	ApplicantQuestionState *bool `json:"applicant_question_state,omitempty"`
 	Counters *NegotiationsObjectsCounters `json:"counters,omitempty"`
 	// Дата и время создания отклика/приглашения
 	CreatedAt string `json:"created_at"`
@@ -84,6 +86,38 @@ func NewNegotiationsCollectionNegotiationsItemsInner(createdAt string, hasUpdate
 func NewNegotiationsCollectionNegotiationsItemsInnerWithDefaults() *NegotiationsCollectionNegotiationsItemsInner {
 	this := NegotiationsCollectionNegotiationsItemsInner{}
 	return &this
+}
+
+// GetApplicantQuestionState returns the ApplicantQuestionState field value if set, zero value otherwise.
+func (o *NegotiationsCollectionNegotiationsItemsInner) GetApplicantQuestionState() bool {
+	if o == nil || IsNil(o.ApplicantQuestionState) {
+		var ret bool
+		return ret
+	}
+	return *o.ApplicantQuestionState
+}
+
+// GetApplicantQuestionStateOk returns a tuple with the ApplicantQuestionState field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NegotiationsCollectionNegotiationsItemsInner) GetApplicantQuestionStateOk() (*bool, bool) {
+	if o == nil || IsNil(o.ApplicantQuestionState) {
+		return nil, false
+	}
+	return o.ApplicantQuestionState, true
+}
+
+// HasApplicantQuestionState returns a boolean if a field has been set.
+func (o *NegotiationsCollectionNegotiationsItemsInner) HasApplicantQuestionState() bool {
+	if o != nil && !IsNil(o.ApplicantQuestionState) {
+		return true
+	}
+
+	return false
+}
+
+// SetApplicantQuestionState gets a reference to the given bool and assigns it to the ApplicantQuestionState field.
+func (o *NegotiationsCollectionNegotiationsItemsInner) SetApplicantQuestionState(v bool) {
+	o.ApplicantQuestionState = &v
 }
 
 // GetCounters returns the Counters field value if set, zero value otherwise.
@@ -597,6 +631,9 @@ func (o NegotiationsCollectionNegotiationsItemsInner) MarshalJSON() ([]byte, err
 
 func (o NegotiationsCollectionNegotiationsItemsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApplicantQuestionState) {
+		toSerialize["applicant_question_state"] = o.ApplicantQuestionState
+	}
 	if !IsNil(o.Counters) {
 		toSerialize["counters"] = o.Counters
 	}
