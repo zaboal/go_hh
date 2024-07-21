@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **NullableString** | Идентификатор | [optional] 
 **Name** | **string** | Название курса / теста | 
 **Organization** | **string** | Организация, проводившая курс / тест | 
 **Result** | Pointer to **NullableString** | Специальность / специализация | [optional] 
@@ -28,6 +29,41 @@ NewResumeObjectsEducationAdditionalWithDefaults instantiates a new ResumeObjects
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetId
+
+`func (o *ResumeObjectsEducationAdditional) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ResumeObjectsEducationAdditional) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ResumeObjectsEducationAdditional) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *ResumeObjectsEducationAdditional) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### SetIdNil
+
+`func (o *ResumeObjectsEducationAdditional) SetIdNil(b bool)`
+
+ SetIdNil sets the value for Id to be an explicit nil
+
+### UnsetId
+`func (o *ResumeObjectsEducationAdditional) UnsetId()`
+
+UnsetId ensures that no value is present for Id, not even an explicit nil
 ### GetName
 
 `func (o *ResumeObjectsEducationAdditional) GetName() string`

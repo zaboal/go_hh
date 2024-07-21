@@ -22,6 +22,8 @@ var _ MappedNullable = &ResumeObjectsEducationAdditional{}
 
 // ResumeObjectsEducationAdditional struct for ResumeObjectsEducationAdditional
 type ResumeObjectsEducationAdditional struct {
+	// Идентификатор
+	Id NullableString `json:"id,omitempty"`
 	// Название курса / теста
 	Name string `json:"name"`
 	// Организация, проводившая курс / тест
@@ -52,6 +54,48 @@ func NewResumeObjectsEducationAdditional(name string, organization string, year 
 func NewResumeObjectsEducationAdditionalWithDefaults() *ResumeObjectsEducationAdditional {
 	this := ResumeObjectsEducationAdditional{}
 	return &this
+}
+
+// GetId returns the Id field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResumeObjectsEducationAdditional) GetId() string {
+	if o == nil || IsNil(o.Id.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Id.Get()
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResumeObjectsEducationAdditional) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Id.Get(), o.Id.IsSet()
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ResumeObjectsEducationAdditional) HasId() bool {
+	if o != nil && o.Id.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given NullableString and assigns it to the Id field.
+func (o *ResumeObjectsEducationAdditional) SetId(v string) {
+	o.Id.Set(&v)
+}
+// SetIdNil sets the value for Id to be an explicit nil
+func (o *ResumeObjectsEducationAdditional) SetIdNil() {
+	o.Id.Set(nil)
+}
+
+// UnsetId ensures that no value is present for Id, not even an explicit nil
+func (o *ResumeObjectsEducationAdditional) UnsetId() {
+	o.Id.Unset()
 }
 
 // GetName returns the Name field value
@@ -178,6 +222,9 @@ func (o ResumeObjectsEducationAdditional) MarshalJSON() ([]byte, error) {
 
 func (o ResumeObjectsEducationAdditional) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Id.IsSet() {
+		toSerialize["id"] = o.Id.Get()
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["organization"] = o.Organization
 	if o.Result.IsSet() {

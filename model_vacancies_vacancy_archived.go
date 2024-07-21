@@ -31,7 +31,7 @@ type VacanciesVacancyArchived struct {
 	Archived bool `json:"archived"`
 	Area IncludesArea `json:"area"`
 	Department NullableVacancyDepartmentOutput `json:"department"`
-	Employer VacanciesEmployerPublic `json:"employer"`
+	Employer NullableVacanciesEmployerPublic `json:"employer"`
 	// Информация о наличии прикрепленного тестового задании к вакансии
 	HasTest bool `json:"has_test"`
 	// Идентификатор вакансии
@@ -69,7 +69,7 @@ type _VacanciesVacancyArchived VacanciesVacancyArchived
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVacanciesVacancyArchived(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer VacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, archivedAt string, counters VacancyCountersForArchivedOrHidden, createdAt string) *VacanciesVacancyArchived {
+func NewVacanciesVacancyArchived(alternateUrl string, applyAlternateUrl string, archived bool, area IncludesArea, department NullableVacancyDepartmentOutput, employer NullableVacanciesEmployerPublic, hasTest bool, id string, name string, premium bool, publishedAt string, relations []VacancyRelationItem, responseLetterRequired bool, salary NullableVacancySalary, type_ VacancyTypeOutput, url string, archivedAt string, counters VacancyCountersForArchivedOrHidden, createdAt string) *VacanciesVacancyArchived {
 	this := VacanciesVacancyArchived{}
 	this.AlternateUrl = alternateUrl
 	this.ApplyAlternateUrl = applyAlternateUrl
@@ -266,27 +266,29 @@ func (o *VacanciesVacancyArchived) SetDepartment(v VacancyDepartmentOutput) {
 }
 
 // GetEmployer returns the Employer field value
+// If the value is explicit nil, the zero value for VacanciesEmployerPublic will be returned
 func (o *VacanciesVacancyArchived) GetEmployer() VacanciesEmployerPublic {
-	if o == nil {
+	if o == nil || o.Employer.Get() == nil {
 		var ret VacanciesEmployerPublic
 		return ret
 	}
 
-	return o.Employer
+	return *o.Employer.Get()
 }
 
 // GetEmployerOk returns a tuple with the Employer field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *VacanciesVacancyArchived) GetEmployerOk() (*VacanciesEmployerPublic, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Employer, true
+	return o.Employer.Get(), o.Employer.IsSet()
 }
 
 // SetEmployer sets field value
 func (o *VacanciesVacancyArchived) SetEmployer(v VacanciesEmployerPublic) {
-	o.Employer = v
+	o.Employer.Set(&v)
 }
 
 // GetHasTest returns the HasTest field value
@@ -747,7 +749,7 @@ func (o VacanciesVacancyArchived) ToMap() (map[string]interface{}, error) {
 	toSerialize["archived"] = o.Archived
 	toSerialize["area"] = o.Area
 	toSerialize["department"] = o.Department.Get()
-	toSerialize["employer"] = o.Employer
+	toSerialize["employer"] = o.Employer.Get()
 	toSerialize["has_test"] = o.HasTest
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
