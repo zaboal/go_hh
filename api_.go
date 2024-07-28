@@ -30638,6 +30638,7 @@ func (a *DefaultApiService) GetVacancyExecute(r ApiGetVacancyRequest) (*Vacancie
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -32418,6 +32419,7 @@ func (a *DefaultApiService) GetVacancy_41Execute(r ApiGetVacancy_0Request) (*Vac
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

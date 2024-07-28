@@ -42,7 +42,7 @@ type EmployerManagersEmployerManagerItem struct {
 	// Полное имя менеджера
 	// Deprecated
 	Name *string `json:"name,omitempty"`
-	Phone *EmployerManagersAddEmployerManagerPhone `json:"phone,omitempty"`
+	Phone *EmployerManagersEmployerManagerInfoPhone `json:"phone,omitempty"`
 	// Должность менеджера
 	Position string `json:"position"`
 	// Первый спецпризнак менеджера
@@ -396,9 +396,9 @@ func (o *EmployerManagersEmployerManagerItem) SetName(v string) {
 }
 
 // GetPhone returns the Phone field value if set, zero value otherwise.
-func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersAddEmployerManagerPhone {
+func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersEmployerManagerInfoPhone {
 	if o == nil || IsNil(o.Phone) {
-		var ret EmployerManagersAddEmployerManagerPhone
+		var ret EmployerManagersEmployerManagerInfoPhone
 		return ret
 	}
 	return *o.Phone
@@ -406,7 +406,7 @@ func (o *EmployerManagersEmployerManagerItem) GetPhone() EmployerManagersAddEmpl
 
 // GetPhoneOk returns a tuple with the Phone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersAddEmployerManagerPhone, bool) {
+func (o *EmployerManagersEmployerManagerItem) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool) {
 	if o == nil || IsNil(o.Phone) {
 		return nil, false
 	}
@@ -422,8 +422,8 @@ func (o *EmployerManagersEmployerManagerItem) HasPhone() bool {
 	return false
 }
 
-// SetPhone gets a reference to the given EmployerManagersAddEmployerManagerPhone and assigns it to the Phone field.
-func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersAddEmployerManagerPhone) {
+// SetPhone gets a reference to the given EmployerManagersEmployerManagerInfoPhone and assigns it to the Phone field.
+func (o *EmployerManagersEmployerManagerItem) SetPhone(v EmployerManagersEmployerManagerInfoPhone) {
 	o.Phone = &v
 }
 

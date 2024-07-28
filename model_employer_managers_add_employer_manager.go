@@ -22,7 +22,7 @@ var _ MappedNullable = &EmployerManagersAddEmployerManager{}
 
 // EmployerManagersAddEmployerManager struct for EmployerManagersAddEmployerManager
 type EmployerManagersAddEmployerManager struct {
-	AdditionalPhone *EmployerManagersAddEmployerManagerAdditionalPhone `json:"additional_phone,omitempty"`
+	AdditionalPhone *EmployerManagersEmployerManagerInfoAdditionalPhone `json:"additional_phone,omitempty"`
 	Area EmployerManagersAreaId `json:"area"`
 	// Адрес электронной почты менеджера
 	Email string `json:"email"`
@@ -37,7 +37,7 @@ type EmployerManagersAddEmployerManager struct {
 	MiddleName *string `json:"middle_name,omitempty"`
 	// Список [прав менеджера](#tag/Menedzhery-rabotodatelya/operation/get-employer-manager-types)
 	Permissions []EmployerManagersPermissions `json:"permissions,omitempty"`
-	Phone EmployerManagersAddEmployerManagerPhone `json:"phone"`
+	Phone EmployerManagersEmployerManagerInfoPhone `json:"phone"`
 	// Должность менеджера
 	Position string `json:"position"`
 }
@@ -48,7 +48,7 @@ type _EmployerManagersAddEmployerManager EmployerManagersAddEmployerManager
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployerManagersAddEmployerManager(area EmployerManagersAreaId, email string, firstName string, isMainContactPerson bool, lastName string, managerType EmployerManagersManagerTypeId, phone EmployerManagersAddEmployerManagerPhone, position string) *EmployerManagersAddEmployerManager {
+func NewEmployerManagersAddEmployerManager(area EmployerManagersAreaId, email string, firstName string, isMainContactPerson bool, lastName string, managerType EmployerManagersManagerTypeId, phone EmployerManagersEmployerManagerInfoPhone, position string) *EmployerManagersAddEmployerManager {
 	this := EmployerManagersAddEmployerManager{}
 	this.Area = area
 	this.Email = email
@@ -70,9 +70,9 @@ func NewEmployerManagersAddEmployerManagerWithDefaults() *EmployerManagersAddEmp
 }
 
 // GetAdditionalPhone returns the AdditionalPhone field value if set, zero value otherwise.
-func (o *EmployerManagersAddEmployerManager) GetAdditionalPhone() EmployerManagersAddEmployerManagerAdditionalPhone {
+func (o *EmployerManagersAddEmployerManager) GetAdditionalPhone() EmployerManagersEmployerManagerInfoAdditionalPhone {
 	if o == nil || IsNil(o.AdditionalPhone) {
-		var ret EmployerManagersAddEmployerManagerAdditionalPhone
+		var ret EmployerManagersEmployerManagerInfoAdditionalPhone
 		return ret
 	}
 	return *o.AdditionalPhone
@@ -80,7 +80,7 @@ func (o *EmployerManagersAddEmployerManager) GetAdditionalPhone() EmployerManage
 
 // GetAdditionalPhoneOk returns a tuple with the AdditionalPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersAddEmployerManager) GetAdditionalPhoneOk() (*EmployerManagersAddEmployerManagerAdditionalPhone, bool) {
+func (o *EmployerManagersAddEmployerManager) GetAdditionalPhoneOk() (*EmployerManagersEmployerManagerInfoAdditionalPhone, bool) {
 	if o == nil || IsNil(o.AdditionalPhone) {
 		return nil, false
 	}
@@ -96,8 +96,8 @@ func (o *EmployerManagersAddEmployerManager) HasAdditionalPhone() bool {
 	return false
 }
 
-// SetAdditionalPhone gets a reference to the given EmployerManagersAddEmployerManagerAdditionalPhone and assigns it to the AdditionalPhone field.
-func (o *EmployerManagersAddEmployerManager) SetAdditionalPhone(v EmployerManagersAddEmployerManagerAdditionalPhone) {
+// SetAdditionalPhone gets a reference to the given EmployerManagersEmployerManagerInfoAdditionalPhone and assigns it to the AdditionalPhone field.
+func (o *EmployerManagersAddEmployerManager) SetAdditionalPhone(v EmployerManagersEmployerManagerInfoAdditionalPhone) {
 	o.AdditionalPhone = &v
 }
 
@@ -310,9 +310,9 @@ func (o *EmployerManagersAddEmployerManager) SetPermissions(v []EmployerManagers
 }
 
 // GetPhone returns the Phone field value
-func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersAddEmployerManagerPhone {
+func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersEmployerManagerInfoPhone {
 	if o == nil {
-		var ret EmployerManagersAddEmployerManagerPhone
+		var ret EmployerManagersEmployerManagerInfoPhone
 		return ret
 	}
 
@@ -321,7 +321,7 @@ func (o *EmployerManagersAddEmployerManager) GetPhone() EmployerManagersAddEmplo
 
 // GetPhoneOk returns a tuple with the Phone field value
 // and a boolean to check if the value has been set.
-func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersAddEmployerManagerPhone, bool) {
+func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersEmployerManagerInfoPhone, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -329,7 +329,7 @@ func (o *EmployerManagersAddEmployerManager) GetPhoneOk() (*EmployerManagersAddE
 }
 
 // SetPhone sets field value
-func (o *EmployerManagersAddEmployerManager) SetPhone(v EmployerManagersAddEmployerManagerPhone) {
+func (o *EmployerManagersAddEmployerManager) SetPhone(v EmployerManagersEmployerManagerInfoPhone) {
 	o.Phone = v
 }
 
